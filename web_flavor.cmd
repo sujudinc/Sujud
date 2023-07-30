@@ -1,0 +1,1 @@
+xcopy web_flavors\<add-flavor-here>  web\ /E/Y

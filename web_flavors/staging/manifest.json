@@ -1,0 +1,23 @@
+{
+    "name": "Sujud [STG]",
+    "short_name": "Sujud [STG]",
+    "start_url": "https://sujud.app",
+    "display": "standalone",
+    "background_color": "#6935f5",
+    "theme_color": "#6935f5",
+    "description": "Bringing the Mosque to your Community",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "favicon/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "favicon/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

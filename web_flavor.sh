@@ -1,0 +1,1 @@
+cp -rf ./web_flavors/<add-flavor-here>/* web/
