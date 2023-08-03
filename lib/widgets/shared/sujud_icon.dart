@@ -106,6 +106,11 @@ class SujudIcon extends StatelessWidget {
         size: size,
       );
 
+  factory SujudIcon.trash({double? size}) => SujudIcon(
+        UniconsLine.trash_alt,
+        size: size,
+      );
+
   @override
   Widget build(BuildContext context) => Icon(
         kIsWeb

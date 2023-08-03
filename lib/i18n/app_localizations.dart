@@ -190,6 +190,12 @@ class AppLocalizations {
         desc: 'Back button text',
       );
 
+  String get buttonAddHours => Intl.message(
+        'Add Hours',
+        name: 'buttonAddHours',
+        desc: 'Add Hours button text',
+      );
+
   String get message404 => Intl.message(
         '404 - Page not found',
         name: 'message404',
@@ -366,6 +372,18 @@ class AppLocalizations {
         'Close Time',
         name: 'closeTime',
         desc: 'Close Time label text',
+      );
+
+  String get labelOpeningTime => Intl.message(
+        'Opening Time',
+        name: 'openingTime',
+        desc: 'Opening Time label text',
+      );
+
+  String get labelClosingTime => Intl.message(
+        'Closing Time',
+        name: 'closingTime',
+        desc: 'Closing Time label text',
       );
 
   String get headingMosqueName => Intl.message(
