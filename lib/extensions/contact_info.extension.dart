@@ -4,7 +4,7 @@ extension ContactInfoX on ContactInfo {
   String toUserFriendlyString() {
     final socialMedia = this.socialMedia;
 
-    return '${phoneNumber == null ? '' : '- Phone: $phoneNumber\n'}'
+    return '${phone == null ? '' : '- Phone: $phone\n'}'
         '${email == null ? '' : '- Email: $email\n'}'
         '${website == null ? '' : '- Website: $website\n'}'
         '\n'

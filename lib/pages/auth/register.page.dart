@@ -62,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
         title: i18n.bismillah,
         leading: IconButton(
           onPressed: () => authCubit.back,
-          icon: const BackIcon(),
+          icon: SujudIcon.back(),
         ),
         trailing: <Widget>[
           CirclePageIndicator(

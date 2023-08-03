@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -22,15 +24,15 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
 
   String? _name;
   String? _description;
-  var _images = <String>[];
-  Location? _location;
+  var _images = <Uint8List>[];
+  Address? _address;
   Hours? _hours;
   ContactInfo? _contactInfo;
 
   String? get name => _name;
   String? get description => _description;
-  List<String> get images => _images;
-  Location? get location => _location;
+  List<Uint8List> get images => _images;
+  Address? get location => _address;
   Hours? get hours => _hours;
   ContactInfo? get contactInfo => _contactInfo;
   User? get currentUser => _userRepo.currentUser;
@@ -49,15 +51,15 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
     emit(const CreateMosquePageState.ready());
   }
 
-  set images(List<String> value) {
+  set images(List<Uint8List> value) {
     emit(const CreateMosquePageState.loading());
     _images = value;
     emit(const CreateMosquePageState.ready());
   }
 
-  set location(Location? location) {
+  set location(Address? address) {
     emit(const CreateMosquePageState.loading());
-    _location = location;
+    _address = address;
     emit(const CreateMosquePageState.ready());
   }
 
@@ -95,7 +97,7 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
     final isComplete = _name != null &&
         _description != null &&
         _images.isNotEmpty &&
-        _location != null &&
+        _address != null &&
         _hours != null &&
         _contactInfo != null;
 

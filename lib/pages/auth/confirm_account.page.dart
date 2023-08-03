@@ -47,7 +47,7 @@ class _ConfirmAccountPageState extends State<ConfirmAccountPage> {
           title: i18n.titleConfirmAccount,
           leading: IconButton(
             onPressed: () => authCubit.back,
-            icon: const BackIcon(),
+            icon: SujudIcon.back(),
           ),
           kids: Kids(
             children: <Widget>[

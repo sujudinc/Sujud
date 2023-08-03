@@ -32,6 +32,7 @@ class User extends amplify_core.Model {
   final String? _firstName;
   final String? _lastName;
   final String? _email;
+  final String? _phone;
   final UserType? _type;
   final UserStatus? _status;
   final String? _stripeCustomerId;
@@ -109,6 +110,10 @@ class User extends amplify_core.Model {
           underlyingException: e.toString()
           );
     }
+  }
+  
+  String? get phone {
+    return _phone;
   }
   
   UserType get type {
@@ -217,15 +222,16 @@ class User extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const User._internal({required this.id, selfie, required firstName, required lastName, required email, required type, required status, stripeCustomerId, createdAnnouncements, createdClasses, createdCommittees, createdGatherings, createdFundraisingCampaigns, createdMonthlyPrayerSchedules, createdMosques, createdResources, createdServices, createdVolunteerTasks, donations, committees, gatherings, instructingClasses, mosques, purchasedPremiumSubscriptions, volunteerTasks, createdAt, updatedAt}): _selfie = selfie, _firstName = firstName, _lastName = lastName, _email = email, _type = type, _status = status, _stripeCustomerId = stripeCustomerId, _createdAnnouncements = createdAnnouncements, _createdClasses = createdClasses, _createdCommittees = createdCommittees, _createdGatherings = createdGatherings, _createdFundraisingCampaigns = createdFundraisingCampaigns, _createdMonthlyPrayerSchedules = createdMonthlyPrayerSchedules, _createdMosques = createdMosques, _createdResources = createdResources, _createdServices = createdServices, _createdVolunteerTasks = createdVolunteerTasks, _donations = donations, _committees = committees, _gatherings = gatherings, _instructingClasses = instructingClasses, _mosques = mosques, _purchasedPremiumSubscriptions = purchasedPremiumSubscriptions, _volunteerTasks = volunteerTasks, _createdAt = createdAt, _updatedAt = updatedAt;
+  const User._internal({required this.id, selfie, required firstName, required lastName, required email, phone, required type, required status, stripeCustomerId, createdAnnouncements, createdClasses, createdCommittees, createdGatherings, createdFundraisingCampaigns, createdMonthlyPrayerSchedules, createdMosques, createdResources, createdServices, createdVolunteerTasks, donations, committees, gatherings, instructingClasses, mosques, purchasedPremiumSubscriptions, volunteerTasks, createdAt, updatedAt}): _selfie = selfie, _firstName = firstName, _lastName = lastName, _email = email, _phone = phone, _type = type, _status = status, _stripeCustomerId = stripeCustomerId, _createdAnnouncements = createdAnnouncements, _createdClasses = createdClasses, _createdCommittees = createdCommittees, _createdGatherings = createdGatherings, _createdFundraisingCampaigns = createdFundraisingCampaigns, _createdMonthlyPrayerSchedules = createdMonthlyPrayerSchedules, _createdMosques = createdMosques, _createdResources = createdResources, _createdServices = createdServices, _createdVolunteerTasks = createdVolunteerTasks, _donations = donations, _committees = committees, _gatherings = gatherings, _instructingClasses = instructingClasses, _mosques = mosques, _purchasedPremiumSubscriptions = purchasedPremiumSubscriptions, _volunteerTasks = volunteerTasks, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory User({String? id, String? selfie, required String firstName, required String lastName, required String email, required UserType type, required UserStatus status, String? stripeCustomerId, List<Announcement>? createdAnnouncements, List<Class>? createdClasses, List<Committee>? createdCommittees, List<Gathering>? createdGatherings, List<FundraisingCampaign>? createdFundraisingCampaigns, List<MonthlyPrayerSchedule>? createdMonthlyPrayerSchedules, List<Mosque>? createdMosques, List<Resource>? createdResources, List<Service>? createdServices, List<VolunteerTask>? createdVolunteerTasks, List<Donation>? donations, List<CommitteeMembers>? committees, List<GatheringAttendees>? gatherings, List<Class>? instructingClasses, List<MosqueFollowers>? mosques, List<PremiumSubscription>? purchasedPremiumSubscriptions, List<VolunteerTaskUser>? volunteerTasks}) {
+  factory User({String? id, String? selfie, required String firstName, required String lastName, required String email, String? phone, required UserType type, required UserStatus status, String? stripeCustomerId, List<Announcement>? createdAnnouncements, List<Class>? createdClasses, List<Committee>? createdCommittees, List<Gathering>? createdGatherings, List<FundraisingCampaign>? createdFundraisingCampaigns, List<MonthlyPrayerSchedule>? createdMonthlyPrayerSchedules, List<Mosque>? createdMosques, List<Resource>? createdResources, List<Service>? createdServices, List<VolunteerTask>? createdVolunteerTasks, List<Donation>? donations, List<CommitteeMembers>? committees, List<GatheringAttendees>? gatherings, List<Class>? instructingClasses, List<MosqueFollowers>? mosques, List<PremiumSubscription>? purchasedPremiumSubscriptions, List<VolunteerTaskUser>? volunteerTasks}) {
     return User._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       selfie: selfie,
       firstName: firstName,
       lastName: lastName,
       email: email,
+      phone: phone,
       type: type,
       status: status,
       stripeCustomerId: stripeCustomerId,
@@ -261,6 +267,7 @@ class User extends amplify_core.Model {
       _firstName == other._firstName &&
       _lastName == other._lastName &&
       _email == other._email &&
+      _phone == other._phone &&
       _type == other._type &&
       _status == other._status &&
       _stripeCustomerId == other._stripeCustomerId &&
@@ -296,6 +303,7 @@ class User extends amplify_core.Model {
     buffer.write("firstName=" + "$_firstName" + ", ");
     buffer.write("lastName=" + "$_lastName" + ", ");
     buffer.write("email=" + "$_email" + ", ");
+    buffer.write("phone=" + "$_phone" + ", ");
     buffer.write("type=" + (_type != null ? amplify_core.enumToString(_type)! : "null") + ", ");
     buffer.write("status=" + (_status != null ? amplify_core.enumToString(_status)! : "null") + ", ");
     buffer.write("stripeCustomerId=" + "$_stripeCustomerId" + ", ");
@@ -306,13 +314,14 @@ class User extends amplify_core.Model {
     return buffer.toString();
   }
   
-  User copyWith({String? selfie, String? firstName, String? lastName, String? email, UserType? type, UserStatus? status, String? stripeCustomerId, List<Announcement>? createdAnnouncements, List<Class>? createdClasses, List<Committee>? createdCommittees, List<Gathering>? createdGatherings, List<FundraisingCampaign>? createdFundraisingCampaigns, List<MonthlyPrayerSchedule>? createdMonthlyPrayerSchedules, List<Mosque>? createdMosques, List<Resource>? createdResources, List<Service>? createdServices, List<VolunteerTask>? createdVolunteerTasks, List<Donation>? donations, List<CommitteeMembers>? committees, List<GatheringAttendees>? gatherings, List<Class>? instructingClasses, List<MosqueFollowers>? mosques, List<PremiumSubscription>? purchasedPremiumSubscriptions, List<VolunteerTaskUser>? volunteerTasks}) {
+  User copyWith({String? selfie, String? firstName, String? lastName, String? email, String? phone, UserType? type, UserStatus? status, String? stripeCustomerId, List<Announcement>? createdAnnouncements, List<Class>? createdClasses, List<Committee>? createdCommittees, List<Gathering>? createdGatherings, List<FundraisingCampaign>? createdFundraisingCampaigns, List<MonthlyPrayerSchedule>? createdMonthlyPrayerSchedules, List<Mosque>? createdMosques, List<Resource>? createdResources, List<Service>? createdServices, List<VolunteerTask>? createdVolunteerTasks, List<Donation>? donations, List<CommitteeMembers>? committees, List<GatheringAttendees>? gatherings, List<Class>? instructingClasses, List<MosqueFollowers>? mosques, List<PremiumSubscription>? purchasedPremiumSubscriptions, List<VolunteerTaskUser>? volunteerTasks}) {
     return User._internal(
       id: id,
       selfie: selfie ?? this.selfie,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       email: email ?? this.email,
+      phone: phone ?? this.phone,
       type: type ?? this.type,
       status: status ?? this.status,
       stripeCustomerId: stripeCustomerId ?? this.stripeCustomerId,
@@ -340,6 +349,7 @@ class User extends amplify_core.Model {
     ModelFieldValue<String>? firstName,
     ModelFieldValue<String>? lastName,
     ModelFieldValue<String>? email,
+    ModelFieldValue<String?>? phone,
     ModelFieldValue<UserType>? type,
     ModelFieldValue<UserStatus>? status,
     ModelFieldValue<String?>? stripeCustomerId,
@@ -367,6 +377,7 @@ class User extends amplify_core.Model {
       firstName: firstName == null ? this.firstName : firstName.value,
       lastName: lastName == null ? this.lastName : lastName.value,
       email: email == null ? this.email : email.value,
+      phone: phone == null ? this.phone : phone.value,
       type: type == null ? this.type : type.value,
       status: status == null ? this.status : status.value,
       stripeCustomerId: stripeCustomerId == null ? this.stripeCustomerId : stripeCustomerId.value,
@@ -396,6 +407,7 @@ class User extends amplify_core.Model {
       _firstName = json['firstName'],
       _lastName = json['lastName'],
       _email = json['email'],
+      _phone = json['phone'],
       _type = amplify_core.enumFromString<UserType>(json['type'], UserType.values),
       _status = amplify_core.enumFromString<UserStatus>(json['status'], UserStatus.values),
       _stripeCustomerId = json['stripeCustomerId'],
@@ -505,7 +517,7 @@ class User extends amplify_core.Model {
       _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'selfie': _selfie, 'firstName': _firstName, 'lastName': _lastName, 'email': _email, 'type': amplify_core.enumToString(_type), 'status': amplify_core.enumToString(_status), 'stripeCustomerId': _stripeCustomerId, 'createdAnnouncements': _createdAnnouncements?.map((Announcement? e) => e?.toJson()).toList(), 'createdClasses': _createdClasses?.map((Class? e) => e?.toJson()).toList(), 'createdCommittees': _createdCommittees?.map((Committee? e) => e?.toJson()).toList(), 'createdGatherings': _createdGatherings?.map((Gathering? e) => e?.toJson()).toList(), 'createdFundraisingCampaigns': _createdFundraisingCampaigns?.map((FundraisingCampaign? e) => e?.toJson()).toList(), 'createdMonthlyPrayerSchedules': _createdMonthlyPrayerSchedules?.map((MonthlyPrayerSchedule? e) => e?.toJson()).toList(), 'createdMosques': _createdMosques?.map((Mosque? e) => e?.toJson()).toList(), 'createdResources': _createdResources?.map((Resource? e) => e?.toJson()).toList(), 'createdServices': _createdServices?.map((Service? e) => e?.toJson()).toList(), 'createdVolunteerTasks': _createdVolunteerTasks?.map((VolunteerTask? e) => e?.toJson()).toList(), 'donations': _donations?.map((Donation? e) => e?.toJson()).toList(), 'committees': _committees?.map((CommitteeMembers? e) => e?.toJson()).toList(), 'gatherings': _gatherings?.map((GatheringAttendees? e) => e?.toJson()).toList(), 'instructingClasses': _instructingClasses?.map((Class? e) => e?.toJson()).toList(), 'mosques': _mosques?.map((MosqueFollowers? e) => e?.toJson()).toList(), 'purchasedPremiumSubscriptions': _purchasedPremiumSubscriptions?.map((PremiumSubscription? e) => e?.toJson()).toList(), 'volunteerTasks': _volunteerTasks?.map((VolunteerTaskUser? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'selfie': _selfie, 'firstName': _firstName, 'lastName': _lastName, 'email': _email, 'phone': _phone, 'type': amplify_core.enumToString(_type), 'status': amplify_core.enumToString(_status), 'stripeCustomerId': _stripeCustomerId, 'createdAnnouncements': _createdAnnouncements?.map((Announcement? e) => e?.toJson()).toList(), 'createdClasses': _createdClasses?.map((Class? e) => e?.toJson()).toList(), 'createdCommittees': _createdCommittees?.map((Committee? e) => e?.toJson()).toList(), 'createdGatherings': _createdGatherings?.map((Gathering? e) => e?.toJson()).toList(), 'createdFundraisingCampaigns': _createdFundraisingCampaigns?.map((FundraisingCampaign? e) => e?.toJson()).toList(), 'createdMonthlyPrayerSchedules': _createdMonthlyPrayerSchedules?.map((MonthlyPrayerSchedule? e) => e?.toJson()).toList(), 'createdMosques': _createdMosques?.map((Mosque? e) => e?.toJson()).toList(), 'createdResources': _createdResources?.map((Resource? e) => e?.toJson()).toList(), 'createdServices': _createdServices?.map((Service? e) => e?.toJson()).toList(), 'createdVolunteerTasks': _createdVolunteerTasks?.map((VolunteerTask? e) => e?.toJson()).toList(), 'donations': _donations?.map((Donation? e) => e?.toJson()).toList(), 'committees': _committees?.map((CommitteeMembers? e) => e?.toJson()).toList(), 'gatherings': _gatherings?.map((GatheringAttendees? e) => e?.toJson()).toList(), 'instructingClasses': _instructingClasses?.map((Class? e) => e?.toJson()).toList(), 'mosques': _mosques?.map((MosqueFollowers? e) => e?.toJson()).toList(), 'purchasedPremiumSubscriptions': _purchasedPremiumSubscriptions?.map((PremiumSubscription? e) => e?.toJson()).toList(), 'volunteerTasks': _volunteerTasks?.map((VolunteerTaskUser? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
@@ -514,6 +526,7 @@ class User extends amplify_core.Model {
     'firstName': _firstName,
     'lastName': _lastName,
     'email': _email,
+    'phone': _phone,
     'type': _type,
     'status': _status,
     'stripeCustomerId': _stripeCustomerId,
@@ -544,6 +557,7 @@ class User extends amplify_core.Model {
   static final FIRSTNAME = amplify_core.QueryField(fieldName: "firstName");
   static final LASTNAME = amplify_core.QueryField(fieldName: "lastName");
   static final EMAIL = amplify_core.QueryField(fieldName: "email");
+  static final PHONE = amplify_core.QueryField(fieldName: "phone");
   static final TYPE = amplify_core.QueryField(fieldName: "type");
   static final STATUS = amplify_core.QueryField(fieldName: "status");
   static final STRIPECUSTOMERID = amplify_core.QueryField(fieldName: "stripeCustomerId");
@@ -649,6 +663,12 @@ class User extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
       key: User.EMAIL,
       isRequired: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: User.PHONE,
+      isRequired: false,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
     ));
     

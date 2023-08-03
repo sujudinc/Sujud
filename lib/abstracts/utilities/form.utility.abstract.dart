@@ -6,7 +6,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 abstract class FormUtilityAbstract {
   GlobalKey<FormBuilderState> get formKey;
-
   Map<String, dynamic> get fieldValues;
 
   T? getValue<T>(String fieldName);

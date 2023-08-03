@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // 📦 Package imports:
-import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:sujud/abstracts/abstracts.dart';
@@ -118,91 +117,6 @@ class SujudTextField extends StatelessWidget implements SujudFormFieldAbstract {
   final VoidCallback? onEditingComplete;
   final GestureTapCallback? onTap;
 
-  factory SujudTextField.phone(
-    BuildContext context, {
-    required GlobalKey<FormBuilderState> formKey,
-    required String countryCodeFieldName,
-    required String phoneNumberFieldName,
-    String? initialValue,
-    bool isRequired = true,
-    ValueChanged<String?>? onChanged,
-    Key? key,
-  }) {
-    final i18n = context.i18n;
-
-    final countryCode = initialValue?.split(' ')[0];
-    final phoneNumber = initialValue?.split(' ')[1];
-
-    return SujudTextField(
-      key: key,
-      formKey: formKey,
-      fieldName: phoneNumberFieldName,
-      prefix: FormBuilderFieldDecoration<String>(
-        initialValue: countryCode ??
-            const CountryCode(
-              name: 'United Kingdom',
-              code: 'UK',
-              dialCode: '+44',
-            ).dialCode,
-        name: countryCodeFieldName,
-        validator: FormBuilderValidators.compose([
-          if (isRequired)
-            FormBuilderValidators.required(
-              errorText: i18n.errorFieldRequired,
-            ),
-        ]),
-        builder: (field) => GestureDetector(
-          onTap: () async {
-            final code = await const FlCountryCodePicker().showPicker(
-              context: context,
-              scrollToDeviceLocale: true,
-            );
-
-            field.didChange(code?.dialCode);
-          },
-          child: Text(
-            field.value ?? '+44',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        decoration: const InputDecoration(
-          hintStyle: TextStyle(),
-          errorStyle: TextStyle(
-            fontSize: 0.0,
-            height: 0.0,
-          ),
-          errorText: '',
-          enabledBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          focusedErrorBorder: InputBorder.none,
-        ),
-      ),
-      initialValue: phoneNumber,
-      hintText: i18n.hintPhoneNumber,
-      keyboardType: TextInputType.phone,
-      autofillHints: const <String>[
-        AutofillHints.telephoneNumber,
-        AutofillHints.telephoneNumberDevice,
-      ],
-      enableSuggestions: true,
-      validator: FormBuilderValidators.compose([
-        if (isRequired)
-          FormBuilderValidators.required(
-            errorText: i18n.errorFieldRequired,
-          ),
-        FormBuilderValidators.numeric(errorText: i18n.errorFieldNumeric),
-        FormBuilderValidators.match(
-          r'^\d{5,15}$',
-          errorText: i18n.errorFieldPhoneNumber,
-        )
-      ]),
-      onChanged: onChanged,
-    );
-  }
-
   factory SujudTextField.email(
     BuildContext context, {
     required GlobalKey<FormBuilderState> formKey,
@@ -268,7 +182,7 @@ class SujudTextField extends StatelessWidget implements SujudFormFieldAbstract {
     BuildContext context, {
     required GlobalKey<FormBuilderState> formKey,
     required String fieldName,
-    required Icon socialIcon,
+    required Widget socialIcon,
     required String hintText,
     String? initialValue,
     ValueChanged<String?>? onChanged,

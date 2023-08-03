@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:get_it/get_it.dart';
-import 'package:unicons/unicons.dart';
 
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/configs/configs.dart';
+import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/models/models.dart';
 import 'package:sujud/widgets/widgets.dart';
 
@@ -22,57 +22,59 @@ class _MosqueSelectionPageState extends State<MosqueSelectionPage> {
   final _navigatorUtility = GetIt.instance<NavigationUtilityAbstract>();
 
   @override
-  Widget build(BuildContext context) => PAScaffold(
-        largeTitle: true,
-        includePadding: false,
-        middle: const Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(
-              'Mosques',
-              style: TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold,
-              ),
+  Widget build(BuildContext context) {
+    final i18n = context.i18n;
+
+    return PAScaffold(
+      largeTitle: true,
+      includePadding: false,
+      middle:  Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Text(
+            i18n.titleMosques,
+            style: const TextStyle(
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold,
             ),
-            Row(
-              children: <Widget>[
-                SizedBox(width: 2.0),
-                Text(
-                  'Birmingham, UK',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.grey,
-                  ),
-                ),
-                Icon(
-                  UniconsLine.arrow_right,
-                  size: 15.0,
+          ),
+          Row(
+            children: <Widget>[
+              const SizedBox(width: 2.0),
+              const Text(
+                'Birmingham, UK',
+                style: TextStyle(
+                  fontSize: 12.0,
                   color: Colors.grey,
                 ),
-              ],
-            ),
-          ],
-        ),
-        kids: Kids(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: sampleMosques
-                .map(
-                  (mosque) => MosqueCard(
-                    mosque: mosque,
-                    onTap: () {
-                      _navigatorUtility.goRoute(
-                        route: _navigatorUtility
-                            .navigationRoutes.home.jamaah.dashboard.itself,
-                      );
-                    },
-                  ),
-                )
-                .toList(),
+              ),
+              SujudIcon.rightArrow(
+                size: 15.0,
+              ),
+            ],
           ),
+        ],
+      ),
+      kids: Kids(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: sampleMosques
+              .map(
+                (mosque) => MosqueCard(
+              mosque: mosque,
+              onTap: () {
+                _navigatorUtility.goRoute(
+                  route: _navigatorUtility
+                      .navigationRoutes.home.jamaah.dashboard.itself,
+                );
+              },
+            ),
+          )
+              .toList(),
         ),
-      );
+      ),
+    );
+  }
 }
 
 class MosqueCard extends StatelessWidget {
@@ -142,13 +144,11 @@ class MosqueCard extends StatelessWidget {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          const Icon(
-                            UniconsLine.location_pin_alt,
+                          SujudIcon.location(
                             size: 15.0,
-                            color: Colors.grey,
                           ),
                           Text(
-                            mosque.location.addressLine1,
+                            mosque.address.addressLine1,
                             style: const TextStyle(
                               fontSize: 12.0,
                               color: Colors.grey,

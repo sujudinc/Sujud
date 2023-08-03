@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sujud/abstracts/abstracts.dart';
-import 'package:sujud/blocs/blocs.dart';
 import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/widgets/widgets.dart';
 
@@ -20,7 +18,6 @@ class _CreateMosqueFieldPageState<T> extends State<CreateMosqueFieldPage> {
     param1: GlobalKey<FormBuilderState>(),
   );
   final _navigation = GetIt.instance.get<NavigationUtilityAbstract>();
-  final _valueCubit = ValueCubit<T?>(null);
 
   @override
   Widget build(BuildContext context) {
@@ -29,52 +26,45 @@ class _CreateMosqueFieldPageState<T> extends State<CreateMosqueFieldPage> {
     final fieldName = queryParameters['fieldName'];
     final initialValue = queryParameters['initialValue'];
 
-    return BlocProvider<ValueCubit<T?>>(
-      create: (context) => _valueCubit,
-      child: PAScaffold(
-        leading: IconButton(
-          onPressed: _navigation.back,
-          icon: const CloseIcon(),
-        ),
-        kids: Kids(
-          child: ListView(
-            children: <Widget>[
-              FormBuilder(
-                key: _form.formKey,
-                child: Column(
-                  children: <Widget>[
-                    _getFormFieldForName(
-                      MosqueFormFieldName.values.firstWhere(
-                        (field) => field.name == fieldName,
-                      ),
-                    ).buildFormField(
-                      context,
-                      formKey: _form.formKey,
-                      initialValue: initialValue,
+    return PAScaffold(
+      leading: IconButton(
+        onPressed: _navigation.back,
+        icon: SujudIcon.close(),
+      ),
+      kids: Kids(
+        child: ListView(
+          children: <Widget>[
+            FormBuilder(
+              key: _form.formKey,
+              child: Column(
+                children: <Widget>[
+                  _getFormFieldForName(
+                    MosqueFormFieldName.values.firstWhere(
+                      (field) => field.name == fieldName,
                     ),
-                  ],
-                ),
+                  ).buildFormField(
+                    context,
+                    formKey: _form.formKey,
+                    initialValue: initialValue,
+                  ),
+                ],
               ),
-              const SizedBox(height: 20.0),
-              BlocBuilder<ValueCubit<T?>, ValueState<T?>>(
-                bloc: _valueCubit,
-                builder: (context, state) => SujudButton(
-                  text: i18n.buttonSave,
-                  outlineMode: false,
-                  // isEnabled: state.value != null,
-                  onTap: () async {
-                    if (!_form.saveAndValidate()) {
-                      return;
-                    }
+            ),
+            const SizedBox(height: 20.0),
+            SujudButton(
+              text: i18n.buttonSave,
+              outlineMode: false,
+              onTap: () async {
+                if (!_form.saveAndValidate()) {
+                  return;
+                }
 
-                    _navigation.back(
-                      data: _form.getValue(fieldName!),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
+                _navigation.back(
+                  data: _form.getValue(fieldName!),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

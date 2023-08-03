@@ -88,6 +88,12 @@ class AppLocalizations {
         desc: 'Create Mosque button text',
       );
 
+  String get titleMosques => Intl.message(
+        'Mosques',
+        name: 'mosques',
+        desc: 'Mosques button text',
+      );
+
   String get buttonNext => Intl.message(
         'Next',
         name: 'next',

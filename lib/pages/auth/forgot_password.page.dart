@@ -40,7 +40,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         title: i18n.titleResetPassword,
         leading: IconButton(
           onPressed: () => authCubit.back,
-          icon: const BackIcon(),
+          icon: SujudIcon.back(),
         ),
         kids: Kids(
           children: <Widget>[

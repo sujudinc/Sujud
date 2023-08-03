@@ -4,3 +4,4 @@ export 'onboarding_section.dart';
 export 'prayer_schedule.dart';
 export 'register_section.dart';
 export 'sujud_button.dart';
+export 'sujud_icon.dart';

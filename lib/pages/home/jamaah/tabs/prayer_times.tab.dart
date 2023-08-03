@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:get_it/get_it.dart';
-import 'package:unicons/unicons.dart';
 
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
@@ -22,10 +21,7 @@ class PrayerTimesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) => PAScaffold(
         leading: IconButton(
-          icon: const Icon(
-            UniconsLine.bars,
-            size: 20.0,
-          ),
+          icon: SujudIcon.menu(),
           onPressed: () async => showModalBottomSheet(
             useRootNavigator: true,
             context: context,

@@ -41,7 +41,7 @@ class _CreateMosquePageState extends State<CreateMosquePage> {
                   title: i18n.titleCreateMosque,
                   leading: IconButton(
                     onPressed: () => cubit.back,
-                    icon: const CloseIcon(),
+                    icon: SujudIcon.close(),
                   ),
                   kids: Kids(
                     child: ListView(
@@ -87,7 +87,7 @@ class _CreateMosquePageState extends State<CreateMosquePage> {
                               : Row(
                                   children: cubit.images
                                       .map<Widget>(
-                                        (image) => Image.network(
+                                        (image) => Image.memory(
                                           image,
                                           width: 200.0,
                                           height: 100.0,
@@ -108,7 +108,7 @@ class _CreateMosquePageState extends State<CreateMosquePage> {
                               return;
                             }
 
-                            cubit.images = jsonDecode(images) as List<String>;
+                            cubit.images = images;
                           },
                         ),
                         CreateMosqueListItem(

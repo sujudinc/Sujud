@@ -1,6 +1,6 @@
 import 'package:sujud/models/models.dart';
 
-extension LocationX on Location {
+extension AddressX on Address {
   String get address {
     final address = '$addressLine1,\n'
         '${addressLine2 != null ? '$addressLine2,\n' : ''}'

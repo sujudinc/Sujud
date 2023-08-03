@@ -145,10 +145,7 @@ class _PrayerScheduleState extends State<PrayerSchedule> {
               Expanded(
                 child: Row(
                   children: <Widget>[
-                    Icon(
-                      prayerTime.type.icon,
-                      size: 40.0,
-                    ),
+                    prayerTime.type.icon,
                     const SizedBox(width: 15.0),
                     Expanded(child: _nextPrayerTime(context, prayerTime)),
                   ],
@@ -175,10 +172,7 @@ class _PrayerScheduleState extends State<PrayerSchedule> {
         margin: const EdgeInsets.only(top: 15.0),
         child: Row(
           children: <Widget>[
-            Icon(
-              prayerTime.type.icon,
-              size: 40.0,
-            ),
+            prayerTime.type.icon,
             const SizedBox(width: 15.0),
             Expanded(
               child: Row(

@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
         title: i18n.asalaamuAlaikum,
         leading: IconButton(
           onPressed: () => authCubit.toOnboardingPage,
-          icon: const CloseIcon(),
+          icon: SujudIcon.close(),
         ),
         kids: Kids(
           children: <Widget>[

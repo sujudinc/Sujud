@@ -1,3 +1,4 @@
+export 'api/Address.dart';
 export 'api/Announcement.dart';
 export 'api/Class.dart';
 export 'api/Committee.dart';
@@ -12,7 +13,6 @@ export 'api/GatheringType.dart';
 export 'api/FundraisingCampaign.dart';
 export 'api/FundraisingCampaignType.dart';
 export 'api/Hours.dart';
-export 'api/Location.dart';
 export 'api/ModelProvider.dart';
 export 'api/MonthlyPrayerSchedule.dart';
 export 'api/Mosque.dart';

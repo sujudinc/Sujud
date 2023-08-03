@@ -33,7 +33,7 @@ class Gathering extends amplify_core.Model {
   final GatheringType? _gatheringType;
   final amplify_core.TemporalDateTime? _startDate;
   final amplify_core.TemporalDateTime? _endDate;
-  final Location? _location;
+  final Address? _address;
   final User? _creator;
   final Mosque? _mosque;
   final List<GatheringAttendees>? _attendees;
@@ -100,9 +100,9 @@ class Gathering extends amplify_core.Model {
     return _endDate;
   }
   
-  Location get location {
+  Address get address {
     try {
-      return _location!;
+      return _address!;
     } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
           amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -133,9 +133,9 @@ class Gathering extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Gathering._internal({required this.id, required title, description, required gatheringType, required startDate, endDate, required location, creator, mosque, attendees, createdAt, updatedAt}): _title = title, _description = description, _gatheringType = gatheringType, _startDate = startDate, _endDate = endDate, _location = location, _creator = creator, _mosque = mosque, _attendees = attendees, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Gathering._internal({required this.id, required title, description, required gatheringType, required startDate, endDate, required address, creator, mosque, attendees, createdAt, updatedAt}): _title = title, _description = description, _gatheringType = gatheringType, _startDate = startDate, _endDate = endDate, _address = address, _creator = creator, _mosque = mosque, _attendees = attendees, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Gathering({String? id, required String title, String? description, required GatheringType gatheringType, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required Location location, User? creator, Mosque? mosque, List<GatheringAttendees>? attendees}) {
+  factory Gathering({String? id, required String title, String? description, required GatheringType gatheringType, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required Address address, User? creator, Mosque? mosque, List<GatheringAttendees>? attendees}) {
     return Gathering._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
@@ -143,7 +143,7 @@ class Gathering extends amplify_core.Model {
       gatheringType: gatheringType,
       startDate: startDate,
       endDate: endDate,
-      location: location,
+      address: address,
       creator: creator,
       mosque: mosque,
       attendees: attendees != null ? List<GatheringAttendees>.unmodifiable(attendees) : attendees);
@@ -163,7 +163,7 @@ class Gathering extends amplify_core.Model {
       _gatheringType == other._gatheringType &&
       _startDate == other._startDate &&
       _endDate == other._endDate &&
-      _location == other._location &&
+      _address == other._address &&
       _creator == other._creator &&
       _mosque == other._mosque &&
       DeepCollectionEquality().equals(_attendees, other._attendees);
@@ -183,7 +183,7 @@ class Gathering extends amplify_core.Model {
     buffer.write("gatheringType=" + (_gatheringType != null ? amplify_core.enumToString(_gatheringType)! : "null") + ", ");
     buffer.write("startDate=" + (_startDate != null ? _startDate!.format() : "null") + ", ");
     buffer.write("endDate=" + (_endDate != null ? _endDate!.format() : "null") + ", ");
-    buffer.write("location=" + (_location != null ? _location!.toString() : "null") + ", ");
+    buffer.write("address=" + (_address != null ? _address!.toString() : "null") + ", ");
     buffer.write("creator=" + (_creator != null ? _creator!.toString() : "null") + ", ");
     buffer.write("mosque=" + (_mosque != null ? _mosque!.toString() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
@@ -193,7 +193,7 @@ class Gathering extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Gathering copyWith({String? title, String? description, GatheringType? gatheringType, amplify_core.TemporalDateTime? startDate, amplify_core.TemporalDateTime? endDate, Location? location, User? creator, Mosque? mosque, List<GatheringAttendees>? attendees}) {
+  Gathering copyWith({String? title, String? description, GatheringType? gatheringType, amplify_core.TemporalDateTime? startDate, amplify_core.TemporalDateTime? endDate, Address? address, User? creator, Mosque? mosque, List<GatheringAttendees>? attendees}) {
     return Gathering._internal(
       id: id,
       title: title ?? this.title,
@@ -201,7 +201,7 @@ class Gathering extends amplify_core.Model {
       gatheringType: gatheringType ?? this.gatheringType,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
-      location: location ?? this.location,
+      address: address ?? this.address,
       creator: creator ?? this.creator,
       mosque: mosque ?? this.mosque,
       attendees: attendees ?? this.attendees);
@@ -213,7 +213,7 @@ class Gathering extends amplify_core.Model {
     ModelFieldValue<GatheringType>? gatheringType,
     ModelFieldValue<amplify_core.TemporalDateTime>? startDate,
     ModelFieldValue<amplify_core.TemporalDateTime?>? endDate,
-    ModelFieldValue<Location>? location,
+    ModelFieldValue<Address>? address,
     ModelFieldValue<User?>? creator,
     ModelFieldValue<Mosque?>? mosque,
     ModelFieldValue<List<GatheringAttendees>?>? attendees
@@ -225,7 +225,7 @@ class Gathering extends amplify_core.Model {
       gatheringType: gatheringType == null ? this.gatheringType : gatheringType.value,
       startDate: startDate == null ? this.startDate : startDate.value,
       endDate: endDate == null ? this.endDate : endDate.value,
-      location: location == null ? this.location : location.value,
+      address: address == null ? this.address : address.value,
       creator: creator == null ? this.creator : creator.value,
       mosque: mosque == null ? this.mosque : mosque.value,
       attendees: attendees == null ? this.attendees : attendees.value
@@ -239,8 +239,8 @@ class Gathering extends amplify_core.Model {
       _gatheringType = amplify_core.enumFromString<GatheringType>(json['gatheringType'], GatheringType.values),
       _startDate = json['startDate'] != null ? amplify_core.TemporalDateTime.fromString(json['startDate']) : null,
       _endDate = json['endDate'] != null ? amplify_core.TemporalDateTime.fromString(json['endDate']) : null,
-      _location = json['location']?['serializedData'] != null
-        ? Location.fromJson(new Map<String, dynamic>.from(json['location']['serializedData']))
+      _address = json['address']?['serializedData'] != null
+        ? Address.fromJson(new Map<String, dynamic>.from(json['address']['serializedData']))
         : null,
       _creator = json['creator']?['serializedData'] != null
         ? User.fromJson(new Map<String, dynamic>.from(json['creator']['serializedData']))
@@ -258,7 +258,7 @@ class Gathering extends amplify_core.Model {
       _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'title': _title, 'description': _description, 'gatheringType': amplify_core.enumToString(_gatheringType), 'startDate': _startDate?.format(), 'endDate': _endDate?.format(), 'location': _location?.toJson(), 'creator': _creator?.toJson(), 'mosque': _mosque?.toJson(), 'attendees': _attendees?.map((GatheringAttendees? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'title': _title, 'description': _description, 'gatheringType': amplify_core.enumToString(_gatheringType), 'startDate': _startDate?.format(), 'endDate': _endDate?.format(), 'address': _address?.toJson(), 'creator': _creator?.toJson(), 'mosque': _mosque?.toJson(), 'attendees': _attendees?.map((GatheringAttendees? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
@@ -268,7 +268,7 @@ class Gathering extends amplify_core.Model {
     'gatheringType': _gatheringType,
     'startDate': _startDate,
     'endDate': _endDate,
-    'location': _location,
+    'address': _address,
     'creator': _creator,
     'mosque': _mosque,
     'attendees': _attendees,
@@ -283,7 +283,7 @@ class Gathering extends amplify_core.Model {
   static final GATHERINGTYPE = amplify_core.QueryField(fieldName: "gatheringType");
   static final STARTDATE = amplify_core.QueryField(fieldName: "startDate");
   static final ENDDATE = amplify_core.QueryField(fieldName: "endDate");
-  static final LOCATION = amplify_core.QueryField(fieldName: "location");
+  static final ADDRESS = amplify_core.QueryField(fieldName: "address");
   static final CREATOR = amplify_core.QueryField(
     fieldName: "creator",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'User'));
@@ -359,9 +359,9 @@ class Gathering extends amplify_core.Model {
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.embedded(
-      fieldName: 'location',
+      fieldName: 'address',
       isRequired: true,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.embedded, ofCustomTypeName: 'Location')
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.embedded, ofCustomTypeName: 'Address')
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(

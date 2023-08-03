@@ -1,8 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
-
-// 📦 Package imports:
-import 'package:unicons/unicons.dart';
+import 'package:sujud/widgets/shared/shared.dart';
 
 // 🌎 Project imports:
 import 'package:sujud/extensions/extensions.dart';
@@ -34,24 +32,24 @@ extension PrayerTypeX on PrayerType {
     }
   }
 
-  IconData get icon {
+  Widget get icon {
     switch (this) {
       case PrayerType.FAJR:
-        return UniconsLine.sunset;
+        return SujudIcon.fajr(size: 40.0);
       case PrayerType.THUHR:
-        return UniconsLine.sun;
+        return SujudIcon.thuhr(size: 40.0);
       case PrayerType.ASR:
-        return UniconsLine.cloud_sun;
+        return SujudIcon.asr(size: 40.0);
       case PrayerType.MAGHRIB:
-        return UniconsLine.sunset;
+        return SujudIcon.maghrib(size: 40.0);
       case PrayerType.ISHA:
-        return UniconsLine.cloud_moon;
+        return SujudIcon.isha(size: 40.0);
       case PrayerType.JUMUAH:
-        return UniconsLine.sun;
+        return SujudIcon.jumuah(size: 40.0);
       case PrayerType.EID_AL_ADHA:
-        return UniconsLine.cloud_sun;
+        return SujudIcon.eidAlAdha(size: 40.0);
       case PrayerType.EID_AL_FITR:
-        return UniconsLine.cloud_sun;
+        return SujudIcon.eidAlFitr(size: 40.0);
     }
   }
 }

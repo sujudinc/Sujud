@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:unicons/unicons.dart';
 
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
@@ -55,14 +54,14 @@ class _JamaahHomePagePageState extends State<JamaahHomePage> {
     return <GoBottomNavigationBarItem, Widget>{
       GoBottomNavigationBarItem(
         route: _navigation.navigationRoutes.home.jamaah.dashboard.itself,
-        icon: const Icon(UniconsLine.archway),
-        activeIcon: const Icon(UniconsLine.archway),
+        icon: SujudIcon.dashboard(),
+        activeIcon: SujudIcon.dashboard(),
         label: i18n.tabDashboard,
       ): PrayerTimesTab(),
       GoBottomNavigationBarItem(
         route: _navigation.navigationRoutes.home.jamaah.settings.itself,
-        icon: const Icon(UniconsLine.cog),
-        activeIcon: const Icon(UniconsLine.cog),
+        icon: SujudIcon.settings(),
+        activeIcon: SujudIcon.settings(),
         label: i18n.tabSettings,
       ): const SettingsTab(),
     };

@@ -25,13 +25,13 @@ import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
 /** This is an auto generated class representing the ContactInfo type in your schema. */
 class ContactInfo {
-  final String? _phoneNumber;
+  final String? _phone;
   final String? _email;
   final String? _website;
   final SocialMedia? _socialMedia;
 
-  String? get phoneNumber {
-    return _phoneNumber;
+  String? get phone {
+    return _phone;
   }
   
   String? get email {
@@ -46,11 +46,11 @@ class ContactInfo {
     return _socialMedia;
   }
   
-  const ContactInfo._internal({phoneNumber, email, website, socialMedia}): _phoneNumber = phoneNumber, _email = email, _website = website, _socialMedia = socialMedia;
+  const ContactInfo._internal({phone, email, website, socialMedia}): _phone = phone, _email = email, _website = website, _socialMedia = socialMedia;
   
-  factory ContactInfo({String? phoneNumber, String? email, String? website, SocialMedia? socialMedia}) {
+  factory ContactInfo({String? phone, String? email, String? website, SocialMedia? socialMedia}) {
     return ContactInfo._internal(
-      phoneNumber: phoneNumber,
+      phone: phone,
       email: email,
       website: website,
       socialMedia: socialMedia);
@@ -64,7 +64,7 @@ class ContactInfo {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is ContactInfo &&
-      _phoneNumber == other._phoneNumber &&
+      _phone == other._phone &&
       _email == other._email &&
       _website == other._website &&
       _socialMedia == other._socialMedia;
@@ -78,7 +78,7 @@ class ContactInfo {
     var buffer = new StringBuffer();
     
     buffer.write("ContactInfo {");
-    buffer.write("phoneNumber=" + "$_phoneNumber" + ", ");
+    buffer.write("phone=" + "$_phone" + ", ");
     buffer.write("email=" + "$_email" + ", ");
     buffer.write("website=" + "$_website" + ", ");
     buffer.write("socialMedia=" + (_socialMedia != null ? _socialMedia!.toString() : "null"));
@@ -87,22 +87,22 @@ class ContactInfo {
     return buffer.toString();
   }
   
-  ContactInfo copyWith({String? phoneNumber, String? email, String? website, SocialMedia? socialMedia}) {
+  ContactInfo copyWith({String? phone, String? email, String? website, SocialMedia? socialMedia}) {
     return ContactInfo._internal(
-      phoneNumber: phoneNumber ?? this.phoneNumber,
+      phone: phone ?? this.phone,
       email: email ?? this.email,
       website: website ?? this.website,
       socialMedia: socialMedia ?? this.socialMedia);
   }
   
   ContactInfo copyWithModelFieldValues({
-    ModelFieldValue<String?>? phoneNumber,
+    ModelFieldValue<String?>? phone,
     ModelFieldValue<String?>? email,
     ModelFieldValue<String?>? website,
     ModelFieldValue<SocialMedia?>? socialMedia
   }) {
     return ContactInfo._internal(
-      phoneNumber: phoneNumber == null ? this.phoneNumber : phoneNumber.value,
+      phone: phone == null ? this.phone : phone.value,
       email: email == null ? this.email : email.value,
       website: website == null ? this.website : website.value,
       socialMedia: socialMedia == null ? this.socialMedia : socialMedia.value
@@ -110,7 +110,7 @@ class ContactInfo {
   }
   
   ContactInfo.fromJson(Map<String, dynamic> json)  
-    : _phoneNumber = json['phoneNumber'],
+    : _phone = json['phone'],
       _email = json['email'],
       _website = json['website'],
       _socialMedia = json['socialMedia']?['serializedData'] != null
@@ -118,11 +118,11 @@ class ContactInfo {
         : null;
   
   Map<String, dynamic> toJson() => {
-    'phoneNumber': _phoneNumber, 'email': _email, 'website': _website, 'socialMedia': _socialMedia?.toJson()
+    'phone': _phone, 'email': _email, 'website': _website, 'socialMedia': _socialMedia?.toJson()
   };
   
   Map<String, Object?> toMap() => {
-    'phoneNumber': _phoneNumber,
+    'phone': _phone,
     'email': _email,
     'website': _website,
     'socialMedia': _socialMedia
@@ -133,7 +133,7 @@ class ContactInfo {
     modelSchemaDefinition.pluralName = "ContactInfos";
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.customTypeField(
-      fieldName: 'phoneNumber',
+      fieldName: 'phone',
       isRequired: false,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
     ));

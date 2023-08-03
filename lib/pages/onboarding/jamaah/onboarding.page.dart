@@ -7,7 +7,6 @@ import 'package:get_it/get_it.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:sujud/configs/configs.dart';
 import 'package:sujud/models/models.dart';
-import 'package:unicons/unicons.dart';
 
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
@@ -108,10 +107,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     children: <Widget>[
                       value != 0
                           ? IconButton(
-                              icon: const Icon(
-                                UniconsLine.arrow_circle_left,
-                                size: 50.0,
-                              ),
+                              icon: SujudIcon.leftArrowCircle(size: 50.0),
                               onPressed: () async =>
                                   _pageController.previousPage(
                                 duration: const Duration(
@@ -123,10 +119,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           : const SizedBox(),
                       value != sections.length - 1
                           ? IconButton(
-                              icon: const Icon(
-                                UniconsLine.arrow_circle_right,
-                                size: 50.0,
-                              ),
+                              icon: SujudIcon.rightArrowCircle(size: 50.0),
                               onPressed: () async => _pageController.nextPage(
                                 duration: const Duration(
                                   milliseconds: 500,

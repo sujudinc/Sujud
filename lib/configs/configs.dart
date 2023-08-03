@@ -54,3 +54,6 @@ final kScrollPhysics = kIsWeb
     : Platform.isIOS
         ? const AlwaysScrollableScrollPhysics()
         : const BouncingScrollPhysics();
+
+const kHeadingGap = 10.0;
+const kContentGap = 20.0;
