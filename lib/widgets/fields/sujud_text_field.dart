@@ -22,6 +22,7 @@ class SujudTextField extends StatelessWidget implements SujudFormFieldAbstract {
     this.hintText,
     this.icon,
     this.iconColor,
+    this.inputFormatters,
     this.validator,
     this.valueTransformer,
     this.autoValidateMode = AutovalidateMode.disabled,
@@ -87,6 +88,7 @@ class SujudTextField extends StatelessWidget implements SujudFormFieldAbstract {
   final String? hintText;
   final Widget? icon;
   final Color? iconColor;
+  final List<TextInputFormatter>? inputFormatters;
   final FormFieldValidator<String>? validator;
   final ValueTransformer<String?>? valueTransformer;
   final AutovalidateMode autoValidateMode;
@@ -399,6 +401,7 @@ class SujudTextField extends StatelessWidget implements SujudFormFieldAbstract {
                     focusedErrorBorder: InputBorder.none,
                   ),
                   onChanged: onChanged,
+                  inputFormatters: inputFormatters,
                   valueTransformer: valueTransformer,
                   enabled: enabled,
                   onSaved: onSaved,

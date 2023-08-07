@@ -44,7 +44,7 @@ class _AdminHomePagePageState extends State<AdminHomePage> {
     final icons = tabs.keys.toList();
     final views = tabs.values.toList();
     final currentTabIndex = _getCurrentTabIndexFromRoute(
-      GoRouterState.of(context).location,
+      GoRouterState.of(context).uri.toString(),
       tabs.keys.toList(),
     );
 

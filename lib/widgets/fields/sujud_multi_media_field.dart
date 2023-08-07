@@ -9,8 +9,6 @@ import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/misc/value.cubit.dart';
 import 'package:sujud/extensions/extensions.dart';
 
-import 'package:sujud/widgets/platform_aware/platform_aware.dart';
-
 class SujudMultiMediaField extends StatefulWidget
     implements SujudFormFieldAbstract {
   const SujudMultiMediaField({
@@ -119,37 +117,34 @@ class _SujudMultiMediaFieldState extends State<SujudMultiMediaField> {
           ),
           BlocBuilder<ValueCubit<int>, ValueState<int>>(
             bloc: _currentImageValueCubit,
-            builder: (context, state) => state.when(
-              loading: () => const PALoadingIndicator(),
-              ready: (value) => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  TextButton(
-                    onPressed: _currentImageNotifier.value != 0
-                        ? () => _pageController.previousPage(
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.ease,
-                            )
-                        : null,
-                    child: Text(i18n.buttonPrevious),
-                  ),
-                  _currentImageNotifier.value < _images.length
-                      ? TextButton(
-                          onPressed: () => _pageController.nextPage(
+            builder: (context, state) => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                TextButton(
+                  onPressed: _currentImageNotifier.value != 0
+                      ? () => _pageController.previousPage(
                             duration: const Duration(milliseconds: 500),
                             curve: Curves.ease,
-                          ),
-                          child: Text(i18n.buttonNext),
-                        )
-                      : TextButton(
-                          onPressed: () async => await _openImagePicker(
-                            context,
-                            field,
-                          ),
-                          child: Text(i18n.buttonAddImage),
+                          )
+                      : null,
+                  child: Text(i18n.buttonPrevious),
+                ),
+                state.value < _images.length
+                    ? TextButton(
+                        onPressed: () => _pageController.nextPage(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.ease,
                         ),
-                ],
-              ),
+                        child: Text(i18n.buttonNext),
+                      )
+                    : TextButton(
+                        onPressed: () async => await _openImagePicker(
+                          context,
+                          field,
+                        ),
+                        child: Text(i18n.buttonAddImage),
+                      ),
+              ],
             ),
           ),
           const SizedBox(height: 10.0),

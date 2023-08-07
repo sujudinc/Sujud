@@ -3,21 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'multi_select.state.dart';
-part 'multi_select.cubit.freezed.dart';
 
 class MultiSelectCubit<T> extends Cubit<MultiSelectState<T>> {
   MultiSelectCubit(this._items)
       : super(
-          MultiSelectState.ready(
-            items: _items,
+          MultiSelectState(
+            _items,
           ),
         );
 
   final List<T> _items;
 
   void add(T item) {
-    _emitLoadingState();
-
     if (!_items.contains(item)) {
       _items.add(item);
       _emitReadyState();
@@ -25,8 +22,6 @@ class MultiSelectCubit<T> extends Cubit<MultiSelectState<T>> {
   }
 
   void remove(T item) {
-    _emitLoadingState();
-
     if (_items.contains(item)) {
       _items.remove(item);
       _emitReadyState();
@@ -35,17 +30,5 @@ class MultiSelectCubit<T> extends Cubit<MultiSelectState<T>> {
 
   bool hasItem(T item) => _items.contains(item);
 
-  void _emitLoadingState() {
-    emit(
-      const MultiSelectState.loading(),
-    );
-  }
-
-  void _emitReadyState() {
-    emit(
-      MultiSelectState.ready(
-        items: _items,
-      ),
-    );
-  }
+  void _emitReadyState() => emit(MultiSelectState(_items));
 }

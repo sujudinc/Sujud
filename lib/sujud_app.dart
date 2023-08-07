@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 📦 Package imports:
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_builder_validators/localization/l10n.dart';
 import 'package:get_it/get_it.dart';
@@ -18,7 +17,7 @@ import 'package:sujud/i18n/app_localizations.dart';
 import 'package:sujud/pods/pods.dart';
 import 'package:sujud/widgets/widgets.dart';
 
-class SujudApp extends HookWidget {
+class SujudApp extends StatelessWidget {
   SujudApp({
     required this.environment,
     Key? key,

@@ -55,16 +55,15 @@ class _CreateMosqueFieldPageState<T> extends State<CreateMosqueFieldPage> {
               text: i18n.buttonSave,
               outlineMode: false,
               onTap: () async {
-                print('--------> fieldnames');
-                print(_form.fieldValues);
+                print('--------> fieldValues: ${ _form.fieldValues }');
 
                 if (!_form.saveAndValidate()) {
                   return;
                 }
 
-                // _navigation.back(
-                //   data: _form.getValue(fieldName!),
-                // );
+                _navigation.back(
+                  data: _form.getValue(fieldName!),
+                );
               },
             ),
           ],

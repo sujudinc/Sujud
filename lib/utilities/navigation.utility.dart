@@ -164,26 +164,27 @@ class NavigationUtility implements NavigationUtilityAbstract {
       redirect: (context, routerState) {
         final isInitialised = _user.isLoggedIn != null;
         final isLoggedIn = _user.isLoggedIn ?? false;
+        final location = routerState.uri.toString();
         final isGoingToRoot =
-            routerState.location == navigationRoutes.root.path;
-        final isGoingToLoading = routerState.location.startsWith(
+            location == navigationRoutes.root.path;
+        final isGoingToLoading = location.startsWith(
           navigationRoutes.loading.path,
         );
-        final isGoingToAuth = routerState.location.startsWith(
+        final isGoingToAuth = location.startsWith(
           navigationRoutes.auth.itself.path,
         );
-        final isGoingToOnboarding = routerState.location.startsWith(
+        final isGoingToOnboarding = location.startsWith(
           navigationRoutes.onboarding.itself.location,
         );
 
         _navigationPathNotifier.navigationPath = NavigationPath.fromUrlPath(
-          urlPath: routerState.location,
+          urlPath: location,
         );
 
         if (!isInitialised && !isGoingToLoading) {
           return routerState.namedLocation(
             'loading',
-            queryParameters: _getRedirectParam(routerState.location),
+            queryParameters: _getRedirectParam(location),
           );
         }
 
@@ -198,7 +199,7 @@ class NavigationUtility implements NavigationUtilityAbstract {
         } else if (isInitialised && !isLoggedIn && !isGoingToAuth) {
           redirectLocation = routerState.namedLocation(
             'auth',
-            queryParameters: _getRedirectParam(routerState.location),
+            queryParameters: _getRedirectParam(location),
           );
         } else if (isGoingToRoot ||
             isGoingToLoading ||
@@ -211,17 +212,17 @@ class NavigationUtility implements NavigationUtilityAbstract {
                   pathParameters: <String, String>{
                     RouteParam.subRoute.name: 'dashboard',
                   },
-                  queryParameters: routerState.queryParameters,
+                  queryParameters: routerState.uri.queryParameters,
                 )
               : routerState.namedLocation(
                   'jamaah',
                   pathParameters: <String, String>{
                     RouteParam.subRoute.name: 'dashboard',
                   },
-                  queryParameters: routerState.queryParameters,
+                  queryParameters: routerState.uri.queryParameters,
                 );
 
-          final redirect = routerState.queryParameters['redirect'];
+          final redirect = routerState.uri.queryParameters['redirect'];
           redirectLocation = redirect ?? defaultHomePage;
         }
 

@@ -57,3 +57,7 @@ final kScrollPhysics = kIsWeb
 
 const kHeadingGap = 10.0;
 const kContentGap = 20.0;
+
+const kDateTimeFormat = 'dd MMM yyyy | hh:mm a';
+const kDateFormat = 'dd MMM yyyy';
+const kTimeFormat = 'hh:mm a';

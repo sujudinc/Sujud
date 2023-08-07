@@ -97,47 +97,43 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ),
             BlocBuilder<ValueCubit<int>, ValueState<int>>(
               bloc: _currentPageValueCubit,
-              builder: (context, state) => state.when(
-                loading: () => const PALoadingIndicator(),
-                ready: (value) => Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  margin: const EdgeInsets.only(bottom: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      value != 0
-                          ? IconButton(
-                              icon: SujudIcon.leftArrowCircle(size: 50.0),
-                              onPressed: () async =>
-                                  _pageController.previousPage(
-                                duration: const Duration(
-                                  milliseconds: 500,
-                                ),
-                                curve: Curves.easeInOut,
+              builder: (context, state) => Container(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                margin: const EdgeInsets.only(bottom: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    state.value != 0
+                        ? IconButton(
+                            icon: SujudIcon.leftArrowCircle(size: 50.0),
+                            onPressed: () async => _pageController.previousPage(
+                              duration: const Duration(
+                                milliseconds: 500,
                               ),
-                            )
-                          : const SizedBox(),
-                      value != sections.length - 1
-                          ? IconButton(
-                              icon: SujudIcon.rightArrowCircle(size: 50.0),
-                              onPressed: () async => _pageController.nextPage(
-                                duration: const Duration(
-                                  milliseconds: 500,
-                                ),
-                                curve: Curves.easeInOut,
-                              ),
-                            )
-                          : GestureDetector(
-                              child: Text(
-                                context.i18n.buttonContinue,
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                              onTap: () => _navigation.goRoute(
-                                route: _navigationRoutes.onboarding.mosques,
-                              ),
+                              curve: Curves.easeInOut,
                             ),
-                    ],
-                  ),
+                          )
+                        : const SizedBox(),
+                    state.value != sections.length - 1
+                        ? IconButton(
+                            icon: SujudIcon.rightArrowCircle(size: 50.0),
+                            onPressed: () async => _pageController.nextPage(
+                              duration: const Duration(
+                                milliseconds: 500,
+                              ),
+                              curve: Curves.easeInOut,
+                            ),
+                          )
+                        : GestureDetector(
+                            child: Text(
+                              context.i18n.buttonContinue,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            onTap: () => _navigation.goRoute(
+                              route: _navigationRoutes.onboarding.mosques,
+                            ),
+                          ),
+                  ],
                 ),
               ),
             ),

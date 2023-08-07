@@ -98,46 +98,44 @@ class _RegisterPageState extends State<RegisterPage> {
                         margin: const EdgeInsets.only(top: 15.0),
                         child: BlocBuilder<ValueCubit<int>, ValueState<int>>(
                           bloc: _currentPageValueCubit,
-                          builder: (context, state) => state.when(
-                            loading: () => const PALoadingIndicator(),
-                            ready: (value) => value == sections.length - 1
-                                ? state is RegisterPageStateLoading
-                                    ? const PALoadingIndicator()
-                                    : SujudButton(
-                                        text: i18n.buttonRegister,
-                                        onTap: () async {
-                                          if (!_form.saveAndValidate()) {
-                                            return;
-                                          }
+                          builder: (context, state) => state.value ==
+                                  sections.length - 1
+                              ? state is RegisterPageStateLoading
+                                  ? const PALoadingIndicator()
+                                  : SujudButton(
+                                      text: i18n.buttonRegister,
+                                      onTap: () async {
+                                        if (!_form.saveAndValidate()) {
+                                          return;
+                                        }
 
-                                          authCubit
-                                            ..firstName = _form.getValue(
-                                              _RegisterFormField.firstName.name,
-                                            )
-                                            ..lastName = _form.getValue(
-                                              _RegisterFormField.lastName.name,
-                                            )
-                                            ..username = _form.getValue(
-                                              _RegisterFormField.email.name,
-                                            )
-                                            ..password = _form.getValue(
-                                              _RegisterFormField.password.name,
-                                            )
-                                            ..register();
-                                        },
-                                      )
-                                : SujudButton(
-                                    text: i18n.buttonNext,
-                                    onTap: () async {
-                                      _pageController.nextPage(
-                                        duration: const Duration(
-                                          milliseconds: 400,
-                                        ),
-                                        curve: Curves.easeInOut,
-                                      );
-                                    },
-                                  ),
-                          ),
+                                        authCubit
+                                          ..firstName = _form.getValue(
+                                            _RegisterFormField.firstName.name,
+                                          )
+                                          ..lastName = _form.getValue(
+                                            _RegisterFormField.lastName.name,
+                                          )
+                                          ..username = _form.getValue(
+                                            _RegisterFormField.email.name,
+                                          )
+                                          ..password = _form.getValue(
+                                            _RegisterFormField.password.name,
+                                          )
+                                          ..register();
+                                      },
+                                    )
+                              : SujudButton(
+                                  text: i18n.buttonNext,
+                                  onTap: () async {
+                                    _pageController.nextPage(
+                                      duration: const Duration(
+                                        milliseconds: 400,
+                                      ),
+                                      curve: Curves.easeInOut,
+                                    );
+                                  },
+                                ),
                         ),
                       ),
               ),
