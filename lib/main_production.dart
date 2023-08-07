@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get_it/get_it.dart';
-import 'package:hooked_bloc/hooked_bloc.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // 🌎 Project imports:
@@ -16,14 +14,9 @@ Future<void> main() async {
   await dotenv.load(fileName: 'env.production');
 
   runApp(
-    HookedBlocConfigProvider(
-      injector: () => GetIt.instance.get,
-      builderCondition: (state) => state != null,
-      listenerCondition: (state) => state != null,
-      child: ProviderScope(
-        child: SujudApp(
-          environment: Environment.production,
-        ),
+    ProviderScope(
+      child: SujudApp(
+        environment: Environment.production,
       ),
     ),
   );
