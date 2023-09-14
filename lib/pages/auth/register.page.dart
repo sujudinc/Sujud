@@ -1,8 +1,8 @@
 // 🐦 Flutter imports:
-import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';

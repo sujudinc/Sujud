@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/models/models.dart';

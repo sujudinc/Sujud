@@ -1,10 +1,14 @@
+// 🎯 Dart imports:
 import 'dart:async';
 
+// 📦 Package imports:
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
+
+// 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/configs/configs.dart';
 import 'package:sujud/exceptions/exceptions.dart';

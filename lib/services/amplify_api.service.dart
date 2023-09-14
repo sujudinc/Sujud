@@ -1,5 +1,8 @@
+// 📦 Package imports:
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+
+// 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 
 class AmplifyApiService<T extends Model>

@@ -1,6 +1,8 @@
 // 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
 import 'package:sujud/extensions/extensions.dart';
 
 class SujudButton extends StatelessWidget {

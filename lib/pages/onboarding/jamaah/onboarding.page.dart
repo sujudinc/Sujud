@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
-import 'package:sujud/configs/configs.dart';
-import 'package:sujud/models/models.dart';
 
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/blocs.dart';
+import 'package:sujud/configs/configs.dart';
 import 'package:sujud/extensions/extensions.dart';
+import 'package:sujud/models/models.dart';
 import 'package:sujud/widgets/widgets.dart';
 
 class OnboardingPage extends StatefulWidget {

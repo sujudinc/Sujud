@@ -1,8 +1,11 @@
-// 🐦 Flutter imports:
+// 🎯 Dart imports:
 import 'dart:io';
 
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
 import 'package:sujud/widgets/widgets.dart';
 
 class LoadingPage extends StatelessWidget {

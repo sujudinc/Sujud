@@ -1,4 +1,7 @@
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
 import 'package:sujud/exceptions/exceptions.dart';
 import 'package:sujud/extensions/extensions.dart';
 

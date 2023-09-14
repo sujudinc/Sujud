@@ -1,10 +1,10 @@
 // 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
-import 'package:sujud/widgets/shared/shared.dart';
 
 // 🌎 Project imports:
 import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/models/models.dart';
+import 'package:sujud/widgets/shared/shared.dart';
 
 extension PrayerTypeX on PrayerType {
   String name(BuildContext context) {

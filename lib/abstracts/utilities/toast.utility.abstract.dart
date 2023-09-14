@@ -1,4 +1,4 @@
-// 🐦 Flutter imports:
+// 📦 Package imports:
 import 'package:cherry_toast/cherry_toast.dart';
 
 abstract class ToastUtilityAbstract {

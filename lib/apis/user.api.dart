@@ -1,6 +1,7 @@
 // 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:get_it/get_it.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/models/models.dart';

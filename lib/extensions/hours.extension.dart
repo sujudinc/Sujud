@@ -1,4 +1,7 @@
+// 📦 Package imports:
 import 'package:intl/intl.dart';
+
+// 🌎 Project imports:
 import 'package:sujud/models/models.dart';
 
 extension HoursX on Hours {

@@ -1,9 +1,15 @@
+// 🎯 Dart imports:
 import 'dart:io';
 
+// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sujud/extensions/extensions.dart';
+
+// 📦 Package imports:
 import 'package:unicons/unicons.dart';
+
+// 🌎 Project imports:
+import 'package:sujud/extensions/extensions.dart';
 
 class SujudIcon extends StatelessWidget {
   const SujudIcon(

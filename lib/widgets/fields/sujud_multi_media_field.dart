@@ -1,10 +1,16 @@
+// 🎯 Dart imports:
 import 'dart:typed_data';
 
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
+
+// 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/misc/value.cubit.dart';
 import 'package:sujud/extensions/extensions.dart';
