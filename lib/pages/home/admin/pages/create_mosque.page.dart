@@ -132,27 +132,27 @@ class _CreateMosquePageState extends State<CreateMosquePage> {
                             cubit.location = location;
                           },
                         ),
-                        CreateMosqueListItem(
-                          icon: Icons.access_time,
-                          title: i18n.hintMosqueHours,
-                          subTitle: cubit.hours?.toUserFriendlyString(),
-                          onTap: () async {
-                            final hours = await cubit.goToFieldPage(
-                              fieldName: MosqueFormFieldName.hours.name,
-                              initialValue: cubit.hours == null
-                                  ? null
-                                  : jsonEncode(
-                                      cubit.hours?.toJson(),
-                                    ),
-                            );
-
-                            if (hours == null) {
-                              return;
-                            }
-
-                            cubit.hours = hours;
-                          },
-                        ),
+                        // CreateMosqueListItem(
+                        //   icon: Icons.access_time,
+                        //   title: i18n.hintMosqueHours,
+                        //   subTitle: cubit.hours?.toUserFriendlyString(),
+                        //   onTap: () async {
+                        //     final hours = await cubit.goToFieldPage(
+                        //       fieldName: MosqueFormFieldName.hours.name,
+                        //       initialValue: cubit.hours == null
+                        //           ? null
+                        //           : jsonEncode(
+                        //               cubit.hours?.toJson(),
+                        //             ),
+                        //     );
+                        //
+                        //     if (hours == null) {
+                        //       return;
+                        //     }
+                        //
+                        //     cubit.hours = hours;
+                        //   },
+                        // ),
                         CreateMosqueListItem(
                           icon: Icons.contacts_outlined,
                           title: i18n.hintMosqueContactInfo,
@@ -184,7 +184,7 @@ class _CreateMosquePageState extends State<CreateMosquePage> {
                                   ? const PALoadingIndicator()
                                   : SujudButton(
                                       text: i18n.buttonComplete,
-                                      isEnabled: cubit.isCompleteButtonEnabled,
+                                      outlined: false,
                                       onTap: () async => await cubit.create(),
                                     ),
                         ),

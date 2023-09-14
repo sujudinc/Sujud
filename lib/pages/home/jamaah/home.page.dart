@@ -1,10 +1,8 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/extensions/context.extension.dart';
@@ -57,7 +55,7 @@ class _JamaahHomePagePageState extends State<JamaahHomePage> {
         icon: SujudIcon.dashboard(),
         activeIcon: SujudIcon.dashboard(),
         label: i18n.tabDashboard,
-      ): PrayerTimesTab(),
+      ): const PrayerTimesTab(),
       GoBottomNavigationBarItem(
         route: _navigation.navigationRoutes.home.jamaah.settings.itself,
         icon: SujudIcon.settings(),

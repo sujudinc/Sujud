@@ -1,13 +1,13 @@
 import 'dart:convert';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:sujud/abstracts/abstracts.dart';
-import 'package:sujud/extensions/extensions.dart';
-import 'package:sujud/widgets/widgets.dart';
-import 'package:sujud/models/models.dart';
-
 import 'package:sujud/configs/configs.dart';
+import 'package:sujud/extensions/extensions.dart';
+import 'package:sujud/models/models.dart';
+import 'package:sujud/widgets/widgets.dart';
 
 class MosqueHoursField implements MosqueFormField<Hours?> {
   @override
@@ -21,8 +21,6 @@ class MosqueHoursField implements MosqueFormField<Hours?> {
     final theme = context.theme;
     final values =
         initialValue != null ? jsonDecode(initialValue) : <String, dynamic>{};
-
-    print(sampleMosque.hours.toJson());
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -64,7 +62,7 @@ class MosqueHoursField implements MosqueFormField<Hours?> {
   }
 
   @override
-  String get fieldName => MosqueFormFieldName.hours.name;
+  String get fieldName => 'MosqueFormFieldName.hours.name';
 
   Widget _buildDayHoursField(
     BuildContext context, {
@@ -84,8 +82,22 @@ class MosqueHoursField implements MosqueFormField<Hours?> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Text(day.capitalise),
-        const SizedBox(height: 8),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: Text(day.capitalise),
+            ),
+            IconButton(
+              icon: SujudIcon.add(),
+              onPressed: () => _addNewHoursEntry(
+                dayType,
+                values,
+                onChanged,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 5.0),
         Column(
           children: <Widget>[
             ...operatingHours.mapIndexed(
@@ -150,14 +162,6 @@ class MosqueHoursField implements MosqueFormField<Hours?> {
             ),
           ],
         ),
-        ElevatedButton(
-          onPressed: () => _addNewHoursEntry(
-            dayType,
-            values,
-            onChanged,
-          ),
-          child: Text(i18n.buttonAddHours),
-        ),
         const SizedBox(height: kContentGap),
       ],
     );
@@ -182,9 +186,6 @@ class MosqueHoursField implements MosqueFormField<Hours?> {
       values.remove(dayType.name.toLowerCase());
     }
 
-    print('---------- _onChangeDay');
-    print(values);
-
     final monday = values['monday'] as Map<String, dynamic>?;
     final tuesday = values['tuesday'] as Map<String, dynamic>?;
     final wednesday = values['wednesday'] as Map<String, dynamic>?;
@@ -192,10 +193,6 @@ class MosqueHoursField implements MosqueFormField<Hours?> {
     final friday = values['friday'] as Map<String, dynamic>?;
     final saturday = values['saturday'] as Map<String, dynamic>?;
     final sunday = values['sunday'] as Map<String, dynamic>?;
-
-    print('---------- day');
-    print(monday);
-    print(tuesday);
 
     field.didChange(
       values.isEmpty
@@ -273,7 +270,7 @@ class MosqueHoursField implements MosqueFormField<Hours?> {
     required int index,
     required ValueChanged<String?> onChanged,
   }) {
-    final hours = values[day] as Map<String, dynamic>;
+    final hours = values[day] as Map<String, dynamic>? ?? <String, dynamic>{};
 
     hours['operatingHours'] = List<Map<String, dynamic>>.from(
       hours['operatingHours'],

@@ -3,15 +3,12 @@ import 'dart:async';
 
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
-import 'package:sujud/configs/seed_data.config.dart';
 import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/models/models.dart';
 
@@ -29,7 +26,7 @@ class PrayerSchedule extends StatefulWidget {
 
 class _PrayerScheduleState extends State<PrayerSchedule> {
   final _prayerUtility = GetIt.instance.get<PrayerUtilityAbstract>(
-    param1: sampleMosque.monthlyPrayerSchedules!,
+    param1: <Mosque>[].first.monthlyPrayerSchedules!,
   );
   late Timer _timer;
   late Duration _duration;

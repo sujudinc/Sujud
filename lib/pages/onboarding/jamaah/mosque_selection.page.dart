@@ -1,12 +1,9 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:get_it/get_it.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
-import 'package:sujud/configs/configs.dart';
 import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/models/models.dart';
 import 'package:sujud/widgets/widgets.dart';
@@ -28,7 +25,7 @@ class _MosqueSelectionPageState extends State<MosqueSelectionPage> {
     return PAScaffold(
       largeTitle: true,
       includePadding: false,
-      middle:  Column(
+      middle: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Text(
@@ -58,18 +55,18 @@ class _MosqueSelectionPageState extends State<MosqueSelectionPage> {
       kids: Kids(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: sampleMosques
+          children: <Mosque>[]
               .map(
                 (mosque) => MosqueCard(
-              mosque: mosque,
-              onTap: () {
-                _navigatorUtility.goRoute(
-                  route: _navigatorUtility
-                      .navigationRoutes.home.jamaah.dashboard.itself,
-                );
-              },
-            ),
-          )
+                  mosque: mosque,
+                  onTap: () {
+                    _navigatorUtility.goRoute(
+                      route: _navigatorUtility
+                          .navigationRoutes.home.jamaah.dashboard.itself,
+                    );
+                  },
+                ),
+              )
               .toList(),
         ),
       ),

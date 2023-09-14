@@ -2,7 +2,7 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 
 abstract class BaseRepoAbstract<T> {
-  List<T> get cache;
+  List<T> get items;
 
   Future<T?> create(T item);
   Future<T?> read(String id);
@@ -15,8 +15,6 @@ abstract class BaseRepoAbstract<T> {
     String? nextToken,
   });
   Future<void> listMore();
-
-  Future<int> count({QueryPredicate? where});
 
   void clearCache();
 }

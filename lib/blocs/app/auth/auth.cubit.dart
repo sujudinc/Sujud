@@ -10,8 +10,8 @@ import 'package:sujud/configs/configs.dart';
 import 'package:sujud/exceptions/exceptions.dart';
 import 'package:sujud/models/models.dart';
 
-part 'auth.state.dart';
 part 'auth.cubit.freezed.dart';
+part 'auth.state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit()
@@ -263,6 +263,12 @@ class AuthCubit extends Cubit<AuthState> {
         return await resetPassword();
       case AuthSignInStep.confirmSignUp:
         return await _handleConfirmSignUpEvent(result.nextStep);
+      case AuthSignInStep.continueSignInWithMfaSelection:
+        return;
+      case AuthSignInStep.continueSignInWithTotpSetup:
+        return;
+      case AuthSignInStep.confirmSignInWithTotpMfaCode:
+        return;
       case AuthSignInStep.done:
         return _handleDoneEvent();
     }

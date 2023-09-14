@@ -23,13 +23,15 @@ import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
 
-/** This is an auto generated class representing the Announcement type in your schema. */
-class Announcement extends amplify_core.Model {
-  static const classType = const _AnnouncementModelType();
+/** This is an auto generated class representing the MosqueSubscription type in your schema. */
+class MosqueSubscription extends amplify_core.Model {
+  static const classType = const _MosqueSubscriptionModelType();
   final String id;
-  final String? _title;
-  final String? _content;
-  final User? _creator;
+  final MosqueSubscriptionStatus? _status;
+  final amplify_core.TemporalDateTime? _startDate;
+  final amplify_core.TemporalDateTime? _endDate;
+  final String? _stripeSubscriptionId;
+  final User? _purchaser;
   final Mosque? _mosque;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
@@ -41,15 +43,15 @@ class Announcement extends amplify_core.Model {
   @override
   String getId() => id;
   
-  AnnouncementModelIdentifier get modelIdentifier {
-      return AnnouncementModelIdentifier(
+  MosqueSubscriptionModelIdentifier get modelIdentifier {
+      return MosqueSubscriptionModelIdentifier(
         id: id
       );
   }
   
-  String get title {
+  MosqueSubscriptionStatus get status {
     try {
-      return _title!;
+      return _status!;
     } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
           amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -60,9 +62,9 @@ class Announcement extends amplify_core.Model {
     }
   }
   
-  String get content {
+  amplify_core.TemporalDateTime get startDate {
     try {
-      return _content!;
+      return _startDate!;
     } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
           amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -73,8 +75,25 @@ class Announcement extends amplify_core.Model {
     }
   }
   
-  User? get creator {
-    return _creator;
+  amplify_core.TemporalDateTime? get endDate {
+    return _endDate;
+  }
+  
+  String get stripeSubscriptionId {
+    try {
+      return _stripeSubscriptionId!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
+  }
+  
+  User? get purchaser {
+    return _purchaser;
   }
   
   Mosque? get mosque {
@@ -89,14 +108,16 @@ class Announcement extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Announcement._internal({required this.id, required title, required content, creator, mosque, createdAt, updatedAt}): _title = title, _content = content, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
+  const MosqueSubscription._internal({required this.id, required status, required startDate, endDate, required stripeSubscriptionId, purchaser, mosque, createdAt, updatedAt}): _status = status, _startDate = startDate, _endDate = endDate, _stripeSubscriptionId = stripeSubscriptionId, _purchaser = purchaser, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Announcement({String? id, required String title, required String content, User? creator, Mosque? mosque}) {
-    return Announcement._internal(
+  factory MosqueSubscription({String? id, required MosqueSubscriptionStatus status, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required String stripeSubscriptionId, User? purchaser, Mosque? mosque}) {
+    return MosqueSubscription._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
-      title: title,
-      content: content,
-      creator: creator,
+      status: status,
+      startDate: startDate,
+      endDate: endDate,
+      stripeSubscriptionId: stripeSubscriptionId,
+      purchaser: purchaser,
       mosque: mosque);
   }
   
@@ -107,11 +128,13 @@ class Announcement extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Announcement &&
+    return other is MosqueSubscription &&
       id == other.id &&
-      _title == other._title &&
-      _content == other._content &&
-      _creator == other._creator &&
+      _status == other._status &&
+      _startDate == other._startDate &&
+      _endDate == other._endDate &&
+      _stripeSubscriptionId == other._stripeSubscriptionId &&
+      _purchaser == other._purchaser &&
       _mosque == other._mosque;
   }
   
@@ -122,11 +145,13 @@ class Announcement extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
     
-    buffer.write("Announcement {");
+    buffer.write("MosqueSubscription {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$_title" + ", ");
-    buffer.write("content=" + "$_content" + ", ");
-    buffer.write("creator=" + (_creator != null ? _creator!.toString() : "null") + ", ");
+    buffer.write("status=" + (_status != null ? amplify_core.enumToString(_status)! : "null") + ", ");
+    buffer.write("startDate=" + (_startDate != null ? _startDate!.format() : "null") + ", ");
+    buffer.write("endDate=" + (_endDate != null ? _endDate!.format() : "null") + ", ");
+    buffer.write("stripeSubscriptionId=" + "$_stripeSubscriptionId" + ", ");
+    buffer.write("purchaser=" + (_purchaser != null ? _purchaser!.toString() : "null") + ", ");
     buffer.write("mosque=" + (_mosque != null ? _mosque!.toString() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
@@ -135,36 +160,44 @@ class Announcement extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Announcement copyWith({String? title, String? content, User? creator, Mosque? mosque}) {
-    return Announcement._internal(
+  MosqueSubscription copyWith({MosqueSubscriptionStatus? status, amplify_core.TemporalDateTime? startDate, amplify_core.TemporalDateTime? endDate, String? stripeSubscriptionId, User? purchaser, Mosque? mosque}) {
+    return MosqueSubscription._internal(
       id: id,
-      title: title ?? this.title,
-      content: content ?? this.content,
-      creator: creator ?? this.creator,
+      status: status ?? this.status,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      stripeSubscriptionId: stripeSubscriptionId ?? this.stripeSubscriptionId,
+      purchaser: purchaser ?? this.purchaser,
       mosque: mosque ?? this.mosque);
   }
   
-  Announcement copyWithModelFieldValues({
-    ModelFieldValue<String>? title,
-    ModelFieldValue<String>? content,
-    ModelFieldValue<User?>? creator,
+  MosqueSubscription copyWithModelFieldValues({
+    ModelFieldValue<MosqueSubscriptionStatus>? status,
+    ModelFieldValue<amplify_core.TemporalDateTime>? startDate,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? endDate,
+    ModelFieldValue<String>? stripeSubscriptionId,
+    ModelFieldValue<User?>? purchaser,
     ModelFieldValue<Mosque?>? mosque
   }) {
-    return Announcement._internal(
+    return MosqueSubscription._internal(
       id: id,
-      title: title == null ? this.title : title.value,
-      content: content == null ? this.content : content.value,
-      creator: creator == null ? this.creator : creator.value,
+      status: status == null ? this.status : status.value,
+      startDate: startDate == null ? this.startDate : startDate.value,
+      endDate: endDate == null ? this.endDate : endDate.value,
+      stripeSubscriptionId: stripeSubscriptionId == null ? this.stripeSubscriptionId : stripeSubscriptionId.value,
+      purchaser: purchaser == null ? this.purchaser : purchaser.value,
       mosque: mosque == null ? this.mosque : mosque.value
     );
   }
   
-  Announcement.fromJson(Map<String, dynamic> json)  
+  MosqueSubscription.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _title = json['title'],
-      _content = json['content'],
-      _creator = json['creator']?['serializedData'] != null
-        ? User.fromJson(new Map<String, dynamic>.from(json['creator']['serializedData']))
+      _status = amplify_core.enumFromString<MosqueSubscriptionStatus>(json['status'], MosqueSubscriptionStatus.values),
+      _startDate = json['startDate'] != null ? amplify_core.TemporalDateTime.fromString(json['startDate']) : null,
+      _endDate = json['endDate'] != null ? amplify_core.TemporalDateTime.fromString(json['endDate']) : null,
+      _stripeSubscriptionId = json['stripeSubscriptionId'],
+      _purchaser = json['purchaser']?['serializedData'] != null
+        ? User.fromJson(new Map<String, dynamic>.from(json['purchaser']['serializedData']))
         : null,
       _mosque = json['mosque']?['serializedData'] != null
         ? Mosque.fromJson(new Map<String, dynamic>.from(json['mosque']['serializedData']))
@@ -173,37 +206,41 @@ class Announcement extends amplify_core.Model {
       _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'title': _title, 'content': _content, 'creator': _creator?.toJson(), 'mosque': _mosque?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'status': amplify_core.enumToString(_status), 'startDate': _startDate?.format(), 'endDate': _endDate?.format(), 'stripeSubscriptionId': _stripeSubscriptionId, 'purchaser': _purchaser?.toJson(), 'mosque': _mosque?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
     'id': id,
-    'title': _title,
-    'content': _content,
-    'creator': _creator,
+    'status': _status,
+    'startDate': _startDate,
+    'endDate': _endDate,
+    'stripeSubscriptionId': _stripeSubscriptionId,
+    'purchaser': _purchaser,
     'mosque': _mosque,
     'createdAt': _createdAt,
     'updatedAt': _updatedAt
   };
 
-  static final amplify_core.QueryModelIdentifier<AnnouncementModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<AnnouncementModelIdentifier>();
+  static final amplify_core.QueryModelIdentifier<MosqueSubscriptionModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<MosqueSubscriptionModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
-  static final TITLE = amplify_core.QueryField(fieldName: "title");
-  static final CONTENT = amplify_core.QueryField(fieldName: "content");
-  static final CREATOR = amplify_core.QueryField(
-    fieldName: "creator",
+  static final STATUS = amplify_core.QueryField(fieldName: "status");
+  static final STARTDATE = amplify_core.QueryField(fieldName: "startDate");
+  static final ENDDATE = amplify_core.QueryField(fieldName: "endDate");
+  static final STRIPESUBSCRIPTIONID = amplify_core.QueryField(fieldName: "stripeSubscriptionId");
+  static final PURCHASER = amplify_core.QueryField(
+    fieldName: "purchaser",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'User'));
   static final MOSQUE = amplify_core.QueryField(
     fieldName: "mosque",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Mosque'));
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Announcement";
-    modelSchemaDefinition.pluralName = "Announcements";
+    modelSchemaDefinition.name = "MosqueSubscription";
+    modelSchemaDefinition.pluralName = "MosqueSubscriptions";
     
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
         authStrategy: amplify_core.AuthStrategy.OWNER,
-        ownerField: "creatorId",
+        ownerField: "purchaserId",
         identityClaim: "cognito:username",
         provider: amplify_core.AuthRuleProvider.USERPOOLS,
         operations: const [
@@ -225,33 +262,45 @@ class Announcement extends amplify_core.Model {
     ];
     
     modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["creatorId"], name: "byCreatorId"),
+      amplify_core.ModelIndex(fields: const ["purchaserId"], name: "byPurchaserId"),
       amplify_core.ModelIndex(fields: const ["mosqueId"], name: "byMosqueId")
     ];
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Announcement.TITLE,
+      key: MosqueSubscription.STATUS,
       isRequired: true,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.enumeration)
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Announcement.CONTENT,
+      key: MosqueSubscription.STARTDATE,
+      isRequired: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: MosqueSubscription.ENDDATE,
+      isRequired: false,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: MosqueSubscription.STRIPESUBSCRIPTIONID,
       isRequired: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-      key: Announcement.CREATOR,
+      key: MosqueSubscription.PURCHASER,
       isRequired: false,
-      targetNames: ['creatorId'],
+      targetNames: ['purchaserId'],
       ofModelName: 'User'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-      key: Announcement.MOSQUE,
+      key: MosqueSubscription.MOSQUE,
       isRequired: false,
       targetNames: ['mosqueId'],
       ofModelName: 'Mosque'
@@ -273,29 +322,29 @@ class Announcement extends amplify_core.Model {
   });
 }
 
-class _AnnouncementModelType extends amplify_core.ModelType<Announcement> {
-  const _AnnouncementModelType();
+class _MosqueSubscriptionModelType extends amplify_core.ModelType<MosqueSubscription> {
+  const _MosqueSubscriptionModelType();
   
   @override
-  Announcement fromJson(Map<String, dynamic> jsonData) {
-    return Announcement.fromJson(jsonData);
+  MosqueSubscription fromJson(Map<String, dynamic> jsonData) {
+    return MosqueSubscription.fromJson(jsonData);
   }
   
   @override
   String modelName() {
-    return 'Announcement';
+    return 'MosqueSubscription';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [Announcement] in your schema.
+ * of [MosqueSubscription] in your schema.
  */
-class AnnouncementModelIdentifier implements amplify_core.ModelIdentifier<Announcement> {
+class MosqueSubscriptionModelIdentifier implements amplify_core.ModelIdentifier<MosqueSubscription> {
   final String id;
 
-  /** Create an instance of AnnouncementModelIdentifier using [id] the primary key. */
-  const AnnouncementModelIdentifier({
+  /** Create an instance of MosqueSubscriptionModelIdentifier using [id] the primary key. */
+  const MosqueSubscriptionModelIdentifier({
     required this.id});
   
   @override
@@ -313,7 +362,7 @@ class AnnouncementModelIdentifier implements amplify_core.ModelIdentifier<Announ
   String serializeAsString() => serializeAsMap().values.join('#');
   
   @override
-  String toString() => 'AnnouncementModelIdentifier(id: $id)';
+  String toString() => 'MosqueSubscriptionModelIdentifier(id: $id)';
   
   @override
   bool operator ==(Object other) {
@@ -321,7 +370,7 @@ class AnnouncementModelIdentifier implements amplify_core.ModelIdentifier<Announ
       return true;
     }
     
-    return other is AnnouncementModelIdentifier &&
+    return other is MosqueSubscriptionModelIdentifier &&
       id == other.id;
   }
   

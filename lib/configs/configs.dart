@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -27,6 +26,7 @@ final String kWebSocket = kIsWeb
     : Platform.isIOS || Platform.isMacOS
         ? dotenv.env['WEBSOCKET_IOS']!
         : dotenv.env['WEBSOCKET_ANDROID']!;
+final String kGoogleApiKey = dotenv.env['GOOGLE_API_KEY']!;
 
 // Shared Preferences
 const String kDidSetSharedPrefs = 'sujud_did_set_shared_prefs';

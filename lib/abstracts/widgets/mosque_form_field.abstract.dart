@@ -16,6 +16,6 @@ enum MosqueFormFieldName {
   description,
   images,
   location,
-  hours,
+  // hours,
   contactInfo,
 }

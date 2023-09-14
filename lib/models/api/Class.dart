@@ -313,9 +313,9 @@ class Class extends amplify_core.Model {
     ];
     
     modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["creatorId"], name: "byCreator"),
-      amplify_core.ModelIndex(fields: const ["instructorId"], name: "byInstructor"),
-      amplify_core.ModelIndex(fields: const ["mosqueId"], name: "byMosque")
+      amplify_core.ModelIndex(fields: const ["creatorId"], name: "byCreatorId"),
+      amplify_core.ModelIndex(fields: const ["instructorId"], name: "byInstructorId"),
+      amplify_core.ModelIndex(fields: const ["mosqueId"], name: "byMosqueId")
     ];
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());

@@ -2,33 +2,28 @@
 import 'dart:async';
 
 // 📦 Package imports:
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_datastore/amplify_datastore.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
-import 'package:sujud/models/api/User.dart';
+import 'package:sujud/models/models.dart';
 
 class UserRepo extends UserRepoAbstract {
   UserRepo()
-      : _userApi = GetIt.instance.get<AmplifyModelApiAbstract<User>>(),
+      : _userApi = GetIt.instance.get<AmplifyApiAbstract<User>>(),
         _authService = GetIt.instance.get<AuthServiceAbstract>() {
     _init();
   }
 
-  final AmplifyModelApiAbstract<User> _userApi;
+  final AmplifyApiAbstract<User> _userApi;
   final AuthServiceAbstract _authService;
 
   final _currentUser = BehaviorSubject<User?>();
   final _cache = <String, User>{};
   bool _hasMoreItems = false;
 
-  bool? _isLoggedIn;
-  QueryPredicate<Model>? _where;
-  int? _limit;
-  String? _nextToken;
+  GraphQLRequest<PaginatedResult<User>>? _nextRequest;
 
   Future<void> _init() async {
     try {
@@ -56,14 +51,14 @@ class UserRepo extends UserRepoAbstract {
   Stream<User?> get currentUserStream => _currentUser.stream;
 
   @override
-  bool? get isLoggedIn => _isLoggedIn;
+  bool? get isLoggedIn => _currentUser.valueOrNull != null;
 
   @override
-  List<User> get cache => _cache.values.toList();
+  List<User> get items => _cache.values.toList();
 
   @override
-  Future<User?> create(User user) async {
-    final response = await _userApi.create(user);
+  Future<User?> create(User item) async {
+    final response = await _userApi.create(item);
 
     if (response != null) {
       _cache[response.id] = response;
@@ -88,8 +83,8 @@ class UserRepo extends UserRepoAbstract {
   }
 
   @override
-  Future<User?> update(User user) async {
-    final response = await _userApi.update(user);
+  Future<User?> update(User item) async {
+    final response = await _userApi.update(item);
 
     if (response != null) {
       _cache[response.id] = response;
@@ -99,8 +94,8 @@ class UserRepo extends UserRepoAbstract {
   }
 
   @override
-  Future<User?> delete(User user) async {
-    final response = await _userApi.delete(user);
+  Future<User?> delete(User item) async {
+    final response = await _userApi.delete(item);
 
     if (response != null) {
       _cache.remove(response.id);
@@ -110,69 +105,58 @@ class UserRepo extends UserRepoAbstract {
   }
 
   @override
-  Future<List<User>> list({
+  Future<void> list({
     QueryPredicate<Model>? where,
     int? limit,
     String? nextToken,
   }) async {
-    _where = where;
-
     final response = await _userApi.list(
-      where: _where,
+      where: where,
       limit: limit,
       nextToken: nextToken,
     );
 
-    _hasMoreItems = response.nextToken != null;
-    _nextToken = response.nextToken;
+    if (response == null) {
+      return;
+    }
+
+    _hasMoreItems = response.hasNextResult;
+    _nextRequest = response.requestForNextResult;
 
     for (final user in response.items) {
       if (user != null) {
         _cache[user.id] = user;
       }
     }
-
-    return _cache.values.toList();
   }
 
   @override
-  Future<List<User>> listMore() async {
+  Future<void> listMore() async {
     if (!_hasMoreItems) {
-      return [];
+      return;
     }
 
-    final response = await _userApi.list(
-      where: _where,
-      limit: _limit,
-      nextToken: _nextToken,
-    );
+    final response = await _userApi.listMore(nextRequest: _nextRequest!);
 
-    _hasMoreItems = response.nextToken != null;
-    _nextToken = response.nextToken;
+    if (response == null) {
+      return;
+    }
+
+    _hasMoreItems = response.hasNextResult;
+    _nextRequest = response.requestForNextResult;
 
     for (final user in response.items) {
       if (user != null) {
         _cache[user.id] = user;
       }
     }
-
-    return _cache.values.toList();
-  }
-
-  @override
-  Future<int> count({QueryPredicate<Model>? where}) async {
-    final response = await _userApi.count(where: where);
-
-    return response;
   }
 
   @override
   void clearCache() {
     _cache.clear();
     _hasMoreItems = false;
-    _where = null;
-    _limit = null;
-    _nextToken = null;
+    _nextRequest = null;
   }
 
   @override
@@ -349,11 +333,10 @@ class UserRepo extends UserRepoAbstract {
 
   Future<void> _loggedIn(AuthUser authUser) async {
     _currentUser.add(await read(authUser.userId));
-    _isLoggedIn = true;
   }
 
-  void _loggedOut() {
+  Future<void> _loggedOut() async {
     _currentUser.add(null);
-    _isLoggedIn = false;
+    await Amplify.DataStore.clear();
   }
 }

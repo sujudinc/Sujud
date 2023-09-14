@@ -249,7 +249,7 @@ class Donation extends amplify_core.Model {
     
     modelSchemaDefinition.indexes = [
       amplify_core.ModelIndex(fields: const ["donorId"], name: "byDonor"),
-      amplify_core.ModelIndex(fields: const ["fundraisingCampaignId"], name: "byFundraisingCampaign")
+      amplify_core.ModelIndex(fields: const ["fundraisingCampaignId"], name: "byFundraisingCampaignId")
     ];
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());

@@ -1,26 +1,24 @@
-// 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:get_it/get_it.dart';
-// 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/models/models.dart';
 
-class UserApi extends AmplifyApiAbstract<User> {
-  UserApi() : _api = GetIt.instance.get<AmplifyApiServiceAbstract<User>>();
+class MosqueApi extends AmplifyApiAbstract<Mosque> {
+  MosqueApi() : _api = GetIt.instance.get<AmplifyApiServiceAbstract<Mosque>>();
 
-  final AmplifyApiServiceAbstract<User> _api;
+  final AmplifyApiServiceAbstract<Mosque> _api;
 
   @override
-  Future<User?> create(User item) async {
+  Future<Mosque?> create(Mosque item) async {
     final response = await _api.create(item);
 
     return response;
   }
 
   @override
-  Future<User?> read(String id) async {
+  Future<Mosque?> read(String id) async {
     final response = await _api.read(
-      User.classType,
+      Mosque.classType,
       limit: 1,
       where: User.ID.eq(id),
     );
@@ -29,27 +27,27 @@ class UserApi extends AmplifyApiAbstract<User> {
   }
 
   @override
-  Future<User?> update(User item) async {
+  Future<Mosque?> update(Mosque item) async {
     final response = await _api.update(item);
 
     return response;
   }
 
   @override
-  Future<User?> delete(User item) async {
+  Future<Mosque?> delete(Mosque item) async {
     final response = await _api.delete(item);
 
     return response;
   }
 
   @override
-  Future<PaginatedResult<User>?> list({
+  Future<PaginatedResult<Mosque>?> list({
+    QueryPredicate<Model>? where,
     int? limit,
-    QueryPredicate? where,
     String? nextToken,
   }) async {
     final response = await _api.list(
-      User.classType,
+      Mosque.classType,
       limit: limit,
       where: where,
       nextToken: nextToken,
@@ -59,8 +57,8 @@ class UserApi extends AmplifyApiAbstract<User> {
   }
 
   @override
-  Future<PaginatedResult<User>?> listMore({
-    required GraphQLRequest<PaginatedResult<User>> nextRequest,
+  Future<PaginatedResult<Mosque>?> listMore({
+    required GraphQLRequest<PaginatedResult<Mosque>> nextRequest,
   }) async {
     final response = await _api.listMore(nextRequest);
 

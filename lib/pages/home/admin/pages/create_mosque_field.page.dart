@@ -53,10 +53,8 @@ class _CreateMosqueFieldPageState<T> extends State<CreateMosqueFieldPage> {
             const SizedBox(height: 20.0),
             SujudButton(
               text: i18n.buttonSave,
-              outlineMode: false,
+              outlined: false,
               onTap: () async {
-                print('--------> fieldValues: ${ _form.fieldValues }');
-
                 if (!_form.saveAndValidate()) {
                   return;
                 }
@@ -82,8 +80,8 @@ class _CreateMosqueFieldPageState<T> extends State<CreateMosqueFieldPage> {
         return MosqueImagesField();
       case MosqueFormFieldName.location:
         return MosqueLocationField();
-      case MosqueFormFieldName.hours:
-        return MosqueHoursField();
+      // case MosqueFormFieldName.hours:
+      //   return MosqueHoursField();
       case MosqueFormFieldName.contactInfo:
         return MosqueContactInfoField();
       default:

@@ -165,8 +165,7 @@ class NavigationUtility implements NavigationUtilityAbstract {
         final isInitialised = _user.isLoggedIn != null;
         final isLoggedIn = _user.isLoggedIn ?? false;
         final location = routerState.uri.toString();
-        final isGoingToRoot =
-            location == navigationRoutes.root.path;
+        final isGoingToRoot = location == navigationRoutes.root.path;
         final isGoingToLoading = location.startsWith(
           navigationRoutes.loading.path,
         );

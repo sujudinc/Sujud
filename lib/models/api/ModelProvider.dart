@@ -31,7 +31,7 @@ import 'GatheringAttendees.dart';
 import 'MonthlyPrayerSchedule.dart';
 import 'Mosque.dart';
 import 'MosqueFollowers.dart';
-import 'PremiumSubscription.dart';
+import 'MosqueSubscription.dart';
 import 'Resource.dart';
 import 'Service.dart';
 import 'User.dart';
@@ -80,11 +80,11 @@ export 'ListInProgressMultipartUploadsOutput.dart';
 export 'MonthlyPrayerSchedule.dart';
 export 'Mosque.dart';
 export 'MosqueFollowers.dart';
+export 'MosqueSubscription.dart';
+export 'MosqueSubscriptionStatus.dart';
 export 'OperatingHours.dart';
 export 'PrayerTime.dart';
 export 'PrayerType.dart';
-export 'PremiumSubscription.dart';
-export 'PremiumSubscriptionStatus.dart';
 export 'Resource.dart';
 export 'ResourceType.dart';
 export 'Service.dart';
@@ -100,9 +100,9 @@ export 'VolunteerTaskUser.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "f17c15d02631d8ed2036fff00a4018ab";
+  String version = "66a5f4685e017f8c04bb9e3e0bbdfa6f";
   @override
-  List<amplify_core.ModelSchema> modelSchemas = [Announcement.schema, Class.schema, Committee.schema, CommitteeMembers.schema, Donation.schema, FundraisingCampaign.schema, Gathering.schema, GatheringAttendees.schema, MonthlyPrayerSchedule.schema, Mosque.schema, MosqueFollowers.schema, PremiumSubscription.schema, Resource.schema, Service.schema, User.schema, VolunteerTask.schema, VolunteerTaskUser.schema];
+  List<amplify_core.ModelSchema> modelSchemas = [Announcement.schema, Class.schema, Committee.schema, CommitteeMembers.schema, Donation.schema, FundraisingCampaign.schema, Gathering.schema, GatheringAttendees.schema, MonthlyPrayerSchedule.schema, Mosque.schema, MosqueFollowers.schema, MosqueSubscription.schema, Resource.schema, Service.schema, User.schema, VolunteerTask.schema, VolunteerTaskUser.schema];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [AbortMultipartUploadOutput.schema, Address.schema, CompleteMultipartUploadOutput.schema, ContactInfo.schema, Day.schema, GenerateMultipartUploadUrlOutput.schema, GenerateMultipartUploadUrlsOutput.schema, Hours.schema, InProgressUpload.schema, InitiateMultipartUploadOutput.schema, ListCompletedMultipartUploadsOutput.schema, ListInProgressMultipartUploadsOutput.schema, OperatingHours.schema, PrayerTime.schema, SocialMedia.schema, UploadedPart.schema];
   static final ModelProvider _instance = ModelProvider();
@@ -133,8 +133,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return Mosque.classType;
       case "MosqueFollowers":
         return MosqueFollowers.classType;
-      case "PremiumSubscription":
-        return PremiumSubscription.classType;
+      case "MosqueSubscription":
+        return MosqueSubscription.classType;
       case "Resource":
         return Resource.classType;
       case "Service":

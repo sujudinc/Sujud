@@ -11,4 +11,9 @@ class CreateMosquePageState with _$CreateMosquePageState {
 
 enum CreateMosquePageException {
   failedToCreateMosque,
+  failedToUploadImage,
+  failedToUpdateMosque,
+  failedToDeleteMosque,
+  failedToReadMosque,
+  failedToReadMosques,
 }

@@ -2,14 +2,13 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
-
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/configs/configs.dart';
 import 'package:sujud/exceptions/exceptions.dart';
 import 'package:sujud/models/models.dart';
 
-part 'login_page.state.dart';
 part 'login_page.cubit.freezed.dart';
+part 'login_page.state.dart';
 
 class LoginPageCubit extends Cubit<LoginPageState> {
   LoginPageCubit()
@@ -119,6 +118,12 @@ class LoginPageCubit extends Cubit<LoginPageState> {
       case AuthSignInStep.confirmSignUp:
         await _handleConfirmSignUpEvent();
         break;
+      case AuthSignInStep.continueSignInWithMfaSelection:
+        return;
+      case AuthSignInStep.continueSignInWithTotpSetup:
+        return;
+      case AuthSignInStep.confirmSignInWithTotpMfaCode:
+        return;
       case AuthSignInStep.done:
         _handleDoneEvent();
         break;

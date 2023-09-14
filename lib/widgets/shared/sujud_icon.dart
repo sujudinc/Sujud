@@ -20,7 +20,7 @@ class SujudIcon extends StatelessWidget {
   final double? size;
 
   factory SujudIcon.add({double? size}) => SujudIcon(
-        Icons.add,
+        UniconsLine.plus,
         size: size,
       );
 

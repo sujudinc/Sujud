@@ -65,11 +65,6 @@ class _SujudPhoneFieldState extends State<SujudPhoneField> {
             '+44',
       ),
     );
-
-    print('------- init');
-    print(codes.firstWhere(
-      (element) => element['dial_code'] == _countryCode,
-    )['code']);
   }
 
   @override
@@ -156,8 +151,6 @@ class _PhoneNumberFormatter extends TextInputFormatter {
     TextEditingValue newValue,
   ) {
     final newString = _formatPhoneNumber(newValue.text, isoCode);
-
-    print(isoCode);
 
     return newValue.copyWith(
       text: newString,

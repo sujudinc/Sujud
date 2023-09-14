@@ -8,18 +8,20 @@ import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/configs/configs.dart';
 import 'package:sujud/models/models.dart';
 
-part 'create_mosque_page.state.dart';
 part 'create_mosque_page.cubit.freezed.dart';
+part 'create_mosque_page.state.dart';
 
 class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
   CreateMosquePageCubit()
       : _navigation = GetIt.instance.get<NavigationUtilityAbstract>(),
         _toast = GetIt.instance.get<ToastUtilityAbstract>(),
+        _mosqueRepo = GetIt.instance.get<MosqueRepoAbstract>(),
         _userRepo = GetIt.instance.get<UserRepoAbstract>(),
         super(const CreateMosquePageState.ready());
 
   final NavigationUtilityAbstract _navigation;
   final ToastUtilityAbstract _toast;
+  final MosqueRepoAbstract _mosqueRepo;
   final UserRepoAbstract _userRepo;
 
   String? _name;
@@ -104,7 +106,29 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
     return isComplete;
   }
 
-  Future<void> create() async {}
+  Future<void> create() async {
+    emit(const CreateMosquePageState.loading());
+
+    try {
+      await _mosqueRepo.create(
+        Mosque(
+          name: _name!,
+          description: _description!,
+          images: [],
+          address: _address!,
+          hours: _hours!,
+          contactInfo: _contactInfo!,
+        ),
+      );
+      emit(const CreateMosquePageState.ready());
+    } catch (e) {
+      emit(
+        const CreateMosquePageState.failure(
+          CreateMosquePageException.failedToCreateMosque,
+        ),
+      );
+    }
+  }
 
   CherryToast displayToast({required String title, required String message}) {
     final toast = _toast.show(
