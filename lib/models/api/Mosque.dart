@@ -138,8 +138,17 @@ class Mosque extends amplify_core.Model {
     return _liveVideoUrl;
   }
   
-  User? get creator {
-    return _creator;
+  User get creator {
+    try {
+      return _creator!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   List<MosqueFollowers>? get followers {
@@ -194,9 +203,9 @@ class Mosque extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Mosque._internal({required this.id, required name, required description, required images, required address, hours, required contactInfo, liveVideoUrl, creator, followers, announcements, classes, committees, gatherings, fundraisingCampaigns, monthlyPrayerSchedules, resources, services, subscriptions, volunteerTasks, createdAt, updatedAt}): _name = name, _description = description, _images = images, _address = address, _hours = hours, _contactInfo = contactInfo, _liveVideoUrl = liveVideoUrl, _creator = creator, _followers = followers, _announcements = announcements, _classes = classes, _committees = committees, _gatherings = gatherings, _fundraisingCampaigns = fundraisingCampaigns, _monthlyPrayerSchedules = monthlyPrayerSchedules, _resources = resources, _services = services, _subscriptions = subscriptions, _volunteerTasks = volunteerTasks, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Mosque._internal({required this.id, required name, required description, required images, required address, hours, required contactInfo, liveVideoUrl, required creator, followers, announcements, classes, committees, gatherings, fundraisingCampaigns, monthlyPrayerSchedules, resources, services, subscriptions, volunteerTasks, createdAt, updatedAt}): _name = name, _description = description, _images = images, _address = address, _hours = hours, _contactInfo = contactInfo, _liveVideoUrl = liveVideoUrl, _creator = creator, _followers = followers, _announcements = announcements, _classes = classes, _committees = committees, _gatherings = gatherings, _fundraisingCampaigns = fundraisingCampaigns, _monthlyPrayerSchedules = monthlyPrayerSchedules, _resources = resources, _services = services, _subscriptions = subscriptions, _volunteerTasks = volunteerTasks, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Mosque({String? id, required String name, required String description, required List<String> images, required Address address, Hours? hours, required ContactInfo contactInfo, String? liveVideoUrl, User? creator, List<MosqueFollowers>? followers, List<Announcement>? announcements, List<Class>? classes, List<Committee>? committees, List<Gathering>? gatherings, List<FundraisingCampaign>? fundraisingCampaigns, List<MonthlyPrayerSchedule>? monthlyPrayerSchedules, List<Resource>? resources, List<Service>? services, List<MosqueSubscription>? subscriptions, List<VolunteerTask>? volunteerTasks}) {
+  factory Mosque({String? id, required String name, required String description, required List<String> images, required Address address, Hours? hours, required ContactInfo contactInfo, String? liveVideoUrl, required User creator, List<MosqueFollowers>? followers, List<Announcement>? announcements, List<Class>? classes, List<Committee>? committees, List<Gathering>? gatherings, List<FundraisingCampaign>? fundraisingCampaigns, List<MonthlyPrayerSchedule>? monthlyPrayerSchedules, List<Resource>? resources, List<Service>? services, List<MosqueSubscription>? subscriptions, List<VolunteerTask>? volunteerTasks}) {
     return Mosque._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       name: name,
@@ -306,7 +315,7 @@ class Mosque extends amplify_core.Model {
     ModelFieldValue<Hours?>? hours,
     ModelFieldValue<ContactInfo>? contactInfo,
     ModelFieldValue<String?>? liveVideoUrl,
-    ModelFieldValue<User?>? creator,
+    ModelFieldValue<User>? creator,
     ModelFieldValue<List<MosqueFollowers>?>? followers,
     ModelFieldValue<List<Announcement>?>? announcements,
     ModelFieldValue<List<Class>?>? classes,
@@ -583,7 +592,7 @@ class Mosque extends amplify_core.Model {
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Mosque.CREATOR,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['creatorId'],
       ofModelName: 'User'
     ));

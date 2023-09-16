@@ -13,10 +13,10 @@ packages:
     dependency: transitive
     description:
       name: amplify_analytics_pinpoint
-      sha256: "5a7f6b8e5064d8dad0a31ebb4d144f2514ea8fe0f6fa6d25aeee4922a959eb83"
+      sha256: "81e0de7f2ce8febda66fa1fefbd176fc9d004cc991226b72ab9cb3caf60c29ee"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.4.1"
   amplify_analytics_pinpoint_dart:
     dependency: transitive
     description:
@@ -37,42 +37,42 @@ packages:
     dependency: transitive
     description:
       name: amplify_api_dart
-      sha256: "7d0898621e2b5c0c2452680a6b37e556650840ad4cec7a385c2fe165270798e9"
+      sha256: "0e09f1c592336cb8b389df21b6437602cc2c3b20554ff69b7946f3f644965069"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.1"
+    version: "0.3.1+1"
   amplify_auth_cognito:
     dependency: "direct main"
     description:
       name: amplify_auth_cognito
-      sha256: "2740369e71b489f33c90ebe50af840e6dc2e133b0e4e1ea370dfe459ab271331"
+      sha256: "7ab666bee927a66e5fd5590ef94898551ce45f42df348c2a4f3658effed9e221"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.4.1"
   amplify_auth_cognito_dart:
     dependency: transitive
     description:
       name: amplify_auth_cognito_dart
-      sha256: "765d12ae1a945e9dc0d0ac4c636b880a3d91071bd657a3e86847229f4370b841"
+      sha256: c6bc4b7f1f28fec462d72f72dbced252202d0cf008703a5478fc11058112ac37
       url: "https://pub.dev"
     source: hosted
-    version: "0.10.3"
+    version: "0.10.3+1"
   amplify_core:
     dependency: transitive
     description:
       name: amplify_core
-      sha256: bd5dccab537dafe8328f307b7af268c5a8233146a81279c8f221b050fcad60f7
+      sha256: "41614540fce7b64234217675771a355a7ac0d0cb965bc0f640c09b19e37209d9"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.4.1"
   amplify_datastore:
     dependency: "direct main"
     description:
       name: amplify_datastore
-      sha256: e4c35d2d2881310e2b77c900846c3687912a0a3939698667dc0d582ed8cc3705
+      sha256: ea8dd143bdb5f5e2479ad801a63a3d5b5e166633b972a0467a19ab8da9981593
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.4.1"
   amplify_datastore_plugin_interface:
     dependency: transitive
     description:
@@ -85,10 +85,10 @@ packages:
     dependency: transitive
     description:
       name: amplify_db_common
-      sha256: "7b6f73edb5002433d7774ef87e0fc9db74d4a1975f169c67715d162b4cc59959"
+      sha256: ea39cf5bf0071d9f612e6790b56c37b739a30ef29bb64e832e8b8e25e9b35671
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.1"
+    version: "0.3.1+1"
   amplify_db_common_dart:
     dependency: transitive
     description:
@@ -101,26 +101,26 @@ packages:
     dependency: "direct main"
     description:
       name: amplify_flutter
-      sha256: "27856e35000606466f59379e9a849a7b99bd2c22f86686e9ee00c7ace78895c2"
+      sha256: "43f41c61d53be6343db3e88942f3fa412d6fe9a3f4c6bf584569429fbdd5150e"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.4.1"
   amplify_secure_storage:
     dependency: transitive
     description:
       name: amplify_secure_storage
-      sha256: "584053f90be4a377216bfac30a6e2650a49905befdaa97bb4428c1c4a71948ba"
+      sha256: "97c516a527f11a4734b58644665ffd1b9e87cdcd26faa46ec4d5894144316f42"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0+5"
+    version: "0.4.0+6"
   amplify_secure_storage_dart:
     dependency: transitive
     description:
       name: amplify_secure_storage_dart
-      sha256: "842c2b45ce06e15cf657d74bef2e79b256c4e56561a712f821fd4178426dc131"
+      sha256: f20850f56264316e7b0eba0b26a7fa44c29d97841c1844d06d3489ffd765e144
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0+6"
+    version: "0.4.0+7"
   amplify_storage_s3:
     dependency: "direct main"
     description:
@@ -157,10 +157,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: "49b1fad315e57ab0bbc15bcbb874e83116a1d78f77ebd500a4af6c9407d6b28e"
+      sha256: e0902a06f0e00414e4e3438a084580161279f137aeb862274710f29ec10cf01e
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.8"
+    version: "3.3.9"
   args:
     dependency: transitive
     description:
@@ -245,10 +245,10 @@ packages:
     dependency: transitive
     description:
       name: build_resolvers
-      sha256: a7417cc44d9edb3f2c8760000270c99dba8c72ff66d0146772b8326565780745
+      sha256: d912852cce27c9e80a93603db721c267716894462e7033165178b91138587972
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   build_runner:
     dependency: "direct dev"
     description:
@@ -309,10 +309,10 @@ packages:
     dependency: "direct main"
     description:
       name: cherry_toast
-      sha256: "5724acebea4544697994e47a180295657b48d7468224c4c6296f230706a9a4a5"
+      sha256: f63c629fdd85c2fb1f8133f124b5cd38800890a92bb4ded10ed9bd19b5d2ceb6
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.1"
+    version: "1.3.2"
   clock:
     dependency: transitive
     description:
@@ -466,7 +466,7 @@ packages:
     source: hosted
     version: "2.11.1"
   dropdown_search:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: dropdown_search
       sha256: "55106e8290acaa97ed15bea1fdad82c3cf0c248dd410e651f5a8ac6870f783ab"
@@ -594,10 +594,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_form_builder
-      sha256: e828c11156d75fc668da1d8e7ddc2311ea8368f023fd28a7c7c126c8b903c5d6
+      sha256: "8973beed34b6d951d36bf688b52e9e3040b47b763c35c320bd6f4c2f6b13f3a2"
       url: "https://pub.dev"
     source: hosted
-    version: "9.1.0"
+    version: "9.1.1"
   flutter_google_places_hoc081098:
     dependency: "direct main"
     description:
@@ -785,10 +785,10 @@ packages:
     dependency: "direct main"
     description:
       name: form_builder_extra_fields
-      sha256: "00a36223ca1a46b62c54dd02fec5e160577dee5919b1f934d769256b69995da6"
+      sha256: f0abee7a3bbb1f71ca456213be313121a6a7e6d32610c8edd841b97c787fc399
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.0"
+    version: "10.1.0"
   form_builder_image_picker:
     dependency: "direct main"
     description:
@@ -801,10 +801,10 @@ packages:
     dependency: "direct main"
     description:
       name: form_builder_validators
-      sha256: e04998b1597d76a51da7f009ed3b2f12d4173f13e146e8744fd2453e8595a2c9
+      sha256: "19aa5282b7cede82d0025ab031a98d0554b84aa2ba40f12013471a3b3e22bf02"
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.0"
+    version: "9.1.0"
   freezed:
     dependency: "direct dev"
     description:
@@ -865,10 +865,10 @@ packages:
     dependency: "direct main"
     description:
       name: google_fonts
-      sha256: e20ff62b158b96f392bfc8afe29dee1503c94fbea2cbe8186fd59b756b8ae982
+      sha256: "0833bfcc1c32560ee51d381fcf1d6d6b35921e89afe852c12f83dc8c00b2e6bc"
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.0"
+    version: "6.0.0"
   gql:
     dependency: transitive
     description:
@@ -1041,10 +1041,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_android
-      sha256: d32a997bcc4ee135aebca8e272b7c517927aa65a74b9c60a81a2764ef1a0462d
+      sha256: "47da2161c2e9f8f8a9cbbd89d466d174333fbdd769aeed848912e0b16d9cb369"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.7+5"
+    version: "0.8.8"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -1975,10 +1975,10 @@ packages:
     dependency: transitive
     description:
       name: worker_bee
-      sha256: "512a524dace5b82bdef4e89b0dc621d4b3dc2151d1db8fa8c307434937215f54"
+      sha256: "97013bbba42a536fbf8c7577198ce76407c40450a1592be09388536db9cea3be"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0+4"
+    version: "0.2.0+5"
   xdg_directories:
     dependency: transitive
     description:

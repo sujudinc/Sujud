@@ -105,13 +105,13 @@ class PAScaffold extends StatelessWidget {
         body: _body(context),
       );
 
-  Widget _largeScaffold(BuildContext context) => Scaffold(
-        backgroundColor: backgroundColor ??
-            _backgroundColor(
-              Theme.of(context),
-            ),
-        extendBody: true,
-        body: CustomScrollView(
+  Widget _largeScaffold(BuildContext context) => Material(
+        // backgroundColor: backgroundColor ??
+        //     _backgroundColor(
+        //       Theme.of(context),
+        //     ),
+        // extendBody: true,
+        child: CustomScrollView(
           controller: scrollController,
           physics: kScrollPhysics,
           slivers: kIsWeb

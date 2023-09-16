@@ -4,8 +4,8 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 
-class AnalyticsService implements AnalyticsServiceAbstract {
-  AnalyticsService({AnalyticsCategory? analytics})
+class AmplifyAnalyticsService implements AmplifyAnalyticsServiceAbstract {
+  AmplifyAnalyticsService({AnalyticsCategory? analytics})
       : _analytics = analytics ?? Amplify.Analytics;
 
   final AnalyticsCategory _analytics;

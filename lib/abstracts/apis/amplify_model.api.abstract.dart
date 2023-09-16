@@ -1,11 +1,14 @@
 // 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
 
-abstract class AmplifyApiAbstract<T extends Model> {
-  Future<T?> create(T item);
-  Future<T?> read(String id);
-  Future<T?> update(T item);
-  Future<T?> delete(T item);
+abstract class AmplifyModelApiAbstract<T extends Model> {
+  Future<(T?, Error?)> create(T item);
+
+  Future<(T?, List<GraphQLResponseError>?)> read(String id);
+
+  Future<(T?, Error?)> update(T item);
+
+  Future<(T?, Error?)> delete(T item);
 
   Future<PaginatedResult<T>?> list({
     QueryPredicate? where,

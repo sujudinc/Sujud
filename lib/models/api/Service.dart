@@ -72,12 +72,30 @@ class Service extends amplify_core.Model {
     return _documents;
   }
   
-  User? get creator {
-    return _creator;
+  User get creator {
+    try {
+      return _creator!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  Mosque? get mosque {
-    return _mosque;
+  Mosque get mosque {
+    try {
+      return _mosque!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   amplify_core.TemporalDateTime? get createdAt {
@@ -88,9 +106,9 @@ class Service extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Service._internal({required this.id, required type, description, documents, creator, mosque, createdAt, updatedAt}): _type = type, _description = description, _documents = documents, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Service._internal({required this.id, required type, description, documents, required creator, required mosque, createdAt, updatedAt}): _type = type, _description = description, _documents = documents, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Service({String? id, required ServiceType type, String? description, List<String>? documents, User? creator, Mosque? mosque}) {
+  factory Service({String? id, required ServiceType type, String? description, List<String>? documents, required User creator, required Mosque mosque}) {
     return Service._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       type: type,
@@ -151,8 +169,8 @@ class Service extends amplify_core.Model {
     ModelFieldValue<ServiceType>? type,
     ModelFieldValue<String?>? description,
     ModelFieldValue<List<String>?>? documents,
-    ModelFieldValue<User?>? creator,
-    ModelFieldValue<Mosque?>? mosque
+    ModelFieldValue<User>? creator,
+    ModelFieldValue<Mosque>? mosque
   }) {
     return Service._internal(
       id: id,
@@ -260,14 +278,14 @@ class Service extends amplify_core.Model {
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Service.CREATOR,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['creatorId'],
       ofModelName: 'User'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Service.MOSQUE,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['mosqueId'],
       ofModelName: 'Mosque'
     ));

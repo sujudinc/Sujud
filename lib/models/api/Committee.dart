@@ -68,12 +68,30 @@ class Committee extends amplify_core.Model {
     return _description;
   }
   
-  User? get creator {
-    return _creator;
+  User get creator {
+    try {
+      return _creator!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  Mosque? get mosque {
-    return _mosque;
+  Mosque get mosque {
+    try {
+      return _mosque!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   List<CommitteeMembers>? get members {
@@ -88,9 +106,9 @@ class Committee extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Committee._internal({required this.id, required title, description, creator, mosque, members, createdAt, updatedAt}): _title = title, _description = description, _creator = creator, _mosque = mosque, _members = members, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Committee._internal({required this.id, required title, description, required creator, required mosque, members, createdAt, updatedAt}): _title = title, _description = description, _creator = creator, _mosque = mosque, _members = members, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Committee({String? id, required String title, String? description, User? creator, Mosque? mosque, List<CommitteeMembers>? members}) {
+  factory Committee({String? id, required String title, String? description, required User creator, required Mosque mosque, List<CommitteeMembers>? members}) {
     return Committee._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
@@ -149,8 +167,8 @@ class Committee extends amplify_core.Model {
   Committee copyWithModelFieldValues({
     ModelFieldValue<String>? title,
     ModelFieldValue<String?>? description,
-    ModelFieldValue<User?>? creator,
-    ModelFieldValue<Mosque?>? mosque,
+    ModelFieldValue<User>? creator,
+    ModelFieldValue<Mosque>? mosque,
     ModelFieldValue<List<CommitteeMembers>?>? members
   }) {
     return Committee._internal(
@@ -259,14 +277,14 @@ class Committee extends amplify_core.Model {
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Committee.CREATOR,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['creatorId'],
       ofModelName: 'User'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Committee.MOSQUE,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['mosqueId'],
       ofModelName: 'Mosque'
     ));

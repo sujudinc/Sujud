@@ -22,9 +22,10 @@ import 'package:sujud/apis/apis.dart';
 import 'package:sujud/configs/amplify.config.dart';
 import 'package:sujud/models/models.dart';
 import 'package:sujud/repos/repos.dart';
-import 'package:sujud/services/amplify_api.service.dart';
 import 'package:sujud/services/services.dart';
 import 'package:sujud/utilities/utilities.dart';
+
+final _dependencies = GetIt.instance;
 
 Future<void> initDependencies() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,15 +39,13 @@ Future<void> initDependencies() async {
 
   await _initAmplify();
 
-  final dependencies = GetIt.instance;
+  _initUtilities();
+  _initServices();
+  _initApis();
+  _initRepos();
+  _initAppDependencies();
 
-  _initUtilities(dependencies);
-  _initServices(dependencies);
-  _initApis(dependencies);
-  _initRepos(dependencies);
-  _initAppDependencies(dependencies);
-
-  await dependencies.get<SharedPrefsUtilityAbstract>().initSharedPrefs();
+  await _dependencies.get<SharedPrefsUtilityAbstract>().initSharedPrefs();
 }
 
 Future<void> _initAmplify() async {
@@ -64,28 +63,54 @@ Future<void> _initAmplify() async {
   }
 }
 
-void _initAppDependencies(GetIt dependencies) => dependencies
+void _initAppDependencies() => _dependencies
   ..registerSingleton<NavigationUtilityAbstract>(NavigationUtility());
 
-void _initApis(GetIt dependencies) => dependencies
-  ..registerSingleton<AmplifyApiAbstract<Mosque>>(MosqueApi())
-  ..registerSingleton<AmplifyApiAbstract<User>>(UserApi());
+void _initApis() => _dependencies
+  ..registerFactory<AmplifyModelApiAbstract<Mosque>>(
+    AmplifyModelApi<Mosque>.new,
+  )
+  ..registerFactory<AmplifyModelApiAbstract<User>>(
+    AmplifyModelApi<User>.new,
+  );
 
-void _initRepos(GetIt dependencies) => dependencies
+void _initRepos() => _dependencies
   ..registerSingleton<MosqueRepoAbstract>(MosqueRepo())
   ..registerSingleton<UserRepoAbstract>(UserRepo());
 
-void _initServices(GetIt dependencies) => dependencies
-  ..registerFactory<AmplifyApiServiceAbstract<Mosque>>(AmplifyApiService.new)
-  ..registerFactory<AmplifyApiServiceAbstract<User>>(AmplifyApiService.new)
-  ..registerFactory<AnalyticsServiceAbstract>(AnalyticsService.new)
-  ..registerFactory<AuthServiceAbstract>(AuthService.new)
-  ..registerFactory<GraphqlServiceAbstract>(GraphQLService.new)
-  ..registerFactory<RestServiceAbstract>(RestService.new)
-  ..registerFactory<ReviewServiceAbstract>(ReviewService.new)
-  ..registerFactory<StorageServiceAbstract>(StorageService.new);
+void _initServices() => _dependencies
+  ..registerFactory<AmplifyAnalyticsServiceAbstract>(
+    AmplifyAnalyticsService.new,
+  )
+  ..registerFactory<AmplifyApiServiceAbstract<Mosque>>(
+    AmplifyApiService<Mosque>.new,
+  )
+  ..registerFactory<AmplifyApiServiceAbstract<User>>(
+    AmplifyApiService<User>.new,
+  )
+  ..registerFactory<AmplifyAuthServiceAbstract>(
+    AmplifyAuthService.new,
+  )
+  ..registerFactory<AmplifyDatastoreServiceAbstract<Mosque>>(
+    AmplifyDatastoreService<Mosque>.new,
+  )
+  ..registerFactory<AmplifyDatastoreServiceAbstract<User>>(
+    AmplifyDatastoreService<User>.new,
+  )
+  ..registerFactory<AmplifyStorageServiceAbstract>(
+    AmplifyStorageService.new,
+  )
+  ..registerFactory<GraphqlServiceAbstract>(
+    GraphQLService.new,
+  )
+  ..registerFactory<RestServiceAbstract>(
+    RestService.new,
+  )
+  ..registerFactory<ReviewServiceAbstract>(
+    ReviewService.new,
+  );
 
-void _initUtilities(GetIt dependencies) => dependencies
+void _initUtilities() => _dependencies
   ..registerFactoryParam<FormUtilityAbstract, GlobalKey<FormBuilderState>,
       void>(
     (formKey, _) => FormUtility(formKey: formKey),

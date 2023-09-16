@@ -89,8 +89,17 @@ class Donation extends amplify_core.Model {
     }
   }
   
-  User? get donor {
-    return _donor;
+  User get donor {
+    try {
+      return _donor!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   FundraisingCampaign? get fundraisingCampaign {
@@ -105,9 +114,9 @@ class Donation extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Donation._internal({required this.id, required amount, required currency, required isAnonymous, donor, fundraisingCampaign, createdAt, updatedAt}): _amount = amount, _currency = currency, _isAnonymous = isAnonymous, _donor = donor, _fundraisingCampaign = fundraisingCampaign, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Donation._internal({required this.id, required amount, required currency, required isAnonymous, required donor, fundraisingCampaign, createdAt, updatedAt}): _amount = amount, _currency = currency, _isAnonymous = isAnonymous, _donor = donor, _fundraisingCampaign = fundraisingCampaign, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Donation({String? id, required double amount, required String currency, required bool isAnonymous, User? donor, FundraisingCampaign? fundraisingCampaign}) {
+  factory Donation({String? id, required double amount, required String currency, required bool isAnonymous, required User donor, FundraisingCampaign? fundraisingCampaign}) {
     return Donation._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       amount: amount,
@@ -168,7 +177,7 @@ class Donation extends amplify_core.Model {
     ModelFieldValue<double>? amount,
     ModelFieldValue<String>? currency,
     ModelFieldValue<bool>? isAnonymous,
-    ModelFieldValue<User?>? donor,
+    ModelFieldValue<User>? donor,
     ModelFieldValue<FundraisingCampaign?>? fundraisingCampaign
   }) {
     return Donation._internal(
@@ -276,7 +285,7 @@ class Donation extends amplify_core.Model {
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Donation.DONOR,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['donorId'],
       ofModelName: 'User'
     ));

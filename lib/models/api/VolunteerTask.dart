@@ -87,12 +87,30 @@ class VolunteerTask extends amplify_core.Model {
     return _endDate;
   }
   
-  User? get creator {
-    return _creator;
+  User get creator {
+    try {
+      return _creator!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  Mosque? get mosque {
-    return _mosque;
+  Mosque get mosque {
+    try {
+      return _mosque!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   List<VolunteerTaskUser>? get volunteers {
@@ -107,9 +125,9 @@ class VolunteerTask extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const VolunteerTask._internal({required this.id, required name, description, required startDate, endDate, creator, mosque, volunteers, createdAt, updatedAt}): _name = name, _description = description, _startDate = startDate, _endDate = endDate, _creator = creator, _mosque = mosque, _volunteers = volunteers, _createdAt = createdAt, _updatedAt = updatedAt;
+  const VolunteerTask._internal({required this.id, required name, description, required startDate, endDate, required creator, required mosque, volunteers, createdAt, updatedAt}): _name = name, _description = description, _startDate = startDate, _endDate = endDate, _creator = creator, _mosque = mosque, _volunteers = volunteers, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory VolunteerTask({String? id, required String name, String? description, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, User? creator, Mosque? mosque, List<VolunteerTaskUser>? volunteers}) {
+  factory VolunteerTask({String? id, required String name, String? description, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required User creator, required Mosque mosque, List<VolunteerTaskUser>? volunteers}) {
     return VolunteerTask._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       name: name,
@@ -178,8 +196,8 @@ class VolunteerTask extends amplify_core.Model {
     ModelFieldValue<String?>? description,
     ModelFieldValue<amplify_core.TemporalDateTime>? startDate,
     ModelFieldValue<amplify_core.TemporalDateTime?>? endDate,
-    ModelFieldValue<User?>? creator,
-    ModelFieldValue<Mosque?>? mosque,
+    ModelFieldValue<User>? creator,
+    ModelFieldValue<Mosque>? mosque,
     ModelFieldValue<List<VolunteerTaskUser>?>? volunteers
   }) {
     return VolunteerTask._internal(
@@ -308,14 +326,14 @@ class VolunteerTask extends amplify_core.Model {
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: VolunteerTask.CREATOR,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['creatorId'],
       ofModelName: 'User'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: VolunteerTask.MOSQUE,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['mosqueId'],
       ofModelName: 'Mosque'
     ));

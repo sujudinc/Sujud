@@ -75,12 +75,30 @@ class Announcement extends amplify_core.Model {
     }
   }
   
-  User? get creator {
-    return _creator;
+  User get creator {
+    try {
+      return _creator!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  Mosque? get mosque {
-    return _mosque;
+  Mosque get mosque {
+    try {
+      return _mosque!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   amplify_core.TemporalDateTime? get createdAt {
@@ -91,9 +109,9 @@ class Announcement extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Announcement._internal({required this.id, required title, required content, creator, mosque, createdAt, updatedAt}): _title = title, _content = content, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Announcement._internal({required this.id, required title, required content, required creator, required mosque, createdAt, updatedAt}): _title = title, _content = content, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Announcement({String? id, required String title, required String content, User? creator, Mosque? mosque}) {
+  factory Announcement({String? id, required String title, required String content, required User creator, required Mosque mosque}) {
     return Announcement._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
@@ -149,8 +167,8 @@ class Announcement extends amplify_core.Model {
   Announcement copyWithModelFieldValues({
     ModelFieldValue<String>? title,
     ModelFieldValue<String>? content,
-    ModelFieldValue<User?>? creator,
-    ModelFieldValue<Mosque?>? mosque
+    ModelFieldValue<User>? creator,
+    ModelFieldValue<Mosque>? mosque
   }) {
     return Announcement._internal(
       id: id,
@@ -247,14 +265,14 @@ class Announcement extends amplify_core.Model {
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Announcement.CREATOR,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['creatorId'],
       ofModelName: 'User'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Announcement.MOSQUE,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['mosqueId'],
       ofModelName: 'Mosque'
     ));

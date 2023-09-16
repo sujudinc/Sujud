@@ -2,10 +2,14 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
+import 'package:sujud/blocs/blocs.dart';
+import 'package:sujud/configs/configs.dart';
 import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/models/models.dart';
 import 'package:sujud/widgets/widgets.dart';
@@ -19,57 +23,78 @@ class MosqueSelectionPage extends StatefulWidget {
 
 class _MosqueSelectionPageState extends State<MosqueSelectionPage> {
   final _navigatorUtility = GetIt.instance<NavigationUtilityAbstract>();
+  final _mosqueSelectionCubit = MosqueSelectionCubit();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _mosqueSelectionCubit.hydrate();
+  }
 
   @override
   Widget build(BuildContext context) {
     final i18n = context.i18n;
 
-    return PAScaffold(
-      largeTitle: true,
-      includePadding: false,
-      middle: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Text(
-            i18n.titleMosques,
-            style: const TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
+    return BlocProvider<MosqueSelectionCubit>(
+      create: (context) => _mosqueSelectionCubit,
+      child: PAScaffold(
+        largeTitle: true,
+        includePadding: false,
+        middle: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
+              i18n.titleMosques,
+              style: const TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          Row(
+          ],
+        ),
+        kids: Kids(
+          child: Column(
             children: <Widget>[
-              const SizedBox(width: 2.0),
-              const Text(
-                'Birmingham, UK',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey,
+              SizedBox(
+                height: 50.0,
+                child: DropdownSearch<String>(
+                  selectedItem: _mosqueSelectionCubit.selectedCity,
+                  items: kAvailableCities,
+                  dropdownDecoratorProps: const DropDownDecoratorProps(
+                    baseStyle: TextStyle(
+                      fontSize: 12.0,
+                    ),
+                    textAlignVertical: TextAlignVertical.center,
+                  ),
+                  dropdownButtonProps: DropdownButtonProps(
+                    icon: SujudIcon.rightArrow(
+                      size: 15.0,
+                    ),
+                  ),
+                  popupProps: const PopupPropsMultiSelection.modalBottomSheet(),
                 ),
               ),
-              SujudIcon.rightArrow(
-                size: 15.0,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: _mosqueSelectionCubit.mosques
+                      .map(
+                        (mosque) => MosqueCard(
+                          mosque: mosque,
+                          onTap: () {
+                            _navigatorUtility.goRoute(
+                              route: _navigatorUtility.navigationRoutes.home
+                                  .jamaah.dashboard.itself,
+                            );
+                          },
+                        ),
+                      )
+                      .toList(),
+                ),
               ),
             ],
           ),
-        ],
-      ),
-      kids: Kids(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Mosque>[]
-              .map(
-                (mosque) => MosqueCard(
-                  mosque: mosque,
-                  onTap: () {
-                    _navigatorUtility.goRoute(
-                      route: _navigatorUtility
-                          .navigationRoutes.home.jamaah.dashboard.itself,
-                    );
-                  },
-                ),
-              )
-              .toList(),
         ),
       ),
     );

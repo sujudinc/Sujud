@@ -143,12 +143,30 @@ class FundraisingCampaign extends amplify_core.Model {
     }
   }
   
-  User? get creator {
-    return _creator;
+  User get creator {
+    try {
+      return _creator!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  Mosque? get mosque {
-    return _mosque;
+  Mosque get mosque {
+    try {
+      return _mosque!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   List<Donation>? get donations {
@@ -163,9 +181,9 @@ class FundraisingCampaign extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const FundraisingCampaign._internal({required this.id, required title, description, featureImage, required type, required currentAmount, required goal, required goalDate, required currency, creator, mosque, donations, createdAt, updatedAt}): _title = title, _description = description, _featureImage = featureImage, _type = type, _currentAmount = currentAmount, _goal = goal, _goalDate = goalDate, _currency = currency, _creator = creator, _mosque = mosque, _donations = donations, _createdAt = createdAt, _updatedAt = updatedAt;
+  const FundraisingCampaign._internal({required this.id, required title, description, featureImage, required type, required currentAmount, required goal, required goalDate, required currency, required creator, required mosque, donations, createdAt, updatedAt}): _title = title, _description = description, _featureImage = featureImage, _type = type, _currentAmount = currentAmount, _goal = goal, _goalDate = goalDate, _currency = currency, _creator = creator, _mosque = mosque, _donations = donations, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory FundraisingCampaign({String? id, required String title, String? description, String? featureImage, required FundraisingCampaignType type, required double currentAmount, required double goal, required amplify_core.TemporalDateTime goalDate, required String currency, User? creator, Mosque? mosque, List<Donation>? donations}) {
+  factory FundraisingCampaign({String? id, required String title, String? description, String? featureImage, required FundraisingCampaignType type, required double currentAmount, required double goal, required amplify_core.TemporalDateTime goalDate, required String currency, required User creator, required Mosque mosque, List<Donation>? donations}) {
     return FundraisingCampaign._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
@@ -254,8 +272,8 @@ class FundraisingCampaign extends amplify_core.Model {
     ModelFieldValue<double>? goal,
     ModelFieldValue<amplify_core.TemporalDateTime>? goalDate,
     ModelFieldValue<String>? currency,
-    ModelFieldValue<User?>? creator,
-    ModelFieldValue<Mosque?>? mosque,
+    ModelFieldValue<User>? creator,
+    ModelFieldValue<Mosque>? mosque,
     ModelFieldValue<List<Donation>?>? donations
   }) {
     return FundraisingCampaign._internal(
@@ -424,14 +442,14 @@ class FundraisingCampaign extends amplify_core.Model {
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: FundraisingCampaign.CREATOR,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['creatorId'],
       ofModelName: 'User'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: FundraisingCampaign.MOSQUE,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['mosqueId'],
       ofModelName: 'Mosque'
     ));

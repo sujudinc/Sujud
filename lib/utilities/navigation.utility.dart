@@ -15,9 +15,9 @@ import 'package:sujud/pages/pages.dart';
 
 class NavigationUtility implements NavigationUtilityAbstract {
   NavigationUtility()
-      : _user = GetIt.instance.get<UserRepoAbstract>(),
-        _logger = GetIt.instance.get<LoggerUtilityAbstract>() {
-    _logger.log('📍 NavigationUtility');
+      : _userRepo = GetIt.instance.get<UserRepoAbstract>(),
+        _loggerUtility = GetIt.instance.get<LoggerUtilityAbstract>() {
+    _loggerUtility.log('📍 NavigationUtility');
 
     final homeRoutes = navigationRoutes.home;
     final adminRoutes = homeRoutes.admin;
@@ -28,8 +28,8 @@ class NavigationUtility implements NavigationUtilityAbstract {
     _goRouter = GoRouter(
       routes: <GoRoute>[
         GoRoute(
-          path: navigationRoutes.root.path,
           name: navigationRoutes.root.name,
+          path: navigationRoutes.root.path,
           pageBuilder: (context, state) => MaterialExtendedPage<void>(
             key: state.pageKey,
             child: Container(
@@ -106,29 +106,33 @@ class NavigationUtility implements NavigationUtilityAbstract {
           ],
         ),
         GoRoute(
-          path: navigationRoutes.auth.itself.path,
-          name: navigationRoutes.auth.itself.name,
+          name: authRoutes.itself.name,
+          path: authRoutes.itself.path,
           builder: (context, state) => LoginPage(
             key: state.pageKey,
           ),
           routes: <GoRoute>[
             GoRoute(
+              name: authRoutes.mfa.name,
               path: authRoutes.mfa.path,
-              name: navigationRoutes.auth.mfa.name,
-              builder: (context, state) => MFAPage(
-                key: state.pageKey,
+              pageBuilder: (context, state) => CupertinoExtendedPage<void>(
+                child: MFAPage(
+                  key: state.pageKey,
+                ),
               ),
             ),
             GoRoute(
-              path: authRoutes.forgot.path,
               name: authRoutes.forgot.name,
-              builder: (context, state) => ForgotPasswordPage(
-                key: state.pageKey,
+              path: authRoutes.forgot.path,
+              pageBuilder: (context, state) => CupertinoExtendedPage<void>(
+                child: ForgotPasswordPage(
+                  key: state.pageKey,
+                ),
               ),
             ),
             GoRoute(
-              path: authRoutes.register.itself.path,
               name: authRoutes.register.itself.name,
+              path: authRoutes.register.itself.path,
               pageBuilder: (context, state) => MaterialExtendedPage<void>(
                 child: RegisterPage(
                   key: state.pageKey,
@@ -136,17 +140,19 @@ class NavigationUtility implements NavigationUtilityAbstract {
               ),
             ),
             GoRoute(
-              path: authRoutes.confirm.path,
               name: authRoutes.confirm.name,
-              builder: (context, state) => ConfirmAccountPage(
-                key: state.pageKey,
+              path: authRoutes.confirm.path,
+              pageBuilder: (context, state) => CupertinoExtendedPage<void>(
+                child: ConfirmAccountPage(
+                  key: state.pageKey,
+                ),
               ),
             ),
           ],
         ),
         GoRoute(
-          path: navigationRoutes.loading.path,
           name: navigationRoutes.loading.name,
+          path: navigationRoutes.loading.path,
           pageBuilder: (context, state) => MaterialExtendedPage<void>(
             key: state.pageKey,
             child: Container(
@@ -162,8 +168,8 @@ class NavigationUtility implements NavigationUtilityAbstract {
         ),
       ),
       redirect: (context, routerState) {
-        final isInitialised = _user.isLoggedIn != null;
-        final isLoggedIn = _user.isLoggedIn ?? false;
+        final isInitialised = _userRepo.isLoggedIn != null;
+        final isLoggedIn = _userRepo.isLoggedIn ?? false;
         final location = routerState.uri.toString();
         final isGoingToRoot = location == navigationRoutes.root.path;
         final isGoingToLoading = location.startsWith(
@@ -175,67 +181,73 @@ class NavigationUtility implements NavigationUtilityAbstract {
         final isGoingToOnboarding = location.startsWith(
           navigationRoutes.onboarding.itself.location,
         );
+        String? redirectLocation;
+
+        _loggerUtility
+          ..log('📍 isInitialised: $isInitialised')
+          ..log('📍 isLoggedIn: $isLoggedIn')
+          ..log('📍 Redirecting to $location')
+          ..log('📍 isGoingToRoot: $isGoingToRoot')
+          ..log('📍 isGoingToLoading: $isGoingToLoading')
+          ..log('📍 isGoingToAuth: $isGoingToAuth')
+          ..log('📍 isGoingToOnboarding: $isGoingToOnboarding');
 
         _navigationPathNotifier.navigationPath = NavigationPath.fromUrlPath(
           urlPath: location,
         );
 
         if (!isInitialised && !isGoingToLoading) {
+          _loggerUtility.log('Redirecting to Loading');
+
           return routerState.namedLocation(
-            'loading',
+            navigationRoutes.loading.name,
             queryParameters: _getRedirectParam(location),
           );
         }
 
-        String? redirectLocation;
-
         if (!isLoggedIn) {
           if (isGoingToRoot || isGoingToAuth || isGoingToOnboarding) {
+            _loggerUtility.log('Redirecting to Root | Auth | Onboarding');
             redirectLocation = null;
           } else {
+            _loggerUtility.log('Redirecting to Onboarding');
             redirectLocation = navigationRoutes.onboarding.itself.location;
           }
         } else if (isInitialised && !isLoggedIn && !isGoingToAuth) {
+          _loggerUtility.log('Redirecting to Auth');
+
           redirectLocation = routerState.namedLocation(
-            'auth',
+            authRoutes.itself.name,
             queryParameters: _getRedirectParam(location),
           );
         } else if (isGoingToRoot ||
             isGoingToLoading ||
             isGoingToAuth ||
             isGoingToOnboarding) {
-          final userType = _user.currentUser?.type ?? UserType.USER;
-          final defaultHomePage = userType == UserType.ADMIN
-              ? routerState.namedLocation(
-                  'admin',
-                  pathParameters: <String, String>{
-                    RouteParam.subRoute.name: 'dashboard',
-                  },
-                  queryParameters: routerState.uri.queryParameters,
-                )
-              : routerState.namedLocation(
-                  'jamaah',
-                  pathParameters: <String, String>{
-                    RouteParam.subRoute.name: 'dashboard',
-                  },
-                  queryParameters: routerState.uri.queryParameters,
-                );
+          final defaultHomePage = routerState.namedLocation(
+            (_userRepo.currentUser?.type ?? UserType.USER) == UserType.ADMIN
+                ? homeRoutes.admin.itself.name
+                : homeRoutes.jamaah.itself.name,
+            pathParameters: <String, String>{
+              RouteParam.subRoute.name: 'dashboard',
+            },
+            queryParameters: routerState.uri.queryParameters,
+          );
 
           final redirect = routerState.uri.queryParameters['redirect'];
           redirectLocation = redirect ?? defaultHomePage;
         }
 
-        _logger.log('--> Redirecting to Home');
         return redirectLocation;
       },
-      refreshListenable: RefreshStream(_user.currentUserStream),
+      refreshListenable: RefreshStream(_userRepo.currentUserStream),
       initialLocation: navigationRoutes.onboarding.itself.location,
       debugLogDiagnostics: true,
     );
   }
 
-  final UserRepoAbstract _user;
-  final LoggerUtilityAbstract _logger;
+  final UserRepoAbstract _userRepo;
+  final LoggerUtilityAbstract _loggerUtility;
   late final GoRouter _goRouter;
   final _navigationPathNotifier = NavigationPathNotifier();
 
@@ -389,8 +401,8 @@ class NavigationUtility implements NavigationUtilityAbstract {
       return target.queryParameters;
     }
 
-    return targetLocation == '/'
-        ? <String, String>{}
-        : <String, String>{'redirect': targetLocation};
+    return <String, String>{
+      if (targetLocation.startsWith('/')) 'redirect': targetLocation,
+    };
   }
 }

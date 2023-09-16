@@ -25,4 +25,11 @@ abstract class AmplifyApiServiceAbstract<T extends Model> {
   Future<PaginatedResult<T>?> listMore(
     GraphQLRequest<PaginatedResult<T>> nextRequest,
   );
+
+  Future<GraphQLResponse<T>> graphQLRequest({
+    required ModelType<T> modelType,
+    required String operationName,
+    required String document,
+    required Map<String, dynamic> variables,
+  });
 }

@@ -7,8 +7,8 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 
-class AuthService implements AuthServiceAbstract {
-  AuthService({AuthCategory? amplifyAuth})
+class AmplifyAuthService implements AmplifyAuthServiceAbstract {
+  AmplifyAuthService({AuthCategory? amplifyAuth})
       : _amplifyAuth = amplifyAuth ?? Amplify.Auth;
 
   final AuthCategory _amplifyAuth;
@@ -25,7 +25,7 @@ class AuthService implements AuthServiceAbstract {
   }) {
     Amplify.Hub.listen(
       HubChannel.Auth,
-          (event) {
+      (event) {
         switch (event.type) {
           case AuthHubEventType.signedIn:
             onSignedIn(event.payload!);

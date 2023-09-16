@@ -1,6 +1,9 @@
 // 🎯 Dart imports:
 import 'dart:async';
 
+// 🐦 Flutter imports:
+import 'package:flutter/foundation.dart';
+
 // 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:get_it/get_it.dart';
@@ -12,13 +15,13 @@ import 'package:sujud/models/models.dart';
 
 class UserRepo extends UserRepoAbstract {
   UserRepo()
-      : _userApi = GetIt.instance.get<AmplifyApiAbstract<User>>(),
-        _authService = GetIt.instance.get<AuthServiceAbstract>() {
+      : _userApi = GetIt.instance.get<AmplifyModelApiAbstract<User>>(),
+        _authService = GetIt.instance.get<AmplifyAuthServiceAbstract>() {
     _init();
   }
 
-  final AmplifyApiAbstract<User> _userApi;
-  final AuthServiceAbstract _authService;
+  final AmplifyModelApiAbstract<User> _userApi;
+  final AmplifyAuthServiceAbstract _authService;
 
   final _currentUser = BehaviorSubject<User?>();
   final _cache = <String, User>{};
@@ -58,51 +61,52 @@ class UserRepo extends UserRepoAbstract {
   List<User> get items => _cache.values.toList();
 
   @override
-  Future<User?> create(User item) async {
-    final response = await _userApi.create(item);
+  Future<(User?, Error?)> create(User item) async {
+    final (user, error) = await _userApi.create(item);
+    final id = user?.id;
 
-    if (response != null) {
-      _cache[response.id] = response;
+    if (user != null) {
+      _cache[id!] = user;
     }
 
-    return response;
+    return (user, error);
   }
 
   @override
-  Future<User?> read(String id) async {
+  Future<(User?, List<GraphQLResponseError>?)> read(String id) async {
     if (_cache.containsKey(id)) {
-      return _cache[id];
+      return (_cache[id], null);
     }
 
-    final response = await _userApi.read(id);
+    final (user, error) = await _userApi.read(id);
 
-    if (response != null) {
-      _cache[response.id] = response;
+    if (user != null) {
+      _cache[id] = user;
     }
 
-    return response;
+    return (user, error);
   }
 
   @override
-  Future<User?> update(User item) async {
-    final response = await _userApi.update(item);
+  Future<(User?, Error?)> update(User item) async {
+    final (user, error) = await _userApi.update(item);
 
-    if (response != null) {
-      _cache[response.id] = response;
+    if (user != null) {
+      _cache[user.id] = user;
     }
 
-    return response;
+    return (user, error);
   }
 
   @override
-  Future<User?> delete(User item) async {
-    final response = await _userApi.delete(item);
+  Future<(User?, Error?)> delete(User item) async {
+    final (user, error) = await _userApi.delete(item);
 
-    if (response != null) {
-      _cache.remove(response.id);
+    if (user != null) {
+      _cache.remove(user.id);
     }
 
-    return response;
+    return (user, error);
   }
 
   @override
@@ -333,11 +337,16 @@ class UserRepo extends UserRepoAbstract {
   }
 
   Future<void> _loggedIn(AuthUser authUser) async {
-    _currentUser.add(await read(authUser.userId));
+    final (user, _) = await read(authUser.userId);
+
+    _currentUser.add(user);
   }
 
   Future<void> _loggedOut() async {
     _currentUser.add(null);
-    await Amplify.DataStore.clear();
+
+    if (!kIsWeb) {
+      await Amplify.DataStore.clear();
+    }
   }
 }

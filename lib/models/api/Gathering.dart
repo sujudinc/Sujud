@@ -115,12 +115,30 @@ class Gathering extends amplify_core.Model {
     }
   }
   
-  User? get creator {
-    return _creator;
+  User get creator {
+    try {
+      return _creator!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  Mosque? get mosque {
-    return _mosque;
+  Mosque get mosque {
+    try {
+      return _mosque!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   List<GatheringAttendees>? get attendees {
@@ -135,9 +153,9 @@ class Gathering extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Gathering._internal({required this.id, required title, description, required type, required startDate, endDate, required address, creator, mosque, attendees, createdAt, updatedAt}): _title = title, _description = description, _type = type, _startDate = startDate, _endDate = endDate, _address = address, _creator = creator, _mosque = mosque, _attendees = attendees, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Gathering._internal({required this.id, required title, description, required type, required startDate, endDate, required address, required creator, required mosque, attendees, createdAt, updatedAt}): _title = title, _description = description, _type = type, _startDate = startDate, _endDate = endDate, _address = address, _creator = creator, _mosque = mosque, _attendees = attendees, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Gathering({String? id, required String title, String? description, required GatheringType type, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required Address address, User? creator, Mosque? mosque, List<GatheringAttendees>? attendees}) {
+  factory Gathering({String? id, required String title, String? description, required GatheringType type, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required Address address, required User creator, required Mosque mosque, List<GatheringAttendees>? attendees}) {
     return Gathering._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
@@ -216,8 +234,8 @@ class Gathering extends amplify_core.Model {
     ModelFieldValue<amplify_core.TemporalDateTime>? startDate,
     ModelFieldValue<amplify_core.TemporalDateTime?>? endDate,
     ModelFieldValue<Address>? address,
-    ModelFieldValue<User?>? creator,
-    ModelFieldValue<Mosque?>? mosque,
+    ModelFieldValue<User>? creator,
+    ModelFieldValue<Mosque>? mosque,
     ModelFieldValue<List<GatheringAttendees>?>? attendees
   }) {
     return Gathering._internal(
@@ -368,14 +386,14 @@ class Gathering extends amplify_core.Model {
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Gathering.CREATOR,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['creatorId'],
       ofModelName: 'User'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Gathering.MOSQUE,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['mosqueId'],
       ofModelName: 'Mosque'
     ));

@@ -94,12 +94,30 @@ class MosqueSubscription extends amplify_core.Model {
     }
   }
   
-  User? get purchaser {
-    return _purchaser;
+  User get purchaser {
+    try {
+      return _purchaser!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  Mosque? get mosque {
-    return _mosque;
+  Mosque get mosque {
+    try {
+      return _mosque!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   amplify_core.TemporalDateTime? get createdAt {
@@ -110,9 +128,9 @@ class MosqueSubscription extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const MosqueSubscription._internal({required this.id, required status, required startDate, endDate, required stripeSubscriptionId, purchaser, mosque, createdAt, updatedAt}): _status = status, _startDate = startDate, _endDate = endDate, _stripeSubscriptionId = stripeSubscriptionId, _purchaser = purchaser, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
+  const MosqueSubscription._internal({required this.id, required status, required startDate, endDate, required stripeSubscriptionId, required purchaser, required mosque, createdAt, updatedAt}): _status = status, _startDate = startDate, _endDate = endDate, _stripeSubscriptionId = stripeSubscriptionId, _purchaser = purchaser, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory MosqueSubscription({String? id, required MosqueSubscriptionStatus status, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required String stripeSubscriptionId, User? purchaser, Mosque? mosque}) {
+  factory MosqueSubscription({String? id, required MosqueSubscriptionStatus status, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required String stripeSubscriptionId, required User purchaser, required Mosque mosque}) {
     return MosqueSubscription._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       status: status,
@@ -178,8 +196,8 @@ class MosqueSubscription extends amplify_core.Model {
     ModelFieldValue<amplify_core.TemporalDateTime>? startDate,
     ModelFieldValue<amplify_core.TemporalDateTime?>? endDate,
     ModelFieldValue<String>? stripeSubscriptionId,
-    ModelFieldValue<User?>? purchaser,
-    ModelFieldValue<Mosque?>? mosque
+    ModelFieldValue<User>? purchaser,
+    ModelFieldValue<Mosque>? mosque
   }) {
     return MosqueSubscription._internal(
       id: id,
@@ -296,14 +314,14 @@ class MosqueSubscription extends amplify_core.Model {
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: MosqueSubscription.PURCHASER,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['purchaserId'],
       ofModelName: 'User'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: MosqueSubscription.MOSQUE,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['mosqueId'],
       ofModelName: 'Mosque'
     ));

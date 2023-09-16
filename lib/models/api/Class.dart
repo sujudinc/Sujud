@@ -106,16 +106,43 @@ class Class extends amplify_core.Model {
     return _daysOfWeek;
   }
   
-  User? get creator {
-    return _creator;
+  User get creator {
+    try {
+      return _creator!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  User? get instructor {
-    return _instructor;
+  User get instructor {
+    try {
+      return _instructor!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  Mosque? get mosque {
-    return _mosque;
+  Mosque get mosque {
+    try {
+      return _mosque!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   amplify_core.TemporalDateTime? get createdAt {
@@ -126,9 +153,9 @@ class Class extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Class._internal({required this.id, required title, description, required startDateTime, endDateTime, required recurring, daysOfWeek, creator, instructor, mosque, createdAt, updatedAt}): _title = title, _description = description, _startDateTime = startDateTime, _endDateTime = endDateTime, _recurring = recurring, _daysOfWeek = daysOfWeek, _creator = creator, _instructor = instructor, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Class._internal({required this.id, required title, description, required startDateTime, endDateTime, required recurring, daysOfWeek, required creator, required instructor, required mosque, createdAt, updatedAt}): _title = title, _description = description, _startDateTime = startDateTime, _endDateTime = endDateTime, _recurring = recurring, _daysOfWeek = daysOfWeek, _creator = creator, _instructor = instructor, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Class({String? id, required String title, String? description, required amplify_core.TemporalDateTime startDateTime, amplify_core.TemporalDateTime? endDateTime, required bool recurring, List<DayType>? daysOfWeek, User? creator, User? instructor, Mosque? mosque}) {
+  factory Class({String? id, required String title, String? description, required amplify_core.TemporalDateTime startDateTime, amplify_core.TemporalDateTime? endDateTime, required bool recurring, List<DayType>? daysOfWeek, required User creator, required User instructor, required Mosque mosque}) {
     return Class._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
@@ -208,9 +235,9 @@ class Class extends amplify_core.Model {
     ModelFieldValue<amplify_core.TemporalDateTime?>? endDateTime,
     ModelFieldValue<bool>? recurring,
     ModelFieldValue<List<DayType>>? daysOfWeek,
-    ModelFieldValue<User?>? creator,
-    ModelFieldValue<User?>? instructor,
-    ModelFieldValue<Mosque?>? mosque
+    ModelFieldValue<User>? creator,
+    ModelFieldValue<User>? instructor,
+    ModelFieldValue<Mosque>? mosque
   }) {
     return Class._internal(
       id: id,
@@ -361,21 +388,21 @@ class Class extends amplify_core.Model {
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Class.CREATOR,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['creatorId'],
       ofModelName: 'User'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Class.INSTRUCTOR,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['instructorId'],
       ofModelName: 'User'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Class.MOSQUE,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['mosqueId'],
       ofModelName: 'Mosque'
     ));

@@ -1,7 +1,7 @@
 // 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
 
-abstract class AnalyticsServiceAbstract {
+abstract class AmplifyAnalyticsServiceAbstract {
   Future<void> identifyUser({
     required String userId,
     required UserProfile userProfile,

@@ -18,44 +18,44 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CreateMosquePageState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() ready,
     required TResult Function() loading,
+    required TResult Function() ready,
     required TResult Function(CreateMosquePageException exception) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? ready,
     TResult? Function()? loading,
+    TResult? Function()? ready,
     TResult? Function(CreateMosquePageException exception)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? ready,
     TResult Function()? loading,
+    TResult Function()? ready,
     TResult Function(CreateMosquePageException exception)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(CreateMosquePageStateReady value) ready,
     required TResult Function(CreateMosquePageStateLoading value) loading,
+    required TResult Function(CreateMosquePageStateReady value) ready,
     required TResult Function(CreateMosquePageStateFailure value) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(CreateMosquePageStateReady value)? ready,
     TResult? Function(CreateMosquePageStateLoading value)? loading,
+    TResult? Function(CreateMosquePageStateReady value)? ready,
     TResult? Function(CreateMosquePageStateFailure value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(CreateMosquePageStateReady value)? ready,
     TResult Function(CreateMosquePageStateLoading value)? loading,
+    TResult Function(CreateMosquePageStateReady value)? ready,
     TResult Function(CreateMosquePageStateFailure value)? failure,
     required TResult orElse(),
   }) =>
@@ -79,118 +79,6 @@ class _$CreateMosquePageStateCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$CreateMosquePageStateReadyCopyWith<$Res> {
-  factory _$$CreateMosquePageStateReadyCopyWith(
-          _$CreateMosquePageStateReady value,
-          $Res Function(_$CreateMosquePageStateReady) then) =
-      __$$CreateMosquePageStateReadyCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$CreateMosquePageStateReadyCopyWithImpl<$Res>
-    extends _$CreateMosquePageStateCopyWithImpl<$Res,
-        _$CreateMosquePageStateReady>
-    implements _$$CreateMosquePageStateReadyCopyWith<$Res> {
-  __$$CreateMosquePageStateReadyCopyWithImpl(
-      _$CreateMosquePageStateReady _value,
-      $Res Function(_$CreateMosquePageStateReady) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$CreateMosquePageStateReady implements CreateMosquePageStateReady {
-  const _$CreateMosquePageStateReady();
-
-  @override
-  String toString() {
-    return 'CreateMosquePageState.ready()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CreateMosquePageStateReady);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() ready,
-    required TResult Function() loading,
-    required TResult Function(CreateMosquePageException exception) failure,
-  }) {
-    return ready();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? ready,
-    TResult? Function()? loading,
-    TResult? Function(CreateMosquePageException exception)? failure,
-  }) {
-    return ready?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? ready,
-    TResult Function()? loading,
-    TResult Function(CreateMosquePageException exception)? failure,
-    required TResult orElse(),
-  }) {
-    if (ready != null) {
-      return ready();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(CreateMosquePageStateReady value) ready,
-    required TResult Function(CreateMosquePageStateLoading value) loading,
-    required TResult Function(CreateMosquePageStateFailure value) failure,
-  }) {
-    return ready(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(CreateMosquePageStateReady value)? ready,
-    TResult? Function(CreateMosquePageStateLoading value)? loading,
-    TResult? Function(CreateMosquePageStateFailure value)? failure,
-  }) {
-    return ready?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(CreateMosquePageStateReady value)? ready,
-    TResult Function(CreateMosquePageStateLoading value)? loading,
-    TResult Function(CreateMosquePageStateFailure value)? failure,
-    required TResult orElse(),
-  }) {
-    if (ready != null) {
-      return ready(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class CreateMosquePageStateReady implements CreateMosquePageState {
-  const factory CreateMosquePageStateReady() = _$CreateMosquePageStateReady;
 }
 
 /// @nodoc
@@ -235,8 +123,8 @@ class _$CreateMosquePageStateLoading implements CreateMosquePageStateLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() ready,
     required TResult Function() loading,
+    required TResult Function() ready,
     required TResult Function(CreateMosquePageException exception) failure,
   }) {
     return loading();
@@ -245,8 +133,8 @@ class _$CreateMosquePageStateLoading implements CreateMosquePageStateLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? ready,
     TResult? Function()? loading,
+    TResult? Function()? ready,
     TResult? Function(CreateMosquePageException exception)? failure,
   }) {
     return loading?.call();
@@ -255,8 +143,8 @@ class _$CreateMosquePageStateLoading implements CreateMosquePageStateLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? ready,
     TResult Function()? loading,
+    TResult Function()? ready,
     TResult Function(CreateMosquePageException exception)? failure,
     required TResult orElse(),
   }) {
@@ -269,8 +157,8 @@ class _$CreateMosquePageStateLoading implements CreateMosquePageStateLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(CreateMosquePageStateReady value) ready,
     required TResult Function(CreateMosquePageStateLoading value) loading,
+    required TResult Function(CreateMosquePageStateReady value) ready,
     required TResult Function(CreateMosquePageStateFailure value) failure,
   }) {
     return loading(this);
@@ -279,8 +167,8 @@ class _$CreateMosquePageStateLoading implements CreateMosquePageStateLoading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(CreateMosquePageStateReady value)? ready,
     TResult? Function(CreateMosquePageStateLoading value)? loading,
+    TResult? Function(CreateMosquePageStateReady value)? ready,
     TResult? Function(CreateMosquePageStateFailure value)? failure,
   }) {
     return loading?.call(this);
@@ -289,8 +177,8 @@ class _$CreateMosquePageStateLoading implements CreateMosquePageStateLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(CreateMosquePageStateReady value)? ready,
     TResult Function(CreateMosquePageStateLoading value)? loading,
+    TResult Function(CreateMosquePageStateReady value)? ready,
     TResult Function(CreateMosquePageStateFailure value)? failure,
     required TResult orElse(),
   }) {
@@ -303,6 +191,118 @@ class _$CreateMosquePageStateLoading implements CreateMosquePageStateLoading {
 
 abstract class CreateMosquePageStateLoading implements CreateMosquePageState {
   const factory CreateMosquePageStateLoading() = _$CreateMosquePageStateLoading;
+}
+
+/// @nodoc
+abstract class _$$CreateMosquePageStateReadyCopyWith<$Res> {
+  factory _$$CreateMosquePageStateReadyCopyWith(
+          _$CreateMosquePageStateReady value,
+          $Res Function(_$CreateMosquePageStateReady) then) =
+      __$$CreateMosquePageStateReadyCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CreateMosquePageStateReadyCopyWithImpl<$Res>
+    extends _$CreateMosquePageStateCopyWithImpl<$Res,
+        _$CreateMosquePageStateReady>
+    implements _$$CreateMosquePageStateReadyCopyWith<$Res> {
+  __$$CreateMosquePageStateReadyCopyWithImpl(
+      _$CreateMosquePageStateReady _value,
+      $Res Function(_$CreateMosquePageStateReady) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$CreateMosquePageStateReady implements CreateMosquePageStateReady {
+  const _$CreateMosquePageStateReady();
+
+  @override
+  String toString() {
+    return 'CreateMosquePageState.ready()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateMosquePageStateReady);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() ready,
+    required TResult Function(CreateMosquePageException exception) failure,
+  }) {
+    return ready();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function()? ready,
+    TResult? Function(CreateMosquePageException exception)? failure,
+  }) {
+    return ready?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? ready,
+    TResult Function(CreateMosquePageException exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (ready != null) {
+      return ready();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CreateMosquePageStateLoading value) loading,
+    required TResult Function(CreateMosquePageStateReady value) ready,
+    required TResult Function(CreateMosquePageStateFailure value) failure,
+  }) {
+    return ready(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CreateMosquePageStateLoading value)? loading,
+    TResult? Function(CreateMosquePageStateReady value)? ready,
+    TResult? Function(CreateMosquePageStateFailure value)? failure,
+  }) {
+    return ready?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CreateMosquePageStateLoading value)? loading,
+    TResult Function(CreateMosquePageStateReady value)? ready,
+    TResult Function(CreateMosquePageStateFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (ready != null) {
+      return ready(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CreateMosquePageStateReady implements CreateMosquePageState {
+  const factory CreateMosquePageStateReady() = _$CreateMosquePageStateReady;
 }
 
 /// @nodoc
@@ -374,8 +374,8 @@ class _$CreateMosquePageStateFailure implements CreateMosquePageStateFailure {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() ready,
     required TResult Function() loading,
+    required TResult Function() ready,
     required TResult Function(CreateMosquePageException exception) failure,
   }) {
     return failure(exception);
@@ -384,8 +384,8 @@ class _$CreateMosquePageStateFailure implements CreateMosquePageStateFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? ready,
     TResult? Function()? loading,
+    TResult? Function()? ready,
     TResult? Function(CreateMosquePageException exception)? failure,
   }) {
     return failure?.call(exception);
@@ -394,8 +394,8 @@ class _$CreateMosquePageStateFailure implements CreateMosquePageStateFailure {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? ready,
     TResult Function()? loading,
+    TResult Function()? ready,
     TResult Function(CreateMosquePageException exception)? failure,
     required TResult orElse(),
   }) {
@@ -408,8 +408,8 @@ class _$CreateMosquePageStateFailure implements CreateMosquePageStateFailure {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(CreateMosquePageStateReady value) ready,
     required TResult Function(CreateMosquePageStateLoading value) loading,
+    required TResult Function(CreateMosquePageStateReady value) ready,
     required TResult Function(CreateMosquePageStateFailure value) failure,
   }) {
     return failure(this);
@@ -418,8 +418,8 @@ class _$CreateMosquePageStateFailure implements CreateMosquePageStateFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(CreateMosquePageStateReady value)? ready,
     TResult? Function(CreateMosquePageStateLoading value)? loading,
+    TResult? Function(CreateMosquePageStateReady value)? ready,
     TResult? Function(CreateMosquePageStateFailure value)? failure,
   }) {
     return failure?.call(this);
@@ -428,8 +428,8 @@ class _$CreateMosquePageStateFailure implements CreateMosquePageStateFailure {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(CreateMosquePageStateReady value)? ready,
     TResult Function(CreateMosquePageStateLoading value)? loading,
+    TResult Function(CreateMosquePageStateReady value)? ready,
     TResult Function(CreateMosquePageStateFailure value)? failure,
     required TResult orElse(),
   }) {

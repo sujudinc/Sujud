@@ -7,13 +7,14 @@ import 'package:sujud/abstracts/abstracts.dart';
 
 class AmplifyApiService<T extends Model>
     implements AmplifyApiServiceAbstract<T> {
-  AmplifyApiService() : _api = Amplify.API;
+  AmplifyApiService({APICategory? amplifyApi})
+      : _amplifyApi = amplifyApi ?? Amplify.API;
 
-  final APICategory _api;
+  final APICategory _amplifyApi;
 
   @override
   Future<T?> create(T item) async {
-    final response = await _api
+    final response = await _amplifyApi
         .mutate(
           request: ModelMutations.create(item),
         )
@@ -28,7 +29,7 @@ class AmplifyApiService<T extends Model>
     int? limit,
     QueryPredicate? where,
   }) async {
-    final response = await _api
+    final response = await _amplifyApi
         .query(
           request: ModelQueries.list(
             modelType,
@@ -45,7 +46,7 @@ class AmplifyApiService<T extends Model>
 
   @override
   Future<T?> update(T item) async {
-    final response = await _api
+    final response = await _amplifyApi
         .mutate(
           request: ModelMutations.update(item),
         )
@@ -56,7 +57,7 @@ class AmplifyApiService<T extends Model>
 
   @override
   Future<T?> delete(T item) async {
-    final response = await _api
+    final response = await _amplifyApi
         .mutate(
           request: ModelMutations.delete(item),
         )
@@ -72,7 +73,7 @@ class AmplifyApiService<T extends Model>
     int? limit,
     String? nextToken,
   }) async {
-    final response = await _api
+    final response = await _amplifyApi
         .query(
           request: ModelQueries.list<T>(
             modelType,
@@ -89,12 +90,32 @@ class AmplifyApiService<T extends Model>
   Future<PaginatedResult<T>?> listMore(
     GraphQLRequest<PaginatedResult<T>> nextRequest,
   ) async {
-    final response = await _api
+    final response = await _amplifyApi
         .query(
           request: nextRequest,
         )
         .response;
 
     return response.data;
+  }
+
+  @override
+  Future<GraphQLResponse<T>> graphQLRequest({
+    required ModelType<T> modelType,
+    required String operationName,
+    required String document,
+    required Map<String, dynamic> variables,
+  }) async {
+    final response = await _amplifyApi
+        .query(
+            request: GraphQLRequest<T>(
+          modelType: modelType,
+          decodePath: operationName,
+          document: document,
+          variables: variables,
+        ))
+        .response;
+
+    return response;
   }
 }

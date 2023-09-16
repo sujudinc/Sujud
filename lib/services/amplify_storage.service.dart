@@ -8,8 +8,8 @@ import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 
-class StorageService implements StorageServiceAbstract {
-  StorageService({StorageCategory? s3}) : _s3 = s3 ?? Amplify.Storage;
+class AmplifyStorageService implements AmplifyStorageServiceAbstract {
+  AmplifyStorageService({StorageCategory? s3}) : _s3 = s3 ?? Amplify.Storage;
 
   final StorageCategory _s3;
 

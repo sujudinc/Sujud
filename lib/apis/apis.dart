@@ -1,2 +1,1 @@
-export 'mosque.api.dart';
-export 'user.api.dart';
+export 'amplify_model.api.dart';

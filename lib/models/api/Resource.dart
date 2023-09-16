@@ -94,12 +94,30 @@ class Resource extends amplify_core.Model {
     }
   }
   
-  User? get creator {
-    return _creator;
+  User get creator {
+    try {
+      return _creator!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  Mosque? get mosque {
-    return _mosque;
+  Mosque get mosque {
+    try {
+      return _mosque!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   amplify_core.TemporalDateTime? get createdAt {
@@ -110,9 +128,9 @@ class Resource extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Resource._internal({required this.id, required title, description, required type, required url, creator, mosque, createdAt, updatedAt}): _title = title, _description = description, _type = type, _url = url, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Resource._internal({required this.id, required title, description, required type, required url, required creator, required mosque, createdAt, updatedAt}): _title = title, _description = description, _type = type, _url = url, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Resource({String? id, required String title, String? description, required ResourceType type, required String url, User? creator, Mosque? mosque}) {
+  factory Resource({String? id, required String title, String? description, required ResourceType type, required String url, required User creator, required Mosque mosque}) {
     return Resource._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
@@ -178,8 +196,8 @@ class Resource extends amplify_core.Model {
     ModelFieldValue<String?>? description,
     ModelFieldValue<ResourceType>? type,
     ModelFieldValue<String>? url,
-    ModelFieldValue<User?>? creator,
-    ModelFieldValue<Mosque?>? mosque
+    ModelFieldValue<User>? creator,
+    ModelFieldValue<Mosque>? mosque
   }) {
     return Resource._internal(
       id: id,
@@ -296,14 +314,14 @@ class Resource extends amplify_core.Model {
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Resource.CREATOR,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['creatorId'],
       ofModelName: 'User'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: Resource.MOSQUE,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['mosqueId'],
       ofModelName: 'Mosque'
     ));

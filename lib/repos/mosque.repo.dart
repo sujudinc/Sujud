@@ -2,6 +2,7 @@
 import 'dart:async';
 
 // 📦 Package imports:
+import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
@@ -11,17 +12,16 @@ import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/models/models.dart';
 
 class MosqueRepo extends MosqueRepoAbstract {
-  MosqueRepo() : _mosqueApi = GetIt.instance.get<AmplifyApiAbstract<Mosque>>();
+  MosqueRepo()
+      : _mosqueApi = GetIt.instance.get<AmplifyModelApiAbstract<Mosque>>();
 
-  final AmplifyApiAbstract<Mosque> _mosqueApi;
+  final AmplifyModelApiAbstract<Mosque> _mosqueApi;
 
   final _selectedMosque = BehaviorSubject<Mosque?>();
   final _cache = <String, Mosque>{};
   bool _hasMoreItems = false;
 
-  QueryPredicate<Model>? _where;
-  int? _limit;
-  String? _nextToken;
+  GraphQLRequest<PaginatedResult<Mosque>>? _nextRequest;
 
   @override
   Mosque? get selectedMosque => _selectedMosque.valueOrNull;
@@ -35,54 +35,54 @@ class MosqueRepo extends MosqueRepoAbstract {
   List<Mosque> get items => _cache.values.toList();
 
   @override
-  Future<Mosque?> create(Mosque item) async {
-    final response = await _mosqueApi.create(item);
-    final id = response?.id;
+  Future<(Mosque?, Error?)> create(Mosque item) async {
+    final (mosque, error) = await _mosqueApi.create(item);
+    final id = mosque?.id;
 
-    if (response != null && _cache.containsKey(id)) {
-      _cache[id!] = response;
+    if (mosque != null && _cache.containsKey(id)) {
+      _cache[id!] = mosque;
     }
 
-    return response;
+    return (mosque, error);
   }
 
   @override
-  Future<Mosque?> read(String id) async {
+  Future<(Mosque?, List<GraphQLResponseError>?)> read(String id) async {
     if (_cache.containsKey(id)) {
-      return _cache[id];
+      return (_cache[id], null);
     }
 
-    final response = await _mosqueApi.read(id);
+    final (mosque, error) = await _mosqueApi.read(id);
 
-    if (response != null) {
-      _cache[response.id] = response;
+    if (mosque != null) {
+      _cache[id] = mosque;
     }
 
-    return response;
+    return (mosque, error);
   }
 
   @override
-  Future<Mosque?> update(Mosque item) async {
-    final response = await _mosqueApi.update(item);
-    final id = response?.id;
+  Future<(Mosque?, Error?)> update(Mosque item) async {
+    final (mosque, error) = await _mosqueApi.update(item);
+    final id = mosque?.id;
 
-    if (response != null && _cache.containsKey(id)) {
-      _cache[id!] = response;
+    if (mosque != null && _cache.containsKey(id)) {
+      _cache[id!] = mosque;
     }
 
-    return response;
+    return (mosque, error);
   }
 
   @override
-  Future<Mosque?> delete(Mosque item) async {
-    final response = await _mosqueApi.delete(item);
-    final id = response?.id;
+  Future<(Mosque?, Error?)> delete(Mosque item) async {
+    final (mosque, error) = await _mosqueApi.delete(item);
+    final id = mosque?.id;
 
-    if (response != null && _cache.containsKey(id)) {
+    if (mosque != null && _cache.containsKey(id)) {
       _cache.remove(id!);
     }
 
-    return response;
+    return (mosque, error);
   }
 
   @override
@@ -91,10 +91,8 @@ class MosqueRepo extends MosqueRepoAbstract {
     int? limit,
     String? nextToken,
   }) async {
-    _where = where;
-
     final response = await _mosqueApi.list(
-      where: _where,
+      where: where,
       limit: limit,
       nextToken: nextToken,
     );
@@ -103,8 +101,8 @@ class MosqueRepo extends MosqueRepoAbstract {
       return;
     }
 
-    _hasMoreItems = response.nextToken != null;
-    _nextToken = response.nextToken;
+    _hasMoreItems = response.hasNextResult;
+    _nextRequest = response.requestForNextResult;
 
     for (final user in response.items) {
       if (user != null) {
@@ -119,18 +117,16 @@ class MosqueRepo extends MosqueRepoAbstract {
       return;
     }
 
-    final response = await _mosqueApi.list(
-      where: _where,
-      limit: _limit,
-      nextToken: _nextToken,
+    final response = await _mosqueApi.listMore(
+      nextRequest: _nextRequest!,
     );
 
     if (response == null) {
       return;
     }
 
-    _hasMoreItems = response.nextToken != null;
-    _nextToken = response.nextToken;
+    _hasMoreItems = response.hasNextResult;
+    _nextRequest = response.requestForNextResult;
 
     for (final user in response.items) {
       if (user != null) {
@@ -143,8 +139,6 @@ class MosqueRepo extends MosqueRepoAbstract {
   void clearCache() {
     _cache.clear();
     _hasMoreItems = false;
-    _where = null;
-    _limit = null;
-    _nextToken = null;
+    _nextRequest = null;
   }
 }

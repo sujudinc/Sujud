@@ -23,23 +23,17 @@ class AdminHomePage extends StatefulWidget {
 
 class _AdminHomePagePageState extends State<AdminHomePage> {
   final _navigation = GetIt.instance.get<NavigationUtilityAbstract>();
+  final _homeCubit = HomePageCubit();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _homeCubit.hydrate();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final authCubit = context.read<AuthCubit>();
-    final currentUser = authCubit.currentUser;
-    final createdMosques = currentUser?.createdMosques ?? <Mosque>[];
-
-    if (currentUser != null &&
-        currentUser.type == UserType.ADMIN &&
-        createdMosques.isEmpty) {
-      
-    }
-
-    return _buildTabView(context);
-  }
-
-  Widget _buildTabView(BuildContext context) {
     final tabs = _createTabs(context);
     final icons = tabs.keys.toList();
     final views = tabs.values.toList();
@@ -48,18 +42,21 @@ class _AdminHomePagePageState extends State<AdminHomePage> {
       tabs.keys.toList(),
     );
 
-    return PATabScaffold(
-      icons: icons,
-      views: views,
-      onTap: (index) {
-        if (index != currentTabIndex) {
-          _navigation.goRoute(
-            route: icons[index].route,
-          );
-        }
-      },
-      tabBuilder: (context, index) => views[index],
-      currentIndex: currentTabIndex,
+    return BlocProvider<HomePageCubit>(
+      create: (context) => _homeCubit,
+      child: PATabScaffold(
+        icons: icons,
+        views: views,
+        onTap: (index) {
+          if (index != currentTabIndex) {
+            _navigation.goRoute(
+              route: icons[index].route,
+            );
+          }
+        },
+        tabBuilder: (context, index) => views[index],
+        currentIndex: currentTabIndex,
+      ),
     );
   }
 
@@ -72,7 +69,9 @@ class _AdminHomePagePageState extends State<AdminHomePage> {
         icon: const Icon(Icons.dashboard_outlined),
         activeIcon: const Icon(Icons.dashboard),
         label: i18n.tabDashboard,
-      ): const DashboardTab(),
+      ): _homeCubit.selectedMosque == null
+          ? const DashboardTab()
+          : const DashboardTab(),
       GoItem(
         route: _navigation.navigationRoutes.home.admin.settings.itself,
         icon: const Icon(Icons.settings_outlined),

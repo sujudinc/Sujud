@@ -111,6 +111,17 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
   }
 
   Future<void> create() async {
+    if (state is CreateMosquePageStateLoading ||
+        _name == null ||
+        _description == null ||
+        _images.isNotEmpty ||
+        _address == null ||
+        // _hours == null ||
+        _contactInfo == null ||
+        currentUser == null) {
+      return;
+    }
+
     emit(const CreateMosquePageState.loading());
 
     try {
@@ -120,8 +131,9 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
           description: _description!,
           images: [],
           address: _address!,
-          hours: _hours!,
+          // hours: _hours!,
           contactInfo: _contactInfo!,
+          creator: currentUser!,
         ),
       );
       emit(const CreateMosquePageState.ready());

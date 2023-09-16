@@ -62,3 +62,9 @@ const kContentGap = 20.0;
 const kDateTimeFormat = 'dd MMM yyyy | hh:mm a';
 const kDateFormat = 'dd MMM yyyy';
 const kTimeFormat = 'hh:mm a';
+
+const kAvailableCities = <String>[
+  'Birmingham, UK',
+  'London, UK',
+  'Manchester, UK',
+];

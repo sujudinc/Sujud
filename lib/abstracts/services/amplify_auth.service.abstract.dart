@@ -4,7 +4,7 @@ import 'dart:async';
 // 📦 Package imports:
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
-abstract class AuthServiceAbstract {
+abstract class AmplifyAuthServiceAbstract {
   Future<AuthUser?> get currentUser;
   void userStateChange({
     required Function(AuthUser) onSignedIn,

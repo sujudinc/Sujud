@@ -4,7 +4,7 @@ import 'dart:typed_data';
 // 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
 
-abstract class StorageServiceAbstract {
+abstract class AmplifyStorageServiceAbstract {
   Future<String> delete({
     required String path,
     StorageRemoveOptions? options,

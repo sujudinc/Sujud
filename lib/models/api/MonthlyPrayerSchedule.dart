@@ -90,12 +90,30 @@ class MonthlyPrayerSchedule extends amplify_core.Model {
     }
   }
   
-  User? get creator {
-    return _creator;
+  User get creator {
+    try {
+      return _creator!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
-  Mosque? get mosque {
-    return _mosque;
+  Mosque get mosque {
+    try {
+      return _mosque!;
+    } catch(e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
+    }
   }
   
   amplify_core.TemporalDateTime? get createdAt {
@@ -106,9 +124,9 @@ class MonthlyPrayerSchedule extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const MonthlyPrayerSchedule._internal({required this.id, required year, required month, required prayerTimes, creator, mosque, createdAt, updatedAt}): _year = year, _month = month, _prayerTimes = prayerTimes, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
+  const MonthlyPrayerSchedule._internal({required this.id, required year, required month, required prayerTimes, required creator, required mosque, createdAt, updatedAt}): _year = year, _month = month, _prayerTimes = prayerTimes, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory MonthlyPrayerSchedule({String? id, required int year, required int month, required List<PrayerTime> prayerTimes, User? creator, Mosque? mosque}) {
+  factory MonthlyPrayerSchedule({String? id, required int year, required int month, required List<PrayerTime> prayerTimes, required User creator, required Mosque mosque}) {
     return MonthlyPrayerSchedule._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       year: year,
@@ -169,8 +187,8 @@ class MonthlyPrayerSchedule extends amplify_core.Model {
     ModelFieldValue<int>? year,
     ModelFieldValue<int>? month,
     ModelFieldValue<List<PrayerTime>>? prayerTimes,
-    ModelFieldValue<User?>? creator,
-    ModelFieldValue<Mosque?>? mosque
+    ModelFieldValue<User>? creator,
+    ModelFieldValue<Mosque>? mosque
   }) {
     return MonthlyPrayerSchedule._internal(
       id: id,
@@ -283,14 +301,14 @@ class MonthlyPrayerSchedule extends amplify_core.Model {
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: MonthlyPrayerSchedule.CREATOR,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['creatorId'],
       ofModelName: 'User'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
       key: MonthlyPrayerSchedule.MOSQUE,
-      isRequired: false,
+      isRequired: true,
       targetNames: ['mosqueId'],
       ofModelName: 'Mosque'
     ));
