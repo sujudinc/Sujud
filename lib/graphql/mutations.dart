@@ -1,151 +1,128 @@
-class Mutations {
-  static const createMosque = 'createMosque';
-  static const createMosqueDocument = '''
-    mutation CreateMosque(
-      \$input: CreateMosqueInput!
-      \$condition: ModelMosqueConditionInput
-    ) {
-      $createMosque(input: \$input, condition: \$condition) {
-        id
-        name
-        description
-        images
-        liveVideoUrl
-        creatorId
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
-      }
-    }
-  ''';
+// 🌎 Project imports:
+import 'package:sujud/graphql/graphql.dart';
 
-  static const updateMosque = 'updateMosque';
-  static const updateMosqueDocument = '''
-    mutation UpdateMosque(
-      \$input: UpdateMosqueInput!
-      \$condition: ModelMosqueConditionInput
+final createAnnouncement = '''
+  mutation CreateAnnouncement(
+    \$input: CreateAnnouncementInput!
+    \$condition: ModelAnnouncementConditionInput
+  ) {
+    ${CreateOperations.createAnnouncement.name}(
+      input: \$input,
+      condition: \$condition
     ) {
-      $updateMosque(input: \$input, condition: \$condition) {
-        id
-        name
-        description
-        images
-        liveVideoUrl
-        creatorId
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
-      }
+      $announcementDocument
     }
-  ''';
+  }
+''';
 
-  static const deleteMosque = 'deleteMosque';
-  static const deleteMosqueDocument = '''
-    mutation DeleteMosque(
-      \$input: DeleteMosqueInput!
-      \$condition: ModelMosqueConditionInput
+final updateAnnouncement = '''
+  mutation UpdateAnnouncement(
+    \$input: UpdateAnnouncementInput!
+    \$condition: ModelAnnouncementConditionInput
+  ) {
+    ${UpdateOperations.updateAnnouncement.name}(
+      input: \$input,
+      condition: \$condition
     ) {
-      $deleteMosque(input: \$input, condition: \$condition) {
-        id
-        name
-        description
-        images
-        liveVideoUrl
-        creatorId
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
-      }
+      $announcementDocument
     }
-  ''';
+  }
+''';
 
-  static const createUser = 'createUser';
-  static const createUserDocument = '''
-    mutation CreateUser(
-      \$input: CreateUserInput!
-      \$condition: ModelUserConditionInput
+final deleteAnnouncement = '''
+  mutation DeleteAnnouncement(
+    \$input: DeleteAnnouncementInput!
+    \$condition: ModelAnnouncementConditionInput
+  ) {
+    ${DeleteOperations.deleteAnnouncement.name}(
+      input: \$input,
+      condition: \$condition
     ) {
-      \$createUser(input: \$input, condition: \$condition) {
-        id
-        selfie
-        firstName
-        lastName
-        email
-        phone
-        type
-        status
-        stripeCustomerId
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
+      $announcementDocument
     }
-  ''';
+  }
+''';
 
-  static const updateUser = 'updateUser';
-  static const updateUserDocument = '''
-    mutation UpdateUser(
-      \$input: UpdateUserInput!
-      \$condition: ModelUserConditionInput
+final createMosque = '''
+  mutation CreateMosque(
+    \$input: CreateMosqueInput!
+    \$condition: ModelMosqueConditionInput
+  ) {
+    ${CreateOperations.createMosque.name}(
+      input: \$input,
+      condition: \$condition
     ) {
-      \$updateUser(input: \$input, condition: \$condition) {
-        id
-        selfie
-        firstName
-        lastName
-        email
-        phone
-        type
-        status
-        stripeCustomerId
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
+      $mosqueDocument
     }
-  ''';
+  }
+''';
 
-  static const deleteUser = 'deleteUser';
-  static const deleteUserDocument = '''
-    mutation DeleteUser(
-      \$input: DeleteUserInput!
-      \$condition: ModelUserConditionInput
+final updateMosque = '''
+  mutation UpdateMosque(
+    \$input: UpdateMosqueInput!
+    \$condition: ModelMosqueConditionInput
+  ) {
+    ${UpdateOperations.updateMosque.name}(
+      input: \$input,
+      condition: \$condition
     ) {
-      \$deleteUser(input: \$input, condition: \$condition) {
-        id
-        selfie
-        firstName
-        lastName
-        email
-        phone
-        type
-        status
-        stripeCustomerId
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
+      $mosqueDocument
     }
-  ''';
-}
+  }
+''';
+
+final deleteMosque = '''
+  mutation DeleteMosque(
+    \$input: DeleteMosqueInput!
+    \$condition: ModelMosqueConditionInput
+  ) {
+    ${DeleteOperations.deleteMosque.name}(
+      input: \$input,
+      condition: \$condition
+    ) {
+      $mosqueDocument
+    }
+  }
+''';
+
+final createUser = '''
+  mutation CreateUser(
+    \$input: CreateUserInput!
+    \$condition: ModelUserConditionInput
+  ) {
+    ${CreateOperations.createUser.name}(
+      input: \$input,
+      condition: \$condition
+     ) {
+      $userDocument
+    }
+  }
+''';
+
+final updateUser = '''
+  mutation UpdateUser(
+    \$input: UpdateUserInput!
+    \$condition: ModelUserConditionInput
+  ) {
+    ${UpdateOperations.updateUser.name}(
+      input: \$input,
+      condition: \$condition
+    ) {
+      $userDocument
+    }
+  }
+''';
+
+final deleteUser = '''
+  mutation DeleteUser(
+    \$input: DeleteUserInput!
+    \$condition: ModelUserConditionInput
+  ) {
+    ${DeleteOperations.deleteUser.name}(
+      input: \$input,
+      condition: \$condition
+    ) {
+      $userDocument
+    }
+  }
+''';

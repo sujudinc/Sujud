@@ -4,6 +4,7 @@ export 'auth/login.page.dart';
 export 'auth/mfa.page.dart';
 export 'auth/register.page.dart';
 export 'home/admin/home.page.dart';
+export 'home/admin/pages/create_announcement.page.dart';
 export 'home/admin/pages/create_mosque.page.dart';
 export 'home/admin/pages/create_mosque_field.page.dart';
 export 'home/admin/pages/mosque_dashboard.page.dart';

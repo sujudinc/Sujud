@@ -53,7 +53,8 @@ class MosqueHoursField implements MosqueFormField<Hours?> {
                     formKey: formKey,
                     values: values,
                     onChanged: (value) => _onChangeDay(
-                      field,
+                      context,
+                      field: field,
                       dayType: day,
                       values: values,
                       value: value,
@@ -78,7 +79,7 @@ class MosqueHoursField implements MosqueFormField<Hours?> {
     required ValueChanged<String?> onChanged,
   }) {
     final i18n = context.i18n;
-    final day = dayType.name.toLowerCase();
+    final day = dayType.name(context).toLowerCase();
     final dayValue = values[day] ?? <String, dynamic>{};
     final List<Map<String, dynamic>> operatingHours =
         dayValue['operatingHours'] != null
@@ -96,6 +97,7 @@ class MosqueHoursField implements MosqueFormField<Hours?> {
             IconButton(
               icon: SujudIcon.add(),
               onPressed: () => _addNewHoursEntry(
+                context,
                 dayType,
                 values,
                 onChanged,
@@ -174,22 +176,23 @@ class MosqueHoursField implements MosqueFormField<Hours?> {
   }
 
   void _onChangeDay(
-    FormFieldState<Hours> field, {
+    BuildContext context, {
+    required FormFieldState<Hours> field,
     required DayType dayType,
     required Map<String, dynamic> values,
     String? value,
   }) {
     if (value != null && value.isNotEmpty) {
       final hours = List<Map<String, dynamic>>.from(
-        values[dayType.name.toLowerCase()]['operatingHours'],
+        values[dayType.name(context).toLowerCase()]['operatingHours'],
       );
 
-      values[dayType.name.toLowerCase()] = {
-        'type': dayType.name,
+      values[dayType.name(context).toLowerCase()] = {
+        'type': dayType.name(context),
         'operatingHours': hours,
       };
     } else {
-      values.remove(dayType.name.toLowerCase());
+      values.remove(dayType.name(context).toLowerCase());
     }
 
     final monday = values['monday'] as Map<String, dynamic>?;
@@ -248,11 +251,12 @@ class MosqueHoursField implements MosqueFormField<Hours?> {
   }
 
   void _addNewHoursEntry(
+    BuildContext context,
     DayType dayType,
     Map<String, dynamic> values,
     ValueChanged<String?> onChanged,
   ) {
-    final day = dayType.name.toLowerCase();
+    final day = dayType.name(context).toLowerCase();
     final hours = (values[day] as Map<String, dynamic>?) ??
         {
           'type': dayType.name,

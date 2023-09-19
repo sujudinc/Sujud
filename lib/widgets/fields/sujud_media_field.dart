@@ -1,11 +1,9 @@
 // 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/extensions/extensions.dart';
@@ -94,7 +92,10 @@ class SujudMediaField extends StatelessWidget
     BuildContext context,
     FormFieldState field,
   ) async {
-    final pickedFile = await _media.imageFromGallery;
+    final pickedFile = await _media.image(
+      source: Source.gallery,
+      path: StoragePath.user,
+    );
 
     field.didChange(pickedFile);
   }

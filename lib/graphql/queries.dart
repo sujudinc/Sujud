@@ -1,55 +1,89 @@
-import 'package:sujud/graphql/documents.dart';
+// 🌎 Project imports:
+import 'package:sujud/graphql/graphql.dart';
 
-class Queries {
-  static const getUser = 'getUser';
-  static const getUserQuery = '''
-  query GetUser(\$id: ID!) {
-    $getUser(id: \$id) {
-      ${GqlDocuments.userDocument}
+final getAnnouncement = '''
+  query GetAnnouncement(\$id: ID!) {
+    ${GetOperations.getAnnouncement.name}(id: \$id) {
+      $announcementDocument
     }
   }
 ''';
-  static const listUsers = 'listUsers';
-  static const listUsersQuery = '''
-    query ListUsers(
-      \$filter: ModelUserFilterInput
-      \$limit: Int
-      \$nextToken: String
-    ) {
-      $listUsers(filter: \$filter, limit: \$limit, nextToken: \$nextToken) {
-        items {
-          ${GqlDocuments.userDocument}
-        }
-        nextToken
-        startedAt
-        __typename
-      }
-    }
-  ''';
 
-  static const getMosque = 'getMosque';
-  static const getMosqueQuery = '''
+final getMosque = '''
   query GetMosque(\$id: ID!) {
-    $getMosque(id: \$id) {
-      ${GqlDocuments.mosqueDocument}
+    ${GetOperations.getMosque.name}(id: \$id) {
+      $mosqueDocument
     }
   }
 ''';
-  static const listMosques = 'listMosques';
-  static const listMosquesQuery = '''
-    query ListMosques(
-      \$filter: ModelMosqueFilterInput
-      \$limit: Int
-      \$nextToken: String
-    ) {
-      $listMosques(filter: \$filter, limit: \$limit, nextToken: \$nextToken) {
-        items {
-          ${GqlDocuments.mosqueDocument}
-        }
-        nextToken
-        startedAt
-        __typename
-      }
+
+final getUser = '''
+  query GetUser(\$id: ID!) {
+    ${GetOperations.getUser.name}(id: \$id) {
+      $userDocument
     }
-  ''';
-}
+  }
+''';
+
+final listAnnouncements = '''
+  query ListAnnouncements(
+    \$filter: ModelAnnouncementFilterInput
+    \$limit: Int
+    \$nextToken: String
+  ) {
+    ${ListOperations.listAnnouncements.name}(
+      filter: \$filter,
+      limit: \$limit,
+      nextToken: \$nextToken
+    ) {
+      items {
+        $announcementDocument
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+ ''';
+
+final listMosques = '''
+  query ListMosques(
+    \$filter: ModelMosqueFilterInput
+    \$limit: Int
+    \$nextToken: String
+  ) {
+    ${ListOperations.listMosques.name}(
+      filter: \$filter,
+      limit: \$limit,
+      nextToken: \$nextToken
+    ) {
+      items {
+        $mosqueDocument
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+ ''';
+
+final listUsers = '''
+  query ListUsers(
+    \$filter: ModelUserFilterInput
+    \$limit: Int
+    \$nextToken: String
+  ) {
+    ${ListOperations.listUsers.name}(
+      filter: \$filter,
+      limit: \$limit,
+      nextToken: \$nextToken
+    ) {
+      items {
+        $userDocument
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+ ''';

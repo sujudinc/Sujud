@@ -3,10 +3,8 @@ import 'dart:async';
 
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:intl/intl.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/i18n/messages_all.dart';
 
@@ -88,16 +86,52 @@ class AppLocalizations {
         desc: 'Create Mosque button text',
       );
 
+  String get titleCreateAnnouncement => Intl.message(
+        'Create an Announcement',
+        name: 'createAnnouncement',
+        desc: 'Create Announcement button text',
+      );
+
   String get titleMosques => Intl.message(
         'Mosques',
         name: 'mosques',
         desc: 'Mosques button text',
       );
 
+  String get tabPrayerTimes => Intl.message(
+        'Prayer Times',
+        name: 'prayerTimes',
+        desc: 'Prayer Times button text',
+      );
+
+  String get tabAnnouncements => Intl.message(
+        'Announcements',
+        name: 'announcements',
+        desc: 'Announcements button text',
+      );
+
   String get buttonNext => Intl.message(
         'Next',
         name: 'next',
         desc: 'Next button text',
+      );
+
+  String get buttonSend => Intl.message(
+        'Send',
+        name: 'send',
+        desc: 'Send button text',
+      );
+
+  String get buttonCreateAnnouncement => Intl.message(
+        'Create an Announcement',
+        name: 'createAnnouncement',
+        desc: 'Create Announcement button text',
+      );
+
+  String get buttonCreatePrayerTime => Intl.message(
+        'Schedule Your Prayer Times',
+        name: 'createPrayerTime',
+        desc: 'Create Prayer Time button text',
       );
 
   String get buttonAddImage => Intl.message(

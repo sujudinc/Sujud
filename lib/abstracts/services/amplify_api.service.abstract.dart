@@ -1,35 +1,54 @@
 // 📦 Package imports:
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
+// 🌎 Project imports:
+import 'package:sujud/graphql/graphql.dart';
 
 abstract class AmplifyApiServiceAbstract<T extends Model> {
-  Future<T?> create(T item);
-
-  Future<T?> read(
-    ModelType<T> modelType, {
-    int? limit,
-    QueryPredicate? where,
+  Future<GraphQLResponse<T>> get({
+    required ModelType<T> modelType,
+    required GetOperations operation,
+    required String id,
   });
 
-  Future<T?> update(T item);
-
-  Future<T?> delete(T item);
-
-  Future<PaginatedResult<T>?> list(
-    ModelType<T> modelType, {
-    QueryPredicate? where,
+  Future<(GraphQLListResponse<T>, List<GraphQLResponseError>)> list({
+    required ModelType<T> modelType,
+    required ListOperations operation,
+    Map<String, dynamic>? filter,
     int? limit,
     String? nextToken,
   });
 
-  Future<PaginatedResult<T>?> listMore(
-    GraphQLRequest<PaginatedResult<T>> nextRequest,
-  );
-
-  Future<GraphQLResponse<T>> graphQLRequest({
+  Future<GraphQLResponse<T>> create({
     required ModelType<T> modelType,
-    required String operationName,
-    required String document,
-    required Map<String, dynamic> variables,
+    required CreateOperations operation,
+    required Map<String, dynamic> input,
+    Map<String, dynamic>? condition,
   });
+
+  Future<GraphQLResponse<T>> update({
+    required ModelType<T> modelType,
+    required UpdateOperations operation,
+    required Map<String, dynamic> input,
+    Map<String, dynamic>? condition,
+  });
+
+  Future<GraphQLResponse<T>> delete({
+    required ModelType<T> modelType,
+    required DeleteOperations operation,
+    required String id,
+    Map<String, dynamic>? condition,
+  });
+}
+
+class GraphQLListResponse<T extends Model> {
+  GraphQLListResponse({
+    this.items,
+    this.nextToken,
+    this.startedAt,
+  });
+
+  final List<T>? items;
+  final String? nextToken;
+  final int? startedAt;
 }

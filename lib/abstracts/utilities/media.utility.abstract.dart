@@ -1,10 +1,21 @@
-// 🎯 Dart imports:
-import 'dart:typed_data';
+import 'package:sujud/abstracts/abstracts.dart';
+import 'package:sujud/models/models.dart';
 
 abstract class MediaUtilityAbstract {
-  Future<Uint8List?> get imageFromCamera;
-  Future<Uint8List?> get imageFromGallery;
-  Future<List<Uint8List>> get imagesFromGallery;
-  Future<Uint8List?> get videoFromCamera;
-  Future<Uint8List?> get videoFromGallery;
+  Future<List<AttributedFile>> multiImages({
+    required StoragePath path,
+  });
+  Future<AttributedFile?> image({
+    required Source source,
+    required StoragePath path,
+  });
+  Future<AttributedFile?> video({
+    required Source source,
+    required StoragePath path,
+  });
+}
+
+enum Source {
+  camera,
+  gallery,
 }

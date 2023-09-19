@@ -114,6 +114,11 @@ class AdminDashboardRoutes {
     location: '/admin/dashboard',
   );
   final createMosque = CreateMosqueRoutes();
+  final createAnnouncement = NavigationRoute(
+    name: 'create_announcement',
+    path: 'create-announcement',
+    location: '/admin/dashboard/create-announcement',
+  );
 }
 
 class CreateMosqueRoutes {

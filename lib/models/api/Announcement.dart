@@ -19,18 +19,18 @@
 
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
-// 📦 Package imports:
-import 'package:amplify_core/amplify_core.dart' as amplify_core;
-
-// 🌎 Project imports:
 import 'ModelProvider.dart';
+import 'package:amplify_core/amplify_core.dart' as amplify_core;
+import 'package:collection/collection.dart';
+
 
 /** This is an auto generated class representing the Announcement type in your schema. */
 class Announcement extends amplify_core.Model {
   static const classType = const _AnnouncementModelType();
   final String id;
   final String? _title;
-  final String? _content;
+  final String? _body;
+  final List<String>? _images;
   final User? _creator;
   final Mosque? _mosque;
   final amplify_core.TemporalDateTime? _createdAt;
@@ -62,9 +62,9 @@ class Announcement extends amplify_core.Model {
     }
   }
   
-  String get content {
+  String get body {
     try {
-      return _content!;
+      return _body!;
     } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
           amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -73,6 +73,10 @@ class Announcement extends amplify_core.Model {
           underlyingException: e.toString()
           );
     }
+  }
+  
+  List<String>? get images {
+    return _images;
   }
   
   User get creator {
@@ -109,13 +113,14 @@ class Announcement extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Announcement._internal({required this.id, required title, required content, required creator, required mosque, createdAt, updatedAt}): _title = title, _content = content, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Announcement._internal({required this.id, required title, required body, images, required creator, required mosque, createdAt, updatedAt}): _title = title, _body = body, _images = images, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Announcement({String? id, required String title, required String content, required User creator, required Mosque mosque}) {
+  factory Announcement({String? id, required String title, required String body, List<String>? images, required User creator, required Mosque mosque}) {
     return Announcement._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
-      content: content,
+      body: body,
+      images: images != null ? List<String>.unmodifiable(images) : images,
       creator: creator,
       mosque: mosque);
   }
@@ -130,7 +135,8 @@ class Announcement extends amplify_core.Model {
     return other is Announcement &&
       id == other.id &&
       _title == other._title &&
-      _content == other._content &&
+      _body == other._body &&
+      DeepCollectionEquality().equals(_images, other._images) &&
       _creator == other._creator &&
       _mosque == other._mosque;
   }
@@ -145,7 +151,8 @@ class Announcement extends amplify_core.Model {
     buffer.write("Announcement {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
-    buffer.write("content=" + "$_content" + ", ");
+    buffer.write("body=" + "$_body" + ", ");
+    buffer.write("images=" + (_images != null ? _images!.toString() : "null") + ", ");
     buffer.write("creator=" + (_creator != null ? _creator!.toString() : "null") + ", ");
     buffer.write("mosque=" + (_mosque != null ? _mosque!.toString() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
@@ -155,25 +162,28 @@ class Announcement extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Announcement copyWith({String? title, String? content, User? creator, Mosque? mosque}) {
+  Announcement copyWith({String? title, String? body, List<String>? images, User? creator, Mosque? mosque}) {
     return Announcement._internal(
       id: id,
       title: title ?? this.title,
-      content: content ?? this.content,
+      body: body ?? this.body,
+      images: images ?? this.images,
       creator: creator ?? this.creator,
       mosque: mosque ?? this.mosque);
   }
   
   Announcement copyWithModelFieldValues({
     ModelFieldValue<String>? title,
-    ModelFieldValue<String>? content,
+    ModelFieldValue<String>? body,
+    ModelFieldValue<List<String>?>? images,
     ModelFieldValue<User>? creator,
     ModelFieldValue<Mosque>? mosque
   }) {
     return Announcement._internal(
       id: id,
       title: title == null ? this.title : title.value,
-      content: content == null ? this.content : content.value,
+      body: body == null ? this.body : body.value,
+      images: images == null ? this.images : images.value,
       creator: creator == null ? this.creator : creator.value,
       mosque: mosque == null ? this.mosque : mosque.value
     );
@@ -182,7 +192,8 @@ class Announcement extends amplify_core.Model {
   Announcement.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
       _title = json['title'],
-      _content = json['content'],
+      _body = json['body'],
+      _images = json['images']?.cast<String>(),
       _creator = json['creator']?['serializedData'] != null
         ? User.fromJson(new Map<String, dynamic>.from(json['creator']['serializedData']))
         : null,
@@ -193,13 +204,14 @@ class Announcement extends amplify_core.Model {
       _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'title': _title, 'content': _content, 'creator': _creator?.toJson(), 'mosque': _mosque?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'title': _title, 'body': _body, 'images': _images, 'creator': _creator?.toJson(), 'mosque': _mosque?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
     'id': id,
     'title': _title,
-    'content': _content,
+    'body': _body,
+    'images': _images,
     'creator': _creator,
     'mosque': _mosque,
     'createdAt': _createdAt,
@@ -209,7 +221,8 @@ class Announcement extends amplify_core.Model {
   static final amplify_core.QueryModelIdentifier<AnnouncementModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<AnnouncementModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final TITLE = amplify_core.QueryField(fieldName: "title");
-  static final CONTENT = amplify_core.QueryField(fieldName: "content");
+  static final BODY = amplify_core.QueryField(fieldName: "body");
+  static final IMAGES = amplify_core.QueryField(fieldName: "images");
   static final CREATOR = amplify_core.QueryField(
     fieldName: "creator",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'User'));
@@ -258,9 +271,16 @@ class Announcement extends amplify_core.Model {
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Announcement.CONTENT,
+      key: Announcement.BODY,
       isRequired: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Announcement.IMAGES,
+      isRequired: false,
+      isArray: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.collection, ofModelName: amplify_core.ModelFieldTypeEnum.string.name)
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(

@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/configs/configs.dart';
 
@@ -45,6 +44,7 @@ class PAScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Stack(
+        fit: StackFit.expand,
         children: <Widget>[
           GestureDetector(
             onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
@@ -65,10 +65,7 @@ class PAScaffold extends StatelessWidget {
       );
 
   Widget _iosScaffold(BuildContext context) => CupertinoPageScaffold(
-        backgroundColor: backgroundColor ??
-            _backgroundColor(
-              Theme.of(context),
-            ),
+        backgroundColor: backgroundColor ?? _backgroundColor(Theme.of(context)),
         navigationBar: CupertinoNavigationBar(
           leading: _leading(context),
           automaticallyImplyLeading: false,
@@ -76,29 +73,20 @@ class PAScaffold extends StatelessWidget {
           middle: _middle(Theme.of(context)),
           trailing: _trailing(context),
           border: _borderless(),
-          backgroundColor: appBarColor ??
-              _backgroundColor(
-                Theme.of(context),
-              ),
+          backgroundColor: appBarColor ?? _backgroundColor(Theme.of(context)),
         ),
         child: _body(context),
       );
 
   Widget _androidScaffold(BuildContext context) => Scaffold(
-        backgroundColor: backgroundColor ??
-            _backgroundColor(
-              Theme.of(context),
-            ),
+        backgroundColor: backgroundColor ?? _backgroundColor(Theme.of(context)),
         appBar: AppBar(
           leading: _leading(context),
           automaticallyImplyLeading: false,
           title: _middle(Theme.of(context)),
           actions: trailing,
           elevation: 0.0,
-          backgroundColor: appBarColor ??
-              _backgroundColor(
-                Theme.of(context),
-              ),
+          backgroundColor: appBarColor ?? _backgroundColor(Theme.of(context)),
           centerTitle: centerTitle,
         ),
         extendBody: true,
@@ -106,11 +94,6 @@ class PAScaffold extends StatelessWidget {
       );
 
   Widget _largeScaffold(BuildContext context) => Material(
-        // backgroundColor: backgroundColor ??
-        //     _backgroundColor(
-        //       Theme.of(context),
-        //     ),
-        // extendBody: true,
         child: CustomScrollView(
           controller: scrollController,
           physics: kScrollPhysics,
@@ -170,11 +153,7 @@ class PAScaffold extends StatelessWidget {
         );
 
   Widget _middle(ThemeData theme) => Material(
-        child: middle ??
-            Text(
-              title,
-              style: theme.appBarTheme.titleTextStyle,
-            ),
+        child: middle ?? Text(title),
       );
 
   Widget? _trailing(BuildContext context) => trailing.isEmpty

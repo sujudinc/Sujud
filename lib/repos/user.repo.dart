@@ -1,14 +1,12 @@
 // 🎯 Dart imports:
 import 'dart:async';
 
-// 🐦 Flutter imports:
-import 'package:flutter/foundation.dart';
-
 // 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
+// 🐦 Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/models/models.dart';
@@ -27,7 +25,9 @@ class UserRepo extends UserRepoAbstract {
   final _cache = <String, User>{};
   bool _hasMoreItems = false;
 
-  GraphQLRequest<PaginatedResult<User>>? _nextRequest;
+  Map<String, dynamic>? _filter;
+  int? _limit;
+  String? _nextToken;
 
   Future<void> _init() async {
     try {
@@ -61,107 +61,115 @@ class UserRepo extends UserRepoAbstract {
   List<User> get items => _cache.values.toList();
 
   @override
-  Future<(User?, Error?)> create(User item) async {
-    final (user, error) = await _userApi.create(item);
+  Future<(User?, List<GraphQLResponseError>)> get(String id) async {
+    if (_cache.containsKey(id)) {
+      return (_cache[id], <GraphQLResponseError>[]);
+    }
+
+    final (user, errors) = await _userApi.get(id);
+
+    if (user != null) {
+      _cache[id] = user;
+    }
+
+    return (user, errors);
+  }
+
+  @override
+  Future<(List<User>?, List<GraphQLResponseError>)> list({
+    Map<String, dynamic>? filter,
+    int? limit,
+    String? nextToken,
+  }) async {
+    _filter = filter;
+    _limit = limit;
+    _nextToken = nextToken;
+
+    final (response, errors) = await _userApi.list(
+      filter: _filter,
+      limit: _limit,
+      nextToken: _nextToken,
+    );
+
+    _nextToken = response.nextToken;
+
+    if (response.items != null) {
+      for (final item in response.items!) {
+        _cache[item.id] = item;
+      }
+    }
+
+    return (items, errors);
+  }
+
+  @override
+  Future<(List<User>?, List<GraphQLResponseError>)> listMore() async {
+    if (!_hasMoreItems) {
+      return (null, <GraphQLResponseError>[]);
+    }
+
+    final (response, errors) = await _userApi.list(
+      filter: _filter,
+      limit: _limit,
+      nextToken: _nextToken,
+    );
+
+    _nextToken = response.nextToken;
+
+    if (response.items != null) {
+      for (final item in response.items!) {
+        _cache[item.id] = item;
+      }
+    }
+
+    return (items, errors);
+  }
+
+  @override
+  Future<(User?, List<GraphQLResponseError>)> create(
+    User item, {
+    List<AttributedFile>? images,
+  }) async {
+    final (user, errors) = await _userApi.create(item);
     final id = user?.id;
 
     if (user != null) {
       _cache[id!] = user;
     }
 
-    return (user, error);
+    return (user, errors);
   }
 
   @override
-  Future<(User?, List<GraphQLResponseError>?)> read(String id) async {
-    if (_cache.containsKey(id)) {
-      return (_cache[id], null);
-    }
-
-    final (user, error) = await _userApi.read(id);
-
-    if (user != null) {
-      _cache[id] = user;
-    }
-
-    return (user, error);
-  }
-
-  @override
-  Future<(User?, Error?)> update(User item) async {
-    final (user, error) = await _userApi.update(item);
+  Future<(User?, List<GraphQLResponseError>)> update(
+    User item, {
+    List<AttributedFile>? images,
+  }) async {
+    final (user, errors) = await _userApi.update(item);
 
     if (user != null) {
       _cache[user.id] = user;
     }
 
-    return (user, error);
+    return (user, errors);
   }
 
   @override
-  Future<(User?, Error?)> delete(User item) async {
-    final (user, error) = await _userApi.delete(item);
+  Future<(User?, List<GraphQLResponseError>)> delete(User item) async {
+    final (user, errors) = await _userApi.delete(item.id);
 
     if (user != null) {
       _cache.remove(user.id);
     }
 
-    return (user, error);
-  }
-
-  @override
-  Future<void> list({
-    QueryPredicate<Model>? where,
-    int? limit,
-    String? nextToken,
-  }) async {
-    final response = await _userApi.list(
-      where: where,
-      limit: limit,
-      nextToken: nextToken,
-    );
-
-    if (response == null) {
-      return;
-    }
-
-    _hasMoreItems = response.hasNextResult;
-    _nextRequest = response.requestForNextResult;
-
-    for (final user in response.items) {
-      if (user != null) {
-        _cache[user.id] = user;
-      }
-    }
-  }
-
-  @override
-  Future<void> listMore() async {
-    if (!_hasMoreItems) {
-      return;
-    }
-
-    final response = await _userApi.listMore(nextRequest: _nextRequest!);
-
-    if (response == null) {
-      return;
-    }
-
-    _hasMoreItems = response.hasNextResult;
-    _nextRequest = response.requestForNextResult;
-
-    for (final user in response.items) {
-      if (user != null) {
-        _cache[user.id] = user;
-      }
-    }
+    return (user, errors);
   }
 
   @override
   void clearCache() {
     _cache.clear();
     _hasMoreItems = false;
-    _nextRequest = null;
+    _nextToken = null;
   }
 
   @override
@@ -337,7 +345,7 @@ class UserRepo extends UserRepoAbstract {
   }
 
   Future<void> _loggedIn(AuthUser authUser) async {
-    final (user, _) = await read(authUser.userId);
+    final (user, _) = await get(authUser.userId);
 
     _currentUser.add(user);
   }

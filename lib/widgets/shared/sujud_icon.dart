@@ -4,18 +4,17 @@ import 'dart:io';
 // 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:unicons/unicons.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/extensions/extensions.dart';
+// 📦 Package imports:
+import 'package:unicons/unicons.dart';
 
 class SujudIcon extends StatelessWidget {
   const SujudIcon(
     this.icon, {
     this.ios,
     this.android,
+    this.color,
     this.size,
     super.key,
   });
@@ -23,6 +22,7 @@ class SujudIcon extends StatelessWidget {
   final IconData icon;
   final IconData? ios;
   final IconData? android;
+  final Color? color;
   final double? size;
 
   factory SujudIcon.add({double? size}) => SujudIcon(
@@ -36,7 +36,11 @@ class SujudIcon extends StatelessWidget {
         android: Icons.arrow_back_rounded,
       );
 
-  factory SujudIcon.close() => const SujudIcon(Icons.close);
+  factory SujudIcon.close({Color? color, double? size}) => SujudIcon(
+        Icons.close,
+        color: color,
+        size: size,
+      );
 
   factory SujudIcon.facebook() => const SujudIcon(UniconsLine.facebook);
 
@@ -88,6 +92,16 @@ class SujudIcon extends StatelessWidget {
 
   factory SujudIcon.dashboard() => const SujudIcon(UniconsLine.archway);
 
+  factory SujudIcon.image({double? size}) => SujudIcon(
+        UniconsLine.image_plus,
+        size: size,
+      );
+
+  factory SujudIcon.camera({double? size}) => SujudIcon(
+        UniconsLine.camera_plus,
+        size: size,
+      );
+
   factory SujudIcon.settings() => const SujudIcon(UniconsLine.cog);
 
   factory SujudIcon.menu() => const SujudIcon(UniconsLine.bars);
@@ -112,8 +126,9 @@ class SujudIcon extends StatelessWidget {
         size: size,
       );
 
-  factory SujudIcon.trash({double? size}) => SujudIcon(
+  factory SujudIcon.trash({Color? color, double? size}) => SujudIcon(
         UniconsLine.trash_alt,
+        color: color,
         size: size,
       );
 
@@ -124,8 +139,10 @@ class SujudIcon extends StatelessWidget {
             : Platform.isIOS
                 ? ios ?? icon
                 : android ?? icon,
-        color: context.theme.brightness == Brightness.light
-            ? Colors.black
-            : Colors.white,
+        color: color ??
+            (context.theme.brightness == Brightness.light
+                ? Colors.black
+                : Colors.white),
+        size: size,
       );
 }

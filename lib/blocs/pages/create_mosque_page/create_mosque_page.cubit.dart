@@ -1,12 +1,9 @@
-// 🎯 Dart imports:
-import 'dart:typed_data';
-
 // 📦 Package imports:
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/configs/configs.dart';
@@ -30,19 +27,20 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
 
   String? _name;
   String? _description;
-  var _images = <Uint8List>[];
+  final _images = <AttributedFile>[];
   Address? _address;
   Hours? _hours;
   ContactInfo? _contactInfo;
 
   String? get name => _name;
   String? get description => _description;
-  List<Uint8List> get images => _images;
+  List<AttributedFile> get images => _images;
   Address? get location => _address;
   Hours? get hours => _hours;
   ContactInfo? get contactInfo => _contactInfo;
   User? get currentUser => _userRepo.currentUser;
-  NavigationRoutes get routes => _navigation.navigationRoutes;
+  NavigationRoutes get _routes => _navigation.navigationRoutes;
+
   void get back => _navigation.back();
 
   set name(String? value) {
@@ -57,9 +55,9 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
     emit(const CreateMosquePageState.ready());
   }
 
-  set images(List<Uint8List> value) {
+  set images(List<AttributedFile> value) {
     emit(const CreateMosquePageState.loading());
-    _images = value;
+    _images.addAll(value);
     emit(const CreateMosquePageState.ready());
   }
 
@@ -87,7 +85,7 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
   }) async {
     final data = await _navigation.push(
       path: NavigationPath(
-        route: routes.home.admin.dashboard.createMosque.field,
+        route: _routes.home.admin.dashboard.createMosque.field,
         subRoute: 'dashboard',
         queryParameters: <String, String>{
           'fieldName': fieldName,
@@ -127,6 +125,7 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
     try {
       await _mosqueRepo.create(
         Mosque(
+          id: UUID.getUUID(),
           name: _name!,
           description: _description!,
           images: [],
@@ -135,6 +134,7 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
           contactInfo: _contactInfo!,
           creator: currentUser!,
         ),
+        images: _images,
       );
       emit(const CreateMosquePageState.ready());
     } catch (e) {

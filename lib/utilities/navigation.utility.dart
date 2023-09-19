@@ -1,11 +1,9 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sheet/route.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/configs/configs.dart';
@@ -38,8 +36,8 @@ class NavigationUtility implements NavigationUtilityAbstract {
           ),
           routes: <GoRoute>[
             GoRoute(
-              path: homeRoutes.admin.itself.path,
               name: homeRoutes.admin.itself.name,
+              path: homeRoutes.admin.itself.path,
               pageBuilder: (context, state) => MaterialExtendedPage<void>(
                 key: state.pageKey,
                 child: AdminHomePage(
@@ -48,8 +46,8 @@ class NavigationUtility implements NavigationUtilityAbstract {
               ),
               routes: <GoRoute>[
                 GoRoute(
-                  path: adminRoutes.dashboard.createMosque.itself.path,
                   name: adminRoutes.dashboard.createMosque.itself.name,
+                  path: adminRoutes.dashboard.createMosque.itself.path,
                   pageBuilder: (context, state) => CupertinoSheetPage<void>(
                     key: state.pageKey,
                     child: CreateMosquePage(
@@ -58,8 +56,8 @@ class NavigationUtility implements NavigationUtilityAbstract {
                   ),
                   routes: <GoRoute>[
                     GoRoute(
-                      path: adminRoutes.dashboard.createMosque.field.path,
                       name: adminRoutes.dashboard.createMosque.field.name,
+                      path: adminRoutes.dashboard.createMosque.field.path,
                       pageBuilder: (context, state) => CupertinoSheetPage<void>(
                         key: state.pageKey,
                         child: CreateMosqueFieldPage(
@@ -69,11 +67,21 @@ class NavigationUtility implements NavigationUtilityAbstract {
                     ),
                   ],
                 ),
+                GoRoute(
+                  name: adminRoutes.dashboard.createAnnouncement.name,
+                  path: adminRoutes.dashboard.createAnnouncement.path,
+                  pageBuilder: (context, state) => CupertinoSheetPage<void>(
+                    key: state.pageKey,
+                    child: CreateAnnouncementPage(
+                      key: state.pageKey,
+                    ),
+                  ),
+                ),
               ],
             ),
             GoRoute(
-              path: jamaahRoutes.itself.path,
               name: jamaahRoutes.itself.name,
+              path: jamaahRoutes.itself.path,
               pageBuilder: (context, state) => MaterialExtendedPage<void>(
                 key: state.pageKey,
                 child: JamaahHomePage(
@@ -84,8 +92,8 @@ class NavigationUtility implements NavigationUtilityAbstract {
           ],
         ),
         GoRoute(
-          path: onboardingRoutes.itself.path,
           name: onboardingRoutes.itself.name,
+          path: onboardingRoutes.itself.path,
           pageBuilder: (context, state) => MaterialExtendedPage<void>(
             key: state.pageKey,
             child: OnboardingPage(
@@ -94,8 +102,8 @@ class NavigationUtility implements NavigationUtilityAbstract {
           ),
           routes: <GoRoute>[
             GoRoute(
-              path: onboardingRoutes.mosques.path,
               name: onboardingRoutes.mosques.name,
+              path: onboardingRoutes.mosques.path,
               pageBuilder: (context, state) => MaterialExtendedPage<void>(
                 key: state.pageKey,
                 child: MosqueSelectionPage(
@@ -183,22 +191,11 @@ class NavigationUtility implements NavigationUtilityAbstract {
         );
         String? redirectLocation;
 
-        _loggerUtility
-          ..log('📍 isInitialised: $isInitialised')
-          ..log('📍 isLoggedIn: $isLoggedIn')
-          ..log('📍 Redirecting to $location')
-          ..log('📍 isGoingToRoot: $isGoingToRoot')
-          ..log('📍 isGoingToLoading: $isGoingToLoading')
-          ..log('📍 isGoingToAuth: $isGoingToAuth')
-          ..log('📍 isGoingToOnboarding: $isGoingToOnboarding');
-
         _navigationPathNotifier.navigationPath = NavigationPath.fromUrlPath(
           urlPath: location,
         );
 
         if (!isInitialised && !isGoingToLoading) {
-          _loggerUtility.log('Redirecting to Loading');
-
           return routerState.namedLocation(
             navigationRoutes.loading.name,
             queryParameters: _getRedirectParam(location),
@@ -207,15 +204,11 @@ class NavigationUtility implements NavigationUtilityAbstract {
 
         if (!isLoggedIn) {
           if (isGoingToRoot || isGoingToAuth || isGoingToOnboarding) {
-            _loggerUtility.log('Redirecting to Root | Auth | Onboarding');
             redirectLocation = null;
           } else {
-            _loggerUtility.log('Redirecting to Onboarding');
             redirectLocation = navigationRoutes.onboarding.itself.location;
           }
         } else if (isInitialised && !isLoggedIn && !isGoingToAuth) {
-          _loggerUtility.log('Redirecting to Auth');
-
           redirectLocation = routerState.namedLocation(
             authRoutes.itself.name,
             queryParameters: _getRedirectParam(location),

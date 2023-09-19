@@ -1,16 +1,16 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/assets/assets.dart';
 import 'package:sujud/blocs/blocs.dart';
 import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/models/models.dart';
+import 'package:sujud/pages/home/admin/tabs/subtabs/announcements.subtab.dart';
+import 'package:sujud/pages/home/admin/tabs/subtabs/prayer_times.subtab.dart';
 import 'package:sujud/widgets/widgets.dart';
 
 class DashboardTab extends StatefulWidget {
@@ -20,40 +20,60 @@ class DashboardTab extends StatefulWidget {
   State<DashboardTab> createState() => _DashboardTabState();
 }
 
-class _DashboardTabState extends State<DashboardTab> {
+class _DashboardTabState extends State<DashboardTab>
+    with TickerProviderStateMixin {
   final _navigation = GetIt.instance.get<NavigationUtilityAbstract>();
+  late final _tabController = TabController(length: 2, vsync: this);
+  late final _homePageCubit = context.read<HomePageCubit>();
 
   @override
   Widget build(BuildContext context) {
-    final i18n = context.i18n;
-    final homePageCubit = context.read<HomePageCubit>();
-    final selectedMosque = homePageCubit.selectedMosque;
+    final selectedMosque = _homePageCubit.selectedMosque;
 
     return PAScaffold(
-      largeTitle: true,
-      title: homePageCubit.selectedMosque != null
-          ? selectedMosque!.name
-          : i18n.dashboard,
+      platformAware: false,
+      includePadding: false,
+      title: 'Dashboard',
       kids: Kids(
-        child: homePageCubit.selectedMosque != null
-            ? _buildDashboardView(context, selectedMosque!)
+        child: selectedMosque != null
+            ? _buildDashboardView(context, selectedMosque)
             : _buildEmptyView(context),
       ),
     );
   }
 
-  Widget _buildDashboardView(BuildContext context, Mosque mosque) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            mosque.name,
-            style: const TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
+  Widget _buildDashboardView(BuildContext context, Mosque mosque) {
+    final i18n = context.i18n;
+
+    return DefaultTabController(
+      length: 2,
+      child: Column(
+        children: [
+          TabBar(
+            controller: _tabController,
+            labelColor: Colors.black,
+            tabs: <Tab>[
+              Tab(
+                text: i18n.tabPrayerTimes,
+              ),
+              Tab(
+                text: i18n.tabAnnouncements,
+              ),
+            ],
+          ),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: const <Widget>[
+                PrayerTimesSubtab(),
+                AnnouncementsSubtab(),
+              ],
             ),
           ),
         ],
-      );
+      ),
+    );
+  }
 
   Widget _buildEmptyView(BuildContext context) {
     final i18n = context.i18n;

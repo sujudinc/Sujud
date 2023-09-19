@@ -1,24 +1,30 @@
-// 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:sujud/models/models.dart';
 
 abstract class BaseRepoAbstract<T extends Model> {
   List<T> get items;
 
-  Future<(T?, Error?)> create(T item);
+  Future<(T?, List<GraphQLResponseError>)> get(String id);
 
-  Future<(T?, List<GraphQLResponseError>?)> read(String id);
-
-  Future<(T?, Error?)> update(T item);
-
-  Future<(T?, Error?)> delete(T item);
-
-  Future<void> list({
-    QueryPredicate? where,
+  Future<(List<T>?, List<GraphQLResponseError>)> list({
+    Map<String, dynamic>? filter,
     int? limit,
     String? nextToken,
   });
 
-  Future<void> listMore();
+  Future<(List<T>?, List<GraphQLResponseError>)> listMore();
+
+  Future<(T?, List<GraphQLResponseError>)> create(
+    T item, {
+    List<AttributedFile>? images,
+  });
+
+  Future<(T?, List<GraphQLResponseError>)> update(
+    T item, {
+    List<AttributedFile>? images,
+  });
+
+  Future<(T?, List<GraphQLResponseError>)> delete(T item);
 
   void clearCache();
 }

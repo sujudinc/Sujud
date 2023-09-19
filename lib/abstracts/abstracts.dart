@@ -1,4 +1,6 @@
 export 'apis/amplify_model.api.abstract.dart';
+export 'misc/amplify_model_api_operations.abstract.dart';
+export 'repos/announcement.repo.dart';
 export 'repos/base.repo.abstract.dart';
 export 'repos/mosque.repo.abstract.dart';
 export 'repos/user.repo.abstract.dart';

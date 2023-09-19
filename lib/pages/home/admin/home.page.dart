@@ -1,11 +1,9 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/blocs.dart';
@@ -69,9 +67,7 @@ class _AdminHomePagePageState extends State<AdminHomePage> {
         icon: const Icon(Icons.dashboard_outlined),
         activeIcon: const Icon(Icons.dashboard),
         label: i18n.tabDashboard,
-      ): _homeCubit.selectedMosque == null
-          ? const DashboardTab()
-          : const DashboardTab(),
+      ): const DashboardTab(),
       GoItem(
         route: _navigation.navigationRoutes.home.admin.settings.itself,
         icon: const Icon(Icons.settings_outlined),
