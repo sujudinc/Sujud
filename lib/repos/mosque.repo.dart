@@ -23,6 +23,7 @@ class MosqueRepo extends MosqueRepoAbstract {
   final _cache = <String, Mosque>{};
   bool _hasMoreItems = false;
 
+  StreamSubscription<GraphqlSubscriptionResponse<Mosque>>? _stream;
   Map<String, dynamic>? _filter;
   int? _limit;
   String? _nextToken;
@@ -36,7 +37,14 @@ class MosqueRepo extends MosqueRepoAbstract {
   }
 
   @override
-  List<Mosque> get items => _cache.values.toList();
+  List<Mosque> get items {
+    final list = _cache.values.toList()
+      ..sort(
+        (a, b) => a.name.compareTo(b.name),
+      );
+
+    return list;
+  }
 
   @override
   Future<(Mosque?, List<GraphQLResponseError>)> get(String id) async {
@@ -73,7 +81,7 @@ class MosqueRepo extends MosqueRepoAbstract {
 
     if (response.items != null) {
       for (final item in response.items!) {
-        _cache[item.id] = item;
+        _cache[item!.id] = item;
       }
     }
 
@@ -96,7 +104,7 @@ class MosqueRepo extends MosqueRepoAbstract {
 
     if (response.items != null) {
       for (final item in response.items!) {
-        _cache[item.id] = item;
+        _cache[item!.id] = item;
       }
     }
 
@@ -119,10 +127,21 @@ class MosqueRepo extends MosqueRepoAbstract {
         ),
       );
 
-      item.copyWith(images: keys);
+      item = item.copyWith(images: keys);
     }
 
     final (mosque, errors) = await _mosqueApi.create(item);
+
+    if (errors.isNotEmpty) {
+      await Future.wait(
+        item.images.map(
+          (key) => _storageService.delete(
+            key: key,
+          ),
+        ),
+      );
+    }
+
     final id = mosque?.id;
 
     if (mosque != null && _cache.containsKey(id)) {
@@ -158,7 +177,7 @@ class MosqueRepo extends MosqueRepoAbstract {
         ),
       );
 
-      item.copyWith(images: keys);
+      item = item.copyWith(images: keys);
     }
 
     final (mosque, errors) = await _mosqueApi.update(item);
@@ -184,9 +203,37 @@ class MosqueRepo extends MosqueRepoAbstract {
   }
 
   @override
+  void subscribe({
+    Function((Mosque?, List<GraphQLResponseError>) response)? onCreated,
+    Function((Mosque?, List<GraphQLResponseError>) response)? onUpdated,
+    Function((Mosque?, List<GraphQLResponseError>) response)? onDeleted,
+  }) {
+    _stream = _mosqueApi.subscribe(modelType: Mosque.classType).listen((event) {
+      switch (event.type) {
+        case SubscriptionType.onCreate:
+          onCreated?.call((event.response.data, event.response.errors));
+          break;
+        case SubscriptionType.onUpdate:
+          onUpdated?.call((event.response.data, event.response.errors));
+          break;
+        case SubscriptionType.onDelete:
+          onDeleted?.call((event.response.data, event.response.errors));
+          break;
+      }
+    });
+  }
+
+  @override
   void clearCache() {
     _cache.clear();
     _hasMoreItems = false;
     _nextToken = null;
+  }
+
+  @override
+  void dispose() {
+    if (_stream != null) {
+      _stream!.cancel();
+    }
   }
 }

@@ -7,24 +7,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class PATabScaffold extends StatelessWidget {
-  final bool platformAware;
-  final List<BottomNavigationBarItem>? icons;
-  final List<Widget> views;
-  final ValueChanged<int>? onTap;
-  final IndexedWidgetBuilder? tabBuilder;
-  final int currentIndex;
-  final String? restorationID;
-
   const PATabScaffold({
-    required this.views,
+    required this.currentView,
     required this.currentIndex,
+    required this.icons,
     this.platformAware = true,
-    this.icons,
     this.onTap,
-    this.tabBuilder,
     this.restorationID,
     Key? key,
   }) : super(key: key);
+
+  final Widget currentView;
+  final int currentIndex;
+  final List<BottomNavigationBarItem> icons;
+  final bool platformAware;
+  final ValueChanged<int>? onTap;
+  final String? restorationID;
 
   @override
   Widget build(BuildContext context) => kIsWeb
@@ -36,7 +34,7 @@ class PATabScaffold extends StatelessWidget {
   Widget _cupertinoScaffold() => CupertinoTabScaffold(
         key: key,
         tabBar: CupertinoTabBar(
-          items: icons!,
+          items: icons,
           onTap: onTap,
           currentIndex: currentIndex,
           border: Border.all(
@@ -45,16 +43,16 @@ class PATabScaffold extends StatelessWidget {
             style: BorderStyle.none,
           ),
         ),
-        tabBuilder: tabBuilder!,
+        tabBuilder: (context, index) => currentView,
         resizeToAvoidBottomInset: false,
         restorationId: restorationID,
       );
 
   Widget _standardScaffold() => Scaffold(
         key: key,
-        body: views[currentIndex],
+        body: currentView,
         bottomNavigationBar: BottomNavigationBar(
-          items: icons!,
+          items: icons,
           onTap: onTap,
           currentIndex: currentIndex,
           elevation: 0.0,

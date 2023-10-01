@@ -5,6 +5,7 @@ enum GetOperations {
 }
 
 enum ListOperations {
+  announcementsByMosqueId,
   listAnnouncements,
   listMosques,
   listUsers,

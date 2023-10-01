@@ -1,4 +1,6 @@
+// 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
+// 🌎 Project imports:
 import 'package:sujud/models/models.dart';
 
 abstract class BaseRepoAbstract<T extends Model> {
@@ -26,5 +28,12 @@ abstract class BaseRepoAbstract<T extends Model> {
 
   Future<(T?, List<GraphQLResponseError>)> delete(T item);
 
+  void subscribe({
+    Function((T?, List<GraphQLResponseError>) response)? onCreated,
+    Function((T?, List<GraphQLResponseError>) response)? onUpdated,
+    Function((T?, List<GraphQLResponseError>) response)? onDeleted,
+  });
+
   void clearCache();
+  void dispose();
 }

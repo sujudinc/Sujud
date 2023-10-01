@@ -125,7 +125,7 @@ class VolunteerTask extends amplify_core.Model {
   
   const VolunteerTask._internal({required this.id, required name, description, required startDate, endDate, required creator, required mosque, volunteers, createdAt, updatedAt}): _name = name, _description = description, _startDate = startDate, _endDate = endDate, _creator = creator, _mosque = mosque, _volunteers = volunteers, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory VolunteerTask({String? id, required String name, String? description, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required User creator, required Mosque mosque, List<VolunteerTaskUser>? volunteers}) {
+  factory VolunteerTask({String? id, required String name, String? description, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required User creator, required Mosque mosque, List<VolunteerTaskUser>? volunteers, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return VolunteerTask._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       name: name,
@@ -134,7 +134,9 @@ class VolunteerTask extends amplify_core.Model {
       endDate: endDate,
       creator: creator,
       mosque: mosque,
-      volunteers: volunteers != null ? List<VolunteerTaskUser>.unmodifiable(volunteers) : volunteers);
+      volunteers: volunteers != null ? List<VolunteerTaskUser>.unmodifiable(volunteers) : volunteers,
+      createdAt: createdAt,
+      updatedAt: updatedAt);
   }
   
   bool equals(Object other) {
@@ -152,7 +154,9 @@ class VolunteerTask extends amplify_core.Model {
       _endDate == other._endDate &&
       _creator == other._creator &&
       _mosque == other._mosque &&
-      DeepCollectionEquality().equals(_volunteers, other._volunteers);
+      DeepCollectionEquality().equals(_volunteers, other._volunteers) &&
+      _createdAt == other._createdAt &&
+      _updatedAt == other._updatedAt;
   }
   
   @override
@@ -177,7 +181,7 @@ class VolunteerTask extends amplify_core.Model {
     return buffer.toString();
   }
   
-  VolunteerTask copyWith({String? name, String? description, amplify_core.TemporalDateTime? startDate, amplify_core.TemporalDateTime? endDate, User? creator, Mosque? mosque, List<VolunteerTaskUser>? volunteers}) {
+  VolunteerTask copyWith({String? name, String? description, amplify_core.TemporalDateTime? startDate, amplify_core.TemporalDateTime? endDate, User? creator, Mosque? mosque, List<VolunteerTaskUser>? volunteers, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return VolunteerTask._internal(
       id: id,
       name: name ?? this.name,
@@ -186,7 +190,9 @@ class VolunteerTask extends amplify_core.Model {
       endDate: endDate ?? this.endDate,
       creator: creator ?? this.creator,
       mosque: mosque ?? this.mosque,
-      volunteers: volunteers ?? this.volunteers);
+      volunteers: volunteers ?? this.volunteers,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt);
   }
   
   VolunteerTask copyWithModelFieldValues({
@@ -196,7 +202,9 @@ class VolunteerTask extends amplify_core.Model {
     ModelFieldValue<amplify_core.TemporalDateTime?>? endDate,
     ModelFieldValue<User>? creator,
     ModelFieldValue<Mosque>? mosque,
-    ModelFieldValue<List<VolunteerTaskUser>?>? volunteers
+    ModelFieldValue<List<VolunteerTaskUser>?>? volunteers,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? createdAt,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? updatedAt
   }) {
     return VolunteerTask._internal(
       id: id,
@@ -206,7 +214,9 @@ class VolunteerTask extends amplify_core.Model {
       endDate: endDate == null ? this.endDate : endDate.value,
       creator: creator == null ? this.creator : creator.value,
       mosque: mosque == null ? this.mosque : mosque.value,
-      volunteers: volunteers == null ? this.volunteers : volunteers.value
+      volunteers: volunteers == null ? this.volunteers : volunteers.value,
+      createdAt: createdAt == null ? this.createdAt : createdAt.value,
+      updatedAt: updatedAt == null ? this.updatedAt : updatedAt.value
     );
   }
   
@@ -263,6 +273,8 @@ class VolunteerTask extends amplify_core.Model {
   static final VOLUNTEERS = amplify_core.QueryField(
     fieldName: "volunteers",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'VolunteerTaskUser'));
+  static final CREATEDAT = amplify_core.QueryField(fieldName: "createdAt");
+  static final UPDATEDAT = amplify_core.QueryField(fieldName: "updatedAt");
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "VolunteerTask";
     modelSchemaDefinition.pluralName = "VolunteerTasks";
@@ -343,17 +355,15 @@ class VolunteerTask extends amplify_core.Model {
       associatedKey: VolunteerTaskUser.VOLUNTEERTASK
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: VolunteerTask.CREATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: VolunteerTask.UPDATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
   });

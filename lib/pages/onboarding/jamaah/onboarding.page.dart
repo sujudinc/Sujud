@@ -1,11 +1,9 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/blocs.dart';
@@ -64,9 +62,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ),
             ],
           ),
-          onTap: () async => _navigation.go(
+          onTap: () async => _navigation.push(
             path: NavigationPath(
-              route: _navigationRoutes.auth.itself,
+              route: _navigation.navigationRoutes.login,
             ),
           ),
         ),
@@ -130,7 +128,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                             onTap: () => _navigation.goRoute(
-                              route: _navigationRoutes.onboarding.mosques,
+                              route: NavigationRoutes().onboarding.mosques,
                             ),
                           ),
                   ],
@@ -142,8 +140,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ),
     );
   }
-
-  NavigationRoutes get _navigationRoutes => _navigation.navigationRoutes;
 
   List<OnboardingSectionArguments> _onboardingSectionArguments(
     BuildContext context,

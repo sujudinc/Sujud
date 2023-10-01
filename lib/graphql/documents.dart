@@ -16,33 +16,14 @@ const announcementDocument = '''
     stripeCustomerId
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     owner
-    __typename
   }
   mosqueId
   mosque {
-    id
-    name
-    description
-    images
-    liveVideoUrl
-    creatorId
-    createdAt
-    updatedAt
-    _version
-    _deleted
-    _lastChangedAt
-    __typename
+    $mosqueDocument
   }
   createdAt
   updatedAt
-  _version
-  _deleted
-  _lastChangedAt
-  __typename
 ''';
 
 const mosqueDocument = '''
@@ -60,7 +41,6 @@ const mosqueDocument = '''
     country
     latitude
     longitude
-    __typename
   }
   hours {
     monday {
@@ -68,65 +48,50 @@ const mosqueDocument = '''
       operatingHours {
         open
         close
-        __typename
       }
-      __typename
     }
     tuesday {
       type
       operatingHours {
         open
         close
-        __typename
       }
-      __typename
     }
     wednesday {
       type
       operatingHours {
         open
         close
-        __typename
       }
-      __typename
     }
     thursday {
       type
       operatingHours {
         open
         close
-        __typename
       }
-      __typename
     }
     friday {
       type
       operatingHours {
         open
         close
-        __typename
       }
-      __typename
     }
     saturday {
       type
       operatingHours {
         open
         close
-        __typename
       }
-      __typename
     }
     sunday {
       type
       operatingHours {
         open
         close
-        __typename
       }
-      __typename
     }
-    __typename
   }
   contactInfo {
     phone
@@ -137,9 +102,7 @@ const mosqueDocument = '''
       instagram
       twitter
       youtube
-      __typename
     }
-    __typename
   }
   liveVideoUrl
   creatorId
@@ -157,19 +120,15 @@ const mosqueDocument = '''
     items {
       id
       title
-      content
+      body
+      images
       creatorId
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   classes {
     items {
@@ -185,14 +144,9 @@ const mosqueDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   committees {
     items {
@@ -203,14 +157,9 @@ const mosqueDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   gatherings {
     items {
@@ -224,14 +173,9 @@ const mosqueDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   fundraisingCampaigns {
     items {
@@ -248,14 +192,9 @@ const mosqueDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   monthlyPrayerSchedules {
     items {
@@ -266,14 +205,9 @@ const mosqueDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   resources {
     items {
@@ -286,14 +220,9 @@ const mosqueDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   services {
     items {
@@ -305,14 +234,9 @@ const mosqueDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   subscriptions {
     items {
@@ -325,14 +249,9 @@ const mosqueDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   volunteerTasks {
     items {
@@ -345,21 +264,12 @@ const mosqueDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   createdAt
   updatedAt
-  _version
-  _deleted
-  _lastChangedAt
-  __typename
   ''';
 
 const userDocument = '''
@@ -376,19 +286,15 @@ const userDocument = '''
     items {
       id
       title
-      content
+      body
+      images
       creatorId
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   createdClasses {
     items {
@@ -404,14 +310,9 @@ const userDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   createdCommittees {
     items {
@@ -422,14 +323,9 @@ const userDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   createdGatherings {
     items {
@@ -443,14 +339,9 @@ const userDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   createdFundraisingCampaigns {
     items {
@@ -467,14 +358,9 @@ const userDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   createdMonthlyPrayerSchedules {
     items {
@@ -485,14 +371,9 @@ const userDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   createdMosques {
     items {
@@ -500,6 +381,17 @@ const userDocument = '''
       name
       description
       images
+      address {
+        addressLine1
+        addressLine2
+        addressLine3
+        city
+        province
+        postalCode
+        country
+        latitude
+        longitude
+      }
       liveVideoUrl
       creatorId
       createdAt
@@ -511,7 +403,6 @@ const userDocument = '''
     }
     nextToken
     startedAt
-    __typename
   }
   createdResources {
     items {
@@ -524,14 +415,9 @@ const userDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   createdServices {
     items {
@@ -543,14 +429,9 @@ const userDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   createdVolunteerTasks {
     items {
@@ -563,14 +444,9 @@ const userDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   donations {
     items {
@@ -582,14 +458,9 @@ const userDocument = '''
       fundraisingCampaignId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   committees {
     items {
@@ -598,16 +469,11 @@ const userDocument = '''
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       creatorId
       owner
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   gatherings {
     items {
@@ -616,16 +482,11 @@ const userDocument = '''
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       creatorId
       owner
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   instructingClasses {
     items {
@@ -641,14 +502,9 @@ const userDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   mosques {
     items {
@@ -659,6 +515,17 @@ const userDocument = '''
         name
         description
         images
+        address {
+          addressLine1
+          addressLine2
+          addressLine3
+          city
+          province
+          postalCode
+          country
+          latitude
+          longitude
+        }
         liveVideoUrl
         creatorId
         createdAt
@@ -671,16 +538,11 @@ const userDocument = '''
       userId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       creatorId
       owner
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   purchasedSubscriptions {
     items {
@@ -693,14 +555,9 @@ const userDocument = '''
       mosqueId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   volunteerTasks {
     items {
@@ -709,22 +566,13 @@ const userDocument = '''
       volunteerTaskId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
       creatorId
-      __typename
     }
     nextToken
     startedAt
-    __typename
   }
   createdAt
   updatedAt
-  _version
-  _deleted
-  _lastChangedAt
   owner
-  __typename
   ''';

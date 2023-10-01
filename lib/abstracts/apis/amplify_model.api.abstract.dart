@@ -1,35 +1,12 @@
+// 🎯 Dart imports:
+import 'dart:async';
+
 // 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:get_it/get_it.dart';
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
-import 'package:sujud/apis/apis.dart';
-import 'package:sujud/graphql/graphql.dart';
-import 'package:sujud/models/models.dart';
 
 abstract class AmplifyModelApiAbstract<T extends Model> {
-  factory AmplifyModelApiAbstract() {
-    switch (T) {
-      case Announcement:
-        return AmplifyModelApi(
-          GetIt.instance.get<AmplifyApiServiceAbstract<T>>(),
-          AnnouncementOperations() as AmplifyModelApiOperations<T>,
-        );
-      case Mosque:
-        return AmplifyModelApi(
-          GetIt.instance.get<AmplifyApiServiceAbstract<T>>(),
-          MosqueOperations() as AmplifyModelApiOperations<T>,
-        );
-      case User:
-        return AmplifyModelApi(
-          GetIt.instance.get<AmplifyApiServiceAbstract<T>>(),
-          UserOperations() as AmplifyModelApiOperations<T>,
-        );
-      default:
-        throw Exception('No api exists for the provided model type');
-    }
-  }
-
   Future<(T?, List<GraphQLResponseError>)> get(String id);
 
   Future<(GraphQLListResponse<T>, List<GraphQLResponseError>)> list({
@@ -43,4 +20,27 @@ abstract class AmplifyModelApiAbstract<T extends Model> {
   Future<(T?, List<GraphQLResponseError>)> update(T item);
 
   Future<(T?, List<GraphQLResponseError>)> delete(String id);
+
+  Stream<GraphqlSubscriptionResponse<T>> subscribe({
+    required ModelType<T> modelType,
+    Map<String, dynamic>? filter,
+    String? creatorId,
+    String? owner,
+  });
+}
+
+class GraphqlSubscriptionResponse<T extends Model> {
+  GraphqlSubscriptionResponse({
+    required this.type,
+    required this.response,
+  });
+
+  final SubscriptionType type;
+  final GraphQLResponse<T> response;
+}
+
+enum SubscriptionType {
+  onCreate,
+  onUpdate,
+  onDelete,
 }

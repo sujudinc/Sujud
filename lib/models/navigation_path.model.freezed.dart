@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$NavigationPath {
-  NavigationRoute get route => throw _privateConstructorUsedError;
+  NavigationRouteAbstract get route => throw _privateConstructorUsedError;
   String? get subRoute => throw _privateConstructorUsedError;
   String? get module => throw _privateConstructorUsedError;
   String? get section => throw _privateConstructorUsedError;
@@ -36,14 +36,12 @@ abstract class $NavigationPathCopyWith<$Res> {
       _$NavigationPathCopyWithImpl<$Res, NavigationPath>;
   @useResult
   $Res call(
-      {NavigationRoute route,
+      {NavigationRouteAbstract route,
       String? subRoute,
       String? module,
       String? section,
       Map<String, String>? queryParameters,
       String? fragment});
-
-  $NavigationRouteCopyWith<$Res> get route;
 }
 
 /// @nodoc
@@ -70,7 +68,7 @@ class _$NavigationPathCopyWithImpl<$Res, $Val extends NavigationPath>
       route: null == route
           ? _value.route
           : route // ignore: cast_nullable_to_non_nullable
-              as NavigationRoute,
+              as NavigationRouteAbstract,
       subRoute: freezed == subRoute
           ? _value.subRoute
           : subRoute // ignore: cast_nullable_to_non_nullable
@@ -93,14 +91,6 @@ class _$NavigationPathCopyWithImpl<$Res, $Val extends NavigationPath>
               as String?,
     ) as $Val);
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $NavigationRouteCopyWith<$Res> get route {
-    return $NavigationRouteCopyWith<$Res>(_value.route, (value) {
-      return _then(_value.copyWith(route: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -112,15 +102,12 @@ abstract class _$$_NavigationPathCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {NavigationRoute route,
+      {NavigationRouteAbstract route,
       String? subRoute,
       String? module,
       String? section,
       Map<String, String>? queryParameters,
       String? fragment});
-
-  @override
-  $NavigationRouteCopyWith<$Res> get route;
 }
 
 /// @nodoc
@@ -145,7 +132,7 @@ class __$$_NavigationPathCopyWithImpl<$Res>
       route: null == route
           ? _value.route
           : route // ignore: cast_nullable_to_non_nullable
-              as NavigationRoute,
+              as NavigationRouteAbstract,
       subRoute: freezed == subRoute
           ? _value.subRoute
           : subRoute // ignore: cast_nullable_to_non_nullable
@@ -184,7 +171,7 @@ class _$_NavigationPath extends _NavigationPath {
         super._();
 
   @override
-  final NavigationRoute route;
+  final NavigationRouteAbstract route;
   @override
   final String? subRoute;
   @override
@@ -238,7 +225,7 @@ class _$_NavigationPath extends _NavigationPath {
 
 abstract class _NavigationPath extends NavigationPath {
   factory _NavigationPath(
-      {required final NavigationRoute route,
+      {required final NavigationRouteAbstract route,
       final String? subRoute,
       final String? module,
       final String? section,
@@ -247,7 +234,7 @@ abstract class _NavigationPath extends NavigationPath {
   _NavigationPath._() : super._();
 
   @override
-  NavigationRoute get route;
+  NavigationRouteAbstract get route;
   @override
   String? get subRoute;
   @override

@@ -1,5 +1,6 @@
 // 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/graphql/graphql.dart';

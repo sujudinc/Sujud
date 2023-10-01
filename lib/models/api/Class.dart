@@ -153,7 +153,7 @@ class Class extends amplify_core.Model {
   
   const Class._internal({required this.id, required title, description, required startDateTime, endDateTime, required recurring, daysOfWeek, required creator, required instructor, required mosque, createdAt, updatedAt}): _title = title, _description = description, _startDateTime = startDateTime, _endDateTime = endDateTime, _recurring = recurring, _daysOfWeek = daysOfWeek, _creator = creator, _instructor = instructor, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Class({String? id, required String title, String? description, required amplify_core.TemporalDateTime startDateTime, amplify_core.TemporalDateTime? endDateTime, required bool recurring, List<DayType>? daysOfWeek, required User creator, required User instructor, required Mosque mosque}) {
+  factory Class({String? id, required String title, String? description, required amplify_core.TemporalDateTime startDateTime, amplify_core.TemporalDateTime? endDateTime, required bool recurring, List<DayType>? daysOfWeek, required User creator, required User instructor, required Mosque mosque, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return Class._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
@@ -164,7 +164,9 @@ class Class extends amplify_core.Model {
       daysOfWeek: daysOfWeek != null ? List<DayType>.unmodifiable(daysOfWeek) : daysOfWeek,
       creator: creator,
       instructor: instructor,
-      mosque: mosque);
+      mosque: mosque,
+      createdAt: createdAt,
+      updatedAt: updatedAt);
   }
   
   bool equals(Object other) {
@@ -184,7 +186,9 @@ class Class extends amplify_core.Model {
       DeepCollectionEquality().equals(_daysOfWeek, other._daysOfWeek) &&
       _creator == other._creator &&
       _instructor == other._instructor &&
-      _mosque == other._mosque;
+      _mosque == other._mosque &&
+      _createdAt == other._createdAt &&
+      _updatedAt == other._updatedAt;
   }
   
   @override
@@ -212,7 +216,7 @@ class Class extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Class copyWith({String? title, String? description, amplify_core.TemporalDateTime? startDateTime, amplify_core.TemporalDateTime? endDateTime, bool? recurring, List<DayType>? daysOfWeek, User? creator, User? instructor, Mosque? mosque}) {
+  Class copyWith({String? title, String? description, amplify_core.TemporalDateTime? startDateTime, amplify_core.TemporalDateTime? endDateTime, bool? recurring, List<DayType>? daysOfWeek, User? creator, User? instructor, Mosque? mosque, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return Class._internal(
       id: id,
       title: title ?? this.title,
@@ -223,7 +227,9 @@ class Class extends amplify_core.Model {
       daysOfWeek: daysOfWeek ?? this.daysOfWeek,
       creator: creator ?? this.creator,
       instructor: instructor ?? this.instructor,
-      mosque: mosque ?? this.mosque);
+      mosque: mosque ?? this.mosque,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt);
   }
   
   Class copyWithModelFieldValues({
@@ -235,7 +241,9 @@ class Class extends amplify_core.Model {
     ModelFieldValue<List<DayType>>? daysOfWeek,
     ModelFieldValue<User>? creator,
     ModelFieldValue<User>? instructor,
-    ModelFieldValue<Mosque>? mosque
+    ModelFieldValue<Mosque>? mosque,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? createdAt,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? updatedAt
   }) {
     return Class._internal(
       id: id,
@@ -247,7 +255,9 @@ class Class extends amplify_core.Model {
       daysOfWeek: daysOfWeek == null ? this.daysOfWeek : daysOfWeek.value,
       creator: creator == null ? this.creator : creator.value,
       instructor: instructor == null ? this.instructor : instructor.value,
-      mosque: mosque == null ? this.mosque : mosque.value
+      mosque: mosque == null ? this.mosque : mosque.value,
+      createdAt: createdAt == null ? this.createdAt : createdAt.value,
+      updatedAt: updatedAt == null ? this.updatedAt : updatedAt.value
     );
   }
   
@@ -311,6 +321,8 @@ class Class extends amplify_core.Model {
   static final MOSQUE = amplify_core.QueryField(
     fieldName: "mosque",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Mosque'));
+  static final CREATEDAT = amplify_core.QueryField(fieldName: "createdAt");
+  static final UPDATEDAT = amplify_core.QueryField(fieldName: "updatedAt");
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Class";
     modelSchemaDefinition.pluralName = "Classes";
@@ -405,17 +417,15 @@ class Class extends amplify_core.Model {
       ofModelName: 'Mosque'
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Class.CREATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Class.UPDATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
   });

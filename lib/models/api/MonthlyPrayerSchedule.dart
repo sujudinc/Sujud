@@ -124,14 +124,16 @@ class MonthlyPrayerSchedule extends amplify_core.Model {
   
   const MonthlyPrayerSchedule._internal({required this.id, required year, required month, required prayerTimes, required creator, required mosque, createdAt, updatedAt}): _year = year, _month = month, _prayerTimes = prayerTimes, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory MonthlyPrayerSchedule({String? id, required int year, required int month, required List<PrayerTime> prayerTimes, required User creator, required Mosque mosque}) {
+  factory MonthlyPrayerSchedule({String? id, required int year, required int month, required List<PrayerTime> prayerTimes, required User creator, required Mosque mosque, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return MonthlyPrayerSchedule._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       year: year,
       month: month,
       prayerTimes: prayerTimes != null ? List<PrayerTime>.unmodifiable(prayerTimes) : prayerTimes,
       creator: creator,
-      mosque: mosque);
+      mosque: mosque,
+      createdAt: createdAt,
+      updatedAt: updatedAt);
   }
   
   bool equals(Object other) {
@@ -147,7 +149,9 @@ class MonthlyPrayerSchedule extends amplify_core.Model {
       _month == other._month &&
       DeepCollectionEquality().equals(_prayerTimes, other._prayerTimes) &&
       _creator == other._creator &&
-      _mosque == other._mosque;
+      _mosque == other._mosque &&
+      _createdAt == other._createdAt &&
+      _updatedAt == other._updatedAt;
   }
   
   @override
@@ -171,14 +175,16 @@ class MonthlyPrayerSchedule extends amplify_core.Model {
     return buffer.toString();
   }
   
-  MonthlyPrayerSchedule copyWith({int? year, int? month, List<PrayerTime>? prayerTimes, User? creator, Mosque? mosque}) {
+  MonthlyPrayerSchedule copyWith({int? year, int? month, List<PrayerTime>? prayerTimes, User? creator, Mosque? mosque, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return MonthlyPrayerSchedule._internal(
       id: id,
       year: year ?? this.year,
       month: month ?? this.month,
       prayerTimes: prayerTimes ?? this.prayerTimes,
       creator: creator ?? this.creator,
-      mosque: mosque ?? this.mosque);
+      mosque: mosque ?? this.mosque,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt);
   }
   
   MonthlyPrayerSchedule copyWithModelFieldValues({
@@ -186,7 +192,9 @@ class MonthlyPrayerSchedule extends amplify_core.Model {
     ModelFieldValue<int>? month,
     ModelFieldValue<List<PrayerTime>>? prayerTimes,
     ModelFieldValue<User>? creator,
-    ModelFieldValue<Mosque>? mosque
+    ModelFieldValue<Mosque>? mosque,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? createdAt,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? updatedAt
   }) {
     return MonthlyPrayerSchedule._internal(
       id: id,
@@ -194,7 +202,9 @@ class MonthlyPrayerSchedule extends amplify_core.Model {
       month: month == null ? this.month : month.value,
       prayerTimes: prayerTimes == null ? this.prayerTimes : prayerTimes.value,
       creator: creator == null ? this.creator : creator.value,
-      mosque: mosque == null ? this.mosque : mosque.value
+      mosque: mosque == null ? this.mosque : mosque.value,
+      createdAt: createdAt == null ? this.createdAt : createdAt.value,
+      updatedAt: updatedAt == null ? this.updatedAt : updatedAt.value
     );
   }
   
@@ -243,6 +253,8 @@ class MonthlyPrayerSchedule extends amplify_core.Model {
   static final MOSQUE = amplify_core.QueryField(
     fieldName: "mosque",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Mosque'));
+  static final CREATEDAT = amplify_core.QueryField(fieldName: "createdAt");
+  static final UPDATEDAT = amplify_core.QueryField(fieldName: "updatedAt");
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "MonthlyPrayerSchedule";
     modelSchemaDefinition.pluralName = "MonthlyPrayerSchedules";
@@ -311,17 +323,15 @@ class MonthlyPrayerSchedule extends amplify_core.Model {
       ofModelName: 'Mosque'
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: MonthlyPrayerSchedule.CREATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: MonthlyPrayerSchedule.UPDATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
   });

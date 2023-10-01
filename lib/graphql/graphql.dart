@@ -1,3 +1,4 @@
+export 'api_query_filter.dart';
 export 'documents.dart';
 export 'graphql_operations.dart';
 export 'mutations.dart';

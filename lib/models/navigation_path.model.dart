@@ -1,7 +1,6 @@
 // 📦 Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/extensions/extensions.dart';
@@ -23,7 +22,7 @@ class NavigationPath with _$NavigationPath {
   static const tabArgName = 'tab';
 
   factory NavigationPath({
-    required NavigationRoute route,
+    required NavigationRouteAbstract route,
     String? subRoute,
     String? module,
     String? section,
@@ -31,27 +30,28 @@ class NavigationPath with _$NavigationPath {
     String? fragment,
   }) = _NavigationPath;
 
-  factory NavigationPath.fromUrlPath({required String urlPath}) {
+  factory NavigationPath.fromPath({required String path}) {
     final navigationRoutes = _navigation.navigationRoutes;
-    final parsedUrl = Uri.parse(urlPath);
+    final parsedUrl = Uri.parse(path);
     final pathSegments = parsedUrl.pathSegments;
     final pathSegmentsLength = pathSegments.length;
+    final routeName = pathSegments[routeIndex];
     final queryParameters = Map<String, String>.from(parsedUrl.queryParameters);
 
     _logger.log(
-      '\n| ------------ FROM URL PATH -----------|'
+      '\n| ------------ NavigationPath.fromPath ----------- |'
       '\n| Parsed URL: $parsedUrl'
       '\n| PathSegments: $pathSegments'
+      '\n| PathSegmentsLength: $pathSegmentsLength'
+      '\n| RouteName: $routeName'
       '\n| QueryParameters: $queryParameters'
-      '\n|_______________________________________|\n',
+      '\n|__________________________________________________|',
     );
 
-    final routeName = pathSegments[routeIndex];
-
     if (pathSegments.isEmpty ||
-        routeName == navigationRoutes.home.jamaah.itself.name) {
+        routeName == navigationRoutes.home.jamaah.prayerTimes.name) {
       return NavigationPath(
-        route: navigationRoutes.home.jamaah.itself,
+        route: navigationRoutes.home.jamaah.prayerTimes,
         queryParameters: queryParameters,
       );
     }
@@ -63,34 +63,33 @@ class NavigationPath with _$NavigationPath {
       );
     }
 
-    if (routeName == navigationRoutes.auth.itself.name) {
-      if (pathSegmentsLength > subRouteIndex &&
-          pathSegments[subRouteIndex] ==
-              navigationRoutes.auth.register.itself.name) {
-        return NavigationPath(
-          route: navigationRoutes.auth.register.itself,
-          queryParameters: queryParameters,
-        );
-      }
-
+    if (routeName == navigationRoutes.login.name) {
       if (pathSegments.contains(
-        navigationRoutes.auth.confirm.name,
+        navigationRoutes.login.confirm.name,
       )) {
         return NavigationPath(
-          route: navigationRoutes.auth.confirm,
+          route: navigationRoutes.login.confirm,
           queryParameters: queryParameters,
         );
       }
 
       return NavigationPath(
-        route: navigationRoutes.auth.itself,
+        route: navigationRoutes.login,
         queryParameters: queryParameters,
       );
     }
 
-    final route = routeName == navigationRoutes.home.admin.itself.name
-        ? navigationRoutes.home.admin.dashboard.itself
-        : navigationRoutes.home.jamaah.dashboard.itself;
+    if (routeName == navigationRoutes.register.name) {
+      return NavigationPath(
+        route: navigationRoutes.register,
+        queryParameters: queryParameters,
+      );
+    }
+
+    final route = routeName ==
+            navigationRoutes.home.admin.dashboard.subTabs.prayerTimes.name
+        ? navigationRoutes.home.admin.dashboard.subTabs.prayerTimes
+        : navigationRoutes.home.jamaah.prayerTimes;
 
     if (pathSegmentsLength > subRouteIndex) {
       final subRoute = pathSegments[subRouteIndex];
@@ -114,4 +113,11 @@ class NavigationPath with _$NavigationPath {
         if (module != null) RouteParam.module.name: module!.kebabCase,
         if (fragment != null) RouteParam.fragment.name: fragment!.kebabCase,
       };
+}
+
+enum RouteParam {
+  subRoute,
+  section,
+  module,
+  fragment,
 }

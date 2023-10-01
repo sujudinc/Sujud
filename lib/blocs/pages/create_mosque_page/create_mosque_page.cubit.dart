@@ -1,12 +1,10 @@
 // 📦 Package imports:
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
-import 'package:sujud/configs/configs.dart';
 import 'package:sujud/models/models.dart';
 
 part 'create_mosque_page.cubit.freezed.dart';
@@ -14,14 +12,14 @@ part 'create_mosque_page.state.dart';
 
 class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
   CreateMosquePageCubit()
-      : _navigation = GetIt.instance.get<NavigationUtilityAbstract>(),
-        _toast = GetIt.instance.get<ToastUtilityAbstract>(),
+      : _navigationUtility = GetIt.instance.get<NavigationUtilityAbstract>(),
+        _toastUtility = GetIt.instance.get<ToastUtilityAbstract>(),
         _mosqueRepo = GetIt.instance.get<MosqueRepoAbstract>(),
         _userRepo = GetIt.instance.get<UserRepoAbstract>(),
         super(const CreateMosquePageState.ready());
 
-  final NavigationUtilityAbstract _navigation;
-  final ToastUtilityAbstract _toast;
+  final NavigationUtilityAbstract _navigationUtility;
+  final ToastUtilityAbstract _toastUtility;
   final MosqueRepoAbstract _mosqueRepo;
   final UserRepoAbstract _userRepo;
 
@@ -39,9 +37,8 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
   Hours? get hours => _hours;
   ContactInfo? get contactInfo => _contactInfo;
   User? get currentUser => _userRepo.currentUser;
-  NavigationRoutes get _routes => _navigation.navigationRoutes;
 
-  void get back => _navigation.back();
+  void get back => _navigationUtility.back();
 
   set name(String? value) {
     emit(const CreateMosquePageState.loading());
@@ -83,10 +80,10 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
     required String fieldName,
     String? initialValue,
   }) async {
-    final data = await _navigation.push(
+    final data = await _navigationUtility.push(
       path: NavigationPath(
-        route: _routes.home.admin.dashboard.createMosque.field,
-        subRoute: 'dashboard',
+        route: _navigationUtility
+            .navigationRoutes.home.admin.dashboard.createMosque.field,
         queryParameters: <String, String>{
           'fieldName': fieldName,
           if (initialValue != null) 'initialValue': initialValue,
@@ -125,7 +122,6 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
     try {
       await _mosqueRepo.create(
         Mosque(
-          id: UUID.getUUID(),
           name: _name!,
           description: _description!,
           images: [],
@@ -147,7 +143,7 @@ class CreateMosquePageCubit extends Cubit<CreateMosquePageState> {
   }
 
   CherryToast displayToast({required String title, required String message}) {
-    final toast = _toast.show(
+    final toast = _toastUtility.show(
       title: title,
       message: message,
       type: ToastType.error,

@@ -1,5 +1,3 @@
-// 🐦 Flutter imports:
-
 // 📦 Package imports:
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -11,10 +9,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
+import 'package:sujud/apis/apis.dart';
 import 'package:sujud/configs/amplify.config.dart';
 import 'package:sujud/models/models.dart';
 import 'package:sujud/repos/repos.dart';
@@ -27,6 +27,8 @@ final _dependencies = GetIt.instance;
 Future<void> initDependencies() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
+
+  await Hive.initFlutter();
 
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
@@ -65,13 +67,13 @@ void _initAppDependencies() => _dependencies
 
 void _initApis() => _dependencies
   ..registerFactory<AmplifyModelApiAbstract<Announcement>>(
-    AmplifyModelApiAbstract<Announcement>.new,
+    AnnouncementApi.new,
   )
   ..registerFactory<AmplifyModelApiAbstract<Mosque>>(
-    AmplifyModelApiAbstract<Mosque>.new,
+    MosqueApi.new,
   )
   ..registerFactory<AmplifyModelApiAbstract<User>>(
-    AmplifyModelApiAbstract<User>.new,
+    UserApi.new,
   );
 
 void _initRepos() => _dependencies

@@ -106,14 +106,16 @@ class Service extends amplify_core.Model {
   
   const Service._internal({required this.id, required type, description, documents, required creator, required mosque, createdAt, updatedAt}): _type = type, _description = description, _documents = documents, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Service({String? id, required ServiceType type, String? description, List<String>? documents, required User creator, required Mosque mosque}) {
+  factory Service({String? id, required ServiceType type, String? description, List<String>? documents, required User creator, required Mosque mosque, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return Service._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       type: type,
       description: description,
       documents: documents != null ? List<String>.unmodifiable(documents) : documents,
       creator: creator,
-      mosque: mosque);
+      mosque: mosque,
+      createdAt: createdAt,
+      updatedAt: updatedAt);
   }
   
   bool equals(Object other) {
@@ -129,7 +131,9 @@ class Service extends amplify_core.Model {
       _description == other._description &&
       DeepCollectionEquality().equals(_documents, other._documents) &&
       _creator == other._creator &&
-      _mosque == other._mosque;
+      _mosque == other._mosque &&
+      _createdAt == other._createdAt &&
+      _updatedAt == other._updatedAt;
   }
   
   @override
@@ -153,14 +157,16 @@ class Service extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Service copyWith({ServiceType? type, String? description, List<String>? documents, User? creator, Mosque? mosque}) {
+  Service copyWith({ServiceType? type, String? description, List<String>? documents, User? creator, Mosque? mosque, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return Service._internal(
       id: id,
       type: type ?? this.type,
       description: description ?? this.description,
       documents: documents ?? this.documents,
       creator: creator ?? this.creator,
-      mosque: mosque ?? this.mosque);
+      mosque: mosque ?? this.mosque,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt);
   }
   
   Service copyWithModelFieldValues({
@@ -168,7 +174,9 @@ class Service extends amplify_core.Model {
     ModelFieldValue<String?>? description,
     ModelFieldValue<List<String>?>? documents,
     ModelFieldValue<User>? creator,
-    ModelFieldValue<Mosque>? mosque
+    ModelFieldValue<Mosque>? mosque,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? createdAt,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? updatedAt
   }) {
     return Service._internal(
       id: id,
@@ -176,7 +184,9 @@ class Service extends amplify_core.Model {
       description: description == null ? this.description : description.value,
       documents: documents == null ? this.documents : documents.value,
       creator: creator == null ? this.creator : creator.value,
-      mosque: mosque == null ? this.mosque : mosque.value
+      mosque: mosque == null ? this.mosque : mosque.value,
+      createdAt: createdAt == null ? this.createdAt : createdAt.value,
+      updatedAt: updatedAt == null ? this.updatedAt : updatedAt.value
     );
   }
   
@@ -220,6 +230,8 @@ class Service extends amplify_core.Model {
   static final MOSQUE = amplify_core.QueryField(
     fieldName: "mosque",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Mosque'));
+  static final CREATEDAT = amplify_core.QueryField(fieldName: "createdAt");
+  static final UPDATEDAT = amplify_core.QueryField(fieldName: "updatedAt");
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Service";
     modelSchemaDefinition.pluralName = "Services";
@@ -288,17 +300,15 @@ class Service extends amplify_core.Model {
       ofModelName: 'Mosque'
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Service.CREATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Service.UPDATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
   });

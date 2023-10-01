@@ -128,7 +128,7 @@ class MosqueSubscription extends amplify_core.Model {
   
   const MosqueSubscription._internal({required this.id, required status, required startDate, endDate, required stripeSubscriptionId, required purchaser, required mosque, createdAt, updatedAt}): _status = status, _startDate = startDate, _endDate = endDate, _stripeSubscriptionId = stripeSubscriptionId, _purchaser = purchaser, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory MosqueSubscription({String? id, required MosqueSubscriptionStatus status, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required String stripeSubscriptionId, required User purchaser, required Mosque mosque}) {
+  factory MosqueSubscription({String? id, required MosqueSubscriptionStatus status, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required String stripeSubscriptionId, required User purchaser, required Mosque mosque, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return MosqueSubscription._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       status: status,
@@ -136,7 +136,9 @@ class MosqueSubscription extends amplify_core.Model {
       endDate: endDate,
       stripeSubscriptionId: stripeSubscriptionId,
       purchaser: purchaser,
-      mosque: mosque);
+      mosque: mosque,
+      createdAt: createdAt,
+      updatedAt: updatedAt);
   }
   
   bool equals(Object other) {
@@ -153,7 +155,9 @@ class MosqueSubscription extends amplify_core.Model {
       _endDate == other._endDate &&
       _stripeSubscriptionId == other._stripeSubscriptionId &&
       _purchaser == other._purchaser &&
-      _mosque == other._mosque;
+      _mosque == other._mosque &&
+      _createdAt == other._createdAt &&
+      _updatedAt == other._updatedAt;
   }
   
   @override
@@ -178,7 +182,7 @@ class MosqueSubscription extends amplify_core.Model {
     return buffer.toString();
   }
   
-  MosqueSubscription copyWith({MosqueSubscriptionStatus? status, amplify_core.TemporalDateTime? startDate, amplify_core.TemporalDateTime? endDate, String? stripeSubscriptionId, User? purchaser, Mosque? mosque}) {
+  MosqueSubscription copyWith({MosqueSubscriptionStatus? status, amplify_core.TemporalDateTime? startDate, amplify_core.TemporalDateTime? endDate, String? stripeSubscriptionId, User? purchaser, Mosque? mosque, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return MosqueSubscription._internal(
       id: id,
       status: status ?? this.status,
@@ -186,7 +190,9 @@ class MosqueSubscription extends amplify_core.Model {
       endDate: endDate ?? this.endDate,
       stripeSubscriptionId: stripeSubscriptionId ?? this.stripeSubscriptionId,
       purchaser: purchaser ?? this.purchaser,
-      mosque: mosque ?? this.mosque);
+      mosque: mosque ?? this.mosque,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt);
   }
   
   MosqueSubscription copyWithModelFieldValues({
@@ -195,7 +201,9 @@ class MosqueSubscription extends amplify_core.Model {
     ModelFieldValue<amplify_core.TemporalDateTime?>? endDate,
     ModelFieldValue<String>? stripeSubscriptionId,
     ModelFieldValue<User>? purchaser,
-    ModelFieldValue<Mosque>? mosque
+    ModelFieldValue<Mosque>? mosque,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? createdAt,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? updatedAt
   }) {
     return MosqueSubscription._internal(
       id: id,
@@ -204,7 +212,9 @@ class MosqueSubscription extends amplify_core.Model {
       endDate: endDate == null ? this.endDate : endDate.value,
       stripeSubscriptionId: stripeSubscriptionId == null ? this.stripeSubscriptionId : stripeSubscriptionId.value,
       purchaser: purchaser == null ? this.purchaser : purchaser.value,
-      mosque: mosque == null ? this.mosque : mosque.value
+      mosque: mosque == null ? this.mosque : mosque.value,
+      createdAt: createdAt == null ? this.createdAt : createdAt.value,
+      updatedAt: updatedAt == null ? this.updatedAt : updatedAt.value
     );
   }
   
@@ -251,6 +261,8 @@ class MosqueSubscription extends amplify_core.Model {
   static final MOSQUE = amplify_core.QueryField(
     fieldName: "mosque",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Mosque'));
+  static final CREATEDAT = amplify_core.QueryField(fieldName: "createdAt");
+  static final UPDATEDAT = amplify_core.QueryField(fieldName: "updatedAt");
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "MosqueSubscription";
     modelSchemaDefinition.pluralName = "MosqueSubscriptions";
@@ -324,17 +336,15 @@ class MosqueSubscription extends amplify_core.Model {
       ofModelName: 'Mosque'
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: MosqueSubscription.CREATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: MosqueSubscription.UPDATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
   });

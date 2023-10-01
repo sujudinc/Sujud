@@ -181,7 +181,7 @@ class FundraisingCampaign extends amplify_core.Model {
   
   const FundraisingCampaign._internal({required this.id, required title, description, featureImage, required type, required currentAmount, required goal, required goalDate, required currency, required creator, required mosque, donations, createdAt, updatedAt}): _title = title, _description = description, _featureImage = featureImage, _type = type, _currentAmount = currentAmount, _goal = goal, _goalDate = goalDate, _currency = currency, _creator = creator, _mosque = mosque, _donations = donations, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory FundraisingCampaign({String? id, required String title, String? description, String? featureImage, required FundraisingCampaignType type, required double currentAmount, required double goal, required amplify_core.TemporalDateTime goalDate, required String currency, required User creator, required Mosque mosque, List<Donation>? donations}) {
+  factory FundraisingCampaign({String? id, required String title, String? description, String? featureImage, required FundraisingCampaignType type, required double currentAmount, required double goal, required amplify_core.TemporalDateTime goalDate, required String currency, required User creator, required Mosque mosque, List<Donation>? donations, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return FundraisingCampaign._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
@@ -194,7 +194,9 @@ class FundraisingCampaign extends amplify_core.Model {
       currency: currency,
       creator: creator,
       mosque: mosque,
-      donations: donations != null ? List<Donation>.unmodifiable(donations) : donations);
+      donations: donations != null ? List<Donation>.unmodifiable(donations) : donations,
+      createdAt: createdAt,
+      updatedAt: updatedAt);
   }
   
   bool equals(Object other) {
@@ -216,7 +218,9 @@ class FundraisingCampaign extends amplify_core.Model {
       _currency == other._currency &&
       _creator == other._creator &&
       _mosque == other._mosque &&
-      DeepCollectionEquality().equals(_donations, other._donations);
+      DeepCollectionEquality().equals(_donations, other._donations) &&
+      _createdAt == other._createdAt &&
+      _updatedAt == other._updatedAt;
   }
   
   @override
@@ -245,7 +249,7 @@ class FundraisingCampaign extends amplify_core.Model {
     return buffer.toString();
   }
   
-  FundraisingCampaign copyWith({String? title, String? description, String? featureImage, FundraisingCampaignType? type, double? currentAmount, double? goal, amplify_core.TemporalDateTime? goalDate, String? currency, User? creator, Mosque? mosque, List<Donation>? donations}) {
+  FundraisingCampaign copyWith({String? title, String? description, String? featureImage, FundraisingCampaignType? type, double? currentAmount, double? goal, amplify_core.TemporalDateTime? goalDate, String? currency, User? creator, Mosque? mosque, List<Donation>? donations, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return FundraisingCampaign._internal(
       id: id,
       title: title ?? this.title,
@@ -258,7 +262,9 @@ class FundraisingCampaign extends amplify_core.Model {
       currency: currency ?? this.currency,
       creator: creator ?? this.creator,
       mosque: mosque ?? this.mosque,
-      donations: donations ?? this.donations);
+      donations: donations ?? this.donations,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt);
   }
   
   FundraisingCampaign copyWithModelFieldValues({
@@ -272,7 +278,9 @@ class FundraisingCampaign extends amplify_core.Model {
     ModelFieldValue<String>? currency,
     ModelFieldValue<User>? creator,
     ModelFieldValue<Mosque>? mosque,
-    ModelFieldValue<List<Donation>?>? donations
+    ModelFieldValue<List<Donation>?>? donations,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? createdAt,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? updatedAt
   }) {
     return FundraisingCampaign._internal(
       id: id,
@@ -286,7 +294,9 @@ class FundraisingCampaign extends amplify_core.Model {
       currency: currency == null ? this.currency : currency.value,
       creator: creator == null ? this.creator : creator.value,
       mosque: mosque == null ? this.mosque : mosque.value,
-      donations: donations == null ? this.donations : donations.value
+      donations: donations == null ? this.donations : donations.value,
+      createdAt: createdAt == null ? this.createdAt : createdAt.value,
+      updatedAt: updatedAt == null ? this.updatedAt : updatedAt.value
     );
   }
   
@@ -355,6 +365,8 @@ class FundraisingCampaign extends amplify_core.Model {
   static final DONATIONS = amplify_core.QueryField(
     fieldName: "donations",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Donation'));
+  static final CREATEDAT = amplify_core.QueryField(fieldName: "createdAt");
+  static final UPDATEDAT = amplify_core.QueryField(fieldName: "updatedAt");
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "FundraisingCampaign";
     modelSchemaDefinition.pluralName = "FundraisingCampaigns";
@@ -459,17 +471,15 @@ class FundraisingCampaign extends amplify_core.Model {
       associatedKey: Donation.FUNDRAISINGCAMPAIGN
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: FundraisingCampaign.CREATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: FundraisingCampaign.UPDATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
   });

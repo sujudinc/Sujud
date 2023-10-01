@@ -1,5 +1,4 @@
 // 📦 Package imports:
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -44,6 +43,13 @@ class CreateAnnouncementPageCubit extends Cubit<CreateAnnouncementPageState> {
   set content(String? value) {
     _content = value;
   }
+
+  Announcement get announcement => Announcement(
+        title: _title!,
+        body: _content!,
+        creator: currentUser,
+        mosque: selectedMosque,
+      );
 
   Future<void> addImage({
     required Source source,
@@ -91,7 +97,6 @@ class CreateAnnouncementPageCubit extends Cubit<CreateAnnouncementPageState> {
 
     final (item, errors) = await _announcementRepo.create(
       Announcement(
-        id: UUID.getUUID(),
         title: _title!,
         body: _content!,
         creator: _userRepo.currentUser!,

@@ -1,6 +1,4 @@
 // 📦 Package imports:
-import 'dart:convert';
-
 import 'package:amplify_flutter/amplify_flutter.dart';
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
@@ -46,8 +44,11 @@ class AmplifyApiService<T extends Model>
   }) async {
     final response = await _amplifyApi
         .query(
-          request: GraphQLRequest<String>(
+          request: GraphQLRequest<PaginatedResult<T>>(
+            authorizationMode: APIAuthorizationType.apiKey,
+            modelType: PaginatedModelType(modelType),
             document: operation.query,
+            decodePath: operation.name,
             variables: <String, dynamic>{
               if (filter != null) 'filter': filter,
               if (limit != null) 'limit': limit,
@@ -57,16 +58,10 @@ class AmplifyApiService<T extends Model>
         )
         .response;
 
-    final data =
-        jsonDecode(response.data!)[operation.name] as Map<String, dynamic>;
-
     return (
       GraphQLListResponse<T>(
-        items: (data['items'] as List<dynamic>)
-            .map((item) => modelType.fromJson(item))
-            .toList(),
-        nextToken: data['nextToken'] as String?,
-        startedAt: data['startedAt'] as int?,
+        items: response.data?.items,
+        nextToken: response.data?.nextToken,
       ),
       response.errors,
     );
@@ -80,11 +75,11 @@ class AmplifyApiService<T extends Model>
     Map<String, dynamic>? condition,
   }) async {
     final response = await _amplifyApi
-        .query(
+        .mutate(
           request: GraphQLRequest<T>(
             modelType: modelType,
             decodePath: operation.name,
-            document: operation.query,
+            document: operation.mutation,
             variables: <String, dynamic>{
               'input': input,
               if (condition != null) 'condition': condition,
@@ -104,11 +99,11 @@ class AmplifyApiService<T extends Model>
     Map<String, dynamic>? condition,
   }) async {
     final response = await _amplifyApi
-        .query(
+        .mutate(
           request: GraphQLRequest<T>(
             modelType: modelType,
             decodePath: operation.name,
-            document: operation.query,
+            document: operation.mutation,
             variables: <String, dynamic>{
               'input': input,
               if (condition != null) 'condition': condition,
@@ -128,11 +123,11 @@ class AmplifyApiService<T extends Model>
     Map<String, dynamic>? condition,
   }) async {
     final response = await _amplifyApi
-        .query(
+        .mutate(
           request: GraphQLRequest<T>(
             modelType: modelType,
             decodePath: operation.name,
-            document: operation.query,
+            document: operation.mutation,
             variables: <String, dynamic>{
               'input': <String, dynamic>{
                 'id': id,
@@ -144,5 +139,29 @@ class AmplifyApiService<T extends Model>
         .response;
 
     return response;
+  }
+
+  @override
+  Stream<GraphQLResponse<T>> subscribe({
+    required ModelType<T> modelType,
+    required SubscriptionOperations operation,
+    Map<String, dynamic>? filter,
+    String? creatorId,
+    String? owner,
+  }) {
+    final stream = _amplifyApi.subscribe(
+      GraphQLRequest<T>(
+        modelType: modelType,
+        decodePath: operation.name,
+        document: operation.subscription,
+        variables: <String, dynamic>{
+          if (filter != null) 'filter': filter,
+          if (creatorId != null) 'creatorId': creatorId,
+          if (owner != null) 'owner': owner,
+        },
+      ),
+    );
+
+    return stream;
   }
 }

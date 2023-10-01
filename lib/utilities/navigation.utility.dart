@@ -12,161 +12,235 @@ import 'package:sujud/notifiers/notifiers.dart';
 import 'package:sujud/pages/pages.dart';
 
 class NavigationUtility implements NavigationUtilityAbstract {
-  NavigationUtility()
-      : _userRepo = GetIt.instance.get<UserRepoAbstract>(),
-        _loggerUtility = GetIt.instance.get<LoggerUtilityAbstract>() {
-    _loggerUtility.log('📍 NavigationUtility');
+  final _rootNavigatorKey = GlobalKey<NavigatorState>();
+  final _adminDashboardNavigatorKey = GlobalKey<NavigatorState>();
+  final _jamaahDashboardNavigatorKey = GlobalKey<NavigatorState>();
 
-    final homeRoutes = navigationRoutes.home;
-    final adminRoutes = homeRoutes.admin;
-    final jamaahRoutes = homeRoutes.jamaah;
-    final onboardingRoutes = navigationRoutes.onboarding;
-    final authRoutes = navigationRoutes.auth;
+  NavigationUtility() : _userRepo = GetIt.instance.get<UserRepoAbstract>() {
+    final loadingRoute = navigationRoutes.loading;
+    final onboardingRoute = navigationRoutes.onboarding;
+    final registerRoute = navigationRoutes.register;
+    final loginRoute = navigationRoutes.login;
+    final homeRoute = navigationRoutes.home;
+    final adminDashboardRoute = homeRoute.admin.dashboard;
+    final adminSettingsRoute = homeRoute.admin.settings;
+    final jamaahRoute = homeRoute.jamaah;
 
+    GoRouter.optionURLReflectsImperativeAPIs = true;
     _goRouter = GoRouter(
-      routes: <GoRoute>[
+      navigatorKey: _rootNavigatorKey,
+      routes: <RouteBase>[
+        // Loading Page
         GoRoute(
-          name: navigationRoutes.root.name,
-          path: navigationRoutes.root.path,
+          path: loadingRoute.path,
+          name: loadingRoute.name,
           pageBuilder: (context, state) => MaterialExtendedPage<void>(
             key: state.pageKey,
-            child: Container(
-              color: Colors.greenAccent,
-            ),
+            child: const LoadingPage(),
+          ),
+        ),
+        // Onboarding Page
+        GoRoute(
+          path: onboardingRoute.path,
+          name: onboardingRoute.name,
+          pageBuilder: (context, state) => MaterialExtendedPage<void>(
+            key: state.pageKey,
+            child: const OnboardingPage(),
           ),
           routes: <GoRoute>[
             GoRoute(
-              name: homeRoutes.admin.itself.name,
-              path: homeRoutes.admin.itself.path,
+              path: onboardingRoute.mosques.path,
+              name: onboardingRoute.mosques.name,
               pageBuilder: (context, state) => MaterialExtendedPage<void>(
                 key: state.pageKey,
-                child: AdminHomePage(
-                  key: state.pageKey,
-                ),
+                child: const MosquesPage(),
               ),
-              routes: <GoRoute>[
-                GoRoute(
-                  name: adminRoutes.dashboard.createMosque.itself.name,
-                  path: adminRoutes.dashboard.createMosque.itself.path,
-                  pageBuilder: (context, state) => CupertinoSheetPage<void>(
+            ),
+          ],
+        ),
+        // Auth Pages
+        GoRoute(
+          path: registerRoute.path,
+          name: registerRoute.name,
+          pageBuilder: (context, state) => MaterialExtendedPage<void>(
+            child: RegisterPage(
+              key: state.pageKey,
+            ),
+          ),
+        ),
+        GoRoute(
+          path: loginRoute.path,
+          name: loginRoute.name,
+          pageBuilder: (context, state) => MaterialExtendedPage<void>(
+            key: state.pageKey,
+            child: const LoginPage(),
+          ),
+          routes: <GoRoute>[
+            GoRoute(
+              name: loginRoute.forgot.name,
+              path: loginRoute.forgot.path,
+              pageBuilder: (context, state) => CupertinoExtendedPage<void>(
+                key: state.pageKey,
+                child: const ForgotPasswordPage(),
+              ),
+            ),
+            GoRoute(
+              name: loginRoute.confirm.name,
+              path: loginRoute.confirm.path,
+              pageBuilder: (context, state) => CupertinoExtendedPage<void>(
+                key: state.pageKey,
+                child: const ConfirmAccountPage(),
+              ),
+            ),
+            GoRoute(
+              name: loginRoute.mfa.name,
+              path: loginRoute.mfa.path,
+              pageBuilder: (context, state) => CupertinoExtendedPage<void>(
+                key: state.pageKey,
+                child: const MFAPage(),
+              ),
+            ),
+          ],
+        ),
+        // Home Page
+        StatefulShellRoute.indexedStack(
+          pageBuilder: (context, state, shell) => MaterialExtendedPage<void>(
+            key: state.pageKey,
+            child: HomePage(
+              shell: shell,
+              isAdmin: true,
+            ),
+          ),
+          branches: <StatefulShellBranch>[
+            StatefulShellBranch(
+              navigatorKey: _adminDashboardNavigatorKey,
+              routes: <RouteBase>[
+                StatefulShellRoute.indexedStack(
+                  pageBuilder: (context, state, shell) =>
+                      MaterialExtendedPage<void>(
                     key: state.pageKey,
-                    child: CreateMosquePage(
-                      key: state.pageKey,
+                    child: DashboardTab(
+                      shell: shell,
                     ),
                   ),
-                  routes: <GoRoute>[
-                    GoRoute(
-                      name: adminRoutes.dashboard.createMosque.field.name,
-                      path: adminRoutes.dashboard.createMosque.field.path,
-                      pageBuilder: (context, state) => CupertinoSheetPage<void>(
-                        key: state.pageKey,
-                        child: CreateMosqueFieldPage(
-                          key: state.pageKey,
+                  branches: <StatefulShellBranch>[
+                    StatefulShellBranch(
+                      routes: <RouteBase>[
+                        GoRoute(
+                          path: adminDashboardRoute.subTabs.prayerTimes.path,
+                          name: adminDashboardRoute.subTabs.prayerTimes.name,
+                          pageBuilder: (context, state) =>
+                              MaterialExtendedPage<void>(
+                            key: state.pageKey,
+                            child: const PrayerTimesSubtab(),
+                          ),
+                          routes: <GoRoute>[
+                            GoRoute(
+                              name: adminDashboardRoute.createMosque.name,
+                              path: adminDashboardRoute.createMosque.path,
+                              parentNavigatorKey: _rootNavigatorKey,
+                              pageBuilder: (context, state) =>
+                                  CupertinoSheetPage<void>(
+                                key: state.pageKey,
+                                child: const CreateMosquePage(),
+                              ),
+                              routes: <GoRoute>[
+                                GoRoute(
+                                  name: adminDashboardRoute
+                                      .createMosque.field.name,
+                                  path: adminDashboardRoute
+                                      .createMosque.field.path,
+                                  pageBuilder: (context, state) =>
+                                      CupertinoSheetPage<void>(
+                                    key: state.pageKey,
+                                    child: const CreateMosqueFieldPage(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      ),
+                      ],
+                    ),
+                    StatefulShellBranch(
+                      routes: <RouteBase>[
+                        GoRoute(
+                          path: adminDashboardRoute.subTabs.announcements.path,
+                          name: adminDashboardRoute.subTabs.announcements.name,
+                          pageBuilder: (context, state) =>
+                              MaterialExtendedPage<void>(
+                            key: state.pageKey,
+                            child: const AnnouncementsSubtab(),
+                          ),
+                          routes: <GoRoute>[
+                            GoRoute(
+                              name: adminDashboardRoute.createAnnouncement.name,
+                              path: adminDashboardRoute.createAnnouncement.path,
+                              parentNavigatorKey: _rootNavigatorKey,
+                              pageBuilder: (context, state) =>
+                                  CupertinoSheetPage<void>(
+                                key: state.pageKey,
+                                child: CreateAnnouncementPage(
+                                  key: state.pageKey,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: <RouteBase>[
                 GoRoute(
-                  name: adminRoutes.dashboard.createAnnouncement.name,
-                  path: adminRoutes.dashboard.createAnnouncement.path,
-                  pageBuilder: (context, state) => CupertinoSheetPage<void>(
+                  path: adminSettingsRoute.path,
+                  name: adminSettingsRoute.name,
+                  pageBuilder: (context, state) => MaterialExtendedPage<void>(
                     key: state.pageKey,
-                    child: CreateAnnouncementPage(
-                      key: state.pageKey,
-                    ),
+                    child: const SettingsTab(),
                   ),
                 ),
               ],
             ),
-            GoRoute(
-              name: jamaahRoutes.itself.name,
-              path: jamaahRoutes.itself.path,
-              pageBuilder: (context, state) => MaterialExtendedPage<void>(
-                key: state.pageKey,
-                child: JamaahHomePage(
-                  key: state.pageKey,
-                ),
-              ),
-            ),
           ],
         ),
-        GoRoute(
-          name: onboardingRoutes.itself.name,
-          path: onboardingRoutes.itself.path,
-          pageBuilder: (context, state) => MaterialExtendedPage<void>(
+        StatefulShellRoute.indexedStack(
+          pageBuilder: (context, state, shell) => MaterialExtendedPage<void>(
             key: state.pageKey,
-            child: OnboardingPage(
-              key: state.pageKey,
+            child: HomePage(
+              shell: shell,
             ),
           ),
-          routes: <GoRoute>[
-            GoRoute(
-              name: onboardingRoutes.mosques.name,
-              path: onboardingRoutes.mosques.path,
-              pageBuilder: (context, state) => MaterialExtendedPage<void>(
-                key: state.pageKey,
-                child: MosqueSelectionPage(
-                  key: state.pageKey,
+          branches: <StatefulShellBranch>[
+            StatefulShellBranch(
+              navigatorKey: _jamaahDashboardNavigatorKey,
+              routes: <RouteBase>[
+                GoRoute(
+                  path: jamaahRoute.prayerTimes.path,
+                  name: jamaahRoute.prayerTimes.name,
+                  pageBuilder: (context, state) => MaterialExtendedPage<void>(
+                    key: state.pageKey,
+                    child: const PrayerTimesTab(),
+                  ),
                 ),
-              ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: <RouteBase>[
+                GoRoute(
+                  path: jamaahRoute.settings.path,
+                  name: jamaahRoute.settings.name,
+                  pageBuilder: (context, state) => MaterialExtendedPage<void>(
+                    key: state.pageKey,
+                    child: const SettingsTab(),
+                  ),
+                ),
+              ],
             ),
           ],
-        ),
-        GoRoute(
-          name: authRoutes.itself.name,
-          path: authRoutes.itself.path,
-          builder: (context, state) => LoginPage(
-            key: state.pageKey,
-          ),
-          routes: <GoRoute>[
-            GoRoute(
-              name: authRoutes.mfa.name,
-              path: authRoutes.mfa.path,
-              pageBuilder: (context, state) => CupertinoExtendedPage<void>(
-                child: MFAPage(
-                  key: state.pageKey,
-                ),
-              ),
-            ),
-            GoRoute(
-              name: authRoutes.forgot.name,
-              path: authRoutes.forgot.path,
-              pageBuilder: (context, state) => CupertinoExtendedPage<void>(
-                child: ForgotPasswordPage(
-                  key: state.pageKey,
-                ),
-              ),
-            ),
-            GoRoute(
-              name: authRoutes.register.itself.name,
-              path: authRoutes.register.itself.path,
-              pageBuilder: (context, state) => MaterialExtendedPage<void>(
-                child: RegisterPage(
-                  key: state.pageKey,
-                ),
-              ),
-            ),
-            GoRoute(
-              name: authRoutes.confirm.name,
-              path: authRoutes.confirm.path,
-              pageBuilder: (context, state) => CupertinoExtendedPage<void>(
-                child: ConfirmAccountPage(
-                  key: state.pageKey,
-                ),
-              ),
-            ),
-          ],
-        ),
-        GoRoute(
-          name: navigationRoutes.loading.name,
-          path: navigationRoutes.loading.path,
-          pageBuilder: (context, state) => MaterialExtendedPage<void>(
-            key: state.pageKey,
-            child: Container(
-              color: Colors.blue,
-            ),
-          ),
         ),
       ],
       errorPageBuilder: (context, state) => MaterialPage(
@@ -179,53 +253,63 @@ class NavigationUtility implements NavigationUtilityAbstract {
         final isInitialised = _userRepo.isLoggedIn != null;
         final isLoggedIn = _userRepo.isLoggedIn ?? false;
         final location = routerState.uri.toString();
-        final isGoingToRoot = location == navigationRoutes.root.path;
         final isGoingToLoading = location.startsWith(
-          navigationRoutes.loading.path,
-        );
-        final isGoingToAuth = location.startsWith(
-          navigationRoutes.auth.itself.path,
+          loadingRoute.location,
         );
         final isGoingToOnboarding = location.startsWith(
-          navigationRoutes.onboarding.itself.location,
+          onboardingRoute.location,
+        );
+        final isGoingToRegister = location.startsWith(
+          registerRoute.location,
+        );
+        final isGoingToLogin = location.startsWith(
+          loginRoute.location,
         );
         String? redirectLocation;
 
-        _navigationPathNotifier.navigationPath = NavigationPath.fromUrlPath(
-          urlPath: location,
+        _navigationPathNotifier.navigationPath = NavigationPath.fromPath(
+          path: location,
         );
 
         if (!isInitialised && !isGoingToLoading) {
           return routerState.namedLocation(
-            navigationRoutes.loading.name,
+            loadingRoute.name,
             queryParameters: _getRedirectParam(location),
           );
-        }
-
-        if (!isLoggedIn) {
-          if (isGoingToRoot || isGoingToAuth || isGoingToOnboarding) {
+        } else if (!isLoggedIn) {
+          if (isGoingToLogin || isGoingToRegister || isGoingToOnboarding) {
             redirectLocation = null;
           } else {
-            redirectLocation = navigationRoutes.onboarding.itself.location;
+            redirectLocation = onboardingRoute.path;
           }
-        } else if (isInitialised && !isLoggedIn && !isGoingToAuth) {
+        } else if (isInitialised &&
+            !isLoggedIn &&
+            (!isGoingToLogin || !isGoingToRegister)) {
           redirectLocation = routerState.namedLocation(
-            authRoutes.itself.name,
+            loginRoute.name,
             queryParameters: _getRedirectParam(location),
           );
-        } else if (isGoingToRoot ||
-            isGoingToLoading ||
-            isGoingToAuth ||
-            isGoingToOnboarding) {
-          final defaultHomePage = routerState.namedLocation(
-            (_userRepo.currentUser?.type ?? UserType.USER) == UserType.ADMIN
-                ? homeRoutes.admin.itself.name
-                : homeRoutes.jamaah.itself.name,
-            pathParameters: <String, String>{
-              RouteParam.subRoute.name: 'dashboard',
-            },
-            queryParameters: routerState.uri.queryParameters,
-          );
+        } else if (isGoingToLoading ||
+            isGoingToOnboarding ||
+            isGoingToLogin ||
+            isGoingToRegister) {
+          late String defaultHomePage;
+
+          switch (_userRepo.currentUser!.type) {
+            case UserType.ADMIN:
+            case UserType.SUPER_ADMIN:
+              defaultHomePage = routerState.namedLocation(
+                adminDashboardRoute.subTabs.prayerTimes.name,
+                queryParameters: routerState.uri.queryParameters,
+              );
+              break;
+            default:
+              defaultHomePage = routerState.namedLocation(
+                jamaahRoute.prayerTimes.name,
+                queryParameters: routerState.uri.queryParameters,
+              );
+              break;
+          }
 
           final redirect = routerState.uri.queryParameters['redirect'];
           redirectLocation = redirect ?? defaultHomePage;
@@ -234,13 +318,12 @@ class NavigationUtility implements NavigationUtilityAbstract {
         return redirectLocation;
       },
       refreshListenable: RefreshStream(_userRepo.currentUserStream),
-      initialLocation: navigationRoutes.onboarding.itself.location,
+      initialLocation: onboardingRoute.location,
       debugLogDiagnostics: true,
     );
   }
 
   final UserRepoAbstract _userRepo;
-  final LoggerUtilityAbstract _loggerUtility;
   late final GoRouter _goRouter;
   final _navigationPathNotifier = NavigationPathNotifier();
 
@@ -291,7 +374,7 @@ class NavigationUtility implements NavigationUtilityAbstract {
 
   @override
   void goRoute({
-    required NavigationRoute route,
+    required NavigationRouteAbstract route,
     Map<String, String>? queryParameters,
   }) {
     _goRouter.go(
@@ -313,7 +396,7 @@ class NavigationUtility implements NavigationUtilityAbstract {
 
   @override
   Future<Object?> pushRoute({
-    required NavigationRoute route,
+    required NavigationRouteAbstract route,
     Map<String, String>? queryParameters,
   }) {
     final data = _goRouter.push(

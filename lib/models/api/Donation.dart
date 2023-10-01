@@ -114,14 +114,16 @@ class Donation extends amplify_core.Model {
   
   const Donation._internal({required this.id, required amount, required currency, required isAnonymous, required donor, fundraisingCampaign, createdAt, updatedAt}): _amount = amount, _currency = currency, _isAnonymous = isAnonymous, _donor = donor, _fundraisingCampaign = fundraisingCampaign, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Donation({String? id, required double amount, required String currency, required bool isAnonymous, required User donor, FundraisingCampaign? fundraisingCampaign}) {
+  factory Donation({String? id, required double amount, required String currency, required bool isAnonymous, required User donor, FundraisingCampaign? fundraisingCampaign, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return Donation._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       amount: amount,
       currency: currency,
       isAnonymous: isAnonymous,
       donor: donor,
-      fundraisingCampaign: fundraisingCampaign);
+      fundraisingCampaign: fundraisingCampaign,
+      createdAt: createdAt,
+      updatedAt: updatedAt);
   }
   
   bool equals(Object other) {
@@ -137,7 +139,9 @@ class Donation extends amplify_core.Model {
       _currency == other._currency &&
       _isAnonymous == other._isAnonymous &&
       _donor == other._donor &&
-      _fundraisingCampaign == other._fundraisingCampaign;
+      _fundraisingCampaign == other._fundraisingCampaign &&
+      _createdAt == other._createdAt &&
+      _updatedAt == other._updatedAt;
   }
   
   @override
@@ -161,14 +165,16 @@ class Donation extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Donation copyWith({double? amount, String? currency, bool? isAnonymous, User? donor, FundraisingCampaign? fundraisingCampaign}) {
+  Donation copyWith({double? amount, String? currency, bool? isAnonymous, User? donor, FundraisingCampaign? fundraisingCampaign, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return Donation._internal(
       id: id,
       amount: amount ?? this.amount,
       currency: currency ?? this.currency,
       isAnonymous: isAnonymous ?? this.isAnonymous,
       donor: donor ?? this.donor,
-      fundraisingCampaign: fundraisingCampaign ?? this.fundraisingCampaign);
+      fundraisingCampaign: fundraisingCampaign ?? this.fundraisingCampaign,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt);
   }
   
   Donation copyWithModelFieldValues({
@@ -176,7 +182,9 @@ class Donation extends amplify_core.Model {
     ModelFieldValue<String>? currency,
     ModelFieldValue<bool>? isAnonymous,
     ModelFieldValue<User>? donor,
-    ModelFieldValue<FundraisingCampaign?>? fundraisingCampaign
+    ModelFieldValue<FundraisingCampaign?>? fundraisingCampaign,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? createdAt,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? updatedAt
   }) {
     return Donation._internal(
       id: id,
@@ -184,7 +192,9 @@ class Donation extends amplify_core.Model {
       currency: currency == null ? this.currency : currency.value,
       isAnonymous: isAnonymous == null ? this.isAnonymous : isAnonymous.value,
       donor: donor == null ? this.donor : donor.value,
-      fundraisingCampaign: fundraisingCampaign == null ? this.fundraisingCampaign : fundraisingCampaign.value
+      fundraisingCampaign: fundraisingCampaign == null ? this.fundraisingCampaign : fundraisingCampaign.value,
+      createdAt: createdAt == null ? this.createdAt : createdAt.value,
+      updatedAt: updatedAt == null ? this.updatedAt : updatedAt.value
     );
   }
   
@@ -228,6 +238,8 @@ class Donation extends amplify_core.Model {
   static final FUNDRAISINGCAMPAIGN = amplify_core.QueryField(
     fieldName: "fundraisingCampaign",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'FundraisingCampaign'));
+  static final CREATEDAT = amplify_core.QueryField(fieldName: "createdAt");
+  static final UPDATEDAT = amplify_core.QueryField(fieldName: "updatedAt");
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Donation";
     modelSchemaDefinition.pluralName = "Donations";
@@ -295,17 +307,15 @@ class Donation extends amplify_core.Model {
       ofModelName: 'FundraisingCampaign'
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Donation.CREATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Donation.UPDATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
   });

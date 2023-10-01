@@ -4,17 +4,18 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'navigation_route.model.freezed.dart';
 
 @freezed
-class NavigationRoute with _$NavigationRoute {
+class NavigationRoute
+    with _$NavigationRoute
+    implements NavigationRouteAbstract {
   factory NavigationRoute({
-    required String name,
-    required String path,
-    required String location,
+    @override required String name,
+    @override required String path,
+    @override required String location,
   }) = _NavigationRoute;
 }
 
-enum RouteParam {
-  subRoute,
-  section,
-  module,
-  fragment,
+abstract class NavigationRouteAbstract {
+  String get name;
+  String get path;
+  String get location;
 }

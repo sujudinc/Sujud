@@ -128,7 +128,7 @@ class Resource extends amplify_core.Model {
   
   const Resource._internal({required this.id, required title, description, required type, required url, required creator, required mosque, createdAt, updatedAt}): _title = title, _description = description, _type = type, _url = url, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Resource({String? id, required String title, String? description, required ResourceType type, required String url, required User creator, required Mosque mosque}) {
+  factory Resource({String? id, required String title, String? description, required ResourceType type, required String url, required User creator, required Mosque mosque, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return Resource._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
@@ -136,7 +136,9 @@ class Resource extends amplify_core.Model {
       type: type,
       url: url,
       creator: creator,
-      mosque: mosque);
+      mosque: mosque,
+      createdAt: createdAt,
+      updatedAt: updatedAt);
   }
   
   bool equals(Object other) {
@@ -153,7 +155,9 @@ class Resource extends amplify_core.Model {
       _type == other._type &&
       _url == other._url &&
       _creator == other._creator &&
-      _mosque == other._mosque;
+      _mosque == other._mosque &&
+      _createdAt == other._createdAt &&
+      _updatedAt == other._updatedAt;
   }
   
   @override
@@ -178,7 +182,7 @@ class Resource extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Resource copyWith({String? title, String? description, ResourceType? type, String? url, User? creator, Mosque? mosque}) {
+  Resource copyWith({String? title, String? description, ResourceType? type, String? url, User? creator, Mosque? mosque, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return Resource._internal(
       id: id,
       title: title ?? this.title,
@@ -186,7 +190,9 @@ class Resource extends amplify_core.Model {
       type: type ?? this.type,
       url: url ?? this.url,
       creator: creator ?? this.creator,
-      mosque: mosque ?? this.mosque);
+      mosque: mosque ?? this.mosque,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt);
   }
   
   Resource copyWithModelFieldValues({
@@ -195,7 +201,9 @@ class Resource extends amplify_core.Model {
     ModelFieldValue<ResourceType>? type,
     ModelFieldValue<String>? url,
     ModelFieldValue<User>? creator,
-    ModelFieldValue<Mosque>? mosque
+    ModelFieldValue<Mosque>? mosque,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? createdAt,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? updatedAt
   }) {
     return Resource._internal(
       id: id,
@@ -204,7 +212,9 @@ class Resource extends amplify_core.Model {
       type: type == null ? this.type : type.value,
       url: url == null ? this.url : url.value,
       creator: creator == null ? this.creator : creator.value,
-      mosque: mosque == null ? this.mosque : mosque.value
+      mosque: mosque == null ? this.mosque : mosque.value,
+      createdAt: createdAt == null ? this.createdAt : createdAt.value,
+      updatedAt: updatedAt == null ? this.updatedAt : updatedAt.value
     );
   }
   
@@ -251,6 +261,8 @@ class Resource extends amplify_core.Model {
   static final MOSQUE = amplify_core.QueryField(
     fieldName: "mosque",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Mosque'));
+  static final CREATEDAT = amplify_core.QueryField(fieldName: "createdAt");
+  static final UPDATEDAT = amplify_core.QueryField(fieldName: "updatedAt");
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Resource";
     modelSchemaDefinition.pluralName = "Resources";
@@ -324,17 +336,15 @@ class Resource extends amplify_core.Model {
       ofModelName: 'Mosque'
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Resource.CREATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Resource.UPDATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
   });

@@ -3,7 +3,6 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/configs/configs.dart';
@@ -26,8 +25,6 @@ class LoginPageCubit extends Cubit<LoginPageState> {
 
   String? username;
   String? password;
-
-  NavigationRoutes get _routes => _navigation.navigationRoutes;
 
   Future<void> login() async {
     if (state is LoginPageStateLoading &&
@@ -140,7 +137,7 @@ class LoginPageCubit extends Cubit<LoginPageState> {
 
     _navigation.go(
       path: NavigationPath(
-        route: _routes.auth.mfa,
+        route: NavigationRoutes().login.mfa,
       ),
     );
     emit(const LoginPageState.initial());
@@ -180,7 +177,7 @@ class LoginPageCubit extends Cubit<LoginPageState> {
 
         _navigation.go(
           path: NavigationPath(
-            route: _routes.auth.forgot,
+            route: NavigationRoutes().login.forgot,
           ),
         );
 
@@ -209,7 +206,7 @@ class LoginPageCubit extends Cubit<LoginPageState> {
 
     _navigation.go(
       path: NavigationPath(
-        route: _routes.auth.confirm,
+        route: NavigationRoutes().login.confirm,
         section: 'email',
         queryParameters: <String, String>{
           'username': username!,

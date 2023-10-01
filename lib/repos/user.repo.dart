@@ -25,6 +25,7 @@ class UserRepo extends UserRepoAbstract {
   final _cache = <String, User>{};
   bool _hasMoreItems = false;
 
+  StreamSubscription<GraphqlSubscriptionResponse<User>>? _stream;
   Map<String, dynamic>? _filter;
   int? _limit;
   String? _nextToken;
@@ -95,7 +96,7 @@ class UserRepo extends UserRepoAbstract {
 
     if (response.items != null) {
       for (final item in response.items!) {
-        _cache[item.id] = item;
+        _cache[item!.id] = item;
       }
     }
 
@@ -118,7 +119,7 @@ class UserRepo extends UserRepoAbstract {
 
     if (response.items != null) {
       for (final item in response.items!) {
-        _cache[item.id] = item;
+        _cache[item!.id] = item;
       }
     }
 
@@ -163,6 +164,27 @@ class UserRepo extends UserRepoAbstract {
     }
 
     return (user, errors);
+  }
+
+  @override
+  void subscribe({
+    Function((User?, List<GraphQLResponseError>) response)? onCreated,
+    Function((User?, List<GraphQLResponseError>) response)? onUpdated,
+    Function((User?, List<GraphQLResponseError>) response)? onDeleted,
+  }) {
+    _stream = _userApi.subscribe(modelType: User.classType).listen((event) {
+      switch (event.type) {
+        case SubscriptionType.onCreate:
+          onCreated?.call((event.response.data, event.response.errors));
+          break;
+        case SubscriptionType.onUpdate:
+          onUpdated?.call((event.response.data, event.response.errors));
+          break;
+        case SubscriptionType.onDelete:
+          onDeleted?.call((event.response.data, event.response.errors));
+          break;
+      }
+    });
   }
 
   @override
@@ -355,6 +377,13 @@ class UserRepo extends UserRepoAbstract {
 
     if (!kIsWeb) {
       await Amplify.DataStore.clear();
+    }
+  }
+
+  @override
+  void dispose() {
+    if (_stream != null) {
+      _stream!.cancel();
     }
   }
 }

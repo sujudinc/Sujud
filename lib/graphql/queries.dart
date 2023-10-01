@@ -41,10 +41,33 @@ final listAnnouncements = '''
       }
       nextToken
       startedAt
-      __typename
     }
   }
  ''';
+
+final announcementsByMosqueId = '''
+  query AnnouncementsByMosqueId(
+    \$mosqueId: ID!
+    \$sortDirection: ModelSortDirection
+    \$filter: ModelAnnouncementFilterInput
+    \$limit: Int
+    \$nextToken: String
+  ) {
+    ${ListOperations.announcementsByMosqueId.name}(
+      mosqueId: \$mosqueId
+      sortDirection: \$sortDirection
+      filter: \$filter
+      limit: \$limit
+      nextToken: \$nextToken
+    ) {
+      items {
+        $announcementDocument
+      }
+      nextToken
+      startedAt
+    }
+  }
+''';
 
 final listMosques = '''
   query ListMosques(
@@ -62,7 +85,6 @@ final listMosques = '''
       }
       nextToken
       startedAt
-      __typename
     }
   }
  ''';
@@ -83,7 +105,6 @@ final listUsers = '''
       }
       nextToken
       startedAt
-      __typename
     }
   }
  ''';

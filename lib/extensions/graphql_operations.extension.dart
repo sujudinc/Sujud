@@ -17,6 +17,8 @@ extension GetOperationsX on GetOperations {
 extension ListOperationX on ListOperations {
   String get query {
     switch (this) {
+      case ListOperations.announcementsByMosqueId:
+        return announcementsByMosqueId;
       case ListOperations.listAnnouncements:
         return listAnnouncements;
       case ListOperations.listMosques:
@@ -28,7 +30,7 @@ extension ListOperationX on ListOperations {
 }
 
 extension CreateOperationX on CreateOperations {
-  String get query {
+  String get mutation {
     switch (this) {
       case CreateOperations.createAnnouncement:
         return createAnnouncement;
@@ -41,7 +43,7 @@ extension CreateOperationX on CreateOperations {
 }
 
 extension UpdateOperationX on UpdateOperations {
-  String get query {
+  String get mutation {
     switch (this) {
       case UpdateOperations.updateAnnouncement:
         return updateAnnouncement;
@@ -54,7 +56,7 @@ extension UpdateOperationX on UpdateOperations {
 }
 
 extension DeleteOperationX on DeleteOperations {
-  String get query {
+  String get mutation {
     switch (this) {
       case DeleteOperations.deleteAnnouncement:
         return deleteAnnouncement;
@@ -67,7 +69,7 @@ extension DeleteOperationX on DeleteOperations {
 }
 
 extension SubscriptionOperationX on SubscriptionOperations {
-  String get query {
+  String get subscription {
     switch (this) {
       case SubscriptionOperations.onCreateAnnouncement:
         return onCreateAnnouncement;

@@ -1,5 +1,7 @@
 // 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
+
+// 🌎 Project imports:
 import 'package:sujud/models/attributed_file.model.dart';
 
 abstract class AmplifyStorageServiceAbstract {

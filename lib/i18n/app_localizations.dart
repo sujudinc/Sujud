@@ -98,6 +98,18 @@ class AppLocalizations {
         desc: 'Mosques button text',
       );
 
+  String get titleDashboard => Intl.message(
+        'Dashboard',
+        name: 'dashboard',
+        desc: 'Dashboard button text',
+      );
+
+  String get titleSettings => Intl.message(
+        'Settings',
+        name: 'settings',
+        desc: 'Settings button text',
+      );
+
   String get tabPrayerTimes => Intl.message(
         'Prayer Times',
         name: 'prayerTimes',
@@ -108,6 +120,18 @@ class AppLocalizations {
         'Announcements',
         name: 'announcements',
         desc: 'Announcements button text',
+      );
+
+  String get logout => Intl.message(
+        'Logout',
+        name: 'logout',
+        desc: 'Logout button text',
+      );
+
+  String get retry => Intl.message(
+        'Retry',
+        name: 'retry',
+        desc: 'Retry button text',
       );
 
   String get buttonNext => Intl.message(
@@ -251,9 +275,21 @@ class AppLocalizations {
       );
 
   String get messageCreateMosquePage => Intl.message(
-        'Looking a bit empty here?',
-        name: 'messageCreateMosque',
-        desc: 'Create Mosque title text',
+        'Want us to help you manage a mosque?',
+        name: 'messageRegister',
+        desc: 'Register message',
+      );
+
+  String get messageCreateAnnouncementPage => Intl.message(
+        'Looking kind of empty here...',
+        name: 'messageCreateAnnouncement',
+        desc: 'Create Announcement message',
+      );
+
+  String get descriptionCreateAnnouncementPage => Intl.message(
+        'Create an announcement to share with your community.',
+        name: 'descriptionCreateAnnouncement',
+        desc: 'Create Announcement description text',
       );
 
   String get messageSocialMedia => Intl.message(
@@ -806,6 +842,12 @@ class AppLocalizations {
         'Uh-oh...',
         name: 'titleError',
         desc: 'Error text',
+      );
+
+  String get errorGeneric => Intl.message(
+        'Something went wrong. Please try again later.',
+        name: 'errorGeneric',
+        desc: 'Error Generic text',
       );
 
   String get errorFieldRequired => Intl.message(

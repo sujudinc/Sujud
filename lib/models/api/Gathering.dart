@@ -153,7 +153,7 @@ class Gathering extends amplify_core.Model {
   
   const Gathering._internal({required this.id, required title, description, required type, required startDate, endDate, required address, required creator, required mosque, attendees, createdAt, updatedAt}): _title = title, _description = description, _type = type, _startDate = startDate, _endDate = endDate, _address = address, _creator = creator, _mosque = mosque, _attendees = attendees, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Gathering({String? id, required String title, String? description, required GatheringType type, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required Address address, required User creator, required Mosque mosque, List<GatheringAttendees>? attendees}) {
+  factory Gathering({String? id, required String title, String? description, required GatheringType type, required amplify_core.TemporalDateTime startDate, amplify_core.TemporalDateTime? endDate, required Address address, required User creator, required Mosque mosque, List<GatheringAttendees>? attendees, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return Gathering._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
@@ -164,7 +164,9 @@ class Gathering extends amplify_core.Model {
       address: address,
       creator: creator,
       mosque: mosque,
-      attendees: attendees != null ? List<GatheringAttendees>.unmodifiable(attendees) : attendees);
+      attendees: attendees != null ? List<GatheringAttendees>.unmodifiable(attendees) : attendees,
+      createdAt: createdAt,
+      updatedAt: updatedAt);
   }
   
   bool equals(Object other) {
@@ -184,7 +186,9 @@ class Gathering extends amplify_core.Model {
       _address == other._address &&
       _creator == other._creator &&
       _mosque == other._mosque &&
-      DeepCollectionEquality().equals(_attendees, other._attendees);
+      DeepCollectionEquality().equals(_attendees, other._attendees) &&
+      _createdAt == other._createdAt &&
+      _updatedAt == other._updatedAt;
   }
   
   @override
@@ -211,7 +215,7 @@ class Gathering extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Gathering copyWith({String? title, String? description, GatheringType? type, amplify_core.TemporalDateTime? startDate, amplify_core.TemporalDateTime? endDate, Address? address, User? creator, Mosque? mosque, List<GatheringAttendees>? attendees}) {
+  Gathering copyWith({String? title, String? description, GatheringType? type, amplify_core.TemporalDateTime? startDate, amplify_core.TemporalDateTime? endDate, Address? address, User? creator, Mosque? mosque, List<GatheringAttendees>? attendees, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return Gathering._internal(
       id: id,
       title: title ?? this.title,
@@ -222,7 +226,9 @@ class Gathering extends amplify_core.Model {
       address: address ?? this.address,
       creator: creator ?? this.creator,
       mosque: mosque ?? this.mosque,
-      attendees: attendees ?? this.attendees);
+      attendees: attendees ?? this.attendees,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt);
   }
   
   Gathering copyWithModelFieldValues({
@@ -234,7 +240,9 @@ class Gathering extends amplify_core.Model {
     ModelFieldValue<Address>? address,
     ModelFieldValue<User>? creator,
     ModelFieldValue<Mosque>? mosque,
-    ModelFieldValue<List<GatheringAttendees>?>? attendees
+    ModelFieldValue<List<GatheringAttendees>?>? attendees,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? createdAt,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? updatedAt
   }) {
     return Gathering._internal(
       id: id,
@@ -246,7 +254,9 @@ class Gathering extends amplify_core.Model {
       address: address == null ? this.address : address.value,
       creator: creator == null ? this.creator : creator.value,
       mosque: mosque == null ? this.mosque : mosque.value,
-      attendees: attendees == null ? this.attendees : attendees.value
+      attendees: attendees == null ? this.attendees : attendees.value,
+      createdAt: createdAt == null ? this.createdAt : createdAt.value,
+      updatedAt: updatedAt == null ? this.updatedAt : updatedAt.value
     );
   }
   
@@ -311,6 +321,8 @@ class Gathering extends amplify_core.Model {
   static final ATTENDEES = amplify_core.QueryField(
     fieldName: "attendees",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'GatheringAttendees'));
+  static final CREATEDAT = amplify_core.QueryField(fieldName: "createdAt");
+  static final UPDATEDAT = amplify_core.QueryField(fieldName: "updatedAt");
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Gathering";
     modelSchemaDefinition.pluralName = "Gatherings";
@@ -403,17 +415,15 @@ class Gathering extends amplify_core.Model {
       associatedKey: GatheringAttendees.GATHERING
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Gathering.CREATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Gathering.UPDATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
   });

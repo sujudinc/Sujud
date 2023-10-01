@@ -106,14 +106,16 @@ class Committee extends amplify_core.Model {
   
   const Committee._internal({required this.id, required title, description, required creator, required mosque, members, createdAt, updatedAt}): _title = title, _description = description, _creator = creator, _mosque = mosque, _members = members, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Committee({String? id, required String title, String? description, required User creator, required Mosque mosque, List<CommitteeMembers>? members}) {
+  factory Committee({String? id, required String title, String? description, required User creator, required Mosque mosque, List<CommitteeMembers>? members, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return Committee._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       title: title,
       description: description,
       creator: creator,
       mosque: mosque,
-      members: members != null ? List<CommitteeMembers>.unmodifiable(members) : members);
+      members: members != null ? List<CommitteeMembers>.unmodifiable(members) : members,
+      createdAt: createdAt,
+      updatedAt: updatedAt);
   }
   
   bool equals(Object other) {
@@ -129,7 +131,9 @@ class Committee extends amplify_core.Model {
       _description == other._description &&
       _creator == other._creator &&
       _mosque == other._mosque &&
-      DeepCollectionEquality().equals(_members, other._members);
+      DeepCollectionEquality().equals(_members, other._members) &&
+      _createdAt == other._createdAt &&
+      _updatedAt == other._updatedAt;
   }
   
   @override
@@ -152,14 +156,16 @@ class Committee extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Committee copyWith({String? title, String? description, User? creator, Mosque? mosque, List<CommitteeMembers>? members}) {
+  Committee copyWith({String? title, String? description, User? creator, Mosque? mosque, List<CommitteeMembers>? members, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
     return Committee._internal(
       id: id,
       title: title ?? this.title,
       description: description ?? this.description,
       creator: creator ?? this.creator,
       mosque: mosque ?? this.mosque,
-      members: members ?? this.members);
+      members: members ?? this.members,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt);
   }
   
   Committee copyWithModelFieldValues({
@@ -167,7 +173,9 @@ class Committee extends amplify_core.Model {
     ModelFieldValue<String?>? description,
     ModelFieldValue<User>? creator,
     ModelFieldValue<Mosque>? mosque,
-    ModelFieldValue<List<CommitteeMembers>?>? members
+    ModelFieldValue<List<CommitteeMembers>?>? members,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? createdAt,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? updatedAt
   }) {
     return Committee._internal(
       id: id,
@@ -175,7 +183,9 @@ class Committee extends amplify_core.Model {
       description: description == null ? this.description : description.value,
       creator: creator == null ? this.creator : creator.value,
       mosque: mosque == null ? this.mosque : mosque.value,
-      members: members == null ? this.members : members.value
+      members: members == null ? this.members : members.value,
+      createdAt: createdAt == null ? this.createdAt : createdAt.value,
+      updatedAt: updatedAt == null ? this.updatedAt : updatedAt.value
     );
   }
   
@@ -226,6 +236,8 @@ class Committee extends amplify_core.Model {
   static final MEMBERS = amplify_core.QueryField(
     fieldName: "members",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'CommitteeMembers'));
+  static final CREATEDAT = amplify_core.QueryField(fieldName: "createdAt");
+  static final UPDATEDAT = amplify_core.QueryField(fieldName: "updatedAt");
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Committee";
     modelSchemaDefinition.pluralName = "Committees";
@@ -294,17 +306,15 @@ class Committee extends amplify_core.Model {
       associatedKey: CommitteeMembers.COMMITTEE
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Committee.CREATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Committee.UPDATEDAT,
       isRequired: false,
-      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
   });

@@ -1,14 +1,11 @@
 // 🎯 Dart imports:
 import 'dart:async';
 
-// 📦 Package imports:
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
-
-// 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/configs/configs.dart';
 import 'package:sujud/exceptions/exceptions.dart';
@@ -55,33 +52,33 @@ class AuthCubit extends Cubit<AuthState> {
 
   void get back => _navigation.back();
 
-  void get toOnboardingPage => _navigation.go(
+  void get toOnboardingPage => _navigation.push(
         path: NavigationPath(
-          route: routes.onboarding.itself,
+          route: routes.onboarding,
         ),
       );
 
-  void get toForgotPasswordPage => _navigation.go(
+  void get toForgotPasswordPage => _navigation.push(
         path: NavigationPath(
-          route: routes.auth.forgot,
+          route: routes.login.forgot,
           queryParameters: <String, String>{
             if (username != null) 'email': username!,
           },
         ),
       );
 
-  void get toRegisterPage => _navigation.go(
+  void get toRegisterPage => _navigation.push(
         path: NavigationPath(
-          route: routes.auth.register.itself,
+          route: routes.register,
           queryParameters: <String, String>{
             if (username != null) 'email': username!,
           },
         ),
       );
 
-  void get toConfirmationPage => _navigation.go(
+  void get toConfirmationPage => _navigation.push(
         path: NavigationPath(
-          route: routes.auth.confirm,
+          route: routes.login.confirm,
           section: 'email',
           queryParameters: <String, String>{
             if (username != null) 'email': username!,
@@ -286,8 +283,7 @@ class AuthCubit extends Cubit<AuthState> {
       'Please check your ${details.deliveryMedium.name} for the code.',
     );
 
-    if (_navigation.currentPath.route.location ==
-        routes.auth.register.itself.location) {
+    if (_navigation.currentPath.route.name == routes.register.name) {
       toConfirmationPage;
     }
 
@@ -299,7 +295,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     _navigation.go(
       path: NavigationPath(
-        route: routes.auth.mfa,
+        route: routes.login.mfa,
       ),
     );
 

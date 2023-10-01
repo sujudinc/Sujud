@@ -16,8 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$NavigationRoute {
+  @override
   String get name => throw _privateConstructorUsedError;
+  @override
   String get path => throw _privateConstructorUsedError;
+  @override
   String get location => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +34,10 @@ abstract class $NavigationRouteCopyWith<$Res> {
           NavigationRoute value, $Res Function(NavigationRoute) then) =
       _$NavigationRouteCopyWithImpl<$Res, NavigationRoute>;
   @useResult
-  $Res call({String name, String path, String location});
+  $Res call(
+      {@override String name,
+      @override String path,
+      @override String location});
 }
 
 /// @nodoc
@@ -76,7 +82,10 @@ abstract class _$$_NavigationRouteCopyWith<$Res>
       __$$_NavigationRouteCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String path, String location});
+  $Res call(
+      {@override String name,
+      @override String path,
+      @override String location});
 }
 
 /// @nodoc
@@ -115,12 +124,17 @@ class __$$_NavigationRouteCopyWithImpl<$Res>
 
 class _$_NavigationRoute implements _NavigationRoute {
   _$_NavigationRoute(
-      {required this.name, required this.path, required this.location});
+      {@override required this.name,
+      @override required this.path,
+      @override required this.location});
 
+  @override
   @override
   final String name;
   @override
+  @override
   final String path;
+  @override
   @override
   final String location;
 
@@ -152,14 +166,17 @@ class _$_NavigationRoute implements _NavigationRoute {
 
 abstract class _NavigationRoute implements NavigationRoute {
   factory _NavigationRoute(
-      {required final String name,
-      required final String path,
-      required final String location}) = _$_NavigationRoute;
+      {@override required final String name,
+      @override required final String path,
+      @override required final String location}) = _$_NavigationRoute;
 
+  @override
   @override
   String get name;
   @override
+  @override
   String get path;
+  @override
   @override
   String get location;
   @override

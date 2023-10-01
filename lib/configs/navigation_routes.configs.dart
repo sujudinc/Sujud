@@ -2,93 +2,19 @@
 import 'package:sujud/models/models.dart';
 
 class NavigationRoutes {
-  final root = NavigationRoute(
-    name: 'root',
-    path: '/',
-    location: '/',
-  );
   final loading = NavigationRoute(
     name: 'loading',
     path: '/loading',
     location: '/loading',
   );
+  final onboarding = OnboardingRoutes();
+  final register = RegisterRoutes();
+  final login = LoginRoutes();
+  final home = HomeRoutes();
   final error = NavigationRoute(
     name: 'error',
     path: '/404',
     location: '/404',
-  );
-  final onboarding = OnboardingRoutes();
-  final auth = AuthRoutes();
-  final home = HomeRoutes();
-}
-
-class AuthRoutes {
-  final itself = NavigationRoute(
-    name: 'auth',
-    path: '/auth',
-    location: '/auth',
-  );
-  final mfa = NavigationRoute(
-    name: 'mfa',
-    path: 'mfa',
-    location: '/auth/mfa',
-  );
-  final forgot = NavigationRoute(
-    name: 'forgot',
-    path: 'forgot',
-    location: '/auth/forgot',
-  );
-  final confirm = NavigationRoute(
-    name: 'confirm',
-    path: 'confirm/:section(email|phone)',
-    location: '/auth/confirm/:section(email|phone)',
-  );
-  final register = RegisterRoutes();
-}
-
-class RegisterRoutes {
-  final itself = NavigationRoute(
-    name: 'register',
-    path: 'register',
-    location: '/auth/register',
-  );
-  final selfie = NavigationRoute(
-    name: 'selfie',
-    path: 'selfie',
-    location: '/auth/register/selfie',
-  );
-  final name = NavigationRoute(
-    name: 'name',
-    path: 'name',
-    location: '/auth/register/name',
-  );
-  final birth = NavigationRoute(
-    name: 'birth',
-    path: 'birth',
-    location: '/auth/register/birth',
-  );
-  final phone = NavigationRoute(
-    name: 'phone',
-    path: 'phone',
-    location: '/auth/register/phone',
-  );
-  final email = NavigationRoute(
-    name: 'email',
-    path: 'email',
-    location: '/auth/register/email',
-  );
-}
-
-class OnboardingRoutes {
-  final itself = NavigationRoute(
-    name: 'onboarding',
-    path: '/onboarding',
-    location: '/onboarding',
-  );
-  final mosques = NavigationRoute(
-    name: 'mosques',
-    path: 'mosques',
-    location: '/onboarding/mosques',
   );
 }
 
@@ -97,49 +23,133 @@ class HomeRoutes {
   final jamaah = JamaahRoutes();
 }
 
-class AdminRoutes {
-  final itself = NavigationRoute(
-    name: 'admin',
-    path: 'admin/:subRoute(dashboard|settings)',
-    location: '/admin',
+class OnboardingRoutes implements NavigationRouteAbstract {
+  @override
+  String get name => 'onboarding';
+  @override
+  String get path => '/onboarding';
+  @override
+  String get location => '/onboarding';
+
+  final mosques = NavigationRoute(
+    name: 'mosques',
+    path: 'mosques',
+    location: '/onboarding/mosques',
   );
-  final dashboard = AdminDashboardRoutes();
+}
+
+class RegisterRoutes implements NavigationRouteAbstract {
+  @override
+  final name = 'register';
+  @override
+  final path = '/register';
+  @override
+  final location = '/register';
+
+  final selfie = NavigationRoute(
+    name: 'selfie',
+    path: 'selfie',
+    location: '/register/selfie',
+  );
+  final fullName = NavigationRoute(
+    name: 'name',
+    path: 'name',
+    location: '/register/name',
+  );
+  final birth = NavigationRoute(
+    name: 'birth',
+    path: 'birth',
+    location: '/register/birth',
+  );
+  final phone = NavigationRoute(
+    name: 'phone',
+    path: 'phone',
+    location: '/register/phone',
+  );
+  final email = NavigationRoute(
+    name: 'email',
+    path: 'email',
+    location: '/register/email',
+  );
+}
+
+class LoginRoutes implements NavigationRouteAbstract {
+  @override
+  String get name => 'login';
+  @override
+  String get path => '/login';
+  @override
+  String get location => '/login';
+
+  final mfa = NavigationRoute(
+    name: 'mfa',
+    path: 'mfa',
+    location: '/login/mfa',
+  );
+  final forgot = NavigationRoute(
+    name: 'forgot',
+    path: 'forgot',
+    location: '/login/forgot',
+  );
+  final confirm = NavigationRoute(
+    name: 'confirm',
+    path: 'confirm/:section(email|phone)',
+    location: '/login/confirm/:section(email|phone)',
+  );
+}
+
+class AdminRoutes {
+  final dashboard = DashboardRoutes();
   final settings = AdminSettingsRoutes();
 }
 
-class AdminDashboardRoutes {
-  final itself = NavigationRoute(
-    name: 'admin_dashboard',
-    path: 'dashboard',
-    location: '/admin/dashboard',
-  );
+class DashboardRoutes {
+  final subTabs = DashboardTabsRoutes();
+
   final createMosque = CreateMosqueRoutes();
   final createAnnouncement = NavigationRoute(
     name: 'create_announcement',
-    path: 'create-announcement',
-    location: '/admin/dashboard/create-announcement',
+    path: 'create_announcement',
+    location: '/admin/dashboard/announcements/create_announcement',
   );
 }
 
-class CreateMosqueRoutes {
-  final itself = NavigationRoute(
-    name: 'create_mosque',
-    path: 'create-mosque',
-    location: '/admin/dashboard/create-mosque',
+class DashboardTabsRoutes {
+  final prayerTimes = NavigationRoute(
+    name: 'admin_prayer_times',
+    path: '/admin/dashboard/prayer_times',
+    location: '/admin/dashboard/prayer_times',
   );
+  final announcements = NavigationRoute(
+    name: 'admin_announcements',
+    path: '/admin/dashboard/announcements',
+    location: '/admin/dashboard/announcements',
+  );
+}
+
+class CreateMosqueRoutes implements NavigationRouteAbstract {
+  @override
+  String get name => 'create_mosque';
+  @override
+  String get path => 'create_mosque';
+  @override
+  String get location => '/admin/dashboard/prayer_times/create_mosque';
+
   final field = NavigationRoute(
     name: 'create_mosque_field',
     path: 'field',
-    location: '/admin/dashboard/create-mosque/field',
+    location: '/admin/dashboard/create_mosque/field',
   );
 }
 
-class AdminSettingsRoutes {
-  final itself = NavigationRoute(
-    name: 'admin_settings',
-    path: 'settings',
-    location: '/admin/settings',
-  );
+class AdminSettingsRoutes implements NavigationRouteAbstract {
+  @override
+  String get name => 'admin_settings';
+  @override
+  String get path => '/admin/settings';
+  @override
+  String get location => '/admin/settings';
+
   final profile = NavigationRoute(
     name: 'admin_profile',
     path: 'profile',
@@ -168,29 +178,22 @@ class AdminSettingsRoutes {
 }
 
 class JamaahRoutes {
-  final itself = NavigationRoute(
-    name: 'jamaah',
-    path: 'jamaah/:subRoute(dashboard|settings)',
-    location: '/home/jamaah',
+  final prayerTimes = NavigationRoute(
+    name: 'jamaah_prayer_times',
+    path: '/jamaah/prayer_times',
+    location: '/404',
   );
-  final dashboard = JamaahDashboardRoutes();
   final settings = JamaahSettingsRoutes();
 }
 
-class JamaahDashboardRoutes {
-  final itself = NavigationRoute(
-    name: 'jamaah_dashboard',
-    path: 'dashboard',
-    location: '/jamaah/dashboard',
-  );
-}
+class JamaahSettingsRoutes implements NavigationRouteAbstract {
+  @override
+  String get name => 'jamaah_settings';
+  @override
+  String get path => '/jamaah/settings';
+  @override
+  String get location => '/jamaah/settings';
 
-class JamaahSettingsRoutes {
-  final itself = NavigationRoute(
-    name: 'jamaah_settings',
-    path: 'settings',
-    location: '/jamaah/settings',
-  );
   final profile = NavigationRoute(
     name: 'jamaah_profile',
     path: 'profile',

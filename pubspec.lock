@@ -45,10 +45,10 @@ packages:
     dependency: "direct main"
     description:
       name: amplify_auth_cognito
-      sha256: "7ab666bee927a66e5fd5590ef94898551ce45f42df348c2a4f3658effed9e221"
+      sha256: "75a399c8603b8bfd0011bb7a0974dce8fe47cda3f09810f768d8e2a69cfa8a24"
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.1"
+    version: "1.4.2"
   amplify_auth_cognito_dart:
     dependency: transitive
     description:
@@ -69,10 +69,10 @@ packages:
     dependency: "direct main"
     description:
       name: amplify_datastore
-      sha256: ea8dd143bdb5f5e2479ad801a63a3d5b5e166633b972a0467a19ab8da9981593
+      sha256: b4672dabe4997ecf1da0fbf88a0d2a1edc6890622f94e5c7ef82ecc18d8f4f98
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.1"
+    version: "1.4.2"
   amplify_datastore_plugin_interface:
     dependency: transitive
     description:
@@ -149,10 +149,10 @@ packages:
     dependency: "direct main"
     description:
       name: app_settings
-      sha256: "67ca58aba6ec311d89597c2716d2e37da54b8c7cef28b7749e6551c57f88c1f4"
+      sha256: "09bc7fe0313a507087bec1a3baf555f0576e816a760cbb31813a88890a09d9e5"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.0"
+    version: "5.1.1"
   archive:
     dependency: transitive
     description:
@@ -170,7 +170,7 @@ packages:
     source: hosted
     version: "2.4.2"
   async:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: async
       sha256: "947bfcf187f74dbc5e146c9eb9c0f10c9f8b30743e341481c1e2ed3ecc18c20c"
@@ -309,10 +309,10 @@ packages:
     dependency: "direct main"
     description:
       name: cherry_toast
-      sha256: f63c629fdd85c2fb1f8133f124b5cd38800890a92bb4ded10ed9bd19b5d2ceb6
+      sha256: cf8f044bb1be3feab50989f964966132b6b6d99a937a14d2dbee95463dde8d5a
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.2"
+    version: "1.4.3"
   clock:
     dependency: transitive
     description:
@@ -473,6 +473,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.6"
+  equatable:
+    dependency: "direct main"
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   expandable_page_view:
     dependency: "direct main"
     description:
@@ -849,10 +857,18 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "5668e6d3dbcb2d0dfa25f7567554b88c57e1e3f3c440b672b24d4a9477017d5b"
+      sha256: "24d89757552a78615d6e65c7bc206740f94ca95a12ecf189d883394d34c9d9bd"
       url: "https://pub.dev"
     source: hosted
-    version: "10.1.2"
+    version: "11.0.0"
+  go_router_builder:
+    dependency: "direct dev"
+    description:
+      name: go_router_builder
+      sha256: b004ed761578fd1326054ff9c97daaf7b94f109b24cad843ca8bd349a810f947
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.3"
   google_api_headers:
     dependency: transitive
     description:
@@ -865,10 +881,10 @@ packages:
     dependency: "direct main"
     description:
       name: google_fonts
-      sha256: "0833bfcc1c32560ee51d381fcf1d6d6b35921e89afe852c12f83dc8c00b2e6bc"
+      sha256: f0b8d115a13ecf827013ec9fc883390ccc0e87a96ed5347a3114cac177ef18e8
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.0"
+    version: "6.1.0"
   gql:
     dependency: transitive
     description:
@@ -965,6 +981,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.3"
+  hive_flutter:
+    dependency: "direct main"
+    description:
+      name: hive_flutter
+      sha256: dca1da446b1d808a51689fb5d0c6c9510c0a2ba01e22805d492c73b68e33eecc
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
+  hive_generator:
+    dependency: "direct dev"
+    description:
+      name: hive_generator
+      sha256: "06cb8f58ace74de61f63500564931f9505368f45f98958bd7a6c35ba24159db4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   hooks_riverpod:
     dependency: "direct main"
     description:
@@ -1173,14 +1205,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
+  loading_animation_widget:
+    dependency: "direct main"
+    description:
+      name: loading_animation_widget
+      sha256: "1901682600273a966c34cf44a85fc5355da92a8d08a8a43c11adc4e471993e3a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0+4"
   logger:
     dependency: "direct main"
     description:
       name: logger
-      sha256: ba3bc83117b2b49bdd723c0ea7848e8285a0fbc597ba09203b20d329d020c24a
+      sha256: "6bbb9d6f7056729537a4309bda2e74e18e5d9f14302489cc1e93f33b3fe32cac"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.2+1"
   logging:
     dependency: transitive
     description:
@@ -1509,6 +1549,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.8"
+  share_plus:
+    dependency: "direct main"
+    description:
+      name: share_plus
+      sha256: "6cec740fa0943a826951223e76218df002804adb588235a8910dc3d6b0654e11"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.1.0"
+  share_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: share_plus_platform_interface
+      sha256: "357412af4178d8e11d14f41723f80f12caea54cf0d5cd29af9dcdab85d58aea7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -1643,6 +1699,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  source_helper:
+    dependency: transitive
+    description:
+      name: source_helper
+      sha256: "6adebc0006c37dd63fe05bca0a929b99f06402fc95aa35bf36d67f5c06de01fd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.4"
   source_map_stack_trace:
     dependency: transitive
     description:

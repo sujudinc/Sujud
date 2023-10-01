@@ -55,7 +55,7 @@ class AmplifyStorageService implements AmplifyStorageServiceAbstract {
   }) async {
     final response = await _s3
         .uploadData(
-          key: path,
+          key: '$path/$filename',
           data: S3DataPayload.bytes(file.file, contentType: file.contentType),
           options: options,
           onProgress: onProgress,

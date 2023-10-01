@@ -39,16 +39,22 @@ abstract class AmplifyApiServiceAbstract<T extends Model> {
     required String id,
     Map<String, dynamic>? condition,
   });
+
+  Stream<GraphQLResponse<T>> subscribe({
+    required ModelType<T> modelType,
+    required SubscriptionOperations operation,
+    Map<String, dynamic>? filter,
+    String? creatorId,
+    String? owner,
+  });
 }
 
 class GraphQLListResponse<T extends Model> {
   GraphQLListResponse({
     this.items,
     this.nextToken,
-    this.startedAt,
   });
 
-  final List<T>? items;
+  final List<T?>? items;
   final String? nextToken;
-  final int? startedAt;
 }
