@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class PARouterApp extends StatelessWidget {
   const PARouterApp({
-    Key? key,
+    super.key,
     this.platformAware = true,
     this.scaffoldMessengerKey,
     this.routeInformationProvider,
@@ -49,7 +49,7 @@ class PARouterApp extends StatelessWidget {
     this.onGenerateInitialRoutes,
     this.onUnknownRoute,
     this.navigatorObservers,
-  }) : super(key: key);
+  });
 
   final bool platformAware;
   final GlobalKey<NavigatorState>? navigatorKey;

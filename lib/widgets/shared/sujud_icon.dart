@@ -4,12 +4,11 @@ import 'dart:io';
 // 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
-import 'package:unicons/unicons.dart';
-
+import 'package:ionicons/ionicons.dart';
 // 🌎 Project imports:
 import 'package:sujud/extensions/extensions.dart';
+import 'package:unicons/unicons.dart';
 
 class SujudIcon extends StatelessWidget {
   const SujudIcon(
@@ -28,7 +27,7 @@ class SujudIcon extends StatelessWidget {
   final double? size;
 
   factory SujudIcon.add({double? size}) => SujudIcon(
-        UniconsLine.plus,
+        Ionicons.add,
         size: size,
       );
 
@@ -51,6 +50,33 @@ class SujudIcon extends StatelessWidget {
   factory SujudIcon.twitter() => const SujudIcon(UniconsLine.twitter);
 
   factory SujudIcon.youtube() => const SujudIcon(UniconsLine.youtube);
+
+  factory SujudIcon.share({double? size}) => SujudIcon(
+        Ionicons.share_outline,
+        size: size,
+      );
+
+  factory SujudIcon.like({bool isFilled = false, double? size}) => SujudIcon(
+        isFilled ? Ionicons.heart : Ionicons.heart_outline,
+        size: size,
+      );
+
+  factory SujudIcon.comment({double? size}) => SujudIcon(
+        Ionicons.chatbox_outline,
+        size: size,
+      );
+
+  factory SujudIcon.bookmark({bool isFilled = false, double? size}) =>
+      SujudIcon(
+        isFilled ? Ionicons.bookmark : Ionicons.bookmark_outline,
+        size: size,
+      );
+
+  factory SujudIcon.send({double? size}) => SujudIcon(
+        Ionicons.send_outline,
+        size: size,
+        color: Colors.white,
+      );
 
   factory SujudIcon.fajr({double? size}) => SujudIcon(
         UniconsLine.sunset,
@@ -92,21 +118,21 @@ class SujudIcon extends StatelessWidget {
         size: size,
       );
 
-  factory SujudIcon.dashboard() => const SujudIcon(UniconsLine.archway);
+  factory SujudIcon.dashboard() => const SujudIcon(Ionicons.moon_outline);
 
   factory SujudIcon.image({double? size}) => SujudIcon(
-        UniconsLine.image_plus,
+        Ionicons.image_outline,
         size: size,
       );
 
   factory SujudIcon.camera({double? size}) => SujudIcon(
-        UniconsLine.camera_plus,
+        Ionicons.camera_outline,
         size: size,
       );
 
-  factory SujudIcon.settings() => const SujudIcon(UniconsLine.cog);
+  factory SujudIcon.settings() => const SujudIcon(Ionicons.settings_outline);
 
-  factory SujudIcon.menu() => const SujudIcon(UniconsLine.bars);
+  factory SujudIcon.menu() => const SujudIcon(Ionicons.menu_outline);
 
   factory SujudIcon.rightArrow({double? size}) => SujudIcon(
         UniconsLine.arrow_right,
@@ -124,12 +150,12 @@ class SujudIcon extends StatelessWidget {
       );
 
   factory SujudIcon.location({double? size}) => SujudIcon(
-        UniconsLine.location_point,
+        Ionicons.location_outline,
         size: size,
       );
 
   factory SujudIcon.trash({Color? color, double? size}) => SujudIcon(
-        UniconsLine.trash_alt,
+        Ionicons.trash_outline,
         color: color,
         size: size,
       );

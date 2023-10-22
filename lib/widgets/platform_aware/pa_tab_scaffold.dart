@@ -14,8 +14,8 @@ class PATabScaffold extends StatelessWidget {
     this.platformAware = true,
     this.onTap,
     this.restorationID,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Widget currentView;
   final int currentIndex;

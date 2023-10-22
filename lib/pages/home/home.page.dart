@@ -6,11 +6,13 @@ import 'package:sujud/widgets/widgets.dart';
 class HomePage extends StatefulWidget {
   const HomePage({
     required this.shell,
+    required this.children,
     this.isAdmin = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final StatefulNavigationShell shell;
+  final List<Widget> children;
   final bool isAdmin;
 
   @override
@@ -23,7 +25,7 @@ class _HomePagePageState extends State<HomePage> {
     final i18n = context.i18n;
 
     return PATabScaffold(
-      currentView: widget.shell,
+      currentView: widget.children[widget.shell.currentIndex],
       currentIndex: widget.shell.currentIndex,
       icons: <BottomNavigationBarItem>[
         BottomNavigationBarItem(

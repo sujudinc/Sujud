@@ -1,14 +1,13 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 // 📦 Package imports:
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/extensions/extensions.dart';
+import 'package:sujud/widgets/shared/shared.dart';
 
 class SujudTextField extends StatelessWidget implements SujudFormFieldAbstract {
   const SujudTextField({
@@ -346,14 +345,56 @@ class SujudTextField extends StatelessWidget implements SujudFormFieldAbstract {
     );
   }
 
+  factory SujudTextField.comment(
+    BuildContext context, {
+    required GlobalKey<FormBuilderState> formKey,
+    required String fieldName,
+    String? initialValue,
+    ValueChanged<String?>? onChanged,
+    VoidCallback? onPressed,
+    Key? key,
+  }) {
+    final i18n = context.i18n;
+
+    return SujudTextField(
+      key: key,
+      formKey: formKey,
+      fieldName: fieldName,
+      initialValue: initialValue,
+      hintText: i18n.hintComment,
+      keyboardType: TextInputType.text,
+      enableSuggestions: true,
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(errorText: i18n.errorFieldRequired),
+        FormBuilderValidators.minLength(
+          2,
+          errorText: i18n.errorFieldMinLength(2),
+        ),
+      ]),
+      suffix: IconButton(
+        icon: Container(
+          height: 75.0,
+          width: 75.0,
+          decoration: const BoxDecoration(
+            color: Colors.grey,
+            shape: BoxShape.circle,
+          ),
+          child: Center(
+            child: SujudIcon.send(
+              size: 15.0,
+            ),
+          ),
+        ),
+        onPressed: onPressed,
+      ),
+      onChanged: onChanged,
+    );
+  }
+
   String? get _errorText => formKey.currentState?.fields[fieldName]?.errorText;
 
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 15.0,
-          vertical: 10.0,
-        ),
         decoration: _errorText == null
             ? BoxDecoration(
                 color: Colors.white,
@@ -374,17 +415,13 @@ class SujudTextField extends StatelessWidget implements SujudFormFieldAbstract {
         constraints: const BoxConstraints(
           minHeight: 55.0,
         ),
-        margin: const EdgeInsets.only(bottom: 10.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             prefix ?? const SizedBox(),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(
-                  left: prefix != null ? 10.0 : 0.0,
-                  right: suffix != null ? 10.0 : 0.0,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: FormBuilderTextField(
                   key: key,
                   name: fieldName,

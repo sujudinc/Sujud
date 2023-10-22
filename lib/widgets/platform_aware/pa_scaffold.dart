@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/configs/configs.dart';
 
@@ -26,7 +25,7 @@ class PAScaffold extends StatelessWidget {
   final FloatingAction? floatingAction;
 
   const PAScaffold({
-    Key? key,
+    super.key,
     this.platformAware = true,
     this.includePadding = true,
     this.largeTitle = false,
@@ -41,7 +40,7 @@ class PAScaffold extends StatelessWidget {
     this.scrollController,
     this.kids,
     this.floatingAction,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) => Stack(

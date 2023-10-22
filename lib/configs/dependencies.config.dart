@@ -121,13 +121,17 @@ void _initUtilities() => _dependencies
       void>(
     (formKey, _) => FormUtility(formKey: formKey),
   )
+  ..registerFactoryParam<LocalDatabaseUtilityAbstract, String, void>(
+    (collectionName, _) => LocalDatabaseUtility(
+      collectionName: collectionName,
+    ),
+  )
   ..registerFactory<LoggerUtilityAbstract>(LoggerUtility.new)
   ..registerFactory<MediaUtilityAbstract>(MediaUtility.new)
   ..registerFactory<NetworkUtilityAbstract>(NetworkUtility.new)
-  ..registerFactoryParam<PrayerUtilityAbstract, List<MonthlyPrayerSchedule>,
-      void>(
-    (monthlyPrayerSchedules, _) => PrayerUtility(
-      monthlyPrayerSchedules: monthlyPrayerSchedules,
+  ..registerFactoryParam<PrayerUtilityAbstract, Mosque, void>(
+    (mosque, _) => PrayerUtility(
+      monthlyPrayerSchedules: mosque.monthlyPrayerSchedules!,
     ),
   )
   ..registerFactory<SecureStorageUtilityAbstract>(SecureStorageUtility.new)

@@ -1,11 +1,9 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/blocs.dart';
@@ -13,14 +11,19 @@ import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/widgets/widgets.dart';
 
 class ConfirmAccountPage extends StatefulWidget {
-  const ConfirmAccountPage({super.key});
+  const ConfirmAccountPage({
+    this.email,
+    super.key,
+  });
+
+  final String? email;
 
   @override
   State<ConfirmAccountPage> createState() => _ConfirmAccountPageState();
 }
 
 class _ConfirmAccountPageState extends State<ConfirmAccountPage> {
-  final _form = GetIt.instance.get<FormUtilityAbstract>(
+  final _formUtility = GetIt.instance.get<FormUtilityAbstract>(
     param1: GlobalKey<FormBuilderState>(),
   );
 
@@ -28,11 +31,6 @@ class _ConfirmAccountPageState extends State<ConfirmAccountPage> {
   Widget build(BuildContext context) {
     final i18n = context.i18n;
     final authCubit = context.read<AuthCubit>();
-
-    _form.setValue(
-      fieldName: _ConfirmAccountFormField.email.name,
-      value: authCubit.username,
-    );
 
     return BlocProvider<TimerCubit>(
       create: (context) => TimerCubit(60),
@@ -56,18 +54,21 @@ class _ConfirmAccountPageState extends State<ConfirmAccountPage> {
           kids: Kids(
             children: <Widget>[
               FormBuilder(
-                key: _form.formKey,
+                key: _formUtility.formKey,
+                initialValue: <String, dynamic>{
+                  _ConfirmAccountFormField.email.name:
+                      widget.email ?? authCubit.username,
+                },
                 child: Column(
                   children: <Widget>[
                     SujudTextField.email(
                       context,
-                      formKey: _form.formKey,
+                      formKey: _formUtility.formKey,
                       fieldName: _ConfirmAccountFormField.email.name,
-                      initialValue: authCubit.username,
                     ),
                     SujudTextField.confirmationCode(
                       context,
-                      formKey: _form.formKey,
+                      formKey: _formUtility.formKey,
                       fieldName: _ConfirmAccountFormField.code.name,
                     ),
                   ],
@@ -83,13 +84,13 @@ class _ConfirmAccountPageState extends State<ConfirmAccountPage> {
                     : SujudButton(
                         text: i18n.buttonConfirm,
                         onTap: () async {
-                          _form.saveAndValidate();
+                          _formUtility.saveAndValidate();
 
                           authCubit
-                            ..username = _form.getValue(
+                            ..username = _formUtility.getValue(
                               _ConfirmAccountFormField.email.name,
                             )
-                            ..confirmationCode = _form.getValue(
+                            ..confirmationCode = _formUtility.getValue(
                               _ConfirmAccountFormField.code.name,
                             );
 
@@ -119,7 +120,7 @@ class _ConfirmAccountPageState extends State<ConfirmAccountPage> {
                           )
                         : TextButton(
                             onPressed: () => authCubit
-                              ..username = _form.getInstantValue(
+                              ..username = _formUtility.getInstantValue(
                                 _ConfirmAccountFormField.email.name,
                               )
                               ..resendConfirmationCode(),

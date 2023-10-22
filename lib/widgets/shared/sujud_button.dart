@@ -1,7 +1,5 @@
 // 🐦 Flutter imports:
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/extensions/extensions.dart';
 
@@ -37,7 +35,6 @@ class SujudButton extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 15.0,
-              vertical: kIsWeb ? 10.0 : 0.0,
             ),
             decoration: outlined
                 ? BoxDecoration(
@@ -54,15 +51,17 @@ class SujudButton extends StatelessWidget {
                   ),
             constraints: const BoxConstraints(
               minHeight: 55.0,
+              minWidth: 125.0,
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                SizedBox(
-                  width: 50.0,
-                  child: prefix,
-                ),
+                if (prefix != null)
+                  SizedBox(
+                    width: 50.0,
+                    child: prefix,
+                  ),
                 Text(
                   text,
                   style: TextStyle(
@@ -78,10 +77,11 @@ class SujudButton extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
-                  width: 50.0,
-                  child: suffix,
-                ),
+                if (suffix != null)
+                  SizedBox(
+                    width: 50.0,
+                    child: suffix,
+                  ),
               ],
             ),
           ),

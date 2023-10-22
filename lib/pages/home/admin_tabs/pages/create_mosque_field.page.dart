@@ -10,12 +10,12 @@ import 'package:sujud/widgets/widgets.dart';
 
 class CreateMosqueFieldPage<T> extends StatefulWidget {
   const CreateMosqueFieldPage({
-    super.key,
-    this.fieldName,
+    required this.fieldName,
     this.initialValue,
+    super.key,
   });
 
-  final String? fieldName;
+  final String fieldName;
   final String? initialValue;
 
   @override
@@ -67,7 +67,7 @@ class _CreateMosqueFieldPageState<T> extends State<CreateMosqueFieldPage> {
                 }
 
                 _navigationUtility.back(
-                  data: _formUtility.getValue(widget.fieldName!),
+                  data: _formUtility.getValue(widget.fieldName),
                 );
               },
             ),

@@ -1,4 +1,5 @@
 export 'form.utility.dart';
+export 'local_database.utility.dart';
 export 'logger.utility.dart';
 export 'media.utility.dart';
 export 'navigation.utility.dart';

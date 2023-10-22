@@ -110,6 +110,12 @@ class AppLocalizations {
         desc: 'Settings button text',
       );
 
+  String get titleAnnouncementPage => Intl.message(
+        'Announcement',
+        name: 'announcementPage',
+        desc: 'Announcement Page button text',
+      );
+
   String get tabPrayerTimes => Intl.message(
         'Prayer Times',
         name: 'prayerTimes',
@@ -404,6 +410,12 @@ class AppLocalizations {
         'What times is the mosque open?',
         name: 'hintMosqueHours',
         desc: 'Mosque Hours hint text',
+      );
+
+  String get hintComment => Intl.message(
+        'Write Comment',
+        name: 'hintComment',
+        desc: 'Comment hint text',
       );
 
   String get hintMosqueContactInfo => Intl.message(

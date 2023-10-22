@@ -14,19 +14,65 @@ import 'package:sujud/models/models.dart';
 class MosqueRepo extends MosqueRepoAbstract {
   MosqueRepo()
       : _mosqueApi = GetIt.instance.get<AmplifyModelApiAbstract<Mosque>>(),
-        _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>();
+        _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>(),
+        _localDatabaseUtility =
+            GetIt.instance.get<LocalDatabaseUtilityAbstract>(param1: 'mosques'),
+        _loggerUtility = GetIt.instance.get<LoggerUtilityAbstract>() {
+    _preloadDataFromLocalCache();
+  }
 
   final AmplifyModelApiAbstract<Mosque> _mosqueApi;
   final AmplifyStorageServiceAbstract _storageService;
+  final LocalDatabaseUtilityAbstract _localDatabaseUtility;
+  final LoggerUtilityAbstract _loggerUtility;
 
   final _selectedMosque = BehaviorSubject<Mosque?>();
   final _cache = <String, Mosque>{};
   bool _hasMoreItems = false;
-
   StreamSubscription<GraphqlSubscriptionResponse<Mosque>>? _stream;
   Map<String, dynamic>? _filter;
   int? _limit;
   String? _nextToken;
+
+  Future<void> _preloadDataFromLocalCache() async {
+    _loggerUtility.log('Loading mosques from local cache.');
+
+    final localSelectedMosque = await _localDatabaseUtility.getOne(
+      'selectedMosque',
+    );
+
+    if (localSelectedMosque != null) {
+      _selectedMosque.add(
+        Mosque.fromJson(localSelectedMosque).copyWith(
+          address: Address.fromJson(localSelectedMosque['address']),
+          contactInfo: ContactInfo.fromJson(localSelectedMosque['contactInfo']),
+          creator: User.fromJson(localSelectedMosque['creator']),
+        ),
+      );
+    }
+
+    final localData = await _localDatabaseUtility.getMany();
+
+    if (localData.isNotEmpty) {
+      for (final data in localData) {
+        if (data.containsKey('filter') |
+            data.containsKey('limit') |
+            data.containsKey('nextToken')) {
+          _filter = data['filter'];
+          _limit = data['limit'];
+          _nextToken = data['nextToken'];
+        } else {
+          final item = Mosque.fromJson(data).copyWith(
+            address: Address.fromJson(data['address']),
+            contactInfo: ContactInfo.fromJson(data['contactInfo']),
+            creator: User.fromJson(data['creator']),
+          );
+
+          _cache[item.id] = item;
+        }
+      }
+    }
+  }
 
   @override
   Mosque? get selectedMosque => _selectedMosque.valueOrNull;
@@ -34,16 +80,36 @@ class MosqueRepo extends MosqueRepoAbstract {
   @override
   set selectedMosque(Mosque? value) {
     _selectedMosque.add(value);
+
+    if (value != null) {
+      _localDatabaseUtility.save('selectedMosque', value.toJson());
+    }
   }
 
   @override
   List<Mosque> get items {
     final list = _cache.values.toList()
-      ..sort(
-        (a, b) => a.name.compareTo(b.name),
-      );
+      ..sort((a, b) => a.name.compareTo(b.name));
 
     return list;
+  }
+
+  @override
+  Map<String, Map<String, Uri>> get cachedImages => {};
+
+  @override
+  void setCachedImage({
+    required String id,
+    required String key,
+    required Uri url,
+  }) {
+    if (cachedImages.containsKey(id)) {
+      cachedImages[id]![key] = url;
+    } else {
+      cachedImages[id] = <String, Uri>{key: url};
+    }
+
+    _localDatabaseUtility.save('cachedImages', cachedImages);
   }
 
   @override
@@ -56,6 +122,10 @@ class MosqueRepo extends MosqueRepoAbstract {
 
     if (mosque != null) {
       _cache[id] = mosque;
+      _loggerUtility
+        ..log('mosque json')
+        ..log(mosque.toJson());
+      _localDatabaseUtility.save(id, mosque.toJson());
     }
 
     return (mosque, errors);
@@ -79,9 +149,19 @@ class MosqueRepo extends MosqueRepoAbstract {
 
     _nextToken = response.nextToken;
 
+    await _localDatabaseUtility.save(
+      'listParams',
+      <String, dynamic>{
+        'filter': _filter,
+        'limit': _limit,
+        'nextToken': _nextToken,
+      },
+    );
+
     if (response.items != null) {
       for (final item in response.items!) {
-        _cache[item!.id] = item;
+        await _localDatabaseUtility.save(item!.id, item.toJson());
+        _cache[item.id] = item;
       }
     }
 
@@ -102,9 +182,19 @@ class MosqueRepo extends MosqueRepoAbstract {
 
     _nextToken = response.nextToken;
 
+    await _localDatabaseUtility.save(
+      'listParams',
+      <String, dynamic>{
+        'filter': _filter,
+        'limit': _limit,
+        'nextToken': _nextToken,
+      },
+    );
+
     if (response.items != null) {
       for (final item in response.items!) {
-        _cache[item!.id] = item;
+        await _localDatabaseUtility.save(item!.id, item.toJson());
+        _cache[item.id] = item;
       }
     }
 
@@ -211,13 +301,37 @@ class MosqueRepo extends MosqueRepoAbstract {
     _stream = _mosqueApi.subscribe(modelType: Mosque.classType).listen((event) {
       switch (event.type) {
         case SubscriptionType.onCreate:
-          onCreated?.call((event.response.data, event.response.errors));
+          final mosque = event.response.data;
+          final id = mosque?.id;
+
+          if (mosque != null) {
+            _cache[id!] = mosque;
+            _localDatabaseUtility.save(id, mosque.toJson());
+          }
+
+          onCreated?.call((mosque, event.response.errors));
           break;
         case SubscriptionType.onUpdate:
-          onUpdated?.call((event.response.data, event.response.errors));
+          final mosque = event.response.data;
+          final id = mosque?.id;
+
+          if (mosque != null) {
+            _cache[id!] = mosque;
+            _localDatabaseUtility.save(id, mosque.toJson());
+          }
+
+          onUpdated?.call((mosque, event.response.errors));
           break;
         case SubscriptionType.onDelete:
-          onDeleted?.call((event.response.data, event.response.errors));
+          final mosque = event.response.data;
+          final id = mosque?.id;
+
+          if (mosque != null) {
+            _cache.remove(id!);
+            _localDatabaseUtility.delete(id);
+          }
+
+          onDeleted?.call((mosque, event.response.errors));
           break;
       }
     });

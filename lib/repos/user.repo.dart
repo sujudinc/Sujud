@@ -3,9 +3,11 @@ import 'dart:async';
 
 // 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:collection/collection.dart';
 // 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:path/path.dart';
 import 'package:rxdart/rxdart.dart';
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
@@ -14,23 +16,66 @@ import 'package:sujud/models/models.dart';
 class UserRepo extends UserRepoAbstract {
   UserRepo()
       : _userApi = GetIt.instance.get<AmplifyModelApiAbstract<User>>(),
-        _authService = GetIt.instance.get<AmplifyAuthServiceAbstract>() {
+        _authService = GetIt.instance.get<AmplifyAuthServiceAbstract>(),
+        _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>(),
+        _localDatabaseUtility =
+            GetIt.instance.get<LocalDatabaseUtilityAbstract>(param1: 'users'),
+        _loggerUtility = GetIt.instance.get<LoggerUtilityAbstract>() {
     _init();
   }
 
   final AmplifyModelApiAbstract<User> _userApi;
   final AmplifyAuthServiceAbstract _authService;
+  final AmplifyStorageServiceAbstract _storageService;
+  final LocalDatabaseUtilityAbstract _localDatabaseUtility;
+  final LoggerUtilityAbstract _loggerUtility;
 
   final _currentUser = BehaviorSubject<User?>();
   final _cache = <String, User>{};
   bool _hasMoreItems = false;
-
   StreamSubscription<GraphqlSubscriptionResponse<User>>? _stream;
   Map<String, dynamic>? _filter;
   int? _limit;
   String? _nextToken;
 
   Future<void> _init() async {
+    await _preloadDataFromLocalCache();
+    await _fetchCurrentUser();
+  }
+
+  Future<void> _preloadDataFromLocalCache() async {
+    _loggerUtility.log('Loading users from local cache.');
+
+    final localCurrentUser = await _localDatabaseUtility.getOne(
+      'currentUser',
+    );
+
+    if (localCurrentUser != null) {
+      _currentUser.add(
+        User.fromJson(localCurrentUser),
+      );
+    }
+
+    final localData = await _localDatabaseUtility.getMany();
+
+    if (localData.isNotEmpty) {
+      for (final data in localData) {
+        if (data.containsKey('filter') |
+            data.containsKey('limit') |
+            data.containsKey('nextToken')) {
+          _filter = data['filter'];
+          _limit = data['limit'];
+          _nextToken = data['nextToken'];
+        } else {
+          final item = User.fromJson(data);
+
+          _cache[item.id] = item;
+        }
+      }
+    }
+  }
+
+  Future<void> _fetchCurrentUser() async {
     try {
       final authUser = await _authService.currentUser;
 
@@ -62,6 +107,24 @@ class UserRepo extends UserRepoAbstract {
   List<User> get items => _cache.values.toList();
 
   @override
+  Map<String, Map<String, Uri>> get cachedImages => {};
+
+  @override
+  void setCachedImage({
+    required String id,
+    required String key,
+    required Uri url,
+  }) {
+    if (cachedImages.containsKey(id)) {
+      cachedImages[id]![key] = url;
+    } else {
+      cachedImages[id] = <String, Uri>{key: url};
+    }
+
+    _localDatabaseUtility.save('cachedImages', cachedImages);
+  }
+
+  @override
   Future<(User?, List<GraphQLResponseError>)> get(String id) async {
     if (_cache.containsKey(id)) {
       return (_cache[id], <GraphQLResponseError>[]);
@@ -71,6 +134,7 @@ class UserRepo extends UserRepoAbstract {
 
     if (user != null) {
       _cache[id] = user;
+      _localDatabaseUtility.save(id, user.toJson());
     }
 
     return (user, errors);
@@ -94,9 +158,19 @@ class UserRepo extends UserRepoAbstract {
 
     _nextToken = response.nextToken;
 
+    await _localDatabaseUtility.save(
+      'listParams',
+      <String, dynamic>{
+        'filter': _filter,
+        'limit': _limit,
+        'nextToken': _nextToken,
+      },
+    );
+
     if (response.items != null) {
       for (final item in response.items!) {
-        _cache[item!.id] = item;
+        await _localDatabaseUtility.save(item!.id, item.toJson());
+        _cache[item.id] = item;
       }
     }
 
@@ -117,9 +191,19 @@ class UserRepo extends UserRepoAbstract {
 
     _nextToken = response.nextToken;
 
+    await _localDatabaseUtility.save(
+      'listParams',
+      <String, dynamic>{
+        'filter': _filter,
+        'limit': _limit,
+        'nextToken': _nextToken,
+      },
+    );
+
     if (response.items != null) {
       for (final item in response.items!) {
-        _cache[item!.id] = item;
+        await _localDatabaseUtility.save(item!.id, item.toJson());
+        _cache[item.id] = item;
       }
     }
 
@@ -131,12 +215,21 @@ class UserRepo extends UserRepoAbstract {
     User item, {
     List<AttributedFile>? images,
   }) async {
-    final (user, errors) = await _userApi.create(item);
-    final id = user?.id;
+    if (images != null) {
+      final keys = await Future.wait(
+        images.mapIndexed(
+          (index, image) => _storageService.upload(
+            path: 'mosques/${item.id}/profile/',
+            filename: 'mosque-profile-$index.${extension(image.localPath)}',
+            file: image,
+          ),
+        ),
+      );
 
-    if (user != null) {
-      _cache[id!] = user;
+      item = item.copyWith(selfie: keys.first);
     }
+
+    final (user, errors) = await _userApi.create(item);
 
     return (user, errors);
   }
@@ -148,20 +241,12 @@ class UserRepo extends UserRepoAbstract {
   }) async {
     final (user, errors) = await _userApi.update(item);
 
-    if (user != null) {
-      _cache[user.id] = user;
-    }
-
     return (user, errors);
   }
 
   @override
   Future<(User?, List<GraphQLResponseError>)> delete(User item) async {
     final (user, errors) = await _userApi.delete(item.id);
-
-    if (user != null) {
-      _cache.remove(user.id);
-    }
 
     return (user, errors);
   }
@@ -175,12 +260,36 @@ class UserRepo extends UserRepoAbstract {
     _stream = _userApi.subscribe(modelType: User.classType).listen((event) {
       switch (event.type) {
         case SubscriptionType.onCreate:
-          onCreated?.call((event.response.data, event.response.errors));
+          final item = event.response.data;
+          final id = item?.id;
+
+          if (item != null) {
+            _cache[id!] = item;
+            _localDatabaseUtility.save(id, item.toJson());
+          }
+
+          onCreated?.call((item, event.response.errors));
           break;
         case SubscriptionType.onUpdate:
+          final item = event.response.data;
+          final id = item?.id;
+
+          if (item != null) {
+            _cache[id!] = item;
+            _localDatabaseUtility.save(id, item.toJson());
+          }
+
           onUpdated?.call((event.response.data, event.response.errors));
           break;
         case SubscriptionType.onDelete:
+          final item = event.response.data;
+          final id = item?.id;
+
+          if (item != null) {
+            _cache.remove(id!);
+            _localDatabaseUtility.delete(id);
+          }
+
           onDeleted?.call((event.response.data, event.response.errors));
           break;
       }
@@ -370,10 +479,12 @@ class UserRepo extends UserRepoAbstract {
     final (user, _) = await get(authUser.userId);
 
     _currentUser.add(user);
+    _localDatabaseUtility.save('currentUser', user!.toJson());
   }
 
   Future<void> _loggedOut() async {
     _currentUser.add(null);
+    _localDatabaseUtility.delete('currentUser');
 
     if (!kIsWeb) {
       await Amplify.DataStore.clear();

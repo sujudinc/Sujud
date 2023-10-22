@@ -3,7 +3,6 @@ import 'dart:async';
 
 // 📦 Package imports:
 import 'package:connectivity_plus/connectivity_plus.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 
@@ -12,16 +11,21 @@ class NetworkUtility implements NetworkUtilityAbstract {
       : _connectivity = connectivity ?? Connectivity();
 
   final Connectivity _connectivity;
+  bool _isConnected = true;
+
+  @override
+  bool get isConnected => _isConnected;
 
   @override
   StreamSubscription<ConnectivityResult> onConnectivityChanged({
-    required Function() onDisconnected,
-    required Function() onConnected,
+    Function()? onDisconnected,
+    Function()? onConnected,
   }) =>
       _connectivity.onConnectivityChanged.listen((event) {
         switch (event) {
           case ConnectivityResult.none:
-            onDisconnected();
+            _isConnected = false;
+            onDisconnected?.call();
             break;
           case ConnectivityResult.mobile:
           case ConnectivityResult.wifi:
@@ -29,7 +33,8 @@ class NetworkUtility implements NetworkUtilityAbstract {
           case ConnectivityResult.ethernet:
           case ConnectivityResult.vpn:
           case ConnectivityResult.other:
-            onConnected();
+            _isConnected = true;
+            onConnected?.call();
             break;
         }
       });

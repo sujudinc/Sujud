@@ -13,7 +13,7 @@ class DashboardTabCubit extends Cubit<DashboardTabState> {
         _userRepo = GetIt.instance.get<UserRepoAbstract>(),
         _navigationUtility = GetIt.instance.get<NavigationUtilityAbstract>(),
         super(const DashboardTabState.loading()) {
-    hydrate();
+    init();
   }
 
   final MosqueRepoAbstract _mosqueRepo;
@@ -25,42 +25,41 @@ class DashboardTabCubit extends Cubit<DashboardTabState> {
             .navigationRoutes.home.admin.dashboard.createMosque,
       );
 
-  Future<void> hydrate() async {
+  Future<void> init() async {
     emit(const DashboardTabState.loading());
 
-    final currentUser = _userRepo.currentUser;
+    if (_mosqueRepo.selectedMosque == null) {
+      final currentUser = _userRepo.currentUser;
 
-    if (currentUser != null) {
-      String? mosqueId;
+      if (currentUser != null) {
+        if (currentUser.type == UserType.ADMIN) {
+          final (mosques, _) = await _mosqueRepo.list(
+            filter: <String, dynamic>{
+              'creatorId': {
+                'eq': currentUser.id,
+              }
+            },
+          );
 
-      if (currentUser.type == UserType.ADMIN) {
-        final createdMosques = currentUser.createdMosques;
+          if (mosques != null) {
+            _mosqueRepo.selectedMosque = mosques.first;
 
-        if (createdMosques != null) {
-          if (createdMosques.isNotEmpty) {
-            mosqueId = createdMosques.first.id;
+            emit(
+              DashboardTabState.ready(
+                selectedMosque: _mosqueRepo.selectedMosque!,
+              ),
+            );
+          } else {
+            emit(const DashboardTabState.empty());
           }
         }
       }
-
-      if (mosqueId != null) {
-        final (mosque, _) = await _mosqueRepo.get(mosqueId);
-
-        if (mosque != null) {
-          _mosqueRepo.selectedMosque = mosque;
-
-          // emit(
-          //   DashboardTabState.ready(
-          //     selectedMosque: mosque,
-          //   ),
-          // );
-          emit(const DashboardTabState.empty());
-        } else {
-          emit(const DashboardTabState.empty());
-        }
-      } else {
-        emit(const DashboardTabState.empty());
-      }
+    } else {
+      emit(
+        DashboardTabState.ready(
+          selectedMosque: _mosqueRepo.selectedMosque!,
+        ),
+      );
     }
   }
 

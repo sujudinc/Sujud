@@ -1,6 +1,6 @@
 export 'apis/amplify_model.api.abstract.dart';
 export 'misc/amplify_model_api_operations.abstract.dart';
-export 'repos/announcement.repo.dart';
+export 'repos/announcement.repo.abstract.dart';
 export 'repos/base.repo.abstract.dart';
 export 'repos/mosque.repo.abstract.dart';
 export 'repos/user.repo.abstract.dart';
@@ -13,6 +13,7 @@ export 'services/graphql.service.abstract.dart';
 export 'services/rest.service.abstract.dart';
 export 'services/review.service.abstract.dart';
 export 'utilities/form.utility.abstract.dart';
+export 'utilities/local_database_utility.abstract.dart';
 export 'utilities/logger.utility.abstract.dart';
 export 'utilities/media.utility.abstract.dart';
 export 'utilities/navigation.utility.abstract.dart';

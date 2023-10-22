@@ -13,12 +13,14 @@ class MosquesPageCubit extends Cubit<MosquesPageState> {
   MosquesPageCubit()
       : _mosqueRepo = GetIt.instance.get<MosqueRepoAbstract>(),
         _navigationUtility = GetIt.instance.get<NavigationUtilityAbstract>(),
+        _networkUtility = GetIt.instance.get<NetworkUtilityAbstract>(),
         super(const MosquesPageState.loading()) {
-    hydrate();
+    init();
   }
 
   final MosqueRepoAbstract _mosqueRepo;
   final NavigationUtilityAbstract _navigationUtility;
+  final NetworkUtilityAbstract _networkUtility;
 
   String selectedCity = 'Birmingham, UK';
 
@@ -36,10 +38,16 @@ class MosquesPageCubit extends Cubit<MosquesPageState> {
     );
   }
 
-  Future<void> hydrate() async {
+  Future<void> init() async {
     emit(const MosquesPageState.loading());
 
-    await _mosqueRepo.list();
+    _networkUtility.onConnectivityChanged(
+      onConnected: () async {
+        emit(const MosquesPageState.loading());
+        await _mosqueRepo.list();
+        _emitSuccessfulState();
+      },
+    );
 
     _emitSuccessfulState();
   }

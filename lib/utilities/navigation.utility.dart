@@ -3,267 +3,40 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sheet/route.dart';
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/configs/configs.dart';
+import 'package:sujud/configs/routes.config.dart';
 import 'package:sujud/models/models.dart';
 import 'package:sujud/notifiers/notifiers.dart';
 import 'package:sujud/pages/pages.dart';
 
 class NavigationUtility implements NavigationUtilityAbstract {
   final _rootNavigatorKey = GlobalKey<NavigatorState>();
-  final _adminDashboardNavigatorKey = GlobalKey<NavigatorState>();
-  final _jamaahDashboardNavigatorKey = GlobalKey<NavigatorState>();
 
   NavigationUtility() : _userRepo = GetIt.instance.get<UserRepoAbstract>() {
-    final loadingRoute = navigationRoutes.loading;
-    final onboardingRoute = navigationRoutes.onboarding;
-    final registerRoute = navigationRoutes.register;
-    final loginRoute = navigationRoutes.login;
-    final homeRoute = navigationRoutes.home;
-    final adminDashboardRoute = homeRoute.admin.dashboard;
-    final adminSettingsRoute = homeRoute.admin.settings;
-    final jamaahRoute = homeRoute.jamaah;
-
     GoRouter.optionURLReflectsImperativeAPIs = true;
     _goRouter = GoRouter(
       navigatorKey: _rootNavigatorKey,
-      routes: <RouteBase>[
-        // Loading Page
-        GoRoute(
-          path: loadingRoute.path,
-          name: loadingRoute.name,
-          pageBuilder: (context, state) => MaterialExtendedPage<void>(
-            key: state.pageKey,
-            child: const LoadingPage(),
-          ),
-        ),
-        // Onboarding Page
-        GoRoute(
-          path: onboardingRoute.path,
-          name: onboardingRoute.name,
-          pageBuilder: (context, state) => MaterialExtendedPage<void>(
-            key: state.pageKey,
-            child: const OnboardingPage(),
-          ),
-          routes: <GoRoute>[
-            GoRoute(
-              path: onboardingRoute.mosques.path,
-              name: onboardingRoute.mosques.name,
-              pageBuilder: (context, state) => MaterialExtendedPage<void>(
-                key: state.pageKey,
-                child: const MosquesPage(),
-              ),
-            ),
-          ],
-        ),
-        // Auth Pages
-        GoRoute(
-          path: registerRoute.path,
-          name: registerRoute.name,
-          pageBuilder: (context, state) => MaterialExtendedPage<void>(
-            child: RegisterPage(
-              key: state.pageKey,
-            ),
-          ),
-        ),
-        GoRoute(
-          path: loginRoute.path,
-          name: loginRoute.name,
-          pageBuilder: (context, state) => MaterialExtendedPage<void>(
-            key: state.pageKey,
-            child: const LoginPage(),
-          ),
-          routes: <GoRoute>[
-            GoRoute(
-              name: loginRoute.forgot.name,
-              path: loginRoute.forgot.path,
-              pageBuilder: (context, state) => CupertinoExtendedPage<void>(
-                key: state.pageKey,
-                child: const ForgotPasswordPage(),
-              ),
-            ),
-            GoRoute(
-              name: loginRoute.confirm.name,
-              path: loginRoute.confirm.path,
-              pageBuilder: (context, state) => CupertinoExtendedPage<void>(
-                key: state.pageKey,
-                child: const ConfirmAccountPage(),
-              ),
-            ),
-            GoRoute(
-              name: loginRoute.mfa.name,
-              path: loginRoute.mfa.path,
-              pageBuilder: (context, state) => CupertinoExtendedPage<void>(
-                key: state.pageKey,
-                child: const MFAPage(),
-              ),
-            ),
-          ],
-        ),
-        // Home Page
-        StatefulShellRoute.indexedStack(
-          pageBuilder: (context, state, shell) => MaterialExtendedPage<void>(
-            key: state.pageKey,
-            child: HomePage(
-              shell: shell,
-              isAdmin: true,
-            ),
-          ),
-          branches: <StatefulShellBranch>[
-            StatefulShellBranch(
-              navigatorKey: _adminDashboardNavigatorKey,
-              routes: <RouteBase>[
-                StatefulShellRoute.indexedStack(
-                  pageBuilder: (context, state, shell) =>
-                      MaterialExtendedPage<void>(
-                    key: state.pageKey,
-                    child: DashboardTab(
-                      shell: shell,
-                    ),
-                  ),
-                  branches: <StatefulShellBranch>[
-                    StatefulShellBranch(
-                      routes: <RouteBase>[
-                        GoRoute(
-                          path: adminDashboardRoute.subTabs.prayerTimes.path,
-                          name: adminDashboardRoute.subTabs.prayerTimes.name,
-                          pageBuilder: (context, state) =>
-                              MaterialExtendedPage<void>(
-                            key: state.pageKey,
-                            child: const PrayerTimesSubtab(),
-                          ),
-                          routes: <GoRoute>[
-                            GoRoute(
-                              name: adminDashboardRoute.createMosque.name,
-                              path: adminDashboardRoute.createMosque.path,
-                              parentNavigatorKey: _rootNavigatorKey,
-                              pageBuilder: (context, state) =>
-                                  CupertinoSheetPage<void>(
-                                key: state.pageKey,
-                                child: const CreateMosquePage(),
-                              ),
-                              routes: <GoRoute>[
-                                GoRoute(
-                                  name: adminDashboardRoute
-                                      .createMosque.field.name,
-                                  path: adminDashboardRoute
-                                      .createMosque.field.path,
-                                  pageBuilder: (context, state) =>
-                                      CupertinoSheetPage<void>(
-                                    key: state.pageKey,
-                                    child: const CreateMosqueFieldPage(),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    StatefulShellBranch(
-                      routes: <RouteBase>[
-                        GoRoute(
-                          path: adminDashboardRoute.subTabs.announcements.path,
-                          name: adminDashboardRoute.subTabs.announcements.name,
-                          pageBuilder: (context, state) =>
-                              MaterialExtendedPage<void>(
-                            key: state.pageKey,
-                            child: const AnnouncementsSubtab(),
-                          ),
-                          routes: <GoRoute>[
-                            GoRoute(
-                              name: adminDashboardRoute.createAnnouncement.name,
-                              path: adminDashboardRoute.createAnnouncement.path,
-                              parentNavigatorKey: _rootNavigatorKey,
-                              pageBuilder: (context, state) =>
-                                  CupertinoSheetPage<void>(
-                                key: state.pageKey,
-                                child: CreateAnnouncementPage(
-                                  key: state.pageKey,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            StatefulShellBranch(
-              routes: <RouteBase>[
-                GoRoute(
-                  path: adminSettingsRoute.path,
-                  name: adminSettingsRoute.name,
-                  pageBuilder: (context, state) => MaterialExtendedPage<void>(
-                    key: state.pageKey,
-                    child: const SettingsTab(),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        StatefulShellRoute.indexedStack(
-          pageBuilder: (context, state, shell) => MaterialExtendedPage<void>(
-            key: state.pageKey,
-            child: HomePage(
-              shell: shell,
-            ),
-          ),
-          branches: <StatefulShellBranch>[
-            StatefulShellBranch(
-              navigatorKey: _jamaahDashboardNavigatorKey,
-              routes: <RouteBase>[
-                GoRoute(
-                  path: jamaahRoute.prayerTimes.path,
-                  name: jamaahRoute.prayerTimes.name,
-                  pageBuilder: (context, state) => MaterialExtendedPage<void>(
-                    key: state.pageKey,
-                    child: const PrayerTimesTab(),
-                  ),
-                ),
-              ],
-            ),
-            StatefulShellBranch(
-              routes: <RouteBase>[
-                GoRoute(
-                  path: jamaahRoute.settings.path,
-                  name: jamaahRoute.settings.name,
-                  pageBuilder: (context, state) => MaterialExtendedPage<void>(
-                    key: state.pageKey,
-                    child: const SettingsTab(),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-      errorPageBuilder: (context, state) => MaterialPage(
-        key: state.pageKey,
-        child: ErrorPage(
-          key: state.pageKey,
-        ),
+      routes: $appRoutes,
+      errorPageBuilder: (context, state) => const MaterialPage(
+        child: ErrorPage(),
       ),
       redirect: (context, routerState) {
         final isInitialised = _userRepo.isLoggedIn != null;
         final isLoggedIn = _userRepo.isLoggedIn ?? false;
         final location = routerState.uri.toString();
         final isGoingToLoading = location.startsWith(
-          loadingRoute.location,
+          const LoadingRoute().location,
         );
         final isGoingToOnboarding = location.startsWith(
-          onboardingRoute.location,
+          const OnboardingRoute().location,
         );
         final isGoingToRegister = location.startsWith(
-          registerRoute.location,
+          const RegisterRoute().location,
         );
         final isGoingToLogin = location.startsWith(
-          loginRoute.location,
+          const LoginRoute().location,
         );
         String? redirectLocation;
 
@@ -273,20 +46,20 @@ class NavigationUtility implements NavigationUtilityAbstract {
 
         if (!isInitialised && !isGoingToLoading) {
           return routerState.namedLocation(
-            loadingRoute.name,
+            'loading',
             queryParameters: _getRedirectParam(location),
           );
         } else if (!isLoggedIn) {
           if (isGoingToLogin || isGoingToRegister || isGoingToOnboarding) {
             redirectLocation = null;
           } else {
-            redirectLocation = onboardingRoute.path;
+            redirectLocation = const OnboardingRoute().location;
           }
         } else if (isInitialised &&
             !isLoggedIn &&
             (!isGoingToLogin || !isGoingToRegister)) {
           redirectLocation = routerState.namedLocation(
-            loginRoute.name,
+            'login',
             queryParameters: _getRedirectParam(location),
           );
         } else if (isGoingToLoading ||
@@ -297,15 +70,14 @@ class NavigationUtility implements NavigationUtilityAbstract {
 
           switch (_userRepo.currentUser!.type) {
             case UserType.ADMIN:
-            case UserType.SUPER_ADMIN:
               defaultHomePage = routerState.namedLocation(
-                adminDashboardRoute.subTabs.prayerTimes.name,
+                'admin_prayer_times',
                 queryParameters: routerState.uri.queryParameters,
               );
               break;
             default:
               defaultHomePage = routerState.namedLocation(
-                jamaahRoute.prayerTimes.name,
+                'jamaah_prayer_times',
                 queryParameters: routerState.uri.queryParameters,
               );
               break;
@@ -318,7 +90,7 @@ class NavigationUtility implements NavigationUtilityAbstract {
         return redirectLocation;
       },
       refreshListenable: RefreshStream(_userRepo.currentUserStream),
-      initialLocation: onboardingRoute.location,
+      initialLocation: const OnboardingRoute().location,
       debugLogDiagnostics: true,
     );
   }

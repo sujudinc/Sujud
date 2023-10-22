@@ -39,7 +39,7 @@ class NavigationPath with _$NavigationPath {
     final queryParameters = Map<String, String>.from(parsedUrl.queryParameters);
 
     _logger.log(
-      '\n| ------------ NavigationPath.fromPath ----------- |'
+      '| ------------ NavigationPath.fromPath ----------- |'
       '\n| Parsed URL: $parsedUrl'
       '\n| PathSegments: $pathSegments'
       '\n| PathSegmentsLength: $pathSegmentsLength'

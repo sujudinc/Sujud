@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -35,6 +34,9 @@ const String kDateLastOpened = 'sujud_date_last_opened';
 const String kAppThemeLight = 'sujud_app_theme_light';
 const String kHasReviewed = 'sujud_has_reviewed';
 const String kIsDarkMode = 'sujud_is_dark_mode';
+
+// Local Storage
+const String kLocalStorage = 'sujud_local_storage';
 
 // UI
 const kEdgeInsetsAll = EdgeInsets.all(25.0);

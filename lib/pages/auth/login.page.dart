@@ -1,11 +1,9 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/blocs.dart';
@@ -13,14 +11,16 @@ import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/widgets/widgets.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({this.redirectTo, super.key});
+
+  final String? redirectTo;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _form = GetIt.instance.get<FormUtilityAbstract>(
+  final _formUtility = GetIt.instance.get<FormUtilityAbstract>(
     param1: GlobalKey<FormBuilderState>(),
   );
 
@@ -49,18 +49,18 @@ class _LoginPageState extends State<LoginPage> {
         kids: Kids(
           children: <Widget>[
             FormBuilder(
-              key: _form.formKey,
+              key: _formUtility.formKey,
               child: Column(
                 children: <Widget>[
                   SujudTextField.email(
                     context,
-                    formKey: _form.formKey,
+                    formKey: _formUtility.formKey,
                     fieldName: _LoginFormFieldName.email.name,
                     initialValue: authCubit.username,
                   ),
                   SujudTextField.password(
                     context,
-                    formKey: _form.formKey,
+                    formKey: _formUtility.formKey,
                     fieldName: _LoginFormFieldName.password.name,
                   ),
                 ],
@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               onTap: () {
                 authCubit
-                  ..username = _form.getInstantValue(
+                  ..username = _formUtility.getInstantValue(
                     _LoginFormFieldName.email.name,
                   )
                   ..toForgotPasswordPage;
@@ -88,15 +88,15 @@ class _LoginPageState extends State<LoginPage> {
                   : SujudButton(
                       text: i18n.buttonLogin,
                       onTap: () async {
-                        if (!_form.saveAndValidate()) {
+                        if (!_formUtility.saveAndValidate()) {
                           return;
                         }
 
                         authCubit
-                          ..username = _form.getValue(
+                          ..username = _formUtility.getValue(
                             _LoginFormFieldName.email.name,
                           )
-                          ..password = _form.getValue(
+                          ..password = _formUtility.getValue(
                             _LoginFormFieldName.password.name,
                           )
                           ..login();
@@ -116,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
               text: i18n.buttonRegister,
               onTap: () {
                 authCubit
-                  ..username = _form.getInstantValue(
+                  ..username = _formUtility.getInstantValue(
                     _LoginFormFieldName.email.name,
                   )
                   ..toRegisterPage;

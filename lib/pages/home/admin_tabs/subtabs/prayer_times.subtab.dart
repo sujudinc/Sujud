@@ -7,14 +7,14 @@ import 'package:sujud/blocs/blocs.dart';
 import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/widgets/widgets.dart';
 
-class PrayerTimesSubtab extends StatefulWidget {
-  const PrayerTimesSubtab({super.key});
+class AdminPrayerTimesSubtab extends StatefulWidget {
+  const AdminPrayerTimesSubtab({super.key});
 
   @override
-  State<PrayerTimesSubtab> createState() => _PrayerTimesSubtabState();
+  State<AdminPrayerTimesSubtab> createState() => _AdminPrayerTimesSubtabState();
 }
 
-class _PrayerTimesSubtabState extends State<PrayerTimesSubtab>
+class _AdminPrayerTimesSubtabState extends State<AdminPrayerTimesSubtab>
     with AutomaticKeepAliveClientMixin {
   final _prayTimesSubtabCubit = AdminPrayerTimesSubtabCubit();
 

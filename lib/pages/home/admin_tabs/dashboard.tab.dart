@@ -12,10 +12,12 @@ import 'package:sujud/widgets/widgets.dart';
 class DashboardTab extends StatefulWidget {
   const DashboardTab({
     required this.shell,
+    required this.children,
     super.key,
   });
 
   final StatefulNavigationShell shell;
+  final List<Widget> children;
 
   @override
   State<DashboardTab> createState() => _DashboardTabState();
@@ -24,11 +26,6 @@ class DashboardTab extends StatefulWidget {
 class _DashboardTabState extends State<DashboardTab>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final _dashboardTabCubit = DashboardTabCubit();
-  late final _tabController = TabController(
-    initialIndex: widget.shell.currentIndex,
-    length: _tabs.length,
-    vsync: this,
-  );
 
   @override
   bool get wantKeepAlive => true;
@@ -59,20 +56,24 @@ class _DashboardTabState extends State<DashboardTab>
               child: Column(
                 children: <Widget>[
                   TabBar(
-                    controller: _tabController,
+                    controller: TabController(
+                      initialIndex: widget.shell.currentIndex,
+                      length: _tabs.length,
+                      vsync: this,
+                    ),
                     labelColor: Colors.black,
                     tabs: _tabs,
                     onTap: _onTabChange,
                   ),
                   Expanded(
-                    child: widget.shell,
+                    child: widget.children[widget.shell.currentIndex],
                   ),
                 ],
               ),
             ),
             failure: () => FailureStateView(
               description: i18n.errorGeneric,
-              onTap: () async => _dashboardTabCubit.hydrate(),
+              onTap: () async => _dashboardTabCubit.init(),
             ),
           ),
         ),

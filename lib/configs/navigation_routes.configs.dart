@@ -45,32 +45,6 @@ class RegisterRoutes implements NavigationRouteAbstract {
   final path = '/register';
   @override
   final location = '/register';
-
-  final selfie = NavigationRoute(
-    name: 'selfie',
-    path: 'selfie',
-    location: '/register/selfie',
-  );
-  final fullName = NavigationRoute(
-    name: 'name',
-    path: 'name',
-    location: '/register/name',
-  );
-  final birth = NavigationRoute(
-    name: 'birth',
-    path: 'birth',
-    location: '/register/birth',
-  );
-  final phone = NavigationRoute(
-    name: 'phone',
-    path: 'phone',
-    location: '/register/phone',
-  );
-  final email = NavigationRoute(
-    name: 'email',
-    path: 'email',
-    location: '/register/email',
-  );
 }
 
 class LoginRoutes implements NavigationRouteAbstract {
@@ -93,8 +67,8 @@ class LoginRoutes implements NavigationRouteAbstract {
   );
   final confirm = NavigationRoute(
     name: 'confirm',
-    path: 'confirm/:section(email|phone)',
-    location: '/login/confirm/:section(email|phone)',
+    path: 'confirm',
+    location: '/login/confirm',
   );
 }
 
@@ -111,6 +85,11 @@ class DashboardRoutes {
     name: 'create_announcement',
     path: 'create_announcement',
     location: '/admin/dashboard/announcements/create_announcement',
+  );
+  final announcement = NavigationRoute(
+    name: 'announcement',
+    path: ':section',
+    location: '/admin/dashboard/announcements/:section',
   );
 }
 

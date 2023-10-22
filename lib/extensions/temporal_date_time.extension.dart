@@ -6,13 +6,13 @@ extension TemporalDateTimeX on TemporalDateTime {
     final difference = now.difference(getDateTimeInUtc());
 
     if (difference.inDays > 0) {
-      return '$difference days ago';
+      return '${difference.inDays} days ago';
     } else if (difference.inHours > 0) {
-      return '$difference hours ago';
+      return '${difference.inHours} hours ago';
     } else if (difference.inMinutes > 0) {
-      return '$difference minutes ago';
+      return '${difference.inMinutes} minutes ago';
     } else if (difference.inSeconds > 0) {
-      return '$difference seconds ago';
+      return '${difference.inSeconds} seconds ago';
     } else {
       return 'Just now';
     }

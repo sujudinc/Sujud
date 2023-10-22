@@ -1,10 +1,7 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/configs/configs.dart';
 import 'package:sujud/sujud_app.dart';
@@ -14,10 +11,8 @@ Future<void> main() async {
   await dotenv.load(fileName: 'env.staging');
 
   runApp(
-    ProviderScope(
-      child: SujudApp(
-        environment: Environment.staging,
-      ),
+    SujudApp(
+      environment: Environment.staging,
     ),
   );
 }

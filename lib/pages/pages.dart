@@ -15,5 +15,5 @@ export 'home/home.page.dart';
 export 'home/jamaah_tabs/prayer_times.tab.dart';
 export 'misc/error.page.dart';
 export 'misc/loading.page.dart';
-export 'onboarding/jamaah/mosques.page.dart';
-export 'onboarding/jamaah/onboarding.page.dart';
+export 'onboarding/mosques.page.dart';
+export 'onboarding/onboarding.page.dart';

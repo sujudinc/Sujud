@@ -1,11 +1,9 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/blocs.dart';
@@ -13,14 +11,19 @@ import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/widgets/widgets.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
-  const ForgotPasswordPage({super.key});
+  const ForgotPasswordPage({
+    this.email,
+    super.key,
+  });
+
+  final String? email;
 
   @override
   State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
 }
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
-  final _form = GetIt.instance.get<FormUtilityAbstract>(
+  final _formUtility = GetIt.instance.get<FormUtilityAbstract>(
     param1: GlobalKey<FormBuilderState>(),
   );
 
@@ -49,12 +52,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         kids: Kids(
           children: <Widget>[
             FormBuilder(
-              key: _form.formKey,
+              key: _formUtility.formKey,
+              initialValue: <String, dynamic>{
+                _ForgotPasswordFormField.email.name:
+                    widget.email ?? authCubit.username,
+              },
               child: Column(
                 children: <Widget>[
                   SujudTextField.email(
                     context,
-                    formKey: _form.formKey,
+                    formKey: _formUtility.formKey,
                     fieldName: _ForgotPasswordFormField.email.name,
                     initialValue: authCubit.username,
                   ),
@@ -71,12 +78,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   : SujudButton(
                       text: i18n.buttonReset,
                       onTap: () async {
-                        if (!_form.saveAndValidate()) {
+                        if (!_formUtility.saveAndValidate()) {
                           return;
                         }
 
                         authCubit
-                          ..username = _form.getValue(
+                          ..username = _formUtility.getValue(
                             _ForgotPasswordFormField.email.name,
                           )
                           ..resetPassword();

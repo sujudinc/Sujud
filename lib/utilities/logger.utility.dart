@@ -1,33 +1,35 @@
-// 🐦 Flutter imports:
-import 'package:flutter/foundation.dart';
-
 // 📦 Package imports:
-import 'package:stack_trace/stack_trace.dart';
-
+import 'package:logger/logger.dart';
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 
 class LoggerUtility implements LoggerUtilityAbstract {
+  LoggerUtility({Logger? logger})
+      : _logger = logger ??
+            Logger(
+              printer: PrettyPrinter(
+                colors: true,
+                printEmojis: true,
+                printTime: true,
+              ),
+            );
+
+  final Logger _logger;
+
+  @override
+  Logger get logger => _logger;
+
   @override
   void log(message, {LogLevel level = LogLevel.debug}) {
-    if (_getLevel(level) <= _maxLevel) {
-      final traceFrame = Trace.current().terse.frames.elementAt(1);
-      final file = traceFrame.library.split('/').last;
-      final member = traceFrame.member!.startsWith('[')
-          ? traceFrame.member?.substring(1, traceFrame.member!.length - 1)
-          : traceFrame.member;
-      _print(
-        '[ $file -> $member ${traceFrame.line}:${traceFrame.column} ] => '
-        '$message',
-      );
+    switch (level) {
+      case LogLevel.error:
+        return _logger.e(message);
+      case LogLevel.warning:
+        return _logger.w(message);
+      case LogLevel.trace:
+        return _logger.t(message);
+      case LogLevel.debug:
+        return _logger.d(message);
     }
   }
-
-  final int _maxLevel = 4;
-
-  int _getLevel(LogLevel level) => LogLevel.values.indexOf(level);
-
-  void _print(String text) => RegExp('.{1,800}')
-      .allMatches(text)
-      .forEach((match) => kReleaseMode ? null : debugPrint(match.group(0)));
 }

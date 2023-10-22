@@ -1,13 +1,11 @@
 // 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:expandable_page_view/expandable_page_view.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/blocs.dart';
@@ -16,14 +14,16 @@ import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/widgets/widgets.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  const RegisterPage({this.redirectTo, super.key});
+
+  final String? redirectTo;
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final _form = GetIt.instance.get<FormUtilityAbstract>(
+  final _formUtility = GetIt.instance.get<FormUtilityAbstract>(
     param1: GlobalKey<FormBuilderState>(),
   );
 
@@ -75,7 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               FormBuilder(
-                key: _form.formKey,
+                key: _formUtility.formKey,
                 child: ExpandablePageView(
                   controller: _pageController,
                   onPageChanged: (index) {
@@ -105,21 +105,21 @@ class _RegisterPageState extends State<RegisterPage> {
                                   : SujudButton(
                                       text: i18n.buttonRegister,
                                       onTap: () async {
-                                        if (!_form.saveAndValidate()) {
+                                        if (!_formUtility.saveAndValidate()) {
                                           return;
                                         }
 
                                         authCubit
-                                          ..firstName = _form.getValue(
+                                          ..firstName = _formUtility.getValue(
                                             _RegisterFormField.firstName.name,
                                           )
-                                          ..lastName = _form.getValue(
+                                          ..lastName = _formUtility.getValue(
                                             _RegisterFormField.lastName.name,
                                           )
-                                          ..username = _form.getValue(
+                                          ..username = _formUtility.getValue(
                                             _RegisterFormField.email.name,
                                           )
-                                          ..password = _form.getValue(
+                                          ..password = _formUtility.getValue(
                                             _RegisterFormField.password.name,
                                           )
                                           ..register();
@@ -158,13 +158,13 @@ class _RegisterPageState extends State<RegisterPage> {
         children: <SujudFormFieldAbstract>[
           SujudTextField.name(
             context,
-            formKey: _form.formKey,
+            formKey: _formUtility.formKey,
             fieldName: _RegisterFormField.firstName.name,
             initialValue: authCubit.firstName,
           ),
           SujudTextField.name(
             context,
-            formKey: _form.formKey,
+            formKey: _formUtility.formKey,
             fieldName: _RegisterFormField.lastName.name,
             initialValue: authCubit.lastName,
             type: NameFieldType.lastName,
@@ -176,13 +176,13 @@ class _RegisterPageState extends State<RegisterPage> {
         children: <SujudFormFieldAbstract>[
           SujudTextField.email(
             context,
-            formKey: _form.formKey,
+            formKey: _formUtility.formKey,
             fieldName: _RegisterFormField.email.name,
             initialValue: authCubit.username,
           ),
           SujudTextField.password(
             context,
-            formKey: _form.formKey,
+            formKey: _formUtility.formKey,
             fieldName: _RegisterFormField.password.name,
             initialValue: authCubit.password,
           ),

@@ -3,11 +3,9 @@ import 'dart:convert';
 
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/blocs.dart';
@@ -214,7 +212,7 @@ class MosqueContactInfoField implements MosqueFormField<ContactInfo?> {
       builder: (context) => Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          ...[
+          ...<DropdownItem>[
             if (!items.contains(_SocialMediaFormFieldName.facebook))
               DropdownItem(
                 value: _SocialMediaFormFieldName.facebook,
@@ -235,17 +233,15 @@ class MosqueContactInfoField implements MosqueFormField<ContactInfo?> {
                 value: _SocialMediaFormFieldName.youtube,
                 text: i18n.youtube,
               ),
-          ]
-              .map<Widget>(
-                (item) => ListTile(
-                  title: Text(item.text),
-                  onTap: () {
-                    _selectedSocialsCubit.add(item.value);
-                    Navigator.of(context).pop();
-                  },
-                ),
-              )
-              .toList(),
+          ].map<Widget>(
+            (item) => ListTile(
+              title: Text(item.text),
+              onTap: () {
+                _selectedSocialsCubit.add(item.value);
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
         ],
       ),
     );

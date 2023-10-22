@@ -19,7 +19,7 @@ class CreateAnnouncementPage extends StatefulWidget {
 }
 
 class _CreateAnnouncementPageState extends State<CreateAnnouncementPage> {
-  final _form = GetIt.instance.get<FormUtilityAbstract>(
+  final _formUtility = GetIt.instance.get<FormUtilityAbstract>(
     param1: GlobalKey<FormBuilderState>(),
   );
   final _createAnnouncementPageCubit = CreateAnnouncementPageCubit();
@@ -65,7 +65,7 @@ class _CreateAnnouncementPageState extends State<CreateAnnouncementPage> {
                     Expanded(
                       child: SingleChildScrollView(
                         child: FormBuilder(
-                          key: _form.formKey,
+                          key: _formUtility.formKey,
                           child: Column(
                             children: <Widget>[
                               FormBuilderTextField(
@@ -157,13 +157,14 @@ class _CreateAnnouncementPageState extends State<CreateAnnouncementPage> {
                                     ),
                         ),
                         const Spacer(),
-                        state is CreateAnnouncementPageStateLoadingSend
-                            ? const PALoadingIndicator()
-                            : SujudButton(
-                                outlined: false,
-                                text: i18n.buttonSend,
-                                onTap: () async => _createAnnouncement(),
-                              ),
+                        // state is CreateAnnouncementPageStateLoadingSend
+                        //     ? const PALoadingIndicator()
+                        //     :
+                        SujudButton(
+                          outlined: false,
+                          text: i18n.buttonSend,
+                          onTap: () async => _createAnnouncement(),
+                        ),
                       ],
                     ),
                   ],
@@ -188,15 +189,15 @@ class _CreateAnnouncementPageState extends State<CreateAnnouncementPage> {
   }
 
   Future<void> _createAnnouncement() async {
-    if (!_form.saveAndValidate()) {
+    if (!_formUtility.saveAndValidate()) {
       return;
     }
 
     _createAnnouncementPageCubit
-      ..title = _form.getValue(
+      ..title = _formUtility.getValue(
         AnnouncementFormFieldName.title.name,
       )
-      ..content = _form.getValue(
+      ..content = _formUtility.getValue(
         AnnouncementFormFieldName.content.name,
       )
       ..create();

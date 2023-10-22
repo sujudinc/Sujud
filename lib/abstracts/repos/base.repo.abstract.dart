@@ -5,6 +5,13 @@ import 'package:sujud/models/models.dart';
 
 abstract class BaseRepoAbstract<T extends Model> {
   List<T> get items;
+  Map<String, Map<String, Uri>> get cachedImages;
+
+  void setCachedImage({
+    required String id,
+    required String key,
+    required Uri url,
+  });
 
   Future<(T?, List<GraphQLResponseError>)> get(String id);
 

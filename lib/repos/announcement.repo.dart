@@ -14,18 +14,54 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
   AnnouncementRepo()
       : _announcementApi =
             GetIt.instance.get<AmplifyModelApiAbstract<Announcement>>(),
-        _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>();
+        _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>(),
+        _localDatabaseUtility = GetIt.instance
+            .get<LocalDatabaseUtilityAbstract>(param1: 'announcements'),
+        _loggerUtility = GetIt.instance.get<LoggerUtilityAbstract>() {
+    _preloadDataFromLocalCache();
+  }
 
   final AmplifyModelApiAbstract<Announcement> _announcementApi;
   final AmplifyStorageServiceAbstract _storageService;
+  final LocalDatabaseUtilityAbstract _localDatabaseUtility;
+  final LoggerUtilityAbstract _loggerUtility;
 
   final _cache = <String, Announcement>{};
   bool _hasMoreItems = false;
-
   StreamSubscription<GraphqlSubscriptionResponse<Announcement>>? _stream;
   Map<String, dynamic>? _filter;
   int? _limit;
   String? _nextToken;
+
+  Future<void> _preloadDataFromLocalCache() async {
+    _loggerUtility.log('Loading announcements from local cache.');
+
+    final localData = await _localDatabaseUtility.getMany();
+
+    if (localData.isNotEmpty) {
+      for (final data in localData) {
+        if (data.containsKey('filter') |
+            data.containsKey('limit') |
+            data.containsKey('nextToken')) {
+          _filter = data['filter'];
+          _limit = data['limit'];
+          _nextToken = data['nextToken'];
+        } else if (data.isEmpty) {
+        } else {
+          final item = Announcement.fromJson(data).copyWith(
+            mosque: Mosque.fromJson(data['mosque']).copyWith(
+              address: Address.fromJson(data['mosque']['address']),
+              contactInfo: ContactInfo.fromJson(data['mosque']['contactInfo']),
+              creator: User.fromJson(data['mosque']['creator']),
+            ),
+            creator: User.fromJson(data['creator']),
+          );
+
+          _cache[item.id] = item;
+        }
+      }
+    }
+  }
 
   @override
   List<Announcement> get items {
@@ -33,6 +69,24 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
       ..sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
 
     return items;
+  }
+
+  @override
+  Map<String, Map<String, Uri>> get cachedImages => {};
+
+  @override
+  void setCachedImage({
+    required String id,
+    required String key,
+    required Uri url,
+  }) {
+    if (cachedImages.containsKey(id)) {
+      cachedImages[id]![key] = url;
+    } else {
+      cachedImages[id] = <String, Uri>{key: url};
+    }
+
+    _localDatabaseUtility.save('cachedImages', cachedImages);
   }
 
   @override
@@ -45,6 +99,7 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
 
     if (announcement != null) {
       _cache[id] = announcement;
+      _localDatabaseUtility.save(id, announcement.toJson());
     }
 
     return (announcement, errors);
@@ -58,7 +113,6 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
   }) async {
     _filter = filter;
     _limit = limit;
-    _nextToken = nextToken;
 
     final (response, errors) = await _announcementApi.list(
       filter: _filter,
@@ -68,25 +122,19 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
 
     _nextToken = response.nextToken;
 
+    await _localDatabaseUtility.save(
+      'listParams',
+      <String, dynamic>{
+        'filter': _filter,
+        'limit': _limit,
+        'nextToken': _nextToken,
+      },
+    );
+
     if (response.items != null) {
-      for (var item in response.items!) {
-        final keys = item?.images;
-
-        if (keys != null && keys.isNotEmpty) {
-          final images = await Future.wait(
-            keys.map(
-              (key) => _storageService.getUri(key: key).then(
-                    (uri) => uri.toString(),
-                  ),
-            ),
-          );
-
-          item = item!.copyWithModelFieldValues(
-            images: ModelFieldValue.value(images),
-          );
-        }
-
-        _cache[item!.id] = item;
+      for (final item in response.items!) {
+        await _localDatabaseUtility.save(item!.id, item.toJson());
+        _cache[item.id] = item;
       }
     }
 
@@ -107,25 +155,19 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
 
     _nextToken = response.nextToken;
 
+    await _localDatabaseUtility.save(
+      'listParams',
+      <String, dynamic>{
+        'filter': _filter,
+        'limit': _limit,
+        'nextToken': _nextToken,
+      },
+    );
+
     if (response.items != null) {
-      for (var item in response.items!) {
-        final keys = item?.images;
-
-        if (keys != null && keys.isNotEmpty) {
-          final images = await Future.wait(
-            keys.map(
-              (key) => _storageService.getUri(key: key).then(
-                    (uri) => uri.toString(),
-                  ),
-            ),
-          );
-
-          item = item!.copyWithModelFieldValues(
-            images: ModelFieldValue.value(images),
-          );
-        }
-
-        _cache[item!.id] = item;
+      for (final item in response.items!) {
+        await _localDatabaseUtility.save(item!.id, item.toJson());
+        _cache[item.id] = item;
       }
     }
 
@@ -165,12 +207,6 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
       );
     }
 
-    final id = announcement?.id;
-
-    if (announcement != null) {
-      _cache[id!] = announcement;
-    }
-
     return (announcement, errors);
   }
 
@@ -205,12 +241,6 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
 
     final (announcement, errors) = await _announcementApi.update(item);
 
-    final id = announcement?.id;
-
-    if (announcement != null) {
-      _cache[id!] = announcement;
-    }
-
     return (announcement, errors);
   }
 
@@ -219,11 +249,8 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
     Announcement item,
   ) async {
     final (announcement, errors) = await _announcementApi.delete(item.id);
-    final id = announcement?.id;
 
-    if (announcement != null && _cache.containsKey(id)) {
-      _cache.remove(id!);
-
+    if (announcement != null) {
       if (item.images != null && item.images!.isNotEmpty) {
         await Future.wait(
           item.images!.map(
@@ -254,6 +281,7 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
 
           if (announcement != null) {
             _cache[id!] = announcement;
+            _localDatabaseUtility.save(id, announcement.toJson());
           }
 
           onCreated?.call((event.response.data, event.response.errors));
@@ -264,6 +292,7 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
 
           if (announcement != null) {
             _cache[id!] = announcement;
+            _localDatabaseUtility.save(id, announcement.toJson());
           }
 
           onUpdated?.call((event.response.data, event.response.errors));
@@ -274,6 +303,7 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
 
           if (announcement != null) {
             _cache.remove(id!);
+            _localDatabaseUtility.delete(id);
           }
 
           onDeleted?.call((event.response.data, event.response.errors));
