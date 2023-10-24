@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // 🌎 Project imports:
 import 'package:sujud/blocs/blocs.dart';
+import 'package:sujud/configs/configs.dart';
 import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/widgets/widgets.dart';
 
@@ -34,7 +35,7 @@ class _AdminPrayerTimesSubtabState extends State<AdminPrayerTimesSubtab>
               title: 'Setup your prayer times...',
               description: 'You can setup your prayer times here.',
               buttonLabel: i18n.buttonCreatePrayerTime,
-              onTap: () => _prayTimesSubtabCubit.goToCreatePrayerTimesPage,
+              onTap: () => const CreateMosqueRoute().go(context),
             )
           : BlocBuilder<AdminPrayerTimesSubtabCubit,
               AdminPrayerTimesSubtabState>(

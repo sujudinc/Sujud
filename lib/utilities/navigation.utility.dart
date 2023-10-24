@@ -6,21 +6,18 @@ import 'package:go_router/go_router.dart';
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/configs/configs.dart';
-import 'package:sujud/configs/routes.config.dart';
 import 'package:sujud/models/models.dart';
 import 'package:sujud/notifiers/notifiers.dart';
-import 'package:sujud/pages/pages.dart';
 
 class NavigationUtility implements NavigationUtilityAbstract {
-  final _rootNavigatorKey = GlobalKey<NavigatorState>();
-
   NavigationUtility() : _userRepo = GetIt.instance.get<UserRepoAbstract>() {
     GoRouter.optionURLReflectsImperativeAPIs = true;
     _goRouter = GoRouter(
-      navigatorKey: _rootNavigatorKey,
+      navigatorKey: rootNavigatorKey,
       routes: $appRoutes,
-      errorPageBuilder: (context, state) => const MaterialPage(
-        child: ErrorPage(),
+      errorBuilder: (context, state) => const ErrorRoute().build(
+        context,
+        state,
       ),
       redirect: (context, routerState) {
         final isInitialised = _userRepo.isLoggedIn != null;

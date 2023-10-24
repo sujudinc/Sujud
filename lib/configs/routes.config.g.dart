@@ -249,15 +249,11 @@ extension $ForgotRouteExtension on ForgotRoute {
 }
 
 RouteBase get $adminHomeRoute => StatefulShellRouteData.$route(
-      restorationScopeId: AdminHomeRoute.$restorationScopeId,
-      navigatorContainerBuilder: AdminHomeRoute.$navigatorContainerBuilder,
       factory: $AdminHomeRouteExtension._fromState,
       branches: [
         StatefulShellBranchData.$branch(
           routes: [
             StatefulShellRouteData.$route(
-              navigatorContainerBuilder:
-                  AdminDashboardRoute.$navigatorContainerBuilder,
               factory: $AdminDashboardRouteExtension._fromState,
               branches: [
                 StatefulShellBranchData.$branch(
@@ -270,6 +266,8 @@ RouteBase get $adminHomeRoute => StatefulShellRouteData.$route(
                         GoRouteData.$route(
                           path: 'create-mosque',
                           name: 'create_mosque',
+                          parentNavigatorKey:
+                              CreateMosqueRoute.$parentNavigatorKey,
                           factory: $CreateMosqueRouteExtension._fromState,
                           routes: [
                             GoRouteData.$route(
@@ -294,11 +292,15 @@ RouteBase get $adminHomeRoute => StatefulShellRouteData.$route(
                         GoRouteData.$route(
                           path: 'create-announcement',
                           name: 'create_announcement',
+                          parentNavigatorKey:
+                              CreateAnnouncementRoute.$parentNavigatorKey,
                           factory: $CreateAnnouncementRouteExtension._fromState,
                         ),
                         GoRouteData.$route(
-                          path: ':section',
+                          path: ':id',
                           name: 'announcement',
+                          parentNavigatorKey:
+                              AnnouncementRoute.$parentNavigatorKey,
                           factory: $AnnouncementRouteExtension._fromState,
                         ),
                       ],
@@ -430,11 +432,11 @@ extension $CreateAnnouncementRouteExtension on CreateAnnouncementRoute {
 
 extension $AnnouncementRouteExtension on AnnouncementRoute {
   static AnnouncementRoute _fromState(GoRouterState state) => AnnouncementRoute(
-        section: state.pathParameters['section']!,
+        id: state.pathParameters['id']!,
       );
 
   String get location => GoRouteData.$location(
-        '/admin/dashboard/announcements/${Uri.encodeComponent(section)}',
+        '/admin/dashboard/announcements/${Uri.encodeComponent(id)}',
       );
 
   void go(BuildContext context) => context.go(location);

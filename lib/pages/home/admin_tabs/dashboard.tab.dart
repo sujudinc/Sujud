@@ -12,12 +12,10 @@ import 'package:sujud/widgets/widgets.dart';
 class DashboardTab extends StatefulWidget {
   const DashboardTab({
     required this.shell,
-    required this.children,
     super.key,
   });
 
   final StatefulNavigationShell shell;
-  final List<Widget> children;
 
   @override
   State<DashboardTab> createState() => _DashboardTabState();
@@ -66,7 +64,7 @@ class _DashboardTabState extends State<DashboardTab>
                     onTap: _onTabChange,
                   ),
                   Expanded(
-                    child: widget.children[widget.shell.currentIndex],
+                    child: widget.shell,
                   ),
                 ],
               ),

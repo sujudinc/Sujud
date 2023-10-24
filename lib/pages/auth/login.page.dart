@@ -58,6 +58,9 @@ class _LoginPageState extends State<LoginPage> {
                     fieldName: _LoginFormFieldName.email.name,
                     initialValue: authCubit.username,
                   ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
                   SujudTextField.password(
                     context,
                     formKey: _formUtility.formKey,
@@ -65,6 +68,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
+            ),
+            const SizedBox(
+              height: 20.0,
             ),
             GestureDetector(
               child: Text(

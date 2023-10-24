@@ -28,25 +28,6 @@ class AdminAnnouncementsSubtabCubit
 
   Mosque? get selectedMosque => _mosqueRepo.selectedMosque;
 
-  void goToAnnouncementPage(String id) {
-    _navigationUtility.push(
-      path: NavigationPath(
-        route: _navigationUtility
-            .navigationRoutes.home.admin.dashboard.announcement,
-        section: id,
-      ),
-    );
-  }
-
-  void get goToCreateAnnouncementPage {
-    _navigationUtility.push(
-      path: NavigationPath(
-        route: _navigationUtility
-            .navigationRoutes.home.admin.dashboard.createAnnouncement,
-      ),
-    );
-  }
-
   Future<void> init() async {
     emit(const AdminAnnouncementsSubtabState.loading());
 

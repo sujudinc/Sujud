@@ -9,13 +9,11 @@ part 'admin_prayer_times_subtab.state.dart';
 
 class AdminPrayerTimesSubtabCubit extends Cubit<AdminPrayerTimesSubtabState> {
   AdminPrayerTimesSubtabCubit()
-      : _navigationUtility = GetIt.instance.get<NavigationUtilityAbstract>(),
-        // _prayerUtility = GetIt.instance.get<PrayerUtilityAbstract>(),
+      : // _prayerUtility = GetIt.instance.get<PrayerUtilityAbstract>(),
         _mosqueRepo = GetIt.instance.get<MosqueRepoAbstract>(),
         _prayerTimeRepo = GetIt.instance.get<UserRepoAbstract>(),
         super(const AdminPrayerTimesSubtabState.initial());
 
-  final NavigationUtilityAbstract _navigationUtility;
   // final PrayerUtilityAbstract _prayerUtility;
   final MosqueRepoAbstract _mosqueRepo;
   final UserRepoAbstract _prayerTimeRepo;
@@ -29,16 +27,6 @@ class AdminPrayerTimesSubtabCubit extends Cubit<AdminPrayerTimesSubtabState> {
   }
 
   List<PrayerTime> get selectedMonthlyPrayerSchedule => <PrayerTime>[];
-
-  void get goToCreatePrayerTimesPage {
-    _navigationUtility.push(
-      path: NavigationPath(
-        route: _navigationUtility
-            .navigationRoutes.home.admin.dashboard.createAnnouncement,
-        subRoute: 'dashboard',
-      ),
-    );
-  }
 
   @override
   Future<void> close() {

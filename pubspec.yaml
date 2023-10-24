@@ -39,6 +39,7 @@ dependencies:
   flutter_google_places_hoc081098: ^2.0.0-beta.0
   flutter_localizations:
     sdk: flutter
+  flutter_platform_widgets: ^3.3.5
   flutter_secure_storage: ^9.0.0
   form_builder_extra_fields: ^10.1.0
   form_builder_validators: ^9.1.0

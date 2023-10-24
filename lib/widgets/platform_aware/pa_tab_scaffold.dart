@@ -1,7 +1,5 @@
-// 🎯 Dart imports:
 import 'dart:io';
 
-// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +30,7 @@ class PATabScaffold extends StatelessWidget {
           : _standardScaffold();
 
   Widget _cupertinoScaffold() => CupertinoTabScaffold(
-        key: key,
+        key: UniqueKey(),
         tabBar: CupertinoTabBar(
           items: icons,
           onTap: onTap,

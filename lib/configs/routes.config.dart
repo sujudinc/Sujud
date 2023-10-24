@@ -5,9 +5,8 @@ import 'package:sujud/pages/pages.dart';
 
 part 'routes.config.g.dart';
 
-final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final rootNavigatorKey = GlobalKey<NavigatorState>();
 final _adminDashboardNavigatorKey = GlobalKey<NavigatorState>();
-final _jamaahDashboardNavigatorKey = GlobalKey<NavigatorState>();
 
 // ---------------- Loading Route ---------------- //
 @TypedGoRoute<LoadingRoute>(
@@ -19,7 +18,10 @@ class LoadingRoute extends GoRouteData {
   const LoadingRoute();
 
   @override
-  Widget build(context, state) => const LoadingPage();
+  Page buildPage(context, state) => MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: const LoadingPage(),
+      );
 }
 
 // ---------------- Error Route ---------------- //
@@ -32,7 +34,10 @@ class ErrorRoute extends GoRouteData {
   const ErrorRoute();
 
   @override
-  Widget build(context, state) => const ErrorPage();
+  Page buildPage(context, state) => MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: const ErrorPage(),
+      );
 }
 
 // ---------------- Onboarding Routes ---------------- //
@@ -51,7 +56,10 @@ class OnboardingRoute extends GoRouteData {
   const OnboardingRoute();
 
   @override
-  Widget build(context, state) => const OnboardingPage();
+  Page buildPage(context, state) => MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: const OnboardingPage(),
+      );
 }
 
 @immutable
@@ -59,7 +67,10 @@ class MosquesRoute extends GoRouteData {
   const MosquesRoute();
 
   @override
-  Widget build(context, state) => const MosquesPage();
+  Page buildPage(context, state) => CupertinoSheetPage<void>(
+        key: state.pageKey,
+        child: const MosquesPage(),
+      );
 }
 
 // ---------------- Register Routes ---------------- //
@@ -74,7 +85,10 @@ class RegisterRoute extends GoRouteData {
   final String? redirectTo;
 
   @override
-  Widget build(context, state) => RegisterPage(redirectTo: redirectTo);
+  Page buildPage(context, state) => MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: RegisterPage(redirectTo: redirectTo),
+      );
 }
 
 // ---------------- Login Routes ---------------- //
@@ -94,7 +108,10 @@ class LoginRoute extends GoRouteData {
   final String? redirectTo;
 
   @override
-  Widget build(context, state) => LoginPage(redirectTo: redirectTo);
+  Page buildPage(context, state) => MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: LoginPage(redirectTo: redirectTo),
+      );
 }
 
 @immutable
@@ -104,7 +121,10 @@ class ConfirmRoute extends GoRouteData {
   final String? email;
 
   @override
-  Widget build(context, state) => ConfirmAccountPage(email: email);
+  Page buildPage(context, state) => MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: ConfirmAccountPage(email: email),
+      );
 }
 
 @immutable
@@ -114,7 +134,10 @@ class MfaRoute extends GoRouteData {
   final String? email;
 
   @override
-  Widget build(context, state) => MFAPage(email: email);
+  Page buildPage(context, state) => MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: MFAPage(email: email),
+      );
 }
 
 @immutable
@@ -124,13 +147,16 @@ class ForgotRoute extends GoRouteData {
   final String? email;
 
   @override
-  Widget build(context, state) => ForgotPasswordPage(email: email);
+  Page buildPage(context, state) => MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: ForgotPasswordPage(email: email),
+      );
 }
 
 // ---------------- Admin Home Routes ---------------- //
 @TypedStatefulShellRoute<AdminHomeRoute>(
   branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
-    TypedStatefulShellBranch<DashboardBranchData>(
+    TypedStatefulShellBranch<AdminDashboardBranchData>(
       routes: <TypedRoute<RouteData>>[
         TypedStatefulShellRoute<AdminDashboardRoute>(
           branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
@@ -165,7 +191,7 @@ class ForgotRoute extends GoRouteData {
                       name: 'create_announcement',
                     ),
                     TypedGoRoute<AnnouncementRoute>(
-                      path: ':section',
+                      path: ':id',
                       name: 'announcement',
                     ),
                   ],
@@ -176,7 +202,7 @@ class ForgotRoute extends GoRouteData {
         ),
       ],
     ),
-    TypedStatefulShellBranch<SettingsBranchData>(
+    TypedStatefulShellBranch<AdminSettingsBranchData>(
       routes: <TypedRoute<RouteData>>[
         TypedGoRoute<AdminSettingsRoute>(
           path: '/admin/settings',
@@ -189,21 +215,13 @@ class ForgotRoute extends GoRouteData {
 class AdminHomeRoute extends StatefulShellRouteData {
   const AdminHomeRoute();
 
-  static final $navigatorKey = _rootNavigatorKey;
-  static const $restorationScopeId = 'restorationScopeId';
+  static final $navigatorKey = _adminDashboardNavigatorKey;
 
   @override
-  Widget builder(context, state, navigationShell) => navigationShell;
-
-  static Widget $navigatorContainerBuilder(
-    context,
-    shell,
-    children,
-  ) =>
-      HomePage(
-        shell: shell,
-        children: children,
-        isAdmin: true,
+  Page<void> pageBuilder(context, state, navigationShell) =>
+      MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: HomePage(shell: navigationShell, isAdmin: true),
       );
 }
 
@@ -211,21 +229,15 @@ class AdminDashboardRoute extends StatefulShellRouteData {
   const AdminDashboardRoute();
 
   @override
-  Widget builder(context, state, navigationShell) => navigationShell;
-
-  static Widget $navigatorContainerBuilder(
-    context,
-    shell,
-    children,
-  ) =>
-      DashboardTab(
-        shell: shell,
-        children: children,
+  Page<void> pageBuilder(context, state, navigationShell) =>
+      MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: DashboardTab(shell: navigationShell),
       );
 }
 
-class DashboardBranchData extends StatefulShellBranchData {
-  const DashboardBranchData();
+class AdminDashboardBranchData extends StatefulShellBranchData {
+  const AdminDashboardBranchData();
 }
 
 class AdminPrayerTimesSubBranchData extends StatefulShellBranchData {
@@ -236,8 +248,8 @@ class AdminAnnouncementsSubBranchData extends StatefulShellBranchData {
   const AdminAnnouncementsSubBranchData();
 }
 
-class SettingsBranchData extends StatefulShellBranchData {
-  const SettingsBranchData();
+class AdminSettingsBranchData extends StatefulShellBranchData {
+  const AdminSettingsBranchData();
 }
 
 @immutable
@@ -245,7 +257,10 @@ class AdminPrayerTimesRoute extends GoRouteData {
   const AdminPrayerTimesRoute();
 
   @override
-  Widget build(context, state) => const AdminPrayerTimesSubtab();
+  Page buildPage(context, state) => MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: const AdminPrayerTimesSubtab(),
+      );
 }
 
 @immutable
@@ -253,15 +268,23 @@ class AdminAnnouncementsRoute extends GoRouteData {
   const AdminAnnouncementsRoute();
 
   @override
-  Widget build(context, state) => const AdminAnnouncementsSubtab();
+  Page buildPage(context, state) => MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: const AdminAnnouncementsSubtab(),
+      );
 }
 
 @immutable
 class CreateMosqueRoute extends GoRouteData {
   const CreateMosqueRoute();
 
+  static final $parentNavigatorKey = rootNavigatorKey;
+
   @override
-  Widget build(context, state) => const CreateMosquePage();
+  Page buildPage(context, state) => CupertinoSheetPage<void>(
+        key: state.pageKey,
+        child: const CreateMosquePage(),
+      );
 }
 
 @immutable
@@ -275,9 +298,12 @@ class CreateMosqueFieldRoute extends GoRouteData {
   final String? initialValue;
 
   @override
-  Widget build(context, state) => CreateMosqueFieldPage(
-        fieldName: fieldName,
-        initialValue: initialValue,
+  Page buildPage(context, state) => CupertinoSheetPage<void>(
+        key: state.pageKey,
+        child: CreateMosqueFieldPage(
+          fieldName: fieldName,
+          initialValue: initialValue,
+        ),
       );
 }
 
@@ -285,27 +311,27 @@ class CreateMosqueFieldRoute extends GoRouteData {
 class CreateAnnouncementRoute extends GoRouteData {
   const CreateAnnouncementRoute();
 
-  static final $navigatorKey = _rootNavigatorKey;
-  static const $restorationScopeId = 'restorationScopeId';
+  static final $parentNavigatorKey = rootNavigatorKey;
 
   @override
-  Page buildPage(context, state) => const CupertinoSheetPage<void>(
-        child: CreateAnnouncementPage(),
+  Page buildPage(context, state) => CupertinoSheetPage<void>(
+        key: state.pageKey,
+        child: const CreateAnnouncementPage(),
       );
 }
 
 @immutable
 class AnnouncementRoute extends GoRouteData {
-  const AnnouncementRoute({required this.section});
+  const AnnouncementRoute({required this.id});
 
-  final String section;
+  final String id;
 
-  static final $navigatorKey = _rootNavigatorKey;
-  static const $restorationScopeId = 'restorationScopeId';
+  static final $parentNavigatorKey = rootNavigatorKey;
 
   @override
   Page buildPage(context, state) => CupertinoSheetPage<void>(
-        child: AnnouncementPage(id: section),
+        key: state.pageKey,
+        child: AnnouncementPage(id: id),
       );
 }
 
@@ -314,5 +340,8 @@ class AdminSettingsRoute extends GoRouteData {
   const AdminSettingsRoute();
 
   @override
-  Widget build(context, state) => const SettingsTab();
+  Page buildPage(context, state) => MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: const SettingsTab(),
+      );
 }

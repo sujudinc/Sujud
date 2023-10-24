@@ -11,6 +11,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 export 'amplify.config.dart';
 export 'dependencies.config.dart';
 export 'navigation_routes.configs.dart';
+export 'routes.config.dart';
 export 'seed_data.config.dart';
 export 'theme.config.dart';
 

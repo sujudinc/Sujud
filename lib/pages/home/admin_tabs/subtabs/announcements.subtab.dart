@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // 🌎 Project imports:
 import 'package:sujud/blocs/blocs.dart';
+import 'package:sujud/configs/configs.dart';
 import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/widgets/widgets.dart';
 
@@ -40,9 +41,7 @@ class _AdminAnnouncementsSubtabState extends State<AdminAnnouncementsSubtab>
               title: i18n.messageCreateAnnouncementPage,
               description: i18n.descriptionCreateAnnouncementPage,
               buttonLabel: i18n.buttonCreateAnnouncement,
-              onTap: () {
-                _announcementsSubtabCubit.goToCreateAnnouncementPage;
-              },
+              onTap: () => const CreateAnnouncementRoute().push(context),
             ),
             ready: (announcements) => ListView.builder(
               padding: const EdgeInsets.symmetric(
@@ -53,11 +52,9 @@ class _AdminAnnouncementsSubtabState extends State<AdminAnnouncementsSubtab>
                 final announcement = announcements[index];
 
                 return GestureDetector(
-                  onTap: () {
-                    _announcementsSubtabCubit.goToAnnouncementPage(
-                      announcement.id,
-                    );
-                  },
+                  onTap: () => AnnouncementRoute(
+                    id: announcement.id,
+                  ).push(context),
                   child: Container(
                     padding: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
@@ -187,9 +184,8 @@ class _AdminAnnouncementsSubtabState extends State<AdminAnnouncementsSubtab>
               state is AdminAnnouncementsSubtabStateLoading
                   ? const SizedBox()
                   : FloatingActionButton(
-                      onPressed: () {
-                        _announcementsSubtabCubit.goToCreateAnnouncementPage;
-                      },
+                      onPressed: () =>
+                          const CreateAnnouncementRoute().push(context),
                       child: SujudIcon.add(),
                     ),
         ),
