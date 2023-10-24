@@ -13,6 +13,7 @@ List<RouteBase> get $appRoutes => [
       $registerRoute,
       $loginRoute,
       $adminHomeRoute,
+      $jamaahHomeRoute,
     ];
 
 RouteBase get $loadingRoute => GoRouteData.$route(
@@ -117,12 +118,14 @@ RouteBase get $registerRoute => GoRouteData.$route(
 
 extension $RegisterRouteExtension on RegisterRoute {
   static RegisterRoute _fromState(GoRouterState state) => RegisterRoute(
+        email: state.uri.queryParameters['email'],
         redirectTo: state.uri.queryParameters['redirect-to'],
       );
 
   String get location => GoRouteData.$location(
         '/register',
         queryParams: {
+          if (email != null) 'email': email,
           if (redirectTo != null) 'redirect-to': redirectTo,
         },
       );
@@ -455,6 +458,71 @@ extension $AdminSettingsRouteExtension on AdminSettingsRoute {
 
   String get location => GoRouteData.$location(
         '/admin/settings',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $jamaahHomeRoute => StatefulShellRouteData.$route(
+      factory: $JamaahHomeRouteExtension._fromState,
+      branches: [
+        StatefulShellBranchData.$branch(
+          routes: [
+            GoRouteData.$route(
+              path: '/jamaah/prayer-times',
+              name: 'jamaah_prayer_times',
+              factory: $JamaahPrayerTimesRouteExtension._fromState,
+            ),
+          ],
+        ),
+        StatefulShellBranchData.$branch(
+          routes: [
+            GoRouteData.$route(
+              path: '/jamaah/settings',
+              name: 'jamaah_settings',
+              factory: $JamaahSettingsRouteExtension._fromState,
+            ),
+          ],
+        ),
+      ],
+    );
+
+extension $JamaahHomeRouteExtension on JamaahHomeRoute {
+  static JamaahHomeRoute _fromState(GoRouterState state) =>
+      const JamaahHomeRoute();
+}
+
+extension $JamaahPrayerTimesRouteExtension on JamaahPrayerTimesRoute {
+  static JamaahPrayerTimesRoute _fromState(GoRouterState state) =>
+      const JamaahPrayerTimesRoute();
+
+  String get location => GoRouteData.$location(
+        '/jamaah/prayer-times',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $JamaahSettingsRouteExtension on JamaahSettingsRoute {
+  static JamaahSettingsRoute _fromState(GoRouterState state) =>
+      const JamaahSettingsRoute();
+
+  String get location => GoRouteData.$location(
+        '/jamaah/settings',
       );
 
   void go(BuildContext context) => context.go(location);

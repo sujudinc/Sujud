@@ -108,7 +108,9 @@ class _MosquesPageState extends State<MosquesPage> {
 
                         return _MosqueCard(
                           mosque: mosque,
-                          onTap: () => _mosqueSelectionCubit.goToPrayerTimes,
+                          onTap: () => const JamaahPrayerTimesRoute().go(
+                            context,
+                          ),
                         );
                       },
                       itemCount: mosques.length,

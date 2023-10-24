@@ -12,14 +12,12 @@ part 'mosques_page.state.dart';
 class MosquesPageCubit extends Cubit<MosquesPageState> {
   MosquesPageCubit()
       : _mosqueRepo = GetIt.instance.get<MosqueRepoAbstract>(),
-        _navigationUtility = GetIt.instance.get<NavigationUtilityAbstract>(),
         _networkUtility = GetIt.instance.get<NetworkUtilityAbstract>(),
         super(const MosquesPageState.loading()) {
     init();
   }
 
   final MosqueRepoAbstract _mosqueRepo;
-  final NavigationUtilityAbstract _navigationUtility;
   final NetworkUtilityAbstract _networkUtility;
 
   String selectedCity = 'Birmingham, UK';
@@ -30,12 +28,6 @@ class MosquesPageCubit extends Cubit<MosquesPageState> {
     selectedCity = city;
 
     _emitSuccessfulState();
-  }
-
-  void get goToPrayerTimes {
-    _navigationUtility.goRoute(
-      route: _navigationUtility.navigationRoutes.home.jamaah.prayerTimes,
-    );
   }
 
   Future<void> init() async {
@@ -50,10 +42,6 @@ class MosquesPageCubit extends Cubit<MosquesPageState> {
     );
 
     _emitSuccessfulState();
-  }
-
-  void goRoute({required NavigationRoute route}) {
-    _navigationUtility.goRoute(route: route);
   }
 
   void _emitSuccessfulState() {

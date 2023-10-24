@@ -14,8 +14,9 @@ import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/widgets/widgets.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({this.redirectTo, super.key});
+  const RegisterPage({this.email, this.redirectTo, super.key});
 
+  final String? email;
   final String? redirectTo;
 
   @override

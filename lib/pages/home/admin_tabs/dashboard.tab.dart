@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sujud/assets/assets.dart';
 // 🌎 Project imports:
 import 'package:sujud/blocs/blocs.dart';
+import 'package:sujud/configs/configs.dart';
 import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/widgets/widgets.dart';
 
@@ -46,7 +47,7 @@ class _DashboardTabState extends State<DashboardTab>
               title: i18n.messageCreateMosquePage,
               description: i18n.descriptionCreateMosquePage,
               buttonLabel: i18n.buttonCreateMosque,
-              onTap: () => _dashboardTabCubit.goToCreateMosquePage,
+              onTap: () => const CreateMosqueRoute().push(context),
             ),
             ready: (selectedMosque) => DefaultTabController(
               initialIndex: widget.shell.currentIndex,

@@ -14,7 +14,6 @@ class AdminAnnouncementsSubtabCubit
       : _announcementRepo = GetIt.instance.get<AnnouncementRepoAbstract>(),
         _mosqueRepo = GetIt.instance.get<MosqueRepoAbstract>(),
         _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>(),
-        _navigationUtility = GetIt.instance.get<NavigationUtilityAbstract>(),
         _networkUtility = GetIt.instance.get<NetworkUtilityAbstract>(),
         super(const AdminAnnouncementsSubtabState.loading()) {
     init();
@@ -23,7 +22,6 @@ class AdminAnnouncementsSubtabCubit
   final AnnouncementRepoAbstract _announcementRepo;
   final MosqueRepoAbstract _mosqueRepo;
   final AmplifyStorageServiceAbstract _storageService;
-  final NavigationUtilityAbstract _navigationUtility;
   final NetworkUtilityAbstract _networkUtility;
 
   Mosque? get selectedMosque => _mosqueRepo.selectedMosque;

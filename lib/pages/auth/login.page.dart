@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/blocs.dart';
+import 'package:sujud/configs/configs.dart';
 import 'package:sujud/extensions/extensions.dart';
 import 'package:sujud/widgets/widgets.dart';
 
@@ -43,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
         largeTitle: true,
         title: i18n.asalaamuAlaikum,
         leading: IconButton(
-          onPressed: () => authCubit.toOnboardingPage,
+          onPressed: () => const OnboardingRoute().go(context),
           icon: SujudIcon.close(),
         ),
         kids: Kids(
@@ -77,11 +78,11 @@ class _LoginPageState extends State<LoginPage> {
                 i18n.buttonForgotPassword,
               ),
               onTap: () {
-                authCubit
-                  ..username = _formUtility.getInstantValue(
-                    _LoginFormFieldName.email.name,
-                  )
-                  ..toForgotPasswordPage;
+                authCubit.username = _formUtility.getInstantValue(
+                  _LoginFormFieldName.email.name,
+                );
+
+                ForgotRoute(email: authCubit.username).push(context);
               },
             ),
             const SizedBox(
@@ -121,11 +122,11 @@ class _LoginPageState extends State<LoginPage> {
             SujudButton(
               text: i18n.buttonRegister,
               onTap: () {
-                authCubit
-                  ..username = _formUtility.getInstantValue(
-                    _LoginFormFieldName.email.name,
-                  )
-                  ..toRegisterPage;
+                authCubit.username = _formUtility.getInstantValue(
+                  _LoginFormFieldName.email.name,
+                );
+
+                const RegisterRoute().push(context);
               },
             ),
           ],

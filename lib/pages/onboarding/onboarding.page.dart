@@ -2,14 +2,11 @@
 import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 // 🌎 Project imports:
-import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/blocs.dart';
 import 'package:sujud/configs/configs.dart';
 import 'package:sujud/extensions/extensions.dart';
-import 'package:sujud/models/models.dart';
 import 'package:sujud/widgets/widgets.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -20,8 +17,6 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
-  final _navigation = GetIt.instance.get<NavigationUtilityAbstract>();
-
   final _pageController = PageController();
   final _currentPageNotifier = ValueNotifier<int>(0);
   final _currentPageValueCubit = ValueCubit<int>(0);
@@ -44,30 +39,25 @@ class _OnboardingPageState extends State<OnboardingPage> {
       includePadding: false,
       trailing: <Widget>[
         GestureDetector(
-          child: Row(
-            children: <Widget>[
-              Text(
-                i18n.mosqueAdmin,
-                style: const TextStyle(
-                  color: Colors.black,
+            child: Row(
+              children: <Widget>[
+                Text(
+                  i18n.mosqueAdmin,
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 5.0),
-              Text(
-                i18n.loginHere,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
+                const SizedBox(width: 5.0),
+                Text(
+                  i18n.loginHere,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          onTap: () async => _navigation.push(
-            path: NavigationPath(
-              route: _navigation.navigationRoutes.login,
+              ],
             ),
-          ),
-        ),
+            onTap: () async => const LoginRoute().push(context)),
       ],
       kids: Kids(
         child: Column(
@@ -127,10 +117,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               context.i18n.buttonContinue,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
-                            onTap: () => _navigation.goRoute(
-                              route: NavigationRoutes().onboarding.mosques,
-                            ),
-                          ),
+                            onTap: () => const MosquesRoute().push(context)),
                   ],
                 ),
               ),

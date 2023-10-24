@@ -52,30 +52,6 @@ class AuthCubit extends Cubit<AuthState> {
 
   void get back => _navigation.back();
 
-  void get toOnboardingPage => _navigation.push(
-        path: NavigationPath(
-          route: routes.onboarding,
-        ),
-      );
-
-  void get toForgotPasswordPage => _navigation.push(
-        path: NavigationPath(
-          route: routes.login.forgot,
-          queryParameters: <String, String>{
-            if (username != null) 'email': username!,
-          },
-        ),
-      );
-
-  void get toRegisterPage => _navigation.push(
-        path: NavigationPath(
-          route: routes.register,
-          queryParameters: <String, String>{
-            if (username != null) 'email': username!,
-          },
-        ),
-      );
-
   void get toConfirmationPage => _navigation.push(
         path: NavigationPath(
           route: routes.login.confirm,

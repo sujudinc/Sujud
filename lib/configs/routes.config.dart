@@ -7,6 +7,7 @@ part 'routes.config.g.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final _adminDashboardNavigatorKey = GlobalKey<NavigatorState>();
+final _jamaahDashboardNavigatorKey = GlobalKey<NavigatorState>();
 
 // ---------------- Loading Route ---------------- //
 @TypedGoRoute<LoadingRoute>(
@@ -80,14 +81,18 @@ class MosquesRoute extends GoRouteData {
 )
 @immutable
 class RegisterRoute extends GoRouteData {
-  const RegisterRoute({this.redirectTo});
+  const RegisterRoute({this.email, this.redirectTo});
 
+  final String? email;
   final String? redirectTo;
 
   @override
   Page buildPage(context, state) => MaterialExtendedPage<void>(
         key: state.pageKey,
-        child: RegisterPage(redirectTo: redirectTo),
+        child: RegisterPage(
+          email: email,
+          redirectTo: redirectTo,
+        ),
       );
 }
 
@@ -338,6 +343,71 @@ class AnnouncementRoute extends GoRouteData {
 @immutable
 class AdminSettingsRoute extends GoRouteData {
   const AdminSettingsRoute();
+
+  @override
+  Page buildPage(context, state) => MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: const SettingsTab(),
+      );
+}
+
+@TypedStatefulShellRoute<JamaahHomeRoute>(
+  branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
+    TypedStatefulShellBranch<JamaahPrayerTimesBranchData>(
+      routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<JamaahPrayerTimesRoute>(
+          path: '/jamaah/prayer-times',
+          name: 'jamaah_prayer_times',
+        ),
+      ],
+    ),
+    TypedStatefulShellBranch<JamaahSettingsBranchData>(
+      routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<JamaahSettingsRoute>(
+          path: '/jamaah/settings',
+          name: 'jamaah_settings',
+        ),
+      ],
+    ),
+  ],
+)
+class JamaahHomeRoute extends StatefulShellRouteData {
+  const JamaahHomeRoute();
+
+  static final $navigatorKey = _jamaahDashboardNavigatorKey;
+
+  @override
+  Page<void> pageBuilder(context, state, navigationShell) =>
+      MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: HomePage(shell: navigationShell, isAdmin: false),
+      );
+}
+
+class JamaahPrayerTimesBranchData extends StatefulShellBranchData {
+  const JamaahPrayerTimesBranchData();
+}
+
+@immutable
+class JamaahPrayerTimesRoute extends GoRouteData {
+  const JamaahPrayerTimesRoute();
+
+  @override
+  Page buildPage(context, state) => MaterialExtendedPage<void>(
+        key: state.pageKey,
+        child: Container(
+          color: Colors.blueAccent,
+        ),
+      );
+}
+
+class JamaahSettingsBranchData extends StatefulShellBranchData {
+  const JamaahSettingsBranchData();
+}
+
+@immutable
+class JamaahSettingsRoute extends GoRouteData {
+  const JamaahSettingsRoute();
 
   @override
   Page buildPage(context, state) => MaterialExtendedPage<void>(

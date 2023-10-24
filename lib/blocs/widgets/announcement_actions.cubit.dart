@@ -12,7 +12,6 @@ class AnnouncementActionsCubit extends Cubit<AnnouncementActionsState> {
       : _announcement = announcement,
         _announcementRepo = GetIt.instance.get<AnnouncementRepoAbstract>(),
         _mosqueRepo = GetIt.instance.get<MosqueRepoAbstract>(),
-        _navigationUtility = GetIt.instance.get<NavigationUtilityAbstract>(),
         _networkUtility = GetIt.instance.get<NetworkUtilityAbstract>(),
         super(
           const AnnouncementActionsState.ready(
@@ -24,7 +23,6 @@ class AnnouncementActionsCubit extends Cubit<AnnouncementActionsState> {
   final Announcement _announcement;
   final AnnouncementRepoAbstract _announcementRepo;
   final MosqueRepoAbstract _mosqueRepo;
-  final NavigationUtilityAbstract _navigationUtility;
   final NetworkUtilityAbstract _networkUtility;
 
   Future<void> init() async {
@@ -44,14 +42,4 @@ class AnnouncementActionsCubit extends Cubit<AnnouncementActionsState> {
   Future<void> share() async {}
 
   Future<void> toggleBookmark() async {}
-
-  void goToAnnouncementPage(String id) {
-    _navigationUtility.push(
-      path: NavigationPath(
-        route: _navigationUtility
-            .navigationRoutes.home.admin.dashboard.announcement,
-        section: id,
-      ),
-    );
-  }
 }

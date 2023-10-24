@@ -11,19 +11,12 @@ class DashboardTabCubit extends Cubit<DashboardTabState> {
   DashboardTabCubit()
       : _mosqueRepo = GetIt.instance.get<MosqueRepoAbstract>(),
         _userRepo = GetIt.instance.get<UserRepoAbstract>(),
-        _navigationUtility = GetIt.instance.get<NavigationUtilityAbstract>(),
         super(const DashboardTabState.loading()) {
     init();
   }
 
   final MosqueRepoAbstract _mosqueRepo;
   final UserRepoAbstract _userRepo;
-  final NavigationUtilityAbstract _navigationUtility;
-
-  void get goToCreateMosquePage => _navigationUtility.goRoute(
-        route: _navigationUtility
-            .navigationRoutes.home.admin.dashboard.createMosque,
-      );
 
   Future<void> init() async {
     emit(const DashboardTabState.loading());
