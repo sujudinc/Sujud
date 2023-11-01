@@ -1,12 +1,15 @@
 // 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
-
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/graphql/graphql.dart';
 import 'package:sujud/models/models.dart';
 
-class MosqueOperations implements AmplifyModelApiOperations<Mosque> {
+class MosqueOperations
+    implements
+        GraphqlQueryOperations<Mosque>,
+        GraphqlMutationOperations<Mosque>,
+        GraphqlSubscriptionOperations<Mosque> {
   @override
   ModelType<Mosque> get modelType => Mosque.classType;
 

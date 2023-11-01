@@ -1,5 +1,8 @@
 enum GetOperations {
   getAnnouncement,
+  getBookmark,
+  getComment,
+  getLike,
   getMosque,
   getUser,
 }

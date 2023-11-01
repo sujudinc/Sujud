@@ -6,6 +6,12 @@ extension GetOperationsX on GetOperations {
     switch (this) {
       case GetOperations.getAnnouncement:
         return getAnnouncement;
+      case GetOperations.getBookmark:
+        return getBookmark;
+      case GetOperations.getComment:
+        return getComment;
+      case GetOperations.getLike:
+        return getLike;
       case GetOperations.getMosque:
         return getMosque;
       case GetOperations.getUser:

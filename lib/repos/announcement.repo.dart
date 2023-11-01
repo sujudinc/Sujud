@@ -12,8 +12,7 @@ import 'package:sujud/models/models.dart';
 
 class AnnouncementRepo extends AnnouncementRepoAbstract {
   AnnouncementRepo()
-      : _announcementApi =
-            GetIt.instance.get<AmplifyModelApiAbstract<Announcement>>(),
+      : _announcementApi = GetIt.instance.get<ModelApiAbstract<Announcement>>(),
         _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>(),
         _localDatabaseUtility = GetIt.instance
             .get<LocalDatabaseUtilityAbstract>(param1: 'announcements'),
@@ -21,14 +20,16 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
     _preloadDataFromLocalCache();
   }
 
-  final AmplifyModelApiAbstract<Announcement> _announcementApi;
+  final ModelApiAbstract<Announcement> _announcementApi;
   final AmplifyStorageServiceAbstract _storageService;
   final LocalDatabaseUtilityAbstract _localDatabaseUtility;
   final LoggerUtilityAbstract _loggerUtility;
 
   final _cache = <String, Announcement>{};
+  final _cachedImages = <String, Map<String, Uri>>{};
   bool _hasMoreItems = false;
   StreamSubscription<GraphqlSubscriptionResponse<Announcement>>? _stream;
+  Map<String, dynamic>? _variables;
   Map<String, dynamic>? _filter;
   int? _limit;
   String? _nextToken;
@@ -72,7 +73,7 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
   }
 
   @override
-  Map<String, Map<String, Uri>> get cachedImages => {};
+  Map<String, Map<String, Uri>> get cachedImages => _cachedImages;
 
   @override
   void setCachedImage({
@@ -95,7 +96,10 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
       return (_cache[id], <GraphQLResponseError>[]);
     }
 
-    final (announcement, errors) = await _announcementApi.get(id);
+    final (announcement, errors) = await _announcementApi.get(
+      id: id,
+      variables: _variables,
+    );
 
     if (announcement != null) {
       _cache[id] = announcement;
@@ -107,14 +111,17 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
 
   @override
   Future<(List<Announcement>?, List<GraphQLResponseError>)> list({
+    Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     int? limit,
     String? nextToken,
   }) async {
+    _variables = variables;
     _filter = filter;
     _limit = limit;
 
     final (response, errors) = await _announcementApi.list(
+      variables: _variables,
       filter: _filter,
       limit: _limit,
       nextToken: _nextToken,
@@ -125,6 +132,47 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
     await _localDatabaseUtility.save(
       'listParams',
       <String, dynamic>{
+        'variables': _variables,
+        'filter': _filter,
+        'limit': _limit,
+        'nextToken': _nextToken,
+      },
+    );
+
+    if (response.items != null) {
+      for (final item in response.items!) {
+        await _localDatabaseUtility.save(item!.id, item.toJson());
+        _cache[item.id] = item;
+      }
+    }
+
+    return (items, errors);
+  }
+
+  @override
+  Future<(List<Announcement>?, List<GraphQLResponseError>)> listByMosqueId({
+    Map<String, dynamic>? variables,
+    Map<String, dynamic>? filter,
+    int? limit,
+    String? nextToken,
+  }) async {
+    _variables = variables;
+    _filter = filter;
+    _limit = limit;
+
+    final (response, errors) = await _announcementApi.list(
+      variables: _variables,
+      filter: _filter,
+      limit: _limit,
+      nextToken: _nextToken,
+    );
+
+    _nextToken = response.nextToken;
+
+    await _localDatabaseUtility.save(
+      'listParams',
+      <String, dynamic>{
+        'variables': _variables,
         'filter': _filter,
         'limit': _limit,
         'nextToken': _nextToken,
@@ -148,6 +196,7 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
     }
 
     final (response, errors) = await _announcementApi.list(
+      variables: _variables,
       filter: _filter,
       limit: _limit,
       nextToken: _nextToken,
@@ -158,6 +207,7 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
     await _localDatabaseUtility.save(
       'listParams',
       <String, dynamic>{
+        'variables': _variables,
         'filter': _filter,
         'limit': _limit,
         'nextToken': _nextToken,
@@ -194,7 +244,8 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
     }
 
     final (announcement, errors) = await _announcementApi.create(
-      item,
+      item: item,
+      variables: _variables,
     );
 
     if (announcement == null && errors.isNotEmpty) {
@@ -239,7 +290,10 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
       item = item.copyWith(images: keys);
     }
 
-    final (announcement, errors) = await _announcementApi.update(item);
+    final (announcement, errors) = await _announcementApi.update(
+      item: item,
+      variables: _variables,
+    );
 
     return (announcement, errors);
   }
@@ -248,9 +302,17 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
   Future<(Announcement?, List<GraphQLResponseError>)> delete(
     Announcement item,
   ) async {
-    final (announcement, errors) = await _announcementApi.delete(item.id);
+    final (announcement, errors) = await _announcementApi.delete(
+      id: item.id,
+      variables: _variables,
+    );
+    final id = announcement?.id;
 
     if (announcement != null) {
+      if (_cache.containsKey(id)) {
+        _cache.remove(id!);
+      }
+
       if (item.images != null && item.images!.isNotEmpty) {
         await Future.wait(
           item.images!.map(
@@ -272,7 +334,7 @@ class AnnouncementRepo extends AnnouncementRepoAbstract {
     Function((Announcement?, List<GraphQLResponseError>) response)? onDeleted,
   }) {
     _stream = _announcementApi
-        .subscribe(modelType: Announcement.classType, filter: _filter)
+        .subscribe(variables: _variables, filter: _filter)
         .listen((event) {
       switch (event.type) {
         case SubscriptionType.onCreate:

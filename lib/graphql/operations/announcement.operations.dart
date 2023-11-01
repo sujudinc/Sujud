@@ -6,7 +6,10 @@ import 'package:sujud/graphql/graphql.dart';
 import 'package:sujud/models/models.dart';
 
 class AnnouncementOperations
-    implements AmplifyModelApiOperations<Announcement> {
+    implements
+        GraphqlQueryOperations<Announcement>,
+        GraphqlMutationOperations<Announcement>,
+        GraphqlSubscriptionOperations<Announcement> {
   @override
   ModelType<Announcement> get modelType => Announcement.classType;
 
@@ -36,4 +39,6 @@ class AnnouncementOperations
   @override
   SubscriptionOperations get onDelete =>
       SubscriptionOperations.onDeleteAnnouncement;
+
+  ListOperations get listByMosqueId => ListOperations.announcementsByMosqueId;
 }

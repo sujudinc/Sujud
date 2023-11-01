@@ -3,12 +3,11 @@ import 'package:sujud/graphql/graphql.dart';
 
 final onCreateAnnouncement = '''
   subscription OnCreateAnnouncement(
+    \$creatorId: ID!
     \$filter: ModelSubscriptionAnnouncementFilterInput
-    \$creatorId: String
   ) {
     ${SubscriptionOperations.onCreateAnnouncement.name}(
-      filter: \$filter,
-      creatorId: \$creatorId
+      filter: \$filter
     ) {
       $announcementDocument
     }
@@ -17,12 +16,11 @@ final onCreateAnnouncement = '''
 
 final onUpdateAnnouncement = '''
   subscription OnUpdateAnnouncement(
+    \$creatorId: ID!
     \$filter: ModelSubscriptionAnnouncementFilterInput
-    \$creatorId: String
   ) {
     ${SubscriptionOperations.onUpdateAnnouncement.name}(
-      filter: \$filter,
-      creatorId: \$creatorId
+      filter: \$filter
     ) {
       $announcementDocument
     }
@@ -31,12 +29,11 @@ final onUpdateAnnouncement = '''
 
 final onDeleteAnnouncement = '''
   subscription OnDeleteAnnouncement(
+    \$creatorId: ID!
     \$filter: ModelSubscriptionAnnouncementFilterInput
-    \$creatorId: String
   ) {
     ${SubscriptionOperations.onDeleteAnnouncement.name}(
-      filter: \$filter,
-      creatorId: \$creatorId
+      filter: \$filter
     ) {
       $announcementDocument
     }
@@ -46,11 +43,9 @@ final onDeleteAnnouncement = '''
 final onCreateMosque = '''
   subscription OnCreateMosque(
     \$filter: ModelSubscriptionMosqueFilterInput
-    \$creatorId: String
   ) {
     ${SubscriptionOperations.onCreateMosque.name}(
-      filter: \$filter,
-      creatorId: \$creatorId
+      filter: \$filter
     ) {
       $mosqueDocument
     }
@@ -60,11 +55,9 @@ final onCreateMosque = '''
 final onUpdateMosque = '''
   subscription OnUpdateMosque(
     \$filter: ModelSubscriptionMosqueFilterInput
-    \$creatorId: String
   ) {
     ${SubscriptionOperations.onUpdateMosque.name}(
-      filter: \$filter,
-      creatorId: \$creatorId
+      filter: \$filter
     ) {
       $mosqueDocument
     }
@@ -74,11 +67,9 @@ final onUpdateMosque = '''
 final onDeleteMosque = '''
   subscription OnDeleteMosque(
     \$filter: ModelSubscriptionMosqueFilterInput
-    \$creatorId: String
   ) {
     ${SubscriptionOperations.onDeleteMosque.name}(
       filter: \$filter,
-      creatorId: \$creatorId
     ) {
       $mosqueDocument
     }

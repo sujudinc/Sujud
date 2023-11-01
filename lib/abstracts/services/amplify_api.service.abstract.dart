@@ -9,11 +9,13 @@ abstract class AmplifyApiServiceAbstract<T extends Model> {
     required ModelType<T> modelType,
     required GetOperations operation,
     required String id,
+    Map<String, dynamic>? variables,
   });
 
   Future<(GraphQLListResponse<T>, List<GraphQLResponseError>)> list({
     required ModelType<T> modelType,
     required ListOperations operation,
+    Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     int? limit,
     String? nextToken,
@@ -24,6 +26,7 @@ abstract class AmplifyApiServiceAbstract<T extends Model> {
     required CreateOperations operation,
     required Map<String, dynamic> input,
     Map<String, dynamic>? condition,
+    Map<String, dynamic>? variables,
   });
 
   Future<GraphQLResponse<T>> update({
@@ -31,6 +34,7 @@ abstract class AmplifyApiServiceAbstract<T extends Model> {
     required UpdateOperations operation,
     required Map<String, dynamic> input,
     Map<String, dynamic>? condition,
+    Map<String, dynamic>? variables,
   });
 
   Future<GraphQLResponse<T>> delete({
@@ -38,11 +42,13 @@ abstract class AmplifyApiServiceAbstract<T extends Model> {
     required DeleteOperations operation,
     required String id,
     Map<String, dynamic>? condition,
+    Map<String, dynamic>? variables,
   });
 
   Stream<GraphQLResponse<T>> subscribe({
     required ModelType<T> modelType,
     required SubscriptionOperations operation,
+    Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     String? creatorId,
     String? owner,

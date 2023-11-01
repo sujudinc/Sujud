@@ -16,6 +16,7 @@ abstract class BaseRepoAbstract<T extends Model> {
   Future<(T?, List<GraphQLResponseError>)> get(String id);
 
   Future<(List<T>?, List<GraphQLResponseError>)> list({
+    Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     int? limit,
     String? nextToken,

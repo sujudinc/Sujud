@@ -15,7 +15,7 @@ import 'package:sujud/models/models.dart';
 
 class UserRepo extends UserRepoAbstract {
   UserRepo()
-      : _userApi = GetIt.instance.get<AmplifyModelApiAbstract<User>>(),
+      : _userApi = GetIt.instance.get<ModelApiAbstract<User>>(),
         _authService = GetIt.instance.get<AmplifyAuthServiceAbstract>(),
         _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>(),
         _localDatabaseUtility =
@@ -24,7 +24,7 @@ class UserRepo extends UserRepoAbstract {
     _init();
   }
 
-  final AmplifyModelApiAbstract<User> _userApi;
+  final ModelApiAbstract<User> _userApi;
   final AmplifyAuthServiceAbstract _authService;
   final AmplifyStorageServiceAbstract _storageService;
   final LocalDatabaseUtilityAbstract _localDatabaseUtility;
@@ -32,8 +32,10 @@ class UserRepo extends UserRepoAbstract {
 
   final _currentUser = BehaviorSubject<User?>();
   final _cache = <String, User>{};
+  final _cachedImages = <String, Map<String, Uri>>{};
   bool _hasMoreItems = false;
   StreamSubscription<GraphqlSubscriptionResponse<User>>? _stream;
+  Map<String, dynamic>? _variables;
   Map<String, dynamic>? _filter;
   int? _limit;
   String? _nextToken;
@@ -107,7 +109,7 @@ class UserRepo extends UserRepoAbstract {
   List<User> get items => _cache.values.toList();
 
   @override
-  Map<String, Map<String, Uri>> get cachedImages => {};
+  Map<String, Map<String, Uri>> get cachedImages => _cachedImages;
 
   @override
   void setCachedImage({
@@ -130,7 +132,7 @@ class UserRepo extends UserRepoAbstract {
       return (_cache[id], <GraphQLResponseError>[]);
     }
 
-    final (user, errors) = await _userApi.get(id);
+    final (user, errors) = await _userApi.get(id: id, variables: _variables);
 
     if (user != null) {
       _cache[id] = user;
@@ -142,15 +144,18 @@ class UserRepo extends UserRepoAbstract {
 
   @override
   Future<(List<User>?, List<GraphQLResponseError>)> list({
+    Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     int? limit,
     String? nextToken,
   }) async {
+    _variables = variables;
     _filter = filter;
     _limit = limit;
     _nextToken = nextToken;
 
     final (response, errors) = await _userApi.list(
+      variables: _variables,
       filter: _filter,
       limit: _limit,
       nextToken: _nextToken,
@@ -161,6 +166,7 @@ class UserRepo extends UserRepoAbstract {
     await _localDatabaseUtility.save(
       'listParams',
       <String, dynamic>{
+        'variables': variables,
         'filter': _filter,
         'limit': _limit,
         'nextToken': _nextToken,
@@ -184,6 +190,7 @@ class UserRepo extends UserRepoAbstract {
     }
 
     final (response, errors) = await _userApi.list(
+      variables: _variables,
       filter: _filter,
       limit: _limit,
       nextToken: _nextToken,
@@ -194,6 +201,7 @@ class UserRepo extends UserRepoAbstract {
     await _localDatabaseUtility.save(
       'listParams',
       <String, dynamic>{
+        'variables': _variables,
         'filter': _filter,
         'limit': _limit,
         'nextToken': _nextToken,
@@ -229,7 +237,10 @@ class UserRepo extends UserRepoAbstract {
       item = item.copyWith(selfie: keys.first);
     }
 
-    final (user, errors) = await _userApi.create(item);
+    final (user, errors) = await _userApi.create(
+      item: item,
+      variables: _variables,
+    );
 
     return (user, errors);
   }
@@ -239,14 +250,20 @@ class UserRepo extends UserRepoAbstract {
     User item, {
     List<AttributedFile>? images,
   }) async {
-    final (user, errors) = await _userApi.update(item);
+    final (user, errors) = await _userApi.update(
+      item: item,
+      variables: _variables,
+    );
 
     return (user, errors);
   }
 
   @override
   Future<(User?, List<GraphQLResponseError>)> delete(User item) async {
-    final (user, errors) = await _userApi.delete(item.id);
+    final (user, errors) = await _userApi.delete(
+      id: item.id,
+      variables: _variables,
+    );
 
     return (user, errors);
   }
@@ -257,7 +274,7 @@ class UserRepo extends UserRepoAbstract {
     Function((User?, List<GraphQLResponseError>) response)? onUpdated,
     Function((User?, List<GraphQLResponseError>) response)? onDeleted,
   }) {
-    _stream = _userApi.subscribe(modelType: User.classType).listen((event) {
+    _stream = _userApi.subscribe(variables: _variables).listen((event) {
       switch (event.type) {
         case SubscriptionType.onCreate:
           final item = event.response.data;

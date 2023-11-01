@@ -13,7 +13,7 @@ import 'package:sujud/models/models.dart';
 
 class MosqueRepo extends MosqueRepoAbstract {
   MosqueRepo()
-      : _mosqueApi = GetIt.instance.get<AmplifyModelApiAbstract<Mosque>>(),
+      : _mosqueApi = GetIt.instance.get<ModelApiAbstract<Mosque>>(),
         _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>(),
         _localDatabaseUtility =
             GetIt.instance.get<LocalDatabaseUtilityAbstract>(param1: 'mosques'),
@@ -21,15 +21,17 @@ class MosqueRepo extends MosqueRepoAbstract {
     _preloadDataFromLocalCache();
   }
 
-  final AmplifyModelApiAbstract<Mosque> _mosqueApi;
+  final ModelApiAbstract<Mosque> _mosqueApi;
   final AmplifyStorageServiceAbstract _storageService;
   final LocalDatabaseUtilityAbstract _localDatabaseUtility;
   final LoggerUtilityAbstract _loggerUtility;
 
   final _selectedMosque = BehaviorSubject<Mosque?>();
   final _cache = <String, Mosque>{};
+  final _cachedImages = <String, Map<String, Uri>>{};
   bool _hasMoreItems = false;
   StreamSubscription<GraphqlSubscriptionResponse<Mosque>>? _stream;
+  Map<String, dynamic>? _variables;
   Map<String, dynamic>? _filter;
   int? _limit;
   String? _nextToken;
@@ -95,7 +97,7 @@ class MosqueRepo extends MosqueRepoAbstract {
   }
 
   @override
-  Map<String, Map<String, Uri>> get cachedImages => {};
+  Map<String, Map<String, Uri>> get cachedImages => _cachedImages;
 
   @override
   void setCachedImage({
@@ -118,7 +120,10 @@ class MosqueRepo extends MosqueRepoAbstract {
       return (_cache[id], <GraphQLResponseError>[]);
     }
 
-    final (mosque, errors) = await _mosqueApi.get(id);
+    final (mosque, errors) = await _mosqueApi.get(
+      id: id,
+      variables: _variables,
+    );
 
     if (mosque != null) {
       _cache[id] = mosque;
@@ -133,15 +138,18 @@ class MosqueRepo extends MosqueRepoAbstract {
 
   @override
   Future<(List<Mosque>?, List<GraphQLResponseError>)> list({
+    Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     int? limit,
     String? nextToken,
   }) async {
+    _variables = variables;
     _filter = filter;
     _limit = limit;
     _nextToken = nextToken;
 
     final (response, errors) = await _mosqueApi.list(
+      variables: _variables,
       filter: _filter,
       limit: _limit,
       nextToken: _nextToken,
@@ -152,6 +160,7 @@ class MosqueRepo extends MosqueRepoAbstract {
     await _localDatabaseUtility.save(
       'listParams',
       <String, dynamic>{
+        'variables': _variables,
         'filter': _filter,
         'limit': _limit,
         'nextToken': _nextToken,
@@ -175,6 +184,7 @@ class MosqueRepo extends MosqueRepoAbstract {
     }
 
     final (response, errors) = await _mosqueApi.list(
+      variables: _variables,
       filter: _filter,
       limit: _limit,
       nextToken: _nextToken,
@@ -185,6 +195,7 @@ class MosqueRepo extends MosqueRepoAbstract {
     await _localDatabaseUtility.save(
       'listParams',
       <String, dynamic>{
+        'variables': _variables,
         'filter': _filter,
         'limit': _limit,
         'nextToken': _nextToken,
@@ -220,7 +231,10 @@ class MosqueRepo extends MosqueRepoAbstract {
       item = item.copyWith(images: keys);
     }
 
-    final (mosque, errors) = await _mosqueApi.create(item);
+    final (mosque, errors) = await _mosqueApi.create(
+      item: item,
+      variables: _variables,
+    );
 
     if (errors.isNotEmpty) {
       await Future.wait(
@@ -270,7 +284,10 @@ class MosqueRepo extends MosqueRepoAbstract {
       item = item.copyWith(images: keys);
     }
 
-    final (mosque, errors) = await _mosqueApi.update(item);
+    final (mosque, errors) = await _mosqueApi.update(
+      item: item,
+      variables: _variables,
+    );
     final id = mosque?.id;
 
     if (mosque != null && _cache.containsKey(id)) {
@@ -282,7 +299,10 @@ class MosqueRepo extends MosqueRepoAbstract {
 
   @override
   Future<(Mosque?, List<GraphQLResponseError>)> delete(Mosque item) async {
-    final (mosque, errors) = await _mosqueApi.delete(item.id);
+    final (mosque, errors) = await _mosqueApi.delete(
+      id: item.id,
+      variables: _variables,
+    );
     final id = mosque?.id;
 
     if (mosque != null && _cache.containsKey(id)) {
@@ -298,7 +318,7 @@ class MosqueRepo extends MosqueRepoAbstract {
     Function((Mosque?, List<GraphQLResponseError>) response)? onUpdated,
     Function((Mosque?, List<GraphQLResponseError>) response)? onDeleted,
   }) {
-    _stream = _mosqueApi.subscribe(modelType: Mosque.classType).listen((event) {
+    _stream = _mosqueApi.subscribe(variables: _variables).listen((event) {
       switch (event.type) {
         case SubscriptionType.onCreate:
           final mosque = event.response.data;

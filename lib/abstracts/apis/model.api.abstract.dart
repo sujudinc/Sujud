@@ -6,23 +6,39 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 
-abstract class AmplifyModelApiAbstract<T extends Model> {
-  Future<(T?, List<GraphQLResponseError>)> get(String id);
+abstract class ModelApiAbstract<T extends Model> {
+  Future<(T?, List<GraphQLResponseError>)> get({
+    required String id,
+    Map<String, dynamic>? variables,
+  });
 
   Future<(GraphQLListResponse<T>, List<GraphQLResponseError>)> list({
+    Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     int? limit,
     String? nextToken,
   });
 
-  Future<(T?, List<GraphQLResponseError>)> create(T item);
+  Future<(T?, List<GraphQLResponseError>)> create({
+    required T item,
+    Map<String, dynamic>? condition,
+    Map<String, dynamic>? variables,
+  });
 
-  Future<(T?, List<GraphQLResponseError>)> update(T item);
+  Future<(T?, List<GraphQLResponseError>)> update({
+    required T item,
+    Map<String, dynamic>? condition,
+    Map<String, dynamic>? variables,
+  });
 
-  Future<(T?, List<GraphQLResponseError>)> delete(String id);
+  Future<(T?, List<GraphQLResponseError>)> delete({
+    required String id,
+    Map<String, dynamic>? condition,
+    Map<String, dynamic>? variables,
+  });
 
   Stream<GraphqlSubscriptionResponse<T>> subscribe({
-    required ModelType<T> modelType,
+    Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     String? creatorId,
     String? owner,

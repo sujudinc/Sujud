@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sujud/abstracts/abstracts.dart';
-import 'package:sujud/graphql/graphql.dart';
 import 'package:sujud/models/models.dart';
 
 part 'admin_announcements_subtab.cubit.freezed.dart';
@@ -12,6 +11,7 @@ class AdminAnnouncementsSubtabCubit
     extends Cubit<AdminAnnouncementsSubtabState> {
   AdminAnnouncementsSubtabCubit()
       : _announcementRepo = GetIt.instance.get<AnnouncementRepoAbstract>(),
+        _userRepo = GetIt.instance.get<UserRepoAbstract>(),
         _mosqueRepo = GetIt.instance.get<MosqueRepoAbstract>(),
         _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>(),
         _networkUtility = GetIt.instance.get<NetworkUtilityAbstract>(),
@@ -20,6 +20,7 @@ class AdminAnnouncementsSubtabCubit
   }
 
   final AnnouncementRepoAbstract _announcementRepo;
+  final UserRepoAbstract _userRepo;
   final MosqueRepoAbstract _mosqueRepo;
   final AmplifyStorageServiceAbstract _storageService;
   final NetworkUtilityAbstract _networkUtility;
@@ -31,13 +32,10 @@ class AdminAnnouncementsSubtabCubit
 
     _networkUtility.onConnectivityChanged(
       onConnected: () async {
-        emit(const AdminAnnouncementsSubtabState.loading());
-
         await _announcementRepo.list(
-          filter: <String, dynamic>{
-            'mosqueId': {
-              FilterOperation.eq.name: selectedMosque!.id,
-            },
+          variables: <String, dynamic>{
+            'mosqueId': selectedMosque!.id,
+            'creatorId': _userRepo.currentUser!.id,
           },
         );
 
@@ -49,6 +47,7 @@ class AdminAnnouncementsSubtabCubit
           onDeleted: (announcement) => _emitSuccessfulState(),
         );
       },
+      onDisconnected: _emitSuccessfulState,
     );
 
     _emitSuccessfulState();

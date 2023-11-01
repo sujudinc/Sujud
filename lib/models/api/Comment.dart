@@ -24,16 +24,14 @@ import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:collection/collection.dart';
 
 
-/** This is an auto generated class representing the Announcement type in your schema. */
-class Announcement extends amplify_core.Model {
-  static const classType = const _AnnouncementModelType();
+/** This is an auto generated class representing the Comment type in your schema. */
+class Comment extends amplify_core.Model {
+  static const classType = const _CommentModelType();
   final String id;
-  final String? _title;
-  final String? _body;
-  final List<String>? _images;
-  final List<Bookmark>? _bookmarks;
-  final List<Like>? _likes;
-  final List<Comment>? _comments;
+  final String? _text;
+  final Comment? _parentComment;
+  final List<Comment>? _subComments;
+  final Announcement? _announcement;
   final User? _creator;
   final Mosque? _mosque;
   final amplify_core.TemporalDateTime? _createdAt;
@@ -46,15 +44,15 @@ class Announcement extends amplify_core.Model {
   @override
   String getId() => id;
   
-  AnnouncementModelIdentifier get modelIdentifier {
-      return AnnouncementModelIdentifier(
+  CommentModelIdentifier get modelIdentifier {
+      return CommentModelIdentifier(
         id: id
       );
   }
   
-  String get title {
+  String get text {
     try {
-      return _title!;
+      return _text!;
     } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
           amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -65,9 +63,17 @@ class Announcement extends amplify_core.Model {
     }
   }
   
-  String get body {
+  Comment? get parentComment {
+    return _parentComment;
+  }
+  
+  List<Comment>? get subComments {
+    return _subComments;
+  }
+  
+  Announcement get announcement {
     try {
-      return _body!;
+      return _announcement!;
     } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
           amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -76,22 +82,6 @@ class Announcement extends amplify_core.Model {
           underlyingException: e.toString()
           );
     }
-  }
-  
-  List<String>? get images {
-    return _images;
-  }
-  
-  List<Bookmark>? get bookmarks {
-    return _bookmarks;
-  }
-  
-  List<Like>? get likes {
-    return _likes;
-  }
-  
-  List<Comment>? get comments {
-    return _comments;
   }
   
   User get creator {
@@ -128,21 +118,17 @@ class Announcement extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Announcement._internal({required this.id, required title, required body, images, bookmarks, likes, comments, required creator, required mosque, createdAt, updatedAt}): _title = title, _body = body, _images = images, _bookmarks = bookmarks, _likes = likes, _comments = comments, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Comment._internal({required this.id, required text, parentComment, subComments, required announcement, required creator, required mosque, createdAt, updatedAt}): _text = text, _parentComment = parentComment, _subComments = subComments, _announcement = announcement, _creator = creator, _mosque = mosque, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Announcement({String? id, required String title, required String body, List<String>? images, List<Bookmark>? bookmarks, List<Like>? likes, List<Comment>? comments, required User creator, required Mosque mosque, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
-    return Announcement._internal(
+  factory Comment({String? id, required String text, Comment? parentComment, List<Comment>? subComments, required Announcement announcement, required User creator, required Mosque mosque}) {
+    return Comment._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
-      title: title,
-      body: body,
-      images: images != null ? List<String>.unmodifiable(images) : images,
-      bookmarks: bookmarks != null ? List<Bookmark>.unmodifiable(bookmarks) : bookmarks,
-      likes: likes != null ? List<Like>.unmodifiable(likes) : likes,
-      comments: comments != null ? List<Comment>.unmodifiable(comments) : comments,
+      text: text,
+      parentComment: parentComment,
+      subComments: subComments != null ? List<Comment>.unmodifiable(subComments) : subComments,
+      announcement: announcement,
       creator: creator,
-      mosque: mosque,
-      createdAt: createdAt,
-      updatedAt: updatedAt);
+      mosque: mosque);
   }
   
   bool equals(Object other) {
@@ -152,18 +138,14 @@ class Announcement extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Announcement &&
+    return other is Comment &&
       id == other.id &&
-      _title == other._title &&
-      _body == other._body &&
-      DeepCollectionEquality().equals(_images, other._images) &&
-      DeepCollectionEquality().equals(_bookmarks, other._bookmarks) &&
-      DeepCollectionEquality().equals(_likes, other._likes) &&
-      DeepCollectionEquality().equals(_comments, other._comments) &&
+      _text == other._text &&
+      _parentComment == other._parentComment &&
+      DeepCollectionEquality().equals(_subComments, other._subComments) &&
+      _announcement == other._announcement &&
       _creator == other._creator &&
-      _mosque == other._mosque &&
-      _createdAt == other._createdAt &&
-      _updatedAt == other._updatedAt;
+      _mosque == other._mosque;
   }
   
   @override
@@ -173,11 +155,11 @@ class Announcement extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
     
-    buffer.write("Announcement {");
+    buffer.write("Comment {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$_title" + ", ");
-    buffer.write("body=" + "$_body" + ", ");
-    buffer.write("images=" + (_images != null ? _images!.toString() : "null") + ", ");
+    buffer.write("text=" + "$_text" + ", ");
+    buffer.write("parentComment=" + (_parentComment != null ? _parentComment!.toString() : "null") + ", ");
+    buffer.write("announcement=" + (_announcement != null ? _announcement!.toString() : "null") + ", ");
     buffer.write("creator=" + (_creator != null ? _creator!.toString() : "null") + ", ");
     buffer.write("mosque=" + (_mosque != null ? _mosque!.toString() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
@@ -187,70 +169,50 @@ class Announcement extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Announcement copyWith({String? title, String? body, List<String>? images, List<Bookmark>? bookmarks, List<Like>? likes, List<Comment>? comments, User? creator, Mosque? mosque, amplify_core.TemporalDateTime? createdAt, amplify_core.TemporalDateTime? updatedAt}) {
-    return Announcement._internal(
+  Comment copyWith({String? text, Comment? parentComment, List<Comment>? subComments, Announcement? announcement, User? creator, Mosque? mosque}) {
+    return Comment._internal(
       id: id,
-      title: title ?? this.title,
-      body: body ?? this.body,
-      images: images ?? this.images,
-      bookmarks: bookmarks ?? this.bookmarks,
-      likes: likes ?? this.likes,
-      comments: comments ?? this.comments,
+      text: text ?? this.text,
+      parentComment: parentComment ?? this.parentComment,
+      subComments: subComments ?? this.subComments,
+      announcement: announcement ?? this.announcement,
       creator: creator ?? this.creator,
-      mosque: mosque ?? this.mosque,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt);
+      mosque: mosque ?? this.mosque);
   }
   
-  Announcement copyWithModelFieldValues({
-    ModelFieldValue<String>? title,
-    ModelFieldValue<String>? body,
-    ModelFieldValue<List<String>?>? images,
-    ModelFieldValue<List<Bookmark>?>? bookmarks,
-    ModelFieldValue<List<Like>?>? likes,
-    ModelFieldValue<List<Comment>?>? comments,
+  Comment copyWithModelFieldValues({
+    ModelFieldValue<String>? text,
+    ModelFieldValue<Comment?>? parentComment,
+    ModelFieldValue<List<Comment>?>? subComments,
+    ModelFieldValue<Announcement>? announcement,
     ModelFieldValue<User>? creator,
-    ModelFieldValue<Mosque>? mosque,
-    ModelFieldValue<amplify_core.TemporalDateTime?>? createdAt,
-    ModelFieldValue<amplify_core.TemporalDateTime?>? updatedAt
+    ModelFieldValue<Mosque>? mosque
   }) {
-    return Announcement._internal(
+    return Comment._internal(
       id: id,
-      title: title == null ? this.title : title.value,
-      body: body == null ? this.body : body.value,
-      images: images == null ? this.images : images.value,
-      bookmarks: bookmarks == null ? this.bookmarks : bookmarks.value,
-      likes: likes == null ? this.likes : likes.value,
-      comments: comments == null ? this.comments : comments.value,
+      text: text == null ? this.text : text.value,
+      parentComment: parentComment == null ? this.parentComment : parentComment.value,
+      subComments: subComments == null ? this.subComments : subComments.value,
+      announcement: announcement == null ? this.announcement : announcement.value,
       creator: creator == null ? this.creator : creator.value,
-      mosque: mosque == null ? this.mosque : mosque.value,
-      createdAt: createdAt == null ? this.createdAt : createdAt.value,
-      updatedAt: updatedAt == null ? this.updatedAt : updatedAt.value
+      mosque: mosque == null ? this.mosque : mosque.value
     );
   }
   
-  Announcement.fromJson(Map<String, dynamic> json)  
+  Comment.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _title = json['title'],
-      _body = json['body'],
-      _images = json['images']?.cast<String>(),
-      _bookmarks = json['bookmarks'] is List
-        ? (json['bookmarks'] as List)
-          .where((e) => e?['serializedData'] != null)
-          .map((e) => Bookmark.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
-          .toList()
+      _text = json['text'],
+      _parentComment = json['parentComment']?['serializedData'] != null
+        ? Comment.fromJson(new Map<String, dynamic>.from(json['parentComment']['serializedData']))
         : null,
-      _likes = json['likes'] is List
-        ? (json['likes'] as List)
-          .where((e) => e?['serializedData'] != null)
-          .map((e) => Like.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
-          .toList()
-        : null,
-      _comments = json['comments'] is List
-        ? (json['comments'] as List)
+      _subComments = json['subComments'] is List
+        ? (json['subComments'] as List)
           .where((e) => e?['serializedData'] != null)
           .map((e) => Comment.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
           .toList()
+        : null,
+      _announcement = json['announcement']?['serializedData'] != null
+        ? Announcement.fromJson(new Map<String, dynamic>.from(json['announcement']['serializedData']))
         : null,
       _creator = json['creator']?['serializedData'] != null
         ? User.fromJson(new Map<String, dynamic>.from(json['creator']['serializedData']))
@@ -262,60 +224,54 @@ class Announcement extends amplify_core.Model {
       _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'title': _title, 'body': _body, 'images': _images, 'bookmarks': _bookmarks?.map((Bookmark? e) => e?.toJson()).toList(), 'likes': _likes?.map((Like? e) => e?.toJson()).toList(), 'comments': _comments?.map((Comment? e) => e?.toJson()).toList(), 'creator': _creator?.toJson(), 'mosque': _mosque?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'text': _text, 'parentComment': _parentComment?.toJson(), 'subComments': _subComments?.map((Comment? e) => e?.toJson()).toList(), 'announcement': _announcement?.toJson(), 'creator': _creator?.toJson(), 'mosque': _mosque?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
     'id': id,
-    'title': _title,
-    'body': _body,
-    'images': _images,
-    'bookmarks': _bookmarks,
-    'likes': _likes,
-    'comments': _comments,
+    'text': _text,
+    'parentComment': _parentComment,
+    'subComments': _subComments,
+    'announcement': _announcement,
     'creator': _creator,
     'mosque': _mosque,
     'createdAt': _createdAt,
     'updatedAt': _updatedAt
   };
 
-  static final amplify_core.QueryModelIdentifier<AnnouncementModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<AnnouncementModelIdentifier>();
+  static final amplify_core.QueryModelIdentifier<CommentModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<CommentModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
-  static final TITLE = amplify_core.QueryField(fieldName: "title");
-  static final BODY = amplify_core.QueryField(fieldName: "body");
-  static final IMAGES = amplify_core.QueryField(fieldName: "images");
-  static final BOOKMARKS = amplify_core.QueryField(
-    fieldName: "bookmarks",
-    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Bookmark'));
-  static final LIKES = amplify_core.QueryField(
-    fieldName: "likes",
-    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Like'));
-  static final COMMENTS = amplify_core.QueryField(
-    fieldName: "comments",
+  static final TEXT = amplify_core.QueryField(fieldName: "text");
+  static final PARENTCOMMENT = amplify_core.QueryField(
+    fieldName: "parentComment",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Comment'));
+  static final SUBCOMMENTS = amplify_core.QueryField(
+    fieldName: "subComments",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Comment'));
+  static final ANNOUNCEMENT = amplify_core.QueryField(
+    fieldName: "announcement",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Announcement'));
   static final CREATOR = amplify_core.QueryField(
     fieldName: "creator",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'User'));
   static final MOSQUE = amplify_core.QueryField(
     fieldName: "mosque",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Mosque'));
-  static final CREATEDAT = amplify_core.QueryField(fieldName: "createdAt");
-  static final UPDATEDAT = amplify_core.QueryField(fieldName: "updatedAt");
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Announcement";
-    modelSchemaDefinition.pluralName = "Announcements";
+    modelSchemaDefinition.name = "Comment";
+    modelSchemaDefinition.pluralName = "Comments";
     
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
         authStrategy: amplify_core.AuthStrategy.OWNER,
-        ownerField: "creatorId",
+        ownerField: "commenterId",
         identityClaim: "cognito:username",
         provider: amplify_core.AuthRuleProvider.USERPOOLS,
         operations: const [
           amplify_core.ModelOperation.CREATE,
-          amplify_core.ModelOperation.READ,
           amplify_core.ModelOperation.UPDATE,
-          amplify_core.ModelOperation.DELETE
+          amplify_core.ModelOperation.DELETE,
+          amplify_core.ModelOperation.READ
         ]),
       amplify_core.AuthRule(
         authStrategy: amplify_core.AuthStrategy.PRIVATE,
@@ -330,6 +286,8 @@ class Announcement extends amplify_core.Model {
     ];
     
     modelSchemaDefinition.indexes = [
+      amplify_core.ModelIndex(fields: const ["parentCommentId"], name: "byParentCommentId"),
+      amplify_core.ModelIndex(fields: const ["announcementId"], name: "byAnnouncementId"),
       amplify_core.ModelIndex(fields: const ["creatorId"], name: "byCreatorId"),
       amplify_core.ModelIndex(fields: const ["mosqueId"], name: "byMosqueId")
     ];
@@ -337,96 +295,85 @@ class Announcement extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Announcement.TITLE,
+      key: Comment.TEXT,
       isRequired: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Announcement.BODY,
-      isRequired: true,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Announcement.IMAGES,
-      isRequired: false,
-      isArray: true,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.collection, ofModelName: amplify_core.ModelFieldTypeEnum.string.name)
-    ));
-    
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-      key: Announcement.BOOKMARKS,
-      isRequired: false,
-      ofModelName: 'Bookmark',
-      associatedKey: Bookmark.ANNOUNCEMENT
-    ));
-    
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-      key: Announcement.LIKES,
-      isRequired: false,
-      ofModelName: 'Like',
-      associatedKey: Like.ANNOUNCEMENT
-    ));
-    
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-      key: Announcement.COMMENTS,
-      isRequired: false,
-      ofModelName: 'Comment',
-      associatedKey: Comment.ANNOUNCEMENT
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-      key: Announcement.CREATOR,
+      key: Comment.PARENTCOMMENT,
+      isRequired: false,
+      targetNames: ['parentCommentId'],
+      ofModelName: 'Comment'
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
+      key: Comment.SUBCOMMENTS,
+      isRequired: false,
+      ofModelName: 'Comment',
+      associatedKey: Comment.PARENTCOMMENT
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
+      key: Comment.ANNOUNCEMENT,
+      isRequired: true,
+      targetNames: ['announcementId'],
+      ofModelName: 'Announcement'
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
+      key: Comment.CREATOR,
       isRequired: true,
       targetNames: ['creatorId'],
       ofModelName: 'User'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-      key: Announcement.MOSQUE,
+      key: Comment.MOSQUE,
       isRequired: true,
       targetNames: ['mosqueId'],
       ofModelName: 'Mosque'
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Announcement.CREATEDAT,
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
+      fieldName: 'createdAt',
       isRequired: false,
+      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Announcement.UPDATEDAT,
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
+      fieldName: 'updatedAt',
       isRequired: false,
+      isReadOnly: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
   });
 }
 
-class _AnnouncementModelType extends amplify_core.ModelType<Announcement> {
-  const _AnnouncementModelType();
+class _CommentModelType extends amplify_core.ModelType<Comment> {
+  const _CommentModelType();
   
   @override
-  Announcement fromJson(Map<String, dynamic> jsonData) {
-    return Announcement.fromJson(jsonData);
+  Comment fromJson(Map<String, dynamic> jsonData) {
+    return Comment.fromJson(jsonData);
   }
   
   @override
   String modelName() {
-    return 'Announcement';
+    return 'Comment';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [Announcement] in your schema.
+ * of [Comment] in your schema.
  */
-class AnnouncementModelIdentifier implements amplify_core.ModelIdentifier<Announcement> {
+class CommentModelIdentifier implements amplify_core.ModelIdentifier<Comment> {
   final String id;
 
-  /** Create an instance of AnnouncementModelIdentifier using [id] the primary key. */
-  const AnnouncementModelIdentifier({
+  /** Create an instance of CommentModelIdentifier using [id] the primary key. */
+  const CommentModelIdentifier({
     required this.id});
   
   @override
@@ -444,7 +391,7 @@ class AnnouncementModelIdentifier implements amplify_core.ModelIdentifier<Announ
   String serializeAsString() => serializeAsMap().values.join('#');
   
   @override
-  String toString() => 'AnnouncementModelIdentifier(id: $id)';
+  String toString() => 'CommentModelIdentifier(id: $id)';
   
   @override
   bool operator ==(Object other) {
@@ -452,7 +399,7 @@ class AnnouncementModelIdentifier implements amplify_core.ModelIdentifier<Announ
       return true;
     }
     
-    return other is AnnouncementModelIdentifier &&
+    return other is CommentModelIdentifier &&
       id == other.id;
   }
   

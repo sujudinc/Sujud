@@ -66,13 +66,13 @@ void _initAppDependencies() => _dependencies
   ..registerSingleton<NavigationUtilityAbstract>(NavigationUtility());
 
 void _initApis() => _dependencies
-  ..registerFactory<AmplifyModelApiAbstract<Announcement>>(
+  ..registerFactory<ModelApiAbstract<Announcement>>(
     AnnouncementApi.new,
   )
-  ..registerFactory<AmplifyModelApiAbstract<Mosque>>(
+  ..registerFactory<ModelApiAbstract<Mosque>>(
     MosqueApi.new,
   )
-  ..registerFactory<AmplifyModelApiAbstract<User>>(
+  ..registerFactory<ModelApiAbstract<User>>(
     UserApi.new,
   );
 

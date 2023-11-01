@@ -9,6 +9,30 @@ final getAnnouncement = '''
   }
 ''';
 
+final getBookmark = '''
+  query GetBookmark(\$id: ID!) {
+    ${GetOperations.getBookmark.name}(id: \$id) {
+      $bookmarkDocument
+    }
+  }
+''';
+
+final getComment = '''
+  query GetComment(\$id: ID!) {
+    ${GetOperations.getComment.name}(id: \$id) {
+      $commentDocument
+    }
+  }
+''';
+
+final getLike = '''
+  query GetLike(\$id: ID!) {
+    ${GetOperations.getLike.name}(id: \$id) {
+      $likeDocument
+    }
+  }
+''';
+
 final getMosque = '''
   query GetMosque(\$id: ID!) {
     ${GetOperations.getMosque.name}(id: \$id) {
@@ -32,8 +56,8 @@ final listAnnouncements = '''
     \$nextToken: String
   ) {
     ${ListOperations.listAnnouncements.name}(
-      filter: \$filter,
-      limit: \$limit,
+      filter: \$filter
+      limit: \$limit
       nextToken: \$nextToken
     ) {
       items {
@@ -47,6 +71,7 @@ final listAnnouncements = '''
 
 final announcementsByMosqueId = '''
   query AnnouncementsByMosqueId(
+    \$creatorId: ID!
     \$mosqueId: ID!
     \$sortDirection: ModelSortDirection
     \$filter: ModelAnnouncementFilterInput
@@ -76,8 +101,8 @@ final listMosques = '''
     \$nextToken: String
   ) {
     ${ListOperations.listMosques.name}(
-      filter: \$filter,
-      limit: \$limit,
+      filter: \$filter
+      limit: \$limit
       nextToken: \$nextToken
     ) {
       items {
@@ -96,8 +121,8 @@ final listUsers = '''
     \$nextToken: String
   ) {
     ${ListOperations.listUsers.name}(
-      filter: \$filter,
-      limit: \$limit,
+      filter: \$filter
+      limit: \$limit
       nextToken: \$nextToken
     ) {
       items {

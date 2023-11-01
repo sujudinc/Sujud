@@ -3,6 +3,52 @@ const announcementDocument = '''
   title
   body
   images
+  bookmarks(
+    filter: {
+      creatorId: {eq: \$creatorId},
+     }
+  ) {
+    items {
+      id
+      announcementId
+      creatorId
+      mosqueId
+      createdAt
+      updatedAt
+    }
+    nextToken
+    startedAt
+  }
+  likes(
+    filter: {
+      creatorId: {eq: \$creatorId},
+     }
+  ) {
+    items {
+      id
+      announcementId
+      creatorId
+      mosqueId
+      createdAt
+      updatedAt
+    }
+    nextToken
+    startedAt
+  }
+  comments(sortDirection: ASC) {
+    items {
+      id
+      text
+      parentCommentId
+      announcementId
+      creatorId
+      mosqueId
+      createdAt
+      updatedAt
+    }
+    nextToken
+    startedAt
+  }
   creatorId
   creator {
     $userDocument
@@ -14,7 +60,82 @@ const announcementDocument = '''
   createdAt
   updatedAt
 ''';
-
+const bookmarkDocument = '''
+  id
+  announcementId
+  announcement {
+    $announcementDocument
+  }
+  creatorId
+  creator {
+    $userDocument
+  }
+  mosqueId
+  mosque {
+    $mosqueDocument
+  }
+  createdAt
+  updatedAt
+''';
+const commentDocument = '''
+  id
+  text
+  parentCommentId
+  subComments(sortDirection: ASC) {
+    items {
+      id
+      text
+      parentCommentId
+      creatorId
+      creator {
+        $userDocument
+      }
+      announcementId
+      announcement {
+        $announcementDocument
+      }
+      mosqueId
+      mosque {
+        $mosqueDocument
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+    startedAt
+  }
+  announcementId
+  announcement {
+    $announcementDocument
+  }
+  creatorId
+  creator {
+    $userDocument
+  }
+  mosqueId
+  mosque {
+    $mosqueDocument
+  }
+  createdAt
+  updatedAt
+''';
+const likeDocument = '''
+  id
+  announcementId
+  announcement {
+    $announcementDocument
+  }
+  creatorId
+  creator {
+    $userDocument
+  }
+  mosqueId
+  mosque {
+    $mosqueDocument
+  }
+  createdAt
+  updatedAt
+''';
 const mosqueDocument = '''
   id
   name
@@ -101,7 +222,6 @@ const mosqueDocument = '''
   createdAt
   updatedAt
   ''';
-
 const userDocument = '''
   id
   selfie

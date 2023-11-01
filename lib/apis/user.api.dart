@@ -10,21 +10,24 @@ import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/graphql/graphql.dart';
 import 'package:sujud/models/models.dart';
 
-class UserApi implements AmplifyModelApiAbstract<User> {
+class UserApi implements ModelApiAbstract<User> {
   UserApi()
       : _amplifyApiService =
-            GetIt.instance.get<AmplifyApiServiceAbstract<User>>(),
-        _operations = UserOperations();
+            GetIt.instance.get<AmplifyApiServiceAbstract<User>>();
 
   final AmplifyApiServiceAbstract<User> _amplifyApiService;
-  final AmplifyModelApiOperations<User> _operations;
+  final _operations = UserOperations();
 
   @override
-  Future<(User?, List<GraphQLResponseError>)> get(String id) async {
+  Future<(User?, List<GraphQLResponseError>)> get({
+    required String id,
+    Map<String, dynamic>? variables,
+  }) async {
     final response = await _amplifyApiService.get(
       modelType: _operations.modelType,
       operation: _operations.get,
       id: id,
+      variables: variables,
     );
 
     return (response.data, response.errors);
@@ -32,6 +35,8 @@ class UserApi implements AmplifyModelApiAbstract<User> {
 
   @override
   Future<(GraphQLListResponse<User>, List<GraphQLResponseError>)> list({
+    Map<String, dynamic>? variables,
+    Map<String, dynamic>? inputs,
     Map<String, dynamic>? filter,
     int? limit,
     String? nextToken,
@@ -39,6 +44,7 @@ class UserApi implements AmplifyModelApiAbstract<User> {
     final (data, errors) = await _amplifyApiService.list(
       modelType: _operations.modelType,
       operation: _operations.list,
+      variables: inputs,
       filter: filter,
       limit: limit,
       nextToken: nextToken,
@@ -48,39 +54,53 @@ class UserApi implements AmplifyModelApiAbstract<User> {
   }
 
   @override
-  Future<(User?, List<GraphQLResponseError>)> create(
-    User item,
-  ) async {
+  Future<(User?, List<GraphQLResponseError>)> create({
+    required User item,
+    Map<String, dynamic>? condition,
+    Map<String, dynamic>? variables,
+  }) async {
     final response = await _amplifyApiService.create(
       modelType: _operations.modelType,
       operation: _operations.create,
       input: <String, dynamic>{},
+      condition: condition,
+      variables: variables,
     );
 
     return (response.data, response.errors);
   }
 
   @override
-  Future<(User?, List<GraphQLResponseError>)> update(
-    User item,
-  ) async {
+  Future<(User?, List<GraphQLResponseError>)> update({
+    required User item,
+    Map<String, dynamic>? condition,
+    Map<String, dynamic>? variables,
+  }) async {
     final response = await _amplifyApiService.update(
       modelType: _operations.modelType,
       operation: _operations.update,
       input: <String, dynamic>{
         'id': item.id,
       },
+      condition: condition,
+      variables: variables,
     );
 
     return (response.data, response.errors);
   }
 
   @override
-  Future<(User?, List<GraphQLResponseError>)> delete(String id) async {
+  Future<(User?, List<GraphQLResponseError>)> delete({
+    required String id,
+    Map<String, dynamic>? condition,
+    Map<String, dynamic>? variables,
+  }) async {
     final response = await _amplifyApiService.delete(
       modelType: _operations.modelType,
       operation: _operations.delete,
       id: id,
+      condition: condition,
+      variables: variables,
     );
 
     return (response.data, response.errors);
@@ -88,7 +108,7 @@ class UserApi implements AmplifyModelApiAbstract<User> {
 
   @override
   Stream<GraphqlSubscriptionResponse<User>> subscribe({
-    required ModelType<User> modelType,
+    Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     String? creatorId,
     String? owner,
@@ -96,7 +116,7 @@ class UserApi implements AmplifyModelApiAbstract<User> {
     final streams = StreamGroup.merge<GraphqlSubscriptionResponse<User>>([
       _amplifyApiService
           .subscribe(
-            modelType: modelType,
+            modelType: _operations.modelType,
             operation: _operations.onCreate,
             filter: filter,
             creatorId: creatorId,
@@ -108,7 +128,7 @@ class UserApi implements AmplifyModelApiAbstract<User> {
               )),
       _amplifyApiService
           .subscribe(
-            modelType: modelType,
+            modelType: _operations.modelType,
             operation: _operations.onUpdate,
             filter: filter,
             creatorId: creatorId,
@@ -120,7 +140,7 @@ class UserApi implements AmplifyModelApiAbstract<User> {
               )),
       _amplifyApiService
           .subscribe(
-            modelType: modelType,
+            modelType: _operations.modelType,
             operation: _operations.onDelete,
             filter: filter,
             creatorId: creatorId,

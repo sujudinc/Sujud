@@ -17,6 +17,7 @@ class AmplifyApiService<T extends Model>
     required ModelType<T> modelType,
     required GetOperations operation,
     required String id,
+    Map<String, dynamic>? variables,
   }) async {
     final response = await _amplifyApi
         .query(
@@ -26,6 +27,8 @@ class AmplifyApiService<T extends Model>
             document: operation.query,
             variables: <String, dynamic>{
               'id': id,
+              if (variables != null)
+                for (final entry in variables.entries) entry.key: entry.value,
             },
           ),
         )
@@ -38,6 +41,7 @@ class AmplifyApiService<T extends Model>
   Future<(GraphQLListResponse<T>, List<GraphQLResponseError>)> list({
     required ModelType<T> modelType,
     required ListOperations operation,
+    Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     int? limit,
     String? nextToken,
@@ -50,6 +54,8 @@ class AmplifyApiService<T extends Model>
             document: operation.query,
             decodePath: operation.name,
             variables: <String, dynamic>{
+              if (variables != null)
+                for (final entry in variables.entries) entry.key: entry.value,
               if (filter != null) 'filter': filter,
               if (limit != null) 'limit': limit,
               if (nextToken != null) 'nextToken': nextToken,
@@ -73,6 +79,7 @@ class AmplifyApiService<T extends Model>
     required CreateOperations operation,
     required Map<String, dynamic> input,
     Map<String, dynamic>? condition,
+    Map<String, dynamic>? variables,
   }) async {
     final response = await _amplifyApi
         .mutate(
@@ -83,6 +90,8 @@ class AmplifyApiService<T extends Model>
             variables: <String, dynamic>{
               'input': input,
               if (condition != null) 'condition': condition,
+              if (variables != null)
+                for (final entry in variables.entries) entry.key: entry.value,
             },
           ),
         )
@@ -97,6 +106,7 @@ class AmplifyApiService<T extends Model>
     required UpdateOperations operation,
     required Map<String, dynamic> input,
     Map<String, dynamic>? condition,
+    Map<String, dynamic>? variables,
   }) async {
     final response = await _amplifyApi
         .mutate(
@@ -107,6 +117,8 @@ class AmplifyApiService<T extends Model>
             variables: <String, dynamic>{
               'input': input,
               if (condition != null) 'condition': condition,
+              if (variables != null)
+                for (final entry in variables.entries) entry.key: entry.value,
             },
           ),
         )
@@ -121,6 +133,7 @@ class AmplifyApiService<T extends Model>
     required DeleteOperations operation,
     required String id,
     Map<String, dynamic>? condition,
+    Map<String, dynamic>? variables,
   }) async {
     final response = await _amplifyApi
         .mutate(
@@ -133,6 +146,8 @@ class AmplifyApiService<T extends Model>
                 'id': id,
               },
               if (condition != null) 'condition': condition,
+              if (variables != null)
+                for (final entry in variables.entries) entry.key: entry.value,
             },
           ),
         )
@@ -145,6 +160,7 @@ class AmplifyApiService<T extends Model>
   Stream<GraphQLResponse<T>> subscribe({
     required ModelType<T> modelType,
     required SubscriptionOperations operation,
+    Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     String? creatorId,
     String? owner,
@@ -155,6 +171,8 @@ class AmplifyApiService<T extends Model>
         decodePath: operation.name,
         document: operation.subscription,
         variables: <String, dynamic>{
+          if (variables != null)
+            for (final entry in variables.entries) entry.key: entry.value,
           if (filter != null) 'filter': filter,
           if (creatorId != null) 'creatorId': creatorId,
           if (owner != null) 'owner': owner,

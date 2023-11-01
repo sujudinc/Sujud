@@ -21,13 +21,16 @@
 
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'Announcement.dart';
+import 'Bookmark.dart';
 import 'Class.dart';
+import 'Comment.dart';
 import 'Committee.dart';
 import 'CommitteeMembers.dart';
 import 'Donation.dart';
 import 'FundraisingCampaign.dart';
 import 'Gathering.dart';
 import 'GatheringAttendees.dart';
+import 'Like.dart';
 import 'MonthlyPrayerSchedule.dart';
 import 'Mosque.dart';
 import 'MosqueFollowers.dart';
@@ -57,7 +60,9 @@ import 'UploadedPart.dart';
 export 'AbortMultipartUploadOutput.dart';
 export 'Address.dart';
 export 'Announcement.dart';
+export 'Bookmark.dart';
 export 'Class.dart';
+export 'Comment.dart';
 export 'Committee.dart';
 export 'CommitteeMembers.dart';
 export 'CompleteMultipartUploadOutput.dart';
@@ -75,6 +80,7 @@ export 'GenerateMultipartUploadUrlsOutput.dart';
 export 'Hours.dart';
 export 'InProgressUpload.dart';
 export 'InitiateMultipartUploadOutput.dart';
+export 'Like.dart';
 export 'ListCompletedMultipartUploadsOutput.dart';
 export 'ListInProgressMultipartUploadsOutput.dart';
 export 'MonthlyPrayerSchedule.dart';
@@ -100,9 +106,9 @@ export 'VolunteerTaskUser.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "6c2949acd0ae7abaeedfd3746a0a9e8f";
+  String version = "3bf634b0ea182cf7f09d8fc0e746976d";
   @override
-  List<amplify_core.ModelSchema> modelSchemas = [Announcement.schema, Class.schema, Committee.schema, CommitteeMembers.schema, Donation.schema, FundraisingCampaign.schema, Gathering.schema, GatheringAttendees.schema, MonthlyPrayerSchedule.schema, Mosque.schema, MosqueFollowers.schema, MosqueSubscription.schema, Resource.schema, Service.schema, User.schema, VolunteerTask.schema, VolunteerTaskUser.schema];
+  List<amplify_core.ModelSchema> modelSchemas = [Announcement.schema, Bookmark.schema, Class.schema, Comment.schema, Committee.schema, CommitteeMembers.schema, Donation.schema, FundraisingCampaign.schema, Gathering.schema, GatheringAttendees.schema, Like.schema, MonthlyPrayerSchedule.schema, Mosque.schema, MosqueFollowers.schema, MosqueSubscription.schema, Resource.schema, Service.schema, User.schema, VolunteerTask.schema, VolunteerTaskUser.schema];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [AbortMultipartUploadOutput.schema, Address.schema, CompleteMultipartUploadOutput.schema, ContactInfo.schema, Day.schema, GenerateMultipartUploadUrlOutput.schema, GenerateMultipartUploadUrlsOutput.schema, Hours.schema, InProgressUpload.schema, InitiateMultipartUploadOutput.schema, ListCompletedMultipartUploadsOutput.schema, ListInProgressMultipartUploadsOutput.schema, OperatingHours.schema, PrayerTime.schema, SocialMedia.schema, UploadedPart.schema];
   static final ModelProvider _instance = ModelProvider();
@@ -113,8 +119,12 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     switch(modelName) {
       case "Announcement":
         return Announcement.classType;
+      case "Bookmark":
+        return Bookmark.classType;
       case "Class":
         return Class.classType;
+      case "Comment":
+        return Comment.classType;
       case "Committee":
         return Committee.classType;
       case "CommitteeMembers":
@@ -127,6 +137,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return Gathering.classType;
       case "GatheringAttendees":
         return GatheringAttendees.classType;
+      case "Like":
+        return Like.classType;
       case "MonthlyPrayerSchedule":
         return MonthlyPrayerSchedule.classType;
       case "Mosque":

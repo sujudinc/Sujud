@@ -7,7 +7,7 @@ final createAnnouncement = '''
     \$condition: ModelAnnouncementConditionInput
   ) {
     ${CreateOperations.createAnnouncement.name}(
-      input: \$input,
+      input: \$input
       condition: \$condition
     ) {
       $announcementDocument
@@ -21,7 +21,7 @@ final updateAnnouncement = '''
     \$condition: ModelAnnouncementConditionInput
   ) {
     ${UpdateOperations.updateAnnouncement.name}(
-      input: \$input,
+      input: \$input
       condition: \$condition
     ) {
       $announcementDocument
@@ -35,7 +35,7 @@ final deleteAnnouncement = '''
     \$condition: ModelAnnouncementConditionInput
   ) {
     ${DeleteOperations.deleteAnnouncement.name}(
-      input: \$input,
+      input: \$input
       condition: \$condition
     ) {
       $announcementDocument
@@ -49,7 +49,7 @@ final createMosque = '''
     \$condition: ModelMosqueConditionInput
   ) {
     ${CreateOperations.createMosque.name}(
-      input: \$input,
+      input: \$input
       condition: \$condition
     ) {
       $mosqueDocument
@@ -63,7 +63,7 @@ final updateMosque = '''
     \$condition: ModelMosqueConditionInput
   ) {
     ${UpdateOperations.updateMosque.name}(
-      input: \$input,
+      input: \$input
       condition: \$condition
     ) {
       $mosqueDocument
@@ -77,7 +77,7 @@ final deleteMosque = '''
     \$condition: ModelMosqueConditionInput
   ) {
     ${DeleteOperations.deleteMosque.name}(
-      input: \$input,
+      input: \$input
       condition: \$condition
     ) {
       $mosqueDocument
@@ -91,7 +91,7 @@ final createUser = '''
     \$condition: ModelUserConditionInput
   ) {
     ${CreateOperations.createUser.name}(
-      input: \$input,
+      input: \$input
       condition: \$condition
      ) {
       $userDocument
@@ -105,7 +105,7 @@ final updateUser = '''
     \$condition: ModelUserConditionInput
   ) {
     ${UpdateOperations.updateUser.name}(
-      input: \$input,
+      input: \$input
       condition: \$condition
     ) {
       $userDocument
@@ -119,7 +119,7 @@ final deleteUser = '''
     \$condition: ModelUserConditionInput
   ) {
     ${DeleteOperations.deleteUser.name}(
-      input: \$input,
+      input: \$input
       condition: \$condition
     ) {
       $userDocument
