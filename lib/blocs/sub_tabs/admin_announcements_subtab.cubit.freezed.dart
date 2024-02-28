@@ -12,7 +12,7 @@ part of 'admin_announcements_subtab.cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$AdminAnnouncementsSubtabState {
@@ -92,29 +92,29 @@ class _$AdminAnnouncementsSubtabStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$AdminAnnouncementsSubtabStateLoadingCopyWith<$Res> {
-  factory _$$AdminAnnouncementsSubtabStateLoadingCopyWith(
-          _$AdminAnnouncementsSubtabStateLoading value,
-          $Res Function(_$AdminAnnouncementsSubtabStateLoading) then) =
-      __$$AdminAnnouncementsSubtabStateLoadingCopyWithImpl<$Res>;
+abstract class _$$AdminAnnouncementsSubtabStateLoadingImplCopyWith<$Res> {
+  factory _$$AdminAnnouncementsSubtabStateLoadingImplCopyWith(
+          _$AdminAnnouncementsSubtabStateLoadingImpl value,
+          $Res Function(_$AdminAnnouncementsSubtabStateLoadingImpl) then) =
+      __$$AdminAnnouncementsSubtabStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AdminAnnouncementsSubtabStateLoadingCopyWithImpl<$Res>
+class __$$AdminAnnouncementsSubtabStateLoadingImplCopyWithImpl<$Res>
     extends _$AdminAnnouncementsSubtabStateCopyWithImpl<$Res,
-        _$AdminAnnouncementsSubtabStateLoading>
-    implements _$$AdminAnnouncementsSubtabStateLoadingCopyWith<$Res> {
-  __$$AdminAnnouncementsSubtabStateLoadingCopyWithImpl(
-      _$AdminAnnouncementsSubtabStateLoading _value,
-      $Res Function(_$AdminAnnouncementsSubtabStateLoading) _then)
+        _$AdminAnnouncementsSubtabStateLoadingImpl>
+    implements _$$AdminAnnouncementsSubtabStateLoadingImplCopyWith<$Res> {
+  __$$AdminAnnouncementsSubtabStateLoadingImplCopyWithImpl(
+      _$AdminAnnouncementsSubtabStateLoadingImpl _value,
+      $Res Function(_$AdminAnnouncementsSubtabStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$AdminAnnouncementsSubtabStateLoading
+class _$AdminAnnouncementsSubtabStateLoadingImpl
     implements AdminAnnouncementsSubtabStateLoading {
-  const _$AdminAnnouncementsSubtabStateLoading();
+  const _$AdminAnnouncementsSubtabStateLoadingImpl();
 
   @override
   String toString() {
@@ -122,10 +122,10 @@ class _$AdminAnnouncementsSubtabStateLoading
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AdminAnnouncementsSubtabStateLoading);
+            other is _$AdminAnnouncementsSubtabStateLoadingImpl);
   }
 
   @override
@@ -211,33 +211,33 @@ class _$AdminAnnouncementsSubtabStateLoading
 abstract class AdminAnnouncementsSubtabStateLoading
     implements AdminAnnouncementsSubtabState {
   const factory AdminAnnouncementsSubtabStateLoading() =
-      _$AdminAnnouncementsSubtabStateLoading;
+      _$AdminAnnouncementsSubtabStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$AdminAnnouncementsSubtabStateEmptyCopyWith<$Res> {
-  factory _$$AdminAnnouncementsSubtabStateEmptyCopyWith(
-          _$AdminAnnouncementsSubtabStateEmpty value,
-          $Res Function(_$AdminAnnouncementsSubtabStateEmpty) then) =
-      __$$AdminAnnouncementsSubtabStateEmptyCopyWithImpl<$Res>;
+abstract class _$$AdminAnnouncementsSubtabStateEmptyImplCopyWith<$Res> {
+  factory _$$AdminAnnouncementsSubtabStateEmptyImplCopyWith(
+          _$AdminAnnouncementsSubtabStateEmptyImpl value,
+          $Res Function(_$AdminAnnouncementsSubtabStateEmptyImpl) then) =
+      __$$AdminAnnouncementsSubtabStateEmptyImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AdminAnnouncementsSubtabStateEmptyCopyWithImpl<$Res>
+class __$$AdminAnnouncementsSubtabStateEmptyImplCopyWithImpl<$Res>
     extends _$AdminAnnouncementsSubtabStateCopyWithImpl<$Res,
-        _$AdminAnnouncementsSubtabStateEmpty>
-    implements _$$AdminAnnouncementsSubtabStateEmptyCopyWith<$Res> {
-  __$$AdminAnnouncementsSubtabStateEmptyCopyWithImpl(
-      _$AdminAnnouncementsSubtabStateEmpty _value,
-      $Res Function(_$AdminAnnouncementsSubtabStateEmpty) _then)
+        _$AdminAnnouncementsSubtabStateEmptyImpl>
+    implements _$$AdminAnnouncementsSubtabStateEmptyImplCopyWith<$Res> {
+  __$$AdminAnnouncementsSubtabStateEmptyImplCopyWithImpl(
+      _$AdminAnnouncementsSubtabStateEmptyImpl _value,
+      $Res Function(_$AdminAnnouncementsSubtabStateEmptyImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$AdminAnnouncementsSubtabStateEmpty
+class _$AdminAnnouncementsSubtabStateEmptyImpl
     implements AdminAnnouncementsSubtabStateEmpty {
-  const _$AdminAnnouncementsSubtabStateEmpty();
+  const _$AdminAnnouncementsSubtabStateEmptyImpl();
 
   @override
   String toString() {
@@ -245,10 +245,10 @@ class _$AdminAnnouncementsSubtabStateEmpty
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AdminAnnouncementsSubtabStateEmpty);
+            other is _$AdminAnnouncementsSubtabStateEmptyImpl);
   }
 
   @override
@@ -334,27 +334,27 @@ class _$AdminAnnouncementsSubtabStateEmpty
 abstract class AdminAnnouncementsSubtabStateEmpty
     implements AdminAnnouncementsSubtabState {
   const factory AdminAnnouncementsSubtabStateEmpty() =
-      _$AdminAnnouncementsSubtabStateEmpty;
+      _$AdminAnnouncementsSubtabStateEmptyImpl;
 }
 
 /// @nodoc
-abstract class _$$AdminAnnouncementsSubtabStateReadyCopyWith<$Res> {
-  factory _$$AdminAnnouncementsSubtabStateReadyCopyWith(
-          _$AdminAnnouncementsSubtabStateReady value,
-          $Res Function(_$AdminAnnouncementsSubtabStateReady) then) =
-      __$$AdminAnnouncementsSubtabStateReadyCopyWithImpl<$Res>;
+abstract class _$$AdminAnnouncementsSubtabStateReadyImplCopyWith<$Res> {
+  factory _$$AdminAnnouncementsSubtabStateReadyImplCopyWith(
+          _$AdminAnnouncementsSubtabStateReadyImpl value,
+          $Res Function(_$AdminAnnouncementsSubtabStateReadyImpl) then) =
+      __$$AdminAnnouncementsSubtabStateReadyImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<Announcement> announcements});
 }
 
 /// @nodoc
-class __$$AdminAnnouncementsSubtabStateReadyCopyWithImpl<$Res>
+class __$$AdminAnnouncementsSubtabStateReadyImplCopyWithImpl<$Res>
     extends _$AdminAnnouncementsSubtabStateCopyWithImpl<$Res,
-        _$AdminAnnouncementsSubtabStateReady>
-    implements _$$AdminAnnouncementsSubtabStateReadyCopyWith<$Res> {
-  __$$AdminAnnouncementsSubtabStateReadyCopyWithImpl(
-      _$AdminAnnouncementsSubtabStateReady _value,
-      $Res Function(_$AdminAnnouncementsSubtabStateReady) _then)
+        _$AdminAnnouncementsSubtabStateReadyImpl>
+    implements _$$AdminAnnouncementsSubtabStateReadyImplCopyWith<$Res> {
+  __$$AdminAnnouncementsSubtabStateReadyImplCopyWithImpl(
+      _$AdminAnnouncementsSubtabStateReadyImpl _value,
+      $Res Function(_$AdminAnnouncementsSubtabStateReadyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -362,7 +362,7 @@ class __$$AdminAnnouncementsSubtabStateReadyCopyWithImpl<$Res>
   $Res call({
     Object? announcements = null,
   }) {
-    return _then(_$AdminAnnouncementsSubtabStateReady(
+    return _then(_$AdminAnnouncementsSubtabStateReadyImpl(
       announcements: null == announcements
           ? _value._announcements
           : announcements // ignore: cast_nullable_to_non_nullable
@@ -373,9 +373,9 @@ class __$$AdminAnnouncementsSubtabStateReadyCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AdminAnnouncementsSubtabStateReady
+class _$AdminAnnouncementsSubtabStateReadyImpl
     implements AdminAnnouncementsSubtabStateReady {
-  const _$AdminAnnouncementsSubtabStateReady(
+  const _$AdminAnnouncementsSubtabStateReadyImpl(
       {required final List<Announcement> announcements})
       : _announcements = announcements;
 
@@ -393,10 +393,10 @@ class _$AdminAnnouncementsSubtabStateReady
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AdminAnnouncementsSubtabStateReady &&
+            other is _$AdminAnnouncementsSubtabStateReadyImpl &&
             const DeepCollectionEquality()
                 .equals(other._announcements, _announcements));
   }
@@ -408,10 +408,10 @@ class _$AdminAnnouncementsSubtabStateReady
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AdminAnnouncementsSubtabStateReadyCopyWith<
-          _$AdminAnnouncementsSubtabStateReady>
-      get copyWith => __$$AdminAnnouncementsSubtabStateReadyCopyWithImpl<
-          _$AdminAnnouncementsSubtabStateReady>(this, _$identity);
+  _$$AdminAnnouncementsSubtabStateReadyImplCopyWith<
+          _$AdminAnnouncementsSubtabStateReadyImpl>
+      get copyWith => __$$AdminAnnouncementsSubtabStateReadyImplCopyWithImpl<
+          _$AdminAnnouncementsSubtabStateReadyImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -494,39 +494,39 @@ abstract class AdminAnnouncementsSubtabStateReady
     implements AdminAnnouncementsSubtabState {
   const factory AdminAnnouncementsSubtabStateReady(
           {required final List<Announcement> announcements}) =
-      _$AdminAnnouncementsSubtabStateReady;
+      _$AdminAnnouncementsSubtabStateReadyImpl;
 
   List<Announcement> get announcements;
   @JsonKey(ignore: true)
-  _$$AdminAnnouncementsSubtabStateReadyCopyWith<
-          _$AdminAnnouncementsSubtabStateReady>
+  _$$AdminAnnouncementsSubtabStateReadyImplCopyWith<
+          _$AdminAnnouncementsSubtabStateReadyImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$AdminAnnouncementsSubtabStateFailureCopyWith<$Res> {
-  factory _$$AdminAnnouncementsSubtabStateFailureCopyWith(
-          _$AdminAnnouncementsSubtabStateFailure value,
-          $Res Function(_$AdminAnnouncementsSubtabStateFailure) then) =
-      __$$AdminAnnouncementsSubtabStateFailureCopyWithImpl<$Res>;
+abstract class _$$AdminAnnouncementsSubtabStateFailureImplCopyWith<$Res> {
+  factory _$$AdminAnnouncementsSubtabStateFailureImplCopyWith(
+          _$AdminAnnouncementsSubtabStateFailureImpl value,
+          $Res Function(_$AdminAnnouncementsSubtabStateFailureImpl) then) =
+      __$$AdminAnnouncementsSubtabStateFailureImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AdminAnnouncementsSubtabStateFailureCopyWithImpl<$Res>
+class __$$AdminAnnouncementsSubtabStateFailureImplCopyWithImpl<$Res>
     extends _$AdminAnnouncementsSubtabStateCopyWithImpl<$Res,
-        _$AdminAnnouncementsSubtabStateFailure>
-    implements _$$AdminAnnouncementsSubtabStateFailureCopyWith<$Res> {
-  __$$AdminAnnouncementsSubtabStateFailureCopyWithImpl(
-      _$AdminAnnouncementsSubtabStateFailure _value,
-      $Res Function(_$AdminAnnouncementsSubtabStateFailure) _then)
+        _$AdminAnnouncementsSubtabStateFailureImpl>
+    implements _$$AdminAnnouncementsSubtabStateFailureImplCopyWith<$Res> {
+  __$$AdminAnnouncementsSubtabStateFailureImplCopyWithImpl(
+      _$AdminAnnouncementsSubtabStateFailureImpl _value,
+      $Res Function(_$AdminAnnouncementsSubtabStateFailureImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$AdminAnnouncementsSubtabStateFailure
+class _$AdminAnnouncementsSubtabStateFailureImpl
     implements AdminAnnouncementsSubtabStateFailure {
-  const _$AdminAnnouncementsSubtabStateFailure();
+  const _$AdminAnnouncementsSubtabStateFailureImpl();
 
   @override
   String toString() {
@@ -534,10 +534,10 @@ class _$AdminAnnouncementsSubtabStateFailure
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AdminAnnouncementsSubtabStateFailure);
+            other is _$AdminAnnouncementsSubtabStateFailureImpl);
   }
 
   @override
@@ -623,5 +623,5 @@ class _$AdminAnnouncementsSubtabStateFailure
 abstract class AdminAnnouncementsSubtabStateFailure
     implements AdminAnnouncementsSubtabState {
   const factory AdminAnnouncementsSubtabStateFailure() =
-      _$AdminAnnouncementsSubtabStateFailure;
+      _$AdminAnnouncementsSubtabStateFailureImpl;
 }

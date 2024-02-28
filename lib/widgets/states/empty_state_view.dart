@@ -1,4 +1,7 @@
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
 import 'package:sujud/widgets/shared/sujud_button.dart';
 
 class EmptyStateView extends StatelessWidget {

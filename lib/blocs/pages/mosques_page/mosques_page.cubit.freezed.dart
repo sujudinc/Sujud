@@ -12,7 +12,7 @@ part of 'mosques_page.cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$MosquesPageState {
@@ -87,25 +87,27 @@ class _$MosquesPageStateCopyWithImpl<$Res, $Val extends MosquesPageState>
 }
 
 /// @nodoc
-abstract class _$$MosquesPageStateLoadingCopyWith<$Res> {
-  factory _$$MosquesPageStateLoadingCopyWith(_$MosquesPageStateLoading value,
-          $Res Function(_$MosquesPageStateLoading) then) =
-      __$$MosquesPageStateLoadingCopyWithImpl<$Res>;
+abstract class _$$MosquesPageStateLoadingImplCopyWith<$Res> {
+  factory _$$MosquesPageStateLoadingImplCopyWith(
+          _$MosquesPageStateLoadingImpl value,
+          $Res Function(_$MosquesPageStateLoadingImpl) then) =
+      __$$MosquesPageStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$MosquesPageStateLoadingCopyWithImpl<$Res>
-    extends _$MosquesPageStateCopyWithImpl<$Res, _$MosquesPageStateLoading>
-    implements _$$MosquesPageStateLoadingCopyWith<$Res> {
-  __$$MosquesPageStateLoadingCopyWithImpl(_$MosquesPageStateLoading _value,
-      $Res Function(_$MosquesPageStateLoading) _then)
+class __$$MosquesPageStateLoadingImplCopyWithImpl<$Res>
+    extends _$MosquesPageStateCopyWithImpl<$Res, _$MosquesPageStateLoadingImpl>
+    implements _$$MosquesPageStateLoadingImplCopyWith<$Res> {
+  __$$MosquesPageStateLoadingImplCopyWithImpl(
+      _$MosquesPageStateLoadingImpl _value,
+      $Res Function(_$MosquesPageStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$MosquesPageStateLoading implements MosquesPageStateLoading {
-  const _$MosquesPageStateLoading();
+class _$MosquesPageStateLoadingImpl implements MosquesPageStateLoading {
+  const _$MosquesPageStateLoadingImpl();
 
   @override
   String toString() {
@@ -113,10 +115,10 @@ class _$MosquesPageStateLoading implements MosquesPageStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MosquesPageStateLoading);
+            other is _$MosquesPageStateLoadingImpl);
   }
 
   @override
@@ -198,29 +200,30 @@ class _$MosquesPageStateLoading implements MosquesPageStateLoading {
 }
 
 abstract class MosquesPageStateLoading implements MosquesPageState {
-  const factory MosquesPageStateLoading() = _$MosquesPageStateLoading;
+  const factory MosquesPageStateLoading() = _$MosquesPageStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$MosquesPageStateEmptyCopyWith<$Res> {
-  factory _$$MosquesPageStateEmptyCopyWith(_$MosquesPageStateEmpty value,
-          $Res Function(_$MosquesPageStateEmpty) then) =
-      __$$MosquesPageStateEmptyCopyWithImpl<$Res>;
+abstract class _$$MosquesPageStateEmptyImplCopyWith<$Res> {
+  factory _$$MosquesPageStateEmptyImplCopyWith(
+          _$MosquesPageStateEmptyImpl value,
+          $Res Function(_$MosquesPageStateEmptyImpl) then) =
+      __$$MosquesPageStateEmptyImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$MosquesPageStateEmptyCopyWithImpl<$Res>
-    extends _$MosquesPageStateCopyWithImpl<$Res, _$MosquesPageStateEmpty>
-    implements _$$MosquesPageStateEmptyCopyWith<$Res> {
-  __$$MosquesPageStateEmptyCopyWithImpl(_$MosquesPageStateEmpty _value,
-      $Res Function(_$MosquesPageStateEmpty) _then)
+class __$$MosquesPageStateEmptyImplCopyWithImpl<$Res>
+    extends _$MosquesPageStateCopyWithImpl<$Res, _$MosquesPageStateEmptyImpl>
+    implements _$$MosquesPageStateEmptyImplCopyWith<$Res> {
+  __$$MosquesPageStateEmptyImplCopyWithImpl(_$MosquesPageStateEmptyImpl _value,
+      $Res Function(_$MosquesPageStateEmptyImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$MosquesPageStateEmpty implements MosquesPageStateEmpty {
-  const _$MosquesPageStateEmpty();
+class _$MosquesPageStateEmptyImpl implements MosquesPageStateEmpty {
+  const _$MosquesPageStateEmptyImpl();
 
   @override
   String toString() {
@@ -228,9 +231,10 @@ class _$MosquesPageStateEmpty implements MosquesPageStateEmpty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$MosquesPageStateEmpty);
+        (other.runtimeType == runtimeType &&
+            other is _$MosquesPageStateEmptyImpl);
   }
 
   @override
@@ -312,24 +316,25 @@ class _$MosquesPageStateEmpty implements MosquesPageStateEmpty {
 }
 
 abstract class MosquesPageStateEmpty implements MosquesPageState {
-  const factory MosquesPageStateEmpty() = _$MosquesPageStateEmpty;
+  const factory MosquesPageStateEmpty() = _$MosquesPageStateEmptyImpl;
 }
 
 /// @nodoc
-abstract class _$$MosquesPageStateReadyCopyWith<$Res> {
-  factory _$$MosquesPageStateReadyCopyWith(_$MosquesPageStateReady value,
-          $Res Function(_$MosquesPageStateReady) then) =
-      __$$MosquesPageStateReadyCopyWithImpl<$Res>;
+abstract class _$$MosquesPageStateReadyImplCopyWith<$Res> {
+  factory _$$MosquesPageStateReadyImplCopyWith(
+          _$MosquesPageStateReadyImpl value,
+          $Res Function(_$MosquesPageStateReadyImpl) then) =
+      __$$MosquesPageStateReadyImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<Mosque> mosques});
 }
 
 /// @nodoc
-class __$$MosquesPageStateReadyCopyWithImpl<$Res>
-    extends _$MosquesPageStateCopyWithImpl<$Res, _$MosquesPageStateReady>
-    implements _$$MosquesPageStateReadyCopyWith<$Res> {
-  __$$MosquesPageStateReadyCopyWithImpl(_$MosquesPageStateReady _value,
-      $Res Function(_$MosquesPageStateReady) _then)
+class __$$MosquesPageStateReadyImplCopyWithImpl<$Res>
+    extends _$MosquesPageStateCopyWithImpl<$Res, _$MosquesPageStateReadyImpl>
+    implements _$$MosquesPageStateReadyImplCopyWith<$Res> {
+  __$$MosquesPageStateReadyImplCopyWithImpl(_$MosquesPageStateReadyImpl _value,
+      $Res Function(_$MosquesPageStateReadyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -337,7 +342,7 @@ class __$$MosquesPageStateReadyCopyWithImpl<$Res>
   $Res call({
     Object? mosques = null,
   }) {
-    return _then(_$MosquesPageStateReady(
+    return _then(_$MosquesPageStateReadyImpl(
       mosques: null == mosques
           ? _value._mosques
           : mosques // ignore: cast_nullable_to_non_nullable
@@ -348,8 +353,8 @@ class __$$MosquesPageStateReadyCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$MosquesPageStateReady implements MosquesPageStateReady {
-  const _$MosquesPageStateReady({required final List<Mosque> mosques})
+class _$MosquesPageStateReadyImpl implements MosquesPageStateReady {
+  const _$MosquesPageStateReadyImpl({required final List<Mosque> mosques})
       : _mosques = mosques;
 
   final List<Mosque> _mosques;
@@ -366,10 +371,10 @@ class _$MosquesPageStateReady implements MosquesPageStateReady {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MosquesPageStateReady &&
+            other is _$MosquesPageStateReadyImpl &&
             const DeepCollectionEquality().equals(other._mosques, _mosques));
   }
 
@@ -380,9 +385,9 @@ class _$MosquesPageStateReady implements MosquesPageStateReady {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MosquesPageStateReadyCopyWith<_$MosquesPageStateReady> get copyWith =>
-      __$$MosquesPageStateReadyCopyWithImpl<_$MosquesPageStateReady>(
-          this, _$identity);
+  _$$MosquesPageStateReadyImplCopyWith<_$MosquesPageStateReadyImpl>
+      get copyWith => __$$MosquesPageStateReadyImplCopyWithImpl<
+          _$MosquesPageStateReadyImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -461,29 +466,31 @@ class _$MosquesPageStateReady implements MosquesPageStateReady {
 
 abstract class MosquesPageStateReady implements MosquesPageState {
   const factory MosquesPageStateReady({required final List<Mosque> mosques}) =
-      _$MosquesPageStateReady;
+      _$MosquesPageStateReadyImpl;
 
   List<Mosque> get mosques;
   @JsonKey(ignore: true)
-  _$$MosquesPageStateReadyCopyWith<_$MosquesPageStateReady> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$MosquesPageStateReadyImplCopyWith<_$MosquesPageStateReadyImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$MosquesPageStateFailureCopyWith<$Res> {
-  factory _$$MosquesPageStateFailureCopyWith(_$MosquesPageStateFailure value,
-          $Res Function(_$MosquesPageStateFailure) then) =
-      __$$MosquesPageStateFailureCopyWithImpl<$Res>;
+abstract class _$$MosquesPageStateFailureImplCopyWith<$Res> {
+  factory _$$MosquesPageStateFailureImplCopyWith(
+          _$MosquesPageStateFailureImpl value,
+          $Res Function(_$MosquesPageStateFailureImpl) then) =
+      __$$MosquesPageStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({MosqueSelectionPageException exception});
 }
 
 /// @nodoc
-class __$$MosquesPageStateFailureCopyWithImpl<$Res>
-    extends _$MosquesPageStateCopyWithImpl<$Res, _$MosquesPageStateFailure>
-    implements _$$MosquesPageStateFailureCopyWith<$Res> {
-  __$$MosquesPageStateFailureCopyWithImpl(_$MosquesPageStateFailure _value,
-      $Res Function(_$MosquesPageStateFailure) _then)
+class __$$MosquesPageStateFailureImplCopyWithImpl<$Res>
+    extends _$MosquesPageStateCopyWithImpl<$Res, _$MosquesPageStateFailureImpl>
+    implements _$$MosquesPageStateFailureImplCopyWith<$Res> {
+  __$$MosquesPageStateFailureImplCopyWithImpl(
+      _$MosquesPageStateFailureImpl _value,
+      $Res Function(_$MosquesPageStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -491,7 +498,7 @@ class __$$MosquesPageStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? exception = null,
   }) {
-    return _then(_$MosquesPageStateFailure(
+    return _then(_$MosquesPageStateFailureImpl(
       null == exception
           ? _value.exception
           : exception // ignore: cast_nullable_to_non_nullable
@@ -502,8 +509,8 @@ class __$$MosquesPageStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$MosquesPageStateFailure implements MosquesPageStateFailure {
-  const _$MosquesPageStateFailure(this.exception);
+class _$MosquesPageStateFailureImpl implements MosquesPageStateFailure {
+  const _$MosquesPageStateFailureImpl(this.exception);
 
   @override
   final MosqueSelectionPageException exception;
@@ -514,10 +521,10 @@ class _$MosquesPageStateFailure implements MosquesPageStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MosquesPageStateFailure &&
+            other is _$MosquesPageStateFailureImpl &&
             (identical(other.exception, exception) ||
                 other.exception == exception));
   }
@@ -528,9 +535,9 @@ class _$MosquesPageStateFailure implements MosquesPageStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MosquesPageStateFailureCopyWith<_$MosquesPageStateFailure> get copyWith =>
-      __$$MosquesPageStateFailureCopyWithImpl<_$MosquesPageStateFailure>(
-          this, _$identity);
+  _$$MosquesPageStateFailureImplCopyWith<_$MosquesPageStateFailureImpl>
+      get copyWith => __$$MosquesPageStateFailureImplCopyWithImpl<
+          _$MosquesPageStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -609,10 +616,11 @@ class _$MosquesPageStateFailure implements MosquesPageStateFailure {
 
 abstract class MosquesPageStateFailure implements MosquesPageState {
   const factory MosquesPageStateFailure(
-      final MosqueSelectionPageException exception) = _$MosquesPageStateFailure;
+          final MosqueSelectionPageException exception) =
+      _$MosquesPageStateFailureImpl;
 
   MosqueSelectionPageException get exception;
   @JsonKey(ignore: true)
-  _$$MosquesPageStateFailureCopyWith<_$MosquesPageStateFailure> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$MosquesPageStateFailureImplCopyWith<_$MosquesPageStateFailureImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

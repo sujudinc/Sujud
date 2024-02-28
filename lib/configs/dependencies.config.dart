@@ -1,26 +1,29 @@
+// 🐦 Flutter imports:
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
-// 🐦 Flutter imports:
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sujud/graphql/graphql.dart';
+import 'package:url_strategy/url_strategy.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/apis/apis.dart';
-import 'package:sujud/configs/amplify.config.dart';
+import 'package:sujud/configs/configs.dart';
 import 'package:sujud/models/models.dart';
 import 'package:sujud/repos/repos.dart';
 import 'package:sujud/services/services.dart';
 import 'package:sujud/utilities/utilities.dart';
-import 'package:url_strategy/url_strategy.dart';
 
 final _dependencies = GetIt.instance;
 
@@ -40,6 +43,7 @@ Future<void> initDependencies() async {
 
   _initUtilities();
   _initServices();
+  _initGraphQlOperations();
   _initApis();
   _initRepos();
   _initAppDependencies();
@@ -65,19 +69,31 @@ Future<void> _initAmplify() async {
 void _initAppDependencies() => _dependencies
   ..registerSingleton<NavigationUtilityAbstract>(NavigationUtility());
 
+void _initGraphQlOperations() => _dependencies
+  ..registerFactory<AnnouncementOperationAbstract>(
+    AnnouncementOperation.new,
+  )
+  ..registerFactory<MosqueOperationAbstract>(
+    MosqueOperation.new,
+  )
+  ..registerFactory<UserOperationAbstract>(
+    UserOperation.new,
+  );
+
 void _initApis() => _dependencies
-  ..registerFactory<ModelApiAbstract<Announcement>>(
+  ..registerFactory<AnnouncementApiAbstract>(
     AnnouncementApi.new,
   )
-  ..registerFactory<ModelApiAbstract<Mosque>>(
+  ..registerFactory<MosqueApiAbstract>(
     MosqueApi.new,
   )
-  ..registerFactory<ModelApiAbstract<User>>(
+  ..registerFactory<UserApiAbstract>(
     UserApi.new,
   );
 
 void _initRepos() => _dependencies
-  ..registerSingleton<AnnouncementRepoAbstract>(AnnouncementRepo())
+  ..registerSingleton<AdminAnnouncementRepoAbstract>(AdminAnnouncementRepo())
+  ..registerSingleton<JamaahAnnouncementRepoAbstract>(JamaahAnnouncementRepo())
   ..registerSingleton<MosqueRepoAbstract>(MosqueRepo())
   ..registerSingleton<UserRepoAbstract>(UserRepo());
 

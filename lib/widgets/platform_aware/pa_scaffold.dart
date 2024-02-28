@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/configs/configs.dart';
 
@@ -65,7 +66,6 @@ class PAScaffold extends StatelessWidget {
       );
 
   Widget _iosScaffold(BuildContext context) => CupertinoPageScaffold(
-        backgroundColor: backgroundColor ?? _backgroundColor(Theme.of(context)),
         navigationBar: CupertinoNavigationBar(
           leading: _leading(context),
           automaticallyImplyLeading: false,
@@ -73,20 +73,17 @@ class PAScaffold extends StatelessWidget {
           middle: _middle(Theme.of(context)),
           trailing: _trailing(context),
           border: _borderless(),
-          backgroundColor: appBarColor ?? _backgroundColor(Theme.of(context)),
         ),
         child: _body(context),
       );
 
   Widget _androidScaffold(BuildContext context) => Scaffold(
-        backgroundColor: backgroundColor ?? _backgroundColor(Theme.of(context)),
         appBar: AppBar(
           leading: _leading(context),
           automaticallyImplyLeading: false,
           title: _middle(Theme.of(context)),
           actions: trailing,
           elevation: 0.0,
-          backgroundColor: appBarColor ?? _backgroundColor(Theme.of(context)),
           centerTitle: centerTitle,
         ),
         extendBody: true,
@@ -105,10 +102,6 @@ class PAScaffold extends StatelessWidget {
                     title: _middle(Theme.of(context)),
                     actions: trailing,
                     elevation: 0.0,
-                    backgroundColor: appBarColor ??
-                        _backgroundColor(
-                          Theme.of(context),
-                        ),
                     centerTitle: centerTitle,
                   ),
                 ]
@@ -121,10 +114,6 @@ class PAScaffold extends StatelessWidget {
                           automaticallyImplyTitle: false,
                           trailing: _trailing(context),
                           border: _borderless(),
-                          backgroundColor: appBarColor ??
-                              _backgroundColor(
-                                Theme.of(context),
-                              ),
                         )
                       : SliverAppBar.medium(
                           leading: _leading(context),
@@ -132,10 +121,6 @@ class PAScaffold extends StatelessWidget {
                           title: _middle(Theme.of(context)),
                           actions: trailing,
                           elevation: 0.0,
-                          backgroundColor: appBarColor ??
-                              _backgroundColor(
-                                Theme.of(context),
-                              ),
                           centerTitle: centerTitle,
                         ),
                   SliverToBoxAdapter(
@@ -171,9 +156,6 @@ class PAScaffold extends StatelessWidget {
         width: 0.0,
         style: BorderStyle.none,
       );
-
-  Color _backgroundColor(ThemeData theme) =>
-      backgroundColor ?? theme.scaffoldBackgroundColor;
 
   Widget _body(BuildContext context) => Stack(
         children: <Widget>[

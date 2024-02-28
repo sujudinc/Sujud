@@ -1,6 +1,7 @@
 // 📦 Package imports:
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/models/attributed_file.model.dart';
@@ -40,7 +41,15 @@ class AmplifyStorageService implements AmplifyStorageServiceAbstract {
 
   @override
   Future<Uri> getUri({required String key}) async {
-    final response = await _s3.getUrl(key: key).result;
+    final response = await _s3
+        .getUrl(
+            key: key,
+            options: const StorageGetUrlOptions(
+              pluginOptions: S3GetUrlPluginOptions(
+                expiresIn: Duration(days: 7),
+              ),
+            ))
+        .result;
 
     return response.url;
   }

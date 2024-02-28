@@ -3,42 +3,45 @@ import 'package:sujud/graphql/graphql.dart';
 
 final createAnnouncement = '''
   mutation CreateAnnouncement(
+    \$creatorId: ID!
     \$input: CreateAnnouncementInput!
     \$condition: ModelAnnouncementConditionInput
   ) {
-    ${CreateOperations.createAnnouncement.name}(
+    ${CreateOperation.createAnnouncement.name}(
       input: \$input
       condition: \$condition
     ) {
-      $announcementDocument
+      ${announcementDocument()}
     }
   }
 ''';
 
 final updateAnnouncement = '''
   mutation UpdateAnnouncement(
+    \$creatorId: ID!
     \$input: UpdateAnnouncementInput!
     \$condition: ModelAnnouncementConditionInput
   ) {
-    ${UpdateOperations.updateAnnouncement.name}(
+    ${UpdateOperation.updateAnnouncement.name}(
       input: \$input
       condition: \$condition
     ) {
-      $announcementDocument
+      ${announcementDocument()}
     }
   }
 ''';
 
 final deleteAnnouncement = '''
   mutation DeleteAnnouncement(
+    \$creatorId: ID!
     \$input: DeleteAnnouncementInput!
     \$condition: ModelAnnouncementConditionInput
   ) {
-    ${DeleteOperations.deleteAnnouncement.name}(
+    ${DeleteOperation.deleteAnnouncement.name}(
       input: \$input
       condition: \$condition
     ) {
-      $announcementDocument
+      ${announcementDocument()}
     }
   }
 ''';
@@ -48,11 +51,11 @@ final createMosque = '''
     \$input: CreateMosqueInput!
     \$condition: ModelMosqueConditionInput
   ) {
-    ${CreateOperations.createMosque.name}(
+    ${CreateOperation.createMosque.name}(
       input: \$input
       condition: \$condition
     ) {
-      $mosqueDocument
+      ${mosqueDocument()}
     }
   }
 ''';
@@ -62,11 +65,11 @@ final updateMosque = '''
     \$input: UpdateMosqueInput!
     \$condition: ModelMosqueConditionInput
   ) {
-    ${UpdateOperations.updateMosque.name}(
+    ${UpdateOperation.updateMosque.name}(
       input: \$input
       condition: \$condition
     ) {
-      $mosqueDocument
+      ${mosqueDocument()}
     }
   }
 ''';
@@ -76,25 +79,11 @@ final deleteMosque = '''
     \$input: DeleteMosqueInput!
     \$condition: ModelMosqueConditionInput
   ) {
-    ${DeleteOperations.deleteMosque.name}(
+    ${DeleteOperation.deleteMosque.name}(
       input: \$input
       condition: \$condition
     ) {
-      $mosqueDocument
-    }
-  }
-''';
-
-final createUser = '''
-  mutation CreateUser(
-    \$input: CreateUserInput!
-    \$condition: ModelUserConditionInput
-  ) {
-    ${CreateOperations.createUser.name}(
-      input: \$input
-      condition: \$condition
-     ) {
-      $userDocument
+      ${mosqueDocument()}
     }
   }
 ''';
@@ -104,25 +93,11 @@ final updateUser = '''
     \$input: UpdateUserInput!
     \$condition: ModelUserConditionInput
   ) {
-    ${UpdateOperations.updateUser.name}(
+    ${UpdateOperation.updateUser.name}(
       input: \$input
       condition: \$condition
     ) {
-      $userDocument
-    }
-  }
-''';
-
-final deleteUser = '''
-  mutation DeleteUser(
-    \$input: DeleteUserInput!
-    \$condition: ModelUserConditionInput
-  ) {
-    ${DeleteOperations.deleteUser.name}(
-      input: \$input
-      condition: \$condition
-    ) {
-      $userDocument
+      ${userDocument()}
     }
   }
 ''';

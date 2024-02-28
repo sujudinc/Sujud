@@ -1,99 +1,95 @@
 // 🌎 Project imports:
 import 'package:sujud/graphql/graphql.dart';
 
-extension GetOperationsX on GetOperations {
+extension GetOperationX on GetOperation {
   String get query {
     switch (this) {
-      case GetOperations.getAnnouncement:
+      case GetOperation.getAnnouncement:
         return getAnnouncement;
-      case GetOperations.getBookmark:
+      case GetOperation.getBookmark:
         return getBookmark;
-      case GetOperations.getComment:
+      case GetOperation.getComment:
         return getComment;
-      case GetOperations.getLike:
+      case GetOperation.getLike:
         return getLike;
-      case GetOperations.getMosque:
+      case GetOperation.getMosque:
         return getMosque;
-      case GetOperations.getUser:
+      case GetOperation.getUser:
         return getUser;
     }
   }
 }
 
-extension ListOperationX on ListOperations {
+extension ListOperationX on ListOperation {
   String get query {
     switch (this) {
-      case ListOperations.announcementsByMosqueId:
+      case ListOperation.announcementsByMosqueId:
         return announcementsByMosqueId;
-      case ListOperations.listAnnouncements:
+      case ListOperation.listAnnouncements:
         return listAnnouncements;
-      case ListOperations.listMosques:
+      case ListOperation.listMosques:
         return listMosques;
-      case ListOperations.listUsers:
+      case ListOperation.listUsers:
         return listUsers;
     }
   }
 }
 
-extension CreateOperationX on CreateOperations {
+extension CreateOperationX on CreateOperation {
   String get mutation {
     switch (this) {
-      case CreateOperations.createAnnouncement:
+      case CreateOperation.createAnnouncement:
         return createAnnouncement;
-      case CreateOperations.createMosque:
+      case CreateOperation.createMosque:
         return createMosque;
-      case CreateOperations.createUser:
-        return createUser;
     }
   }
 }
 
-extension UpdateOperationX on UpdateOperations {
+extension UpdateOperationX on UpdateOperation {
   String get mutation {
     switch (this) {
-      case UpdateOperations.updateAnnouncement:
+      case UpdateOperation.updateAnnouncement:
         return updateAnnouncement;
-      case UpdateOperations.updateMosque:
+      case UpdateOperation.updateMosque:
         return updateMosque;
-      case UpdateOperations.updateUser:
+      case UpdateOperation.updateUser:
         return updateUser;
     }
   }
 }
 
-extension DeleteOperationX on DeleteOperations {
+extension DeleteOperationX on DeleteOperation {
   String get mutation {
     switch (this) {
-      case DeleteOperations.deleteAnnouncement:
+      case DeleteOperation.deleteAnnouncement:
         return deleteAnnouncement;
-      case DeleteOperations.deleteMosque:
+      case DeleteOperation.deleteMosque:
         return deleteMosque;
-      case DeleteOperations.deleteUser:
-        return deleteUser;
     }
   }
 }
 
-extension SubscriptionOperationX on SubscriptionOperations {
+extension SubscriptionOperationX on SubscriptionOperation {
   String get subscription {
     switch (this) {
-      case SubscriptionOperations.onCreateAnnouncement:
+      case SubscriptionOperation.onCreateAnnouncement:
         return onCreateAnnouncement;
-      case SubscriptionOperations.onUpdateAnnouncement:
+      case SubscriptionOperation.onUpdateAnnouncement:
         return onUpdateAnnouncement;
-      case SubscriptionOperations.onDeleteAnnouncement:
+      case SubscriptionOperation.onDeleteAnnouncement:
         return onDeleteAnnouncement;
-      case SubscriptionOperations.onCreateMosque:
+      case SubscriptionOperation.onCreateMosque:
         return onCreateMosque;
-      case SubscriptionOperations.onUpdateMosque:
+      case SubscriptionOperation.onUpdateMosque:
         return onUpdateMosque;
-      case SubscriptionOperations.onDeleteMosque:
+      case SubscriptionOperation.onDeleteMosque:
         return onDeleteMosque;
-      case SubscriptionOperations.onCreateUser:
+      case SubscriptionOperation.onCreateUser:
         return onCreateUser;
-      case SubscriptionOperations.onUpdateUser:
+      case SubscriptionOperation.onUpdateUser:
         return onUpdateUser;
-      case SubscriptionOperations.onDeleteUser:
+      case SubscriptionOperation.onDeleteUser:
         return onDeleteUser;
     }
   }

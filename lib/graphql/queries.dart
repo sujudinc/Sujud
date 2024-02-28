@@ -3,48 +3,48 @@ import 'package:sujud/graphql/graphql.dart';
 
 final getAnnouncement = '''
   query GetAnnouncement(\$id: ID!) {
-    ${GetOperations.getAnnouncement.name}(id: \$id) {
-      $announcementDocument
+    ${GetOperation.getAnnouncement.name}(id: \$id) {
+      ${announcementDocument()}
     }
   }
 ''';
 
 final getBookmark = '''
   query GetBookmark(\$id: ID!) {
-    ${GetOperations.getBookmark.name}(id: \$id) {
-      $bookmarkDocument
+    ${GetOperation.getBookmark.name}(id: \$id) {
+      ${bookmarkDocument()}
     }
   }
 ''';
 
 final getComment = '''
   query GetComment(\$id: ID!) {
-    ${GetOperations.getComment.name}(id: \$id) {
-      $commentDocument
+    ${GetOperation.getComment.name}(id: \$id) {
+      ${commentDocument()}
     }
   }
 ''';
 
 final getLike = '''
   query GetLike(\$id: ID!) {
-    ${GetOperations.getLike.name}(id: \$id) {
-      $likeDocument
+    ${GetOperation.getLike.name}(id: \$id) {
+      ${likeDocument()}
     }
   }
 ''';
 
 final getMosque = '''
   query GetMosque(\$id: ID!) {
-    ${GetOperations.getMosque.name}(id: \$id) {
-      $mosqueDocument
+    ${GetOperation.getMosque.name}(id: \$id) {
+      ${mosqueDocument()}
     }
   }
 ''';
 
 final getUser = '''
   query GetUser(\$id: ID!) {
-    ${GetOperations.getUser.name}(id: \$id) {
-      $userDocument
+    ${GetOperation.getUser.name}(id: \$id) {
+      ${userDocument()}
     }
   }
 ''';
@@ -55,13 +55,13 @@ final listAnnouncements = '''
     \$limit: Int
     \$nextToken: String
   ) {
-    ${ListOperations.listAnnouncements.name}(
+    ${ListOperation.listAnnouncements.name}(
       filter: \$filter
       limit: \$limit
       nextToken: \$nextToken
     ) {
       items {
-        $announcementDocument
+        ${announcementDocument()}
       }
       nextToken
       startedAt
@@ -78,7 +78,7 @@ final announcementsByMosqueId = '''
     \$limit: Int
     \$nextToken: String
   ) {
-    ${ListOperations.announcementsByMosqueId.name}(
+    ${ListOperation.announcementsByMosqueId.name}(
       mosqueId: \$mosqueId
       sortDirection: \$sortDirection
       filter: \$filter
@@ -86,7 +86,9 @@ final announcementsByMosqueId = '''
       nextToken: \$nextToken
     ) {
       items {
-        $announcementDocument
+        ${announcementDocument(
+  includeCreator: true,
+)}
       }
       nextToken
       startedAt
@@ -100,13 +102,15 @@ final listMosques = '''
     \$limit: Int
     \$nextToken: String
   ) {
-    ${ListOperations.listMosques.name}(
+    ${ListOperation.listMosques.name}(
       filter: \$filter
       limit: \$limit
       nextToken: \$nextToken
     ) {
       items {
-        $mosqueDocument
+        ${mosqueDocument(
+  includeCreator: true,
+)}
       }
       nextToken
       startedAt
@@ -120,13 +124,13 @@ final listUsers = '''
     \$limit: Int
     \$nextToken: String
   ) {
-    ${ListOperations.listUsers.name}(
+    ${ListOperation.listUsers.name}(
       filter: \$filter
       limit: \$limit
       nextToken: \$nextToken
     ) {
       items {
-        $userDocument
+        ${userDocument()}
       }
       nextToken
       startedAt

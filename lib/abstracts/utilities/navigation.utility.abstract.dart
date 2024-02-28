@@ -1,7 +1,8 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:sujud/configs/configs.dart';
+
 // 🌎 Project imports:
+import 'package:sujud/configs/configs.dart';
 import 'package:sujud/models/models.dart';
 
 abstract class NavigationUtilityAbstract {

@@ -211,10 +211,10 @@ class AmplifyAuthService implements AmplifyAuthServiceAbstract {
   }
 
   @override
-  Future<ResendUserAttributeConfirmationCodeResult> resendVerificationCode({
+  Future<SendUserAttributeVerificationCodeResult> resendVerificationCode({
     required AuthUserAttributeKey key,
   }) async {
-    final result = await _amplifyAuth.resendUserAttributeConfirmationCode(
+    final result = await _amplifyAuth.sendUserAttributeVerificationCode(
       userAttributeKey: key,
     );
 

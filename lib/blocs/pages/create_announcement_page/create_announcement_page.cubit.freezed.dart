@@ -12,7 +12,7 @@ part of 'create_announcement_page.cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$CreateAnnouncementPageState {
@@ -120,29 +120,29 @@ class _$CreateAnnouncementPageStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$CreateAnnouncementPageStateInitialCopyWith<$Res> {
-  factory _$$CreateAnnouncementPageStateInitialCopyWith(
-          _$CreateAnnouncementPageStateInitial value,
-          $Res Function(_$CreateAnnouncementPageStateInitial) then) =
-      __$$CreateAnnouncementPageStateInitialCopyWithImpl<$Res>;
+abstract class _$$CreateAnnouncementPageStateInitialImplCopyWith<$Res> {
+  factory _$$CreateAnnouncementPageStateInitialImplCopyWith(
+          _$CreateAnnouncementPageStateInitialImpl value,
+          $Res Function(_$CreateAnnouncementPageStateInitialImpl) then) =
+      __$$CreateAnnouncementPageStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$CreateAnnouncementPageStateInitialCopyWithImpl<$Res>
+class __$$CreateAnnouncementPageStateInitialImplCopyWithImpl<$Res>
     extends _$CreateAnnouncementPageStateCopyWithImpl<$Res,
-        _$CreateAnnouncementPageStateInitial>
-    implements _$$CreateAnnouncementPageStateInitialCopyWith<$Res> {
-  __$$CreateAnnouncementPageStateInitialCopyWithImpl(
-      _$CreateAnnouncementPageStateInitial _value,
-      $Res Function(_$CreateAnnouncementPageStateInitial) _then)
+        _$CreateAnnouncementPageStateInitialImpl>
+    implements _$$CreateAnnouncementPageStateInitialImplCopyWith<$Res> {
+  __$$CreateAnnouncementPageStateInitialImplCopyWithImpl(
+      _$CreateAnnouncementPageStateInitialImpl _value,
+      $Res Function(_$CreateAnnouncementPageStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$CreateAnnouncementPageStateInitial
+class _$CreateAnnouncementPageStateInitialImpl
     implements CreateAnnouncementPageStateInitial {
-  const _$CreateAnnouncementPageStateInitial();
+  const _$CreateAnnouncementPageStateInitialImpl();
 
   @override
   String toString() {
@@ -150,10 +150,10 @@ class _$CreateAnnouncementPageStateInitial
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateAnnouncementPageStateInitial);
+            other is _$CreateAnnouncementPageStateInitialImpl);
   }
 
   @override
@@ -267,33 +267,33 @@ class _$CreateAnnouncementPageStateInitial
 abstract class CreateAnnouncementPageStateInitial
     implements CreateAnnouncementPageState {
   const factory CreateAnnouncementPageStateInitial() =
-      _$CreateAnnouncementPageStateInitial;
+      _$CreateAnnouncementPageStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$CreateAnnouncementPageStateLoadingSetterCopyWith<$Res> {
-  factory _$$CreateAnnouncementPageStateLoadingSetterCopyWith(
-          _$CreateAnnouncementPageStateLoadingSetter value,
-          $Res Function(_$CreateAnnouncementPageStateLoadingSetter) then) =
-      __$$CreateAnnouncementPageStateLoadingSetterCopyWithImpl<$Res>;
+abstract class _$$CreateAnnouncementPageStateLoadingSetterImplCopyWith<$Res> {
+  factory _$$CreateAnnouncementPageStateLoadingSetterImplCopyWith(
+          _$CreateAnnouncementPageStateLoadingSetterImpl value,
+          $Res Function(_$CreateAnnouncementPageStateLoadingSetterImpl) then) =
+      __$$CreateAnnouncementPageStateLoadingSetterImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$CreateAnnouncementPageStateLoadingSetterCopyWithImpl<$Res>
+class __$$CreateAnnouncementPageStateLoadingSetterImplCopyWithImpl<$Res>
     extends _$CreateAnnouncementPageStateCopyWithImpl<$Res,
-        _$CreateAnnouncementPageStateLoadingSetter>
-    implements _$$CreateAnnouncementPageStateLoadingSetterCopyWith<$Res> {
-  __$$CreateAnnouncementPageStateLoadingSetterCopyWithImpl(
-      _$CreateAnnouncementPageStateLoadingSetter _value,
-      $Res Function(_$CreateAnnouncementPageStateLoadingSetter) _then)
+        _$CreateAnnouncementPageStateLoadingSetterImpl>
+    implements _$$CreateAnnouncementPageStateLoadingSetterImplCopyWith<$Res> {
+  __$$CreateAnnouncementPageStateLoadingSetterImplCopyWithImpl(
+      _$CreateAnnouncementPageStateLoadingSetterImpl _value,
+      $Res Function(_$CreateAnnouncementPageStateLoadingSetterImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$CreateAnnouncementPageStateLoadingSetter
+class _$CreateAnnouncementPageStateLoadingSetterImpl
     implements CreateAnnouncementPageStateLoadingSetter {
-  const _$CreateAnnouncementPageStateLoadingSetter();
+  const _$CreateAnnouncementPageStateLoadingSetterImpl();
 
   @override
   String toString() {
@@ -301,10 +301,10 @@ class _$CreateAnnouncementPageStateLoadingSetter
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateAnnouncementPageStateLoadingSetter);
+            other is _$CreateAnnouncementPageStateLoadingSetterImpl);
   }
 
   @override
@@ -418,33 +418,33 @@ class _$CreateAnnouncementPageStateLoadingSetter
 abstract class CreateAnnouncementPageStateLoadingSetter
     implements CreateAnnouncementPageState {
   const factory CreateAnnouncementPageStateLoadingSetter() =
-      _$CreateAnnouncementPageStateLoadingSetter;
+      _$CreateAnnouncementPageStateLoadingSetterImpl;
 }
 
 /// @nodoc
-abstract class _$$CreateAnnouncementPageStateLoadingGalleryCopyWith<$Res> {
-  factory _$$CreateAnnouncementPageStateLoadingGalleryCopyWith(
-          _$CreateAnnouncementPageStateLoadingGallery value,
-          $Res Function(_$CreateAnnouncementPageStateLoadingGallery) then) =
-      __$$CreateAnnouncementPageStateLoadingGalleryCopyWithImpl<$Res>;
+abstract class _$$CreateAnnouncementPageStateLoadingGalleryImplCopyWith<$Res> {
+  factory _$$CreateAnnouncementPageStateLoadingGalleryImplCopyWith(
+          _$CreateAnnouncementPageStateLoadingGalleryImpl value,
+          $Res Function(_$CreateAnnouncementPageStateLoadingGalleryImpl) then) =
+      __$$CreateAnnouncementPageStateLoadingGalleryImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$CreateAnnouncementPageStateLoadingGalleryCopyWithImpl<$Res>
+class __$$CreateAnnouncementPageStateLoadingGalleryImplCopyWithImpl<$Res>
     extends _$CreateAnnouncementPageStateCopyWithImpl<$Res,
-        _$CreateAnnouncementPageStateLoadingGallery>
-    implements _$$CreateAnnouncementPageStateLoadingGalleryCopyWith<$Res> {
-  __$$CreateAnnouncementPageStateLoadingGalleryCopyWithImpl(
-      _$CreateAnnouncementPageStateLoadingGallery _value,
-      $Res Function(_$CreateAnnouncementPageStateLoadingGallery) _then)
+        _$CreateAnnouncementPageStateLoadingGalleryImpl>
+    implements _$$CreateAnnouncementPageStateLoadingGalleryImplCopyWith<$Res> {
+  __$$CreateAnnouncementPageStateLoadingGalleryImplCopyWithImpl(
+      _$CreateAnnouncementPageStateLoadingGalleryImpl _value,
+      $Res Function(_$CreateAnnouncementPageStateLoadingGalleryImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$CreateAnnouncementPageStateLoadingGallery
+class _$CreateAnnouncementPageStateLoadingGalleryImpl
     implements CreateAnnouncementPageStateLoadingGallery {
-  const _$CreateAnnouncementPageStateLoadingGallery();
+  const _$CreateAnnouncementPageStateLoadingGalleryImpl();
 
   @override
   String toString() {
@@ -452,10 +452,10 @@ class _$CreateAnnouncementPageStateLoadingGallery
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateAnnouncementPageStateLoadingGallery);
+            other is _$CreateAnnouncementPageStateLoadingGalleryImpl);
   }
 
   @override
@@ -569,33 +569,33 @@ class _$CreateAnnouncementPageStateLoadingGallery
 abstract class CreateAnnouncementPageStateLoadingGallery
     implements CreateAnnouncementPageState {
   const factory CreateAnnouncementPageStateLoadingGallery() =
-      _$CreateAnnouncementPageStateLoadingGallery;
+      _$CreateAnnouncementPageStateLoadingGalleryImpl;
 }
 
 /// @nodoc
-abstract class _$$CreateAnnouncementPageStateLoadingCameraCopyWith<$Res> {
-  factory _$$CreateAnnouncementPageStateLoadingCameraCopyWith(
-          _$CreateAnnouncementPageStateLoadingCamera value,
-          $Res Function(_$CreateAnnouncementPageStateLoadingCamera) then) =
-      __$$CreateAnnouncementPageStateLoadingCameraCopyWithImpl<$Res>;
+abstract class _$$CreateAnnouncementPageStateLoadingCameraImplCopyWith<$Res> {
+  factory _$$CreateAnnouncementPageStateLoadingCameraImplCopyWith(
+          _$CreateAnnouncementPageStateLoadingCameraImpl value,
+          $Res Function(_$CreateAnnouncementPageStateLoadingCameraImpl) then) =
+      __$$CreateAnnouncementPageStateLoadingCameraImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$CreateAnnouncementPageStateLoadingCameraCopyWithImpl<$Res>
+class __$$CreateAnnouncementPageStateLoadingCameraImplCopyWithImpl<$Res>
     extends _$CreateAnnouncementPageStateCopyWithImpl<$Res,
-        _$CreateAnnouncementPageStateLoadingCamera>
-    implements _$$CreateAnnouncementPageStateLoadingCameraCopyWith<$Res> {
-  __$$CreateAnnouncementPageStateLoadingCameraCopyWithImpl(
-      _$CreateAnnouncementPageStateLoadingCamera _value,
-      $Res Function(_$CreateAnnouncementPageStateLoadingCamera) _then)
+        _$CreateAnnouncementPageStateLoadingCameraImpl>
+    implements _$$CreateAnnouncementPageStateLoadingCameraImplCopyWith<$Res> {
+  __$$CreateAnnouncementPageStateLoadingCameraImplCopyWithImpl(
+      _$CreateAnnouncementPageStateLoadingCameraImpl _value,
+      $Res Function(_$CreateAnnouncementPageStateLoadingCameraImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$CreateAnnouncementPageStateLoadingCamera
+class _$CreateAnnouncementPageStateLoadingCameraImpl
     implements CreateAnnouncementPageStateLoadingCamera {
-  const _$CreateAnnouncementPageStateLoadingCamera();
+  const _$CreateAnnouncementPageStateLoadingCameraImpl();
 
   @override
   String toString() {
@@ -603,10 +603,10 @@ class _$CreateAnnouncementPageStateLoadingCamera
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateAnnouncementPageStateLoadingCamera);
+            other is _$CreateAnnouncementPageStateLoadingCameraImpl);
   }
 
   @override
@@ -720,33 +720,33 @@ class _$CreateAnnouncementPageStateLoadingCamera
 abstract class CreateAnnouncementPageStateLoadingCamera
     implements CreateAnnouncementPageState {
   const factory CreateAnnouncementPageStateLoadingCamera() =
-      _$CreateAnnouncementPageStateLoadingCamera;
+      _$CreateAnnouncementPageStateLoadingCameraImpl;
 }
 
 /// @nodoc
-abstract class _$$CreateAnnouncementPageStateLoadingSendCopyWith<$Res> {
-  factory _$$CreateAnnouncementPageStateLoadingSendCopyWith(
-          _$CreateAnnouncementPageStateLoadingSend value,
-          $Res Function(_$CreateAnnouncementPageStateLoadingSend) then) =
-      __$$CreateAnnouncementPageStateLoadingSendCopyWithImpl<$Res>;
+abstract class _$$CreateAnnouncementPageStateLoadingSendImplCopyWith<$Res> {
+  factory _$$CreateAnnouncementPageStateLoadingSendImplCopyWith(
+          _$CreateAnnouncementPageStateLoadingSendImpl value,
+          $Res Function(_$CreateAnnouncementPageStateLoadingSendImpl) then) =
+      __$$CreateAnnouncementPageStateLoadingSendImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$CreateAnnouncementPageStateLoadingSendCopyWithImpl<$Res>
+class __$$CreateAnnouncementPageStateLoadingSendImplCopyWithImpl<$Res>
     extends _$CreateAnnouncementPageStateCopyWithImpl<$Res,
-        _$CreateAnnouncementPageStateLoadingSend>
-    implements _$$CreateAnnouncementPageStateLoadingSendCopyWith<$Res> {
-  __$$CreateAnnouncementPageStateLoadingSendCopyWithImpl(
-      _$CreateAnnouncementPageStateLoadingSend _value,
-      $Res Function(_$CreateAnnouncementPageStateLoadingSend) _then)
+        _$CreateAnnouncementPageStateLoadingSendImpl>
+    implements _$$CreateAnnouncementPageStateLoadingSendImplCopyWith<$Res> {
+  __$$CreateAnnouncementPageStateLoadingSendImplCopyWithImpl(
+      _$CreateAnnouncementPageStateLoadingSendImpl _value,
+      $Res Function(_$CreateAnnouncementPageStateLoadingSendImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$CreateAnnouncementPageStateLoadingSend
+class _$CreateAnnouncementPageStateLoadingSendImpl
     implements CreateAnnouncementPageStateLoadingSend {
-  const _$CreateAnnouncementPageStateLoadingSend();
+  const _$CreateAnnouncementPageStateLoadingSendImpl();
 
   @override
   String toString() {
@@ -754,10 +754,10 @@ class _$CreateAnnouncementPageStateLoadingSend
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateAnnouncementPageStateLoadingSend);
+            other is _$CreateAnnouncementPageStateLoadingSendImpl);
   }
 
   @override
@@ -871,33 +871,33 @@ class _$CreateAnnouncementPageStateLoadingSend
 abstract class CreateAnnouncementPageStateLoadingSend
     implements CreateAnnouncementPageState {
   const factory CreateAnnouncementPageStateLoadingSend() =
-      _$CreateAnnouncementPageStateLoadingSend;
+      _$CreateAnnouncementPageStateLoadingSendImpl;
 }
 
 /// @nodoc
-abstract class _$$CreateAnnouncementPageStateReadyCopyWith<$Res> {
-  factory _$$CreateAnnouncementPageStateReadyCopyWith(
-          _$CreateAnnouncementPageStateReady value,
-          $Res Function(_$CreateAnnouncementPageStateReady) then) =
-      __$$CreateAnnouncementPageStateReadyCopyWithImpl<$Res>;
+abstract class _$$CreateAnnouncementPageStateReadyImplCopyWith<$Res> {
+  factory _$$CreateAnnouncementPageStateReadyImplCopyWith(
+          _$CreateAnnouncementPageStateReadyImpl value,
+          $Res Function(_$CreateAnnouncementPageStateReadyImpl) then) =
+      __$$CreateAnnouncementPageStateReadyImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$CreateAnnouncementPageStateReadyCopyWithImpl<$Res>
+class __$$CreateAnnouncementPageStateReadyImplCopyWithImpl<$Res>
     extends _$CreateAnnouncementPageStateCopyWithImpl<$Res,
-        _$CreateAnnouncementPageStateReady>
-    implements _$$CreateAnnouncementPageStateReadyCopyWith<$Res> {
-  __$$CreateAnnouncementPageStateReadyCopyWithImpl(
-      _$CreateAnnouncementPageStateReady _value,
-      $Res Function(_$CreateAnnouncementPageStateReady) _then)
+        _$CreateAnnouncementPageStateReadyImpl>
+    implements _$$CreateAnnouncementPageStateReadyImplCopyWith<$Res> {
+  __$$CreateAnnouncementPageStateReadyImplCopyWithImpl(
+      _$CreateAnnouncementPageStateReadyImpl _value,
+      $Res Function(_$CreateAnnouncementPageStateReadyImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$CreateAnnouncementPageStateReady
+class _$CreateAnnouncementPageStateReadyImpl
     implements CreateAnnouncementPageStateReady {
-  const _$CreateAnnouncementPageStateReady();
+  const _$CreateAnnouncementPageStateReadyImpl();
 
   @override
   String toString() {
@@ -905,10 +905,10 @@ class _$CreateAnnouncementPageStateReady
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateAnnouncementPageStateReady);
+            other is _$CreateAnnouncementPageStateReadyImpl);
   }
 
   @override
@@ -1022,27 +1022,27 @@ class _$CreateAnnouncementPageStateReady
 abstract class CreateAnnouncementPageStateReady
     implements CreateAnnouncementPageState {
   const factory CreateAnnouncementPageStateReady() =
-      _$CreateAnnouncementPageStateReady;
+      _$CreateAnnouncementPageStateReadyImpl;
 }
 
 /// @nodoc
-abstract class _$$CreateAnnouncementPageStateErrorCopyWith<$Res> {
-  factory _$$CreateAnnouncementPageStateErrorCopyWith(
-          _$CreateAnnouncementPageStateError value,
-          $Res Function(_$CreateAnnouncementPageStateError) then) =
-      __$$CreateAnnouncementPageStateErrorCopyWithImpl<$Res>;
+abstract class _$$CreateAnnouncementPageStateErrorImplCopyWith<$Res> {
+  factory _$$CreateAnnouncementPageStateErrorImplCopyWith(
+          _$CreateAnnouncementPageStateErrorImpl value,
+          $Res Function(_$CreateAnnouncementPageStateErrorImpl) then) =
+      __$$CreateAnnouncementPageStateErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({CreateAnnouncementPageException exception});
 }
 
 /// @nodoc
-class __$$CreateAnnouncementPageStateErrorCopyWithImpl<$Res>
+class __$$CreateAnnouncementPageStateErrorImplCopyWithImpl<$Res>
     extends _$CreateAnnouncementPageStateCopyWithImpl<$Res,
-        _$CreateAnnouncementPageStateError>
-    implements _$$CreateAnnouncementPageStateErrorCopyWith<$Res> {
-  __$$CreateAnnouncementPageStateErrorCopyWithImpl(
-      _$CreateAnnouncementPageStateError _value,
-      $Res Function(_$CreateAnnouncementPageStateError) _then)
+        _$CreateAnnouncementPageStateErrorImpl>
+    implements _$$CreateAnnouncementPageStateErrorImplCopyWith<$Res> {
+  __$$CreateAnnouncementPageStateErrorImplCopyWithImpl(
+      _$CreateAnnouncementPageStateErrorImpl _value,
+      $Res Function(_$CreateAnnouncementPageStateErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1050,7 +1050,7 @@ class __$$CreateAnnouncementPageStateErrorCopyWithImpl<$Res>
   $Res call({
     Object? exception = null,
   }) {
-    return _then(_$CreateAnnouncementPageStateError(
+    return _then(_$CreateAnnouncementPageStateErrorImpl(
       null == exception
           ? _value.exception
           : exception // ignore: cast_nullable_to_non_nullable
@@ -1061,9 +1061,9 @@ class __$$CreateAnnouncementPageStateErrorCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CreateAnnouncementPageStateError
+class _$CreateAnnouncementPageStateErrorImpl
     implements CreateAnnouncementPageStateError {
-  const _$CreateAnnouncementPageStateError(this.exception);
+  const _$CreateAnnouncementPageStateErrorImpl(this.exception);
 
   @override
   final CreateAnnouncementPageException exception;
@@ -1074,10 +1074,10 @@ class _$CreateAnnouncementPageStateError
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateAnnouncementPageStateError &&
+            other is _$CreateAnnouncementPageStateErrorImpl &&
             (identical(other.exception, exception) ||
                 other.exception == exception));
   }
@@ -1088,10 +1088,10 @@ class _$CreateAnnouncementPageStateError
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CreateAnnouncementPageStateErrorCopyWith<
-          _$CreateAnnouncementPageStateError>
-      get copyWith => __$$CreateAnnouncementPageStateErrorCopyWithImpl<
-          _$CreateAnnouncementPageStateError>(this, _$identity);
+  _$$CreateAnnouncementPageStateErrorImplCopyWith<
+          _$CreateAnnouncementPageStateErrorImpl>
+      get copyWith => __$$CreateAnnouncementPageStateErrorImplCopyWithImpl<
+          _$CreateAnnouncementPageStateErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1202,11 +1202,11 @@ abstract class CreateAnnouncementPageStateError
     implements CreateAnnouncementPageState {
   const factory CreateAnnouncementPageStateError(
           final CreateAnnouncementPageException exception) =
-      _$CreateAnnouncementPageStateError;
+      _$CreateAnnouncementPageStateErrorImpl;
 
   CreateAnnouncementPageException get exception;
   @JsonKey(ignore: true)
-  _$$CreateAnnouncementPageStateErrorCopyWith<
-          _$CreateAnnouncementPageStateError>
+  _$$CreateAnnouncementPageStateErrorImplCopyWith<
+          _$CreateAnnouncementPageStateErrorImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

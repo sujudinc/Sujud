@@ -5,12 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'multi_select.state.dart';
 
 class MultiSelectCubit<T> extends Cubit<MultiSelectState<T>> {
-  MultiSelectCubit(this._items)
-      : super(
-          MultiSelectState(
-            _items,
-          ),
-        );
+  MultiSelectCubit(this._items) : super(MultiSelectState(_items));
 
   final List<T> _items;
 

@@ -1,11 +1,15 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:expandable_page_view/expandable_page_view.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/blocs.dart';
@@ -97,9 +101,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     : Container(
                         padding: kEdgeInsetsHor,
                         margin: const EdgeInsets.only(top: 15.0),
-                        child: BlocBuilder<ValueCubit<int>, ValueState<int>>(
+                        child: BlocBuilder<ValueCubit<int>, int>(
                           bloc: _currentPageValueCubit,
-                          builder: (context, state) => state.value ==
+                          builder: (context, value) => value ==
                                   sections.length - 1
                               ? state is RegisterPageStateLoading
                                   ? const PALoadingIndicator()

@@ -1,12 +1,15 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/extensions/extensions.dart';
+import 'package:sujud/widgets/platform_aware/platform_aware.dart';
 
 class SujudButton extends StatelessWidget {
   const SujudButton({
     required this.text,
     required this.onTap,
+    this.isLoading = false,
     this.isEnabled = true,
     this.outlined = true,
     this.mouseCursor,
@@ -17,6 +20,7 @@ class SujudButton extends StatelessWidget {
 
   final String text;
   final GestureTapCallback onTap;
+  final bool isLoading;
   final bool isEnabled;
   final bool outlined;
   final MouseCursor? mouseCursor;
@@ -38,7 +42,7 @@ class SujudButton extends StatelessWidget {
             ),
             decoration: outlined
                 ? BoxDecoration(
-                    color: context.theme.scaffoldBackgroundColor,
+                    // color: context.theme.scaffoldBackgroundColor,
                     borderRadius: BorderRadius.circular(10.0),
                     border: Border.all(
                       color: isEnabled ? Colors.black : Colors.grey,
@@ -62,21 +66,23 @@ class SujudButton extends StatelessWidget {
                     width: 50.0,
                     child: prefix,
                   ),
-                Text(
-                  text,
-                  style: TextStyle(
-                    color: isEnabled
-                        ? outlined
-                            ? Colors.black
-                            : context.theme.scaffoldBackgroundColor
-                        : outlined
-                            ? Colors.grey
-                            : context.theme.scaffoldBackgroundColor,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                isLoading
+                    ? const PALoadingIndicator()
+                    : Text(
+                        text,
+                        style: TextStyle(
+                          color: isEnabled
+                              ? outlined
+                                  ? null
+                                  : context.theme.scaffoldBackgroundColor
+                              : outlined
+                                  ? null
+                                  : context.theme.scaffoldBackgroundColor,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                 if (suffix != null)
                   SizedBox(
                     width: 50.0,

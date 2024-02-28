@@ -12,7 +12,7 @@ part of 'dashboard_tab.cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$DashboardTabState {
@@ -87,25 +87,28 @@ class _$DashboardTabStateCopyWithImpl<$Res, $Val extends DashboardTabState>
 }
 
 /// @nodoc
-abstract class _$$DashboardTabStateLoadingCopyWith<$Res> {
-  factory _$$DashboardTabStateLoadingCopyWith(_$DashboardTabStateLoading value,
-          $Res Function(_$DashboardTabStateLoading) then) =
-      __$$DashboardTabStateLoadingCopyWithImpl<$Res>;
+abstract class _$$DashboardTabStateLoadingImplCopyWith<$Res> {
+  factory _$$DashboardTabStateLoadingImplCopyWith(
+          _$DashboardTabStateLoadingImpl value,
+          $Res Function(_$DashboardTabStateLoadingImpl) then) =
+      __$$DashboardTabStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$DashboardTabStateLoadingCopyWithImpl<$Res>
-    extends _$DashboardTabStateCopyWithImpl<$Res, _$DashboardTabStateLoading>
-    implements _$$DashboardTabStateLoadingCopyWith<$Res> {
-  __$$DashboardTabStateLoadingCopyWithImpl(_$DashboardTabStateLoading _value,
-      $Res Function(_$DashboardTabStateLoading) _then)
+class __$$DashboardTabStateLoadingImplCopyWithImpl<$Res>
+    extends _$DashboardTabStateCopyWithImpl<$Res,
+        _$DashboardTabStateLoadingImpl>
+    implements _$$DashboardTabStateLoadingImplCopyWith<$Res> {
+  __$$DashboardTabStateLoadingImplCopyWithImpl(
+      _$DashboardTabStateLoadingImpl _value,
+      $Res Function(_$DashboardTabStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$DashboardTabStateLoading implements DashboardTabStateLoading {
-  const _$DashboardTabStateLoading();
+class _$DashboardTabStateLoadingImpl implements DashboardTabStateLoading {
+  const _$DashboardTabStateLoadingImpl();
 
   @override
   String toString() {
@@ -113,10 +116,10 @@ class _$DashboardTabStateLoading implements DashboardTabStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DashboardTabStateLoading);
+            other is _$DashboardTabStateLoadingImpl);
   }
 
   @override
@@ -198,29 +201,31 @@ class _$DashboardTabStateLoading implements DashboardTabStateLoading {
 }
 
 abstract class DashboardTabStateLoading implements DashboardTabState {
-  const factory DashboardTabStateLoading() = _$DashboardTabStateLoading;
+  const factory DashboardTabStateLoading() = _$DashboardTabStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$DashboardTabStateEmptyCopyWith<$Res> {
-  factory _$$DashboardTabStateEmptyCopyWith(_$DashboardTabStateEmpty value,
-          $Res Function(_$DashboardTabStateEmpty) then) =
-      __$$DashboardTabStateEmptyCopyWithImpl<$Res>;
+abstract class _$$DashboardTabStateEmptyImplCopyWith<$Res> {
+  factory _$$DashboardTabStateEmptyImplCopyWith(
+          _$DashboardTabStateEmptyImpl value,
+          $Res Function(_$DashboardTabStateEmptyImpl) then) =
+      __$$DashboardTabStateEmptyImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$DashboardTabStateEmptyCopyWithImpl<$Res>
-    extends _$DashboardTabStateCopyWithImpl<$Res, _$DashboardTabStateEmpty>
-    implements _$$DashboardTabStateEmptyCopyWith<$Res> {
-  __$$DashboardTabStateEmptyCopyWithImpl(_$DashboardTabStateEmpty _value,
-      $Res Function(_$DashboardTabStateEmpty) _then)
+class __$$DashboardTabStateEmptyImplCopyWithImpl<$Res>
+    extends _$DashboardTabStateCopyWithImpl<$Res, _$DashboardTabStateEmptyImpl>
+    implements _$$DashboardTabStateEmptyImplCopyWith<$Res> {
+  __$$DashboardTabStateEmptyImplCopyWithImpl(
+      _$DashboardTabStateEmptyImpl _value,
+      $Res Function(_$DashboardTabStateEmptyImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$DashboardTabStateEmpty implements DashboardTabStateEmpty {
-  const _$DashboardTabStateEmpty();
+class _$DashboardTabStateEmptyImpl implements DashboardTabStateEmpty {
+  const _$DashboardTabStateEmptyImpl();
 
   @override
   String toString() {
@@ -228,9 +233,10 @@ class _$DashboardTabStateEmpty implements DashboardTabStateEmpty {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$DashboardTabStateEmpty);
+        (other.runtimeType == runtimeType &&
+            other is _$DashboardTabStateEmptyImpl);
   }
 
   @override
@@ -312,24 +318,26 @@ class _$DashboardTabStateEmpty implements DashboardTabStateEmpty {
 }
 
 abstract class DashboardTabStateEmpty implements DashboardTabState {
-  const factory DashboardTabStateEmpty() = _$DashboardTabStateEmpty;
+  const factory DashboardTabStateEmpty() = _$DashboardTabStateEmptyImpl;
 }
 
 /// @nodoc
-abstract class _$$DashboardTabStateReadyCopyWith<$Res> {
-  factory _$$DashboardTabStateReadyCopyWith(_$DashboardTabStateReady value,
-          $Res Function(_$DashboardTabStateReady) then) =
-      __$$DashboardTabStateReadyCopyWithImpl<$Res>;
+abstract class _$$DashboardTabStateReadyImplCopyWith<$Res> {
+  factory _$$DashboardTabStateReadyImplCopyWith(
+          _$DashboardTabStateReadyImpl value,
+          $Res Function(_$DashboardTabStateReadyImpl) then) =
+      __$$DashboardTabStateReadyImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Mosque selectedMosque});
 }
 
 /// @nodoc
-class __$$DashboardTabStateReadyCopyWithImpl<$Res>
-    extends _$DashboardTabStateCopyWithImpl<$Res, _$DashboardTabStateReady>
-    implements _$$DashboardTabStateReadyCopyWith<$Res> {
-  __$$DashboardTabStateReadyCopyWithImpl(_$DashboardTabStateReady _value,
-      $Res Function(_$DashboardTabStateReady) _then)
+class __$$DashboardTabStateReadyImplCopyWithImpl<$Res>
+    extends _$DashboardTabStateCopyWithImpl<$Res, _$DashboardTabStateReadyImpl>
+    implements _$$DashboardTabStateReadyImplCopyWith<$Res> {
+  __$$DashboardTabStateReadyImplCopyWithImpl(
+      _$DashboardTabStateReadyImpl _value,
+      $Res Function(_$DashboardTabStateReadyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -337,7 +345,7 @@ class __$$DashboardTabStateReadyCopyWithImpl<$Res>
   $Res call({
     Object? selectedMosque = null,
   }) {
-    return _then(_$DashboardTabStateReady(
+    return _then(_$DashboardTabStateReadyImpl(
       selectedMosque: null == selectedMosque
           ? _value.selectedMosque
           : selectedMosque // ignore: cast_nullable_to_non_nullable
@@ -348,8 +356,8 @@ class __$$DashboardTabStateReadyCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DashboardTabStateReady implements DashboardTabStateReady {
-  const _$DashboardTabStateReady({required this.selectedMosque});
+class _$DashboardTabStateReadyImpl implements DashboardTabStateReady {
+  const _$DashboardTabStateReadyImpl({required this.selectedMosque});
 
   @override
   final Mosque selectedMosque;
@@ -360,10 +368,10 @@ class _$DashboardTabStateReady implements DashboardTabStateReady {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DashboardTabStateReady &&
+            other is _$DashboardTabStateReadyImpl &&
             (identical(other.selectedMosque, selectedMosque) ||
                 other.selectedMosque == selectedMosque));
   }
@@ -374,9 +382,9 @@ class _$DashboardTabStateReady implements DashboardTabStateReady {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DashboardTabStateReadyCopyWith<_$DashboardTabStateReady> get copyWith =>
-      __$$DashboardTabStateReadyCopyWithImpl<_$DashboardTabStateReady>(
-          this, _$identity);
+  _$$DashboardTabStateReadyImplCopyWith<_$DashboardTabStateReadyImpl>
+      get copyWith => __$$DashboardTabStateReadyImplCopyWithImpl<
+          _$DashboardTabStateReadyImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -455,34 +463,37 @@ class _$DashboardTabStateReady implements DashboardTabStateReady {
 
 abstract class DashboardTabStateReady implements DashboardTabState {
   const factory DashboardTabStateReady({required final Mosque selectedMosque}) =
-      _$DashboardTabStateReady;
+      _$DashboardTabStateReadyImpl;
 
   Mosque get selectedMosque;
   @JsonKey(ignore: true)
-  _$$DashboardTabStateReadyCopyWith<_$DashboardTabStateReady> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$DashboardTabStateReadyImplCopyWith<_$DashboardTabStateReadyImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DashboardTabStateFailureCopyWith<$Res> {
-  factory _$$DashboardTabStateFailureCopyWith(_$DashboardTabStateFailure value,
-          $Res Function(_$DashboardTabStateFailure) then) =
-      __$$DashboardTabStateFailureCopyWithImpl<$Res>;
+abstract class _$$DashboardTabStateFailureImplCopyWith<$Res> {
+  factory _$$DashboardTabStateFailureImplCopyWith(
+          _$DashboardTabStateFailureImpl value,
+          $Res Function(_$DashboardTabStateFailureImpl) then) =
+      __$$DashboardTabStateFailureImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$DashboardTabStateFailureCopyWithImpl<$Res>
-    extends _$DashboardTabStateCopyWithImpl<$Res, _$DashboardTabStateFailure>
-    implements _$$DashboardTabStateFailureCopyWith<$Res> {
-  __$$DashboardTabStateFailureCopyWithImpl(_$DashboardTabStateFailure _value,
-      $Res Function(_$DashboardTabStateFailure) _then)
+class __$$DashboardTabStateFailureImplCopyWithImpl<$Res>
+    extends _$DashboardTabStateCopyWithImpl<$Res,
+        _$DashboardTabStateFailureImpl>
+    implements _$$DashboardTabStateFailureImplCopyWith<$Res> {
+  __$$DashboardTabStateFailureImplCopyWithImpl(
+      _$DashboardTabStateFailureImpl _value,
+      $Res Function(_$DashboardTabStateFailureImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$DashboardTabStateFailure implements DashboardTabStateFailure {
-  const _$DashboardTabStateFailure();
+class _$DashboardTabStateFailureImpl implements DashboardTabStateFailure {
+  const _$DashboardTabStateFailureImpl();
 
   @override
   String toString() {
@@ -490,10 +501,10 @@ class _$DashboardTabStateFailure implements DashboardTabStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DashboardTabStateFailure);
+            other is _$DashboardTabStateFailureImpl);
   }
 
   @override
@@ -575,5 +586,5 @@ class _$DashboardTabStateFailure implements DashboardTabStateFailure {
 }
 
 abstract class DashboardTabStateFailure implements DashboardTabState {
-  const factory DashboardTabStateFailure() = _$DashboardTabStateFailure;
+  const factory DashboardTabStateFailure() = _$DashboardTabStateFailureImpl;
 }

@@ -12,7 +12,7 @@ part of 'network.cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$NetworkState {
@@ -69,25 +69,25 @@ class _$NetworkStateCopyWithImpl<$Res, $Val extends NetworkState>
 }
 
 /// @nodoc
-abstract class _$$NetworkStateReadyCopyWith<$Res> {
-  factory _$$NetworkStateReadyCopyWith(
-          _$NetworkStateReady value, $Res Function(_$NetworkStateReady) then) =
-      __$$NetworkStateReadyCopyWithImpl<$Res>;
+abstract class _$$NetworkStateReadyImplCopyWith<$Res> {
+  factory _$$NetworkStateReadyImplCopyWith(_$NetworkStateReadyImpl value,
+          $Res Function(_$NetworkStateReadyImpl) then) =
+      __$$NetworkStateReadyImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$NetworkStateReadyCopyWithImpl<$Res>
-    extends _$NetworkStateCopyWithImpl<$Res, _$NetworkStateReady>
-    implements _$$NetworkStateReadyCopyWith<$Res> {
-  __$$NetworkStateReadyCopyWithImpl(
-      _$NetworkStateReady _value, $Res Function(_$NetworkStateReady) _then)
+class __$$NetworkStateReadyImplCopyWithImpl<$Res>
+    extends _$NetworkStateCopyWithImpl<$Res, _$NetworkStateReadyImpl>
+    implements _$$NetworkStateReadyImplCopyWith<$Res> {
+  __$$NetworkStateReadyImplCopyWithImpl(_$NetworkStateReadyImpl _value,
+      $Res Function(_$NetworkStateReadyImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$NetworkStateReady implements NetworkStateReady {
-  const _$NetworkStateReady();
+class _$NetworkStateReadyImpl implements NetworkStateReady {
+  const _$NetworkStateReadyImpl();
 
   @override
   String toString() {
@@ -95,9 +95,9 @@ class _$NetworkStateReady implements NetworkStateReady {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$NetworkStateReady);
+        (other.runtimeType == runtimeType && other is _$NetworkStateReadyImpl);
   }
 
   @override
@@ -161,5 +161,5 @@ class _$NetworkStateReady implements NetworkStateReady {
 }
 
 abstract class NetworkStateReady implements NetworkState {
-  const factory NetworkStateReady() = _$NetworkStateReady;
+  const factory NetworkStateReady() = _$NetworkStateReadyImpl;
 }

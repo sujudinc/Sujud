@@ -12,7 +12,7 @@ part of 'timer.cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$TimerState {
@@ -87,25 +87,25 @@ class _$TimerStateCopyWithImpl<$Res, $Val extends TimerState>
 }
 
 /// @nodoc
-abstract class _$$TimerStateInitialCopyWith<$Res> {
-  factory _$$TimerStateInitialCopyWith(
-          _$TimerStateInitial value, $Res Function(_$TimerStateInitial) then) =
-      __$$TimerStateInitialCopyWithImpl<$Res>;
+abstract class _$$TimerStateInitialImplCopyWith<$Res> {
+  factory _$$TimerStateInitialImplCopyWith(_$TimerStateInitialImpl value,
+          $Res Function(_$TimerStateInitialImpl) then) =
+      __$$TimerStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$TimerStateInitialCopyWithImpl<$Res>
-    extends _$TimerStateCopyWithImpl<$Res, _$TimerStateInitial>
-    implements _$$TimerStateInitialCopyWith<$Res> {
-  __$$TimerStateInitialCopyWithImpl(
-      _$TimerStateInitial _value, $Res Function(_$TimerStateInitial) _then)
+class __$$TimerStateInitialImplCopyWithImpl<$Res>
+    extends _$TimerStateCopyWithImpl<$Res, _$TimerStateInitialImpl>
+    implements _$$TimerStateInitialImplCopyWith<$Res> {
+  __$$TimerStateInitialImplCopyWithImpl(_$TimerStateInitialImpl _value,
+      $Res Function(_$TimerStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$TimerStateInitial implements TimerStateInitial {
-  const _$TimerStateInitial();
+class _$TimerStateInitialImpl implements TimerStateInitial {
+  const _$TimerStateInitialImpl();
 
   @override
   String toString() {
@@ -113,9 +113,9 @@ class _$TimerStateInitial implements TimerStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$TimerStateInitial);
+        (other.runtimeType == runtimeType && other is _$TimerStateInitialImpl);
   }
 
   @override
@@ -197,24 +197,24 @@ class _$TimerStateInitial implements TimerStateInitial {
 }
 
 abstract class TimerStateInitial implements TimerState {
-  const factory TimerStateInitial() = _$TimerStateInitial;
+  const factory TimerStateInitial() = _$TimerStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$TimerStateRunningCopyWith<$Res> {
-  factory _$$TimerStateRunningCopyWith(
-          _$TimerStateRunning value, $Res Function(_$TimerStateRunning) then) =
-      __$$TimerStateRunningCopyWithImpl<$Res>;
+abstract class _$$TimerStateRunningImplCopyWith<$Res> {
+  factory _$$TimerStateRunningImplCopyWith(_$TimerStateRunningImpl value,
+          $Res Function(_$TimerStateRunningImpl) then) =
+      __$$TimerStateRunningImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int timeRemaining});
 }
 
 /// @nodoc
-class __$$TimerStateRunningCopyWithImpl<$Res>
-    extends _$TimerStateCopyWithImpl<$Res, _$TimerStateRunning>
-    implements _$$TimerStateRunningCopyWith<$Res> {
-  __$$TimerStateRunningCopyWithImpl(
-      _$TimerStateRunning _value, $Res Function(_$TimerStateRunning) _then)
+class __$$TimerStateRunningImplCopyWithImpl<$Res>
+    extends _$TimerStateCopyWithImpl<$Res, _$TimerStateRunningImpl>
+    implements _$$TimerStateRunningImplCopyWith<$Res> {
+  __$$TimerStateRunningImplCopyWithImpl(_$TimerStateRunningImpl _value,
+      $Res Function(_$TimerStateRunningImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -222,7 +222,7 @@ class __$$TimerStateRunningCopyWithImpl<$Res>
   $Res call({
     Object? timeRemaining = null,
   }) {
-    return _then(_$TimerStateRunning(
+    return _then(_$TimerStateRunningImpl(
       null == timeRemaining
           ? _value.timeRemaining
           : timeRemaining // ignore: cast_nullable_to_non_nullable
@@ -233,8 +233,8 @@ class __$$TimerStateRunningCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$TimerStateRunning implements TimerStateRunning {
-  const _$TimerStateRunning(this.timeRemaining);
+class _$TimerStateRunningImpl implements TimerStateRunning {
+  const _$TimerStateRunningImpl(this.timeRemaining);
 
   @override
   final int timeRemaining;
@@ -245,10 +245,10 @@ class _$TimerStateRunning implements TimerStateRunning {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TimerStateRunning &&
+            other is _$TimerStateRunningImpl &&
             (identical(other.timeRemaining, timeRemaining) ||
                 other.timeRemaining == timeRemaining));
   }
@@ -259,8 +259,9 @@ class _$TimerStateRunning implements TimerStateRunning {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TimerStateRunningCopyWith<_$TimerStateRunning> get copyWith =>
-      __$$TimerStateRunningCopyWithImpl<_$TimerStateRunning>(this, _$identity);
+  _$$TimerStateRunningImplCopyWith<_$TimerStateRunningImpl> get copyWith =>
+      __$$TimerStateRunningImplCopyWithImpl<_$TimerStateRunningImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -339,29 +340,29 @@ class _$TimerStateRunning implements TimerStateRunning {
 
 abstract class TimerStateRunning implements TimerState {
   const factory TimerStateRunning(final int timeRemaining) =
-      _$TimerStateRunning;
+      _$TimerStateRunningImpl;
 
   int get timeRemaining;
   @JsonKey(ignore: true)
-  _$$TimerStateRunningCopyWith<_$TimerStateRunning> get copyWith =>
+  _$$TimerStateRunningImplCopyWith<_$TimerStateRunningImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TimerStatePausedCopyWith<$Res> {
-  factory _$$TimerStatePausedCopyWith(
-          _$TimerStatePaused value, $Res Function(_$TimerStatePaused) then) =
-      __$$TimerStatePausedCopyWithImpl<$Res>;
+abstract class _$$TimerStatePausedImplCopyWith<$Res> {
+  factory _$$TimerStatePausedImplCopyWith(_$TimerStatePausedImpl value,
+          $Res Function(_$TimerStatePausedImpl) then) =
+      __$$TimerStatePausedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int timeRemaining});
 }
 
 /// @nodoc
-class __$$TimerStatePausedCopyWithImpl<$Res>
-    extends _$TimerStateCopyWithImpl<$Res, _$TimerStatePaused>
-    implements _$$TimerStatePausedCopyWith<$Res> {
-  __$$TimerStatePausedCopyWithImpl(
-      _$TimerStatePaused _value, $Res Function(_$TimerStatePaused) _then)
+class __$$TimerStatePausedImplCopyWithImpl<$Res>
+    extends _$TimerStateCopyWithImpl<$Res, _$TimerStatePausedImpl>
+    implements _$$TimerStatePausedImplCopyWith<$Res> {
+  __$$TimerStatePausedImplCopyWithImpl(_$TimerStatePausedImpl _value,
+      $Res Function(_$TimerStatePausedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -369,7 +370,7 @@ class __$$TimerStatePausedCopyWithImpl<$Res>
   $Res call({
     Object? timeRemaining = null,
   }) {
-    return _then(_$TimerStatePaused(
+    return _then(_$TimerStatePausedImpl(
       null == timeRemaining
           ? _value.timeRemaining
           : timeRemaining // ignore: cast_nullable_to_non_nullable
@@ -380,8 +381,8 @@ class __$$TimerStatePausedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$TimerStatePaused implements TimerStatePaused {
-  const _$TimerStatePaused(this.timeRemaining);
+class _$TimerStatePausedImpl implements TimerStatePaused {
+  const _$TimerStatePausedImpl(this.timeRemaining);
 
   @override
   final int timeRemaining;
@@ -392,10 +393,10 @@ class _$TimerStatePaused implements TimerStatePaused {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TimerStatePaused &&
+            other is _$TimerStatePausedImpl &&
             (identical(other.timeRemaining, timeRemaining) ||
                 other.timeRemaining == timeRemaining));
   }
@@ -406,8 +407,9 @@ class _$TimerStatePaused implements TimerStatePaused {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TimerStatePausedCopyWith<_$TimerStatePaused> get copyWith =>
-      __$$TimerStatePausedCopyWithImpl<_$TimerStatePaused>(this, _$identity);
+  _$$TimerStatePausedImplCopyWith<_$TimerStatePausedImpl> get copyWith =>
+      __$$TimerStatePausedImplCopyWithImpl<_$TimerStatePausedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -485,34 +487,35 @@ class _$TimerStatePaused implements TimerStatePaused {
 }
 
 abstract class TimerStatePaused implements TimerState {
-  const factory TimerStatePaused(final int timeRemaining) = _$TimerStatePaused;
+  const factory TimerStatePaused(final int timeRemaining) =
+      _$TimerStatePausedImpl;
 
   int get timeRemaining;
   @JsonKey(ignore: true)
-  _$$TimerStatePausedCopyWith<_$TimerStatePaused> get copyWith =>
+  _$$TimerStatePausedImplCopyWith<_$TimerStatePausedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$TimerStateCompletedCopyWith<$Res> {
-  factory _$$TimerStateCompletedCopyWith(_$TimerStateCompleted value,
-          $Res Function(_$TimerStateCompleted) then) =
-      __$$TimerStateCompletedCopyWithImpl<$Res>;
+abstract class _$$TimerStateCompletedImplCopyWith<$Res> {
+  factory _$$TimerStateCompletedImplCopyWith(_$TimerStateCompletedImpl value,
+          $Res Function(_$TimerStateCompletedImpl) then) =
+      __$$TimerStateCompletedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$TimerStateCompletedCopyWithImpl<$Res>
-    extends _$TimerStateCopyWithImpl<$Res, _$TimerStateCompleted>
-    implements _$$TimerStateCompletedCopyWith<$Res> {
-  __$$TimerStateCompletedCopyWithImpl(
-      _$TimerStateCompleted _value, $Res Function(_$TimerStateCompleted) _then)
+class __$$TimerStateCompletedImplCopyWithImpl<$Res>
+    extends _$TimerStateCopyWithImpl<$Res, _$TimerStateCompletedImpl>
+    implements _$$TimerStateCompletedImplCopyWith<$Res> {
+  __$$TimerStateCompletedImplCopyWithImpl(_$TimerStateCompletedImpl _value,
+      $Res Function(_$TimerStateCompletedImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$TimerStateCompleted implements TimerStateCompleted {
-  const _$TimerStateCompleted();
+class _$TimerStateCompletedImpl implements TimerStateCompleted {
+  const _$TimerStateCompletedImpl();
 
   @override
   String toString() {
@@ -520,9 +523,10 @@ class _$TimerStateCompleted implements TimerStateCompleted {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$TimerStateCompleted);
+        (other.runtimeType == runtimeType &&
+            other is _$TimerStateCompletedImpl);
   }
 
   @override
@@ -604,5 +608,5 @@ class _$TimerStateCompleted implements TimerStateCompleted {
 }
 
 abstract class TimerStateCompleted implements TimerState {
-  const factory TimerStateCompleted() = _$TimerStateCompleted;
+  const factory TimerStateCompleted() = _$TimerStateCompletedImpl;
 }

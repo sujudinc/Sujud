@@ -1,5 +1,10 @@
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+// 🌎 Project imports:
 import 'package:sujud/blocs/blocs.dart';
 import 'package:sujud/configs/configs.dart';
 import 'package:sujud/models/models.dart';
@@ -43,8 +48,9 @@ class _AnnouncementActionsState extends State<AnnouncementActions> {
                 if (widget.showComment) ...<Widget>[
                   IconButton(
                     onPressed: () {
-                      AnnouncementRoute(id: widget.announcement.id)
-                          .push(context);
+                      AdminAnnouncementRoute(
+                        id: widget.announcement.id,
+                      ).push(context);
                     },
                     icon: SujudIcon.comment(),
                   ),

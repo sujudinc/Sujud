@@ -1,9 +1,11 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:get_it/get_it.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/blocs/blocs.dart';
@@ -157,10 +159,9 @@ class _CreateAnnouncementPageState extends State<CreateAnnouncementPage> {
                                     ),
                         ),
                         const Spacer(),
-                        // state is CreateAnnouncementPageStateLoadingSend
-                        //     ? const PALoadingIndicator()
-                        //     :
                         SujudButton(
+                          isLoading:
+                              state is CreateAnnouncementPageStateLoadingSend,
                           outlined: false,
                           text: i18n.buttonSend,
                           onTap: () async => _createAnnouncement(),
@@ -256,6 +257,7 @@ class _MediaContainer extends StatelessWidget {
             color: Colors.blueAccent,
             borderRadius: BorderRadius.circular(15.0),
           ),
+          margin: const EdgeInsets.only(right: 10.0),
           child: Stack(
             children: <Widget>[
               ClipRRect(

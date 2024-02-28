@@ -83,9 +83,9 @@ class _SujudPhoneFieldState extends State<SujudPhoneField> {
       builder: (field) => BlocProvider<ValueCubit<_PhoneNumberFormatter>>(
         create: (_) => _formatterValueCubit,
         child: BlocBuilder<ValueCubit<_PhoneNumberFormatter>,
-                ValueState<_PhoneNumberFormatter>>(
+                _PhoneNumberFormatter>(
             bloc: _formatterValueCubit,
-            builder: (context, state) => SujudTextField(
+            builder: (context, value) => SujudTextField(
                   formKey: GlobalKey<FormBuilderState>(),
                   fieldName: 'phoneNumber',
                   prefix: GestureDetector(
@@ -121,7 +121,7 @@ class _SujudPhoneFieldState extends State<SujudPhoneField> {
                   enableSuggestions: true,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly,
-                    state.value,
+                    value,
                   ],
                   validator: FormBuilderValidators.compose([
                     if (widget.isRequired)
@@ -168,7 +168,7 @@ class _PhoneNumberFormatter extends TextInputFormatter {
         destinationCountry: IsoCode.values.firstWhere(
           (code) => code.name == isoCode,
         ),
-      ).getFormattedNsn(
+      ).formatNsn(
         isoCode: IsoCode.values.firstWhere(
           (code) => code.name == isoCode,
         ),

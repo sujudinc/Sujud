@@ -4,11 +4,13 @@ import 'dart:io';
 // 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:ionicons/ionicons.dart';
+import 'package:unicons/unicons.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/extensions/extensions.dart';
-import 'package:unicons/unicons.dart';
 
 class SujudIcon extends StatelessWidget {
   const SujudIcon(

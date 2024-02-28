@@ -1,237 +1,444 @@
-const announcementDocument = '''
-  id
-  title
-  body
-  images
-  bookmarks(
-    filter: {
-      creatorId: {eq: \$creatorId},
-     }
-  ) {
-    items {
-      id
-      announcementId
-      creatorId
-      mosqueId
-      createdAt
-      updatedAt
+String announcementDocument({
+  bool includeCreator = false,
+  bool includeMosque = false,
+}) {
+  var doc = '''
+    id
+    title
+    body
+    images
+    bookmarks(
+      filter: {
+        creatorId: {eq: \$creatorId},
+        _deleted: {ne: true}
+      }
+    ) {
+      items {
+        id
+        announcementId
+        creatorId
+        mosqueId
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
     }
-    nextToken
-    startedAt
-  }
-  likes(
-    filter: {
-      creatorId: {eq: \$creatorId},
-     }
-  ) {
-    items {
-      id
-      announcementId
-      creatorId
-      mosqueId
-      createdAt
-      updatedAt
+    likes(
+      filter: {
+        creatorId: {eq: \$creatorId},
+        _deleted: {ne: true}
+      }
+    ) {
+      items {
+        id
+        announcementId
+        creatorId
+        mosqueId
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
     }
-    nextToken
-    startedAt
-  }
-  comments(sortDirection: ASC) {
-    items {
-      id
-      text
-      parentCommentId
-      announcementId
-      creatorId
-      mosqueId
-      createdAt
-      updatedAt
+    comments(
+      sortDirection: ASC,
+      filter: {
+        _deleted: {ne: true}
+      }
+    ) {
+      items {
+        id
+        text
+        parentCommentId
+        announcementId
+        creatorId
+        mosqueId
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
     }
-    nextToken
-    startedAt
-  }
-  creatorId
-  creator {
-    $userDocument
-  }
-  mosqueId
-  mosque {
-    $mosqueDocument
-  }
-  createdAt
-  updatedAt
-''';
-const bookmarkDocument = '''
-  id
-  announcementId
-  announcement {
-    $announcementDocument
-  }
-  creatorId
-  creator {
-    $userDocument
-  }
-  mosqueId
-  mosque {
-    $mosqueDocument
-  }
-  createdAt
-  updatedAt
-''';
-const commentDocument = '''
-  id
-  text
-  parentCommentId
-  subComments(sortDirection: ASC) {
-    items {
-      id
-      text
-      parentCommentId
-      creatorId
+    creatorId
+    mosqueId
+    createdAt
+    updatedAt
+  ''';
+
+  if (includeCreator) {
+    doc += '''
       creator {
-        $userDocument
+        ${userDocument()}
       }
-      announcementId
-      announcement {
-        $announcementDocument
-      }
-      mosqueId
+    ''';
+  }
+
+  if (includeMosque) {
+    doc += '''
       mosque {
-        $mosqueDocument
+        ${mosqueDocument()}
       }
-      createdAt
-      updatedAt
+    ''';
+  }
+
+  return doc;
+}
+
+String bookmarkDocument({
+  bool includeAnnouncement = false,
+  bool includeCreator = false,
+  bool includeMosque = false,
+}) {
+  var doc = '''
+    id
+    announcementId
+    creatorId
+    mosqueId
+    createdAt
+    updatedAt
+  ''';
+
+  if (includeAnnouncement) {
+    doc += '''
+      announcement {
+        ${announcementDocument()}
+      }
+    ''';
+  }
+
+  if (includeCreator) {
+    doc += '''
+      creator {
+        ${userDocument()}
+      }
+    ''';
+  }
+
+  if (includeMosque) {
+    doc += '''
+      mosque {
+        ${mosqueDocument()}
+      }
+    ''';
+  }
+
+  return doc;
+}
+
+String commentDocument({
+  bool includeCreator = false,
+  bool includeAnnouncement = false,
+  bool includeMosque = false,
+}) {
+  var doc = '''
+    id
+    text
+    parentCommentId
+    subComments(
+      sortDirection: ASC,
+      filter: {
+        _deleted: {ne: true}
+      }
+    ) {
+      items {
+        ${commentDocument(
+    includeCreator: true,
+  )}
+      }
+      nextToken
+      startedAt
     }
-    nextToken
-    startedAt
+    announcementId
+    creatorId
+    mosqueId
+    createdAt
+    updatedAt
+  ''';
+
+  if (includeCreator) {
+    doc += '''
+      creator {
+        ${userDocument()}
+      }
+    ''';
   }
-  announcementId
-  announcement {
-    $announcementDocument
+
+  if (includeAnnouncement) {
+    doc += '''
+      announcement {
+        ${announcementDocument()}
+      }
+    ''';
   }
-  creatorId
-  creator {
-    $userDocument
+
+  if (includeMosque) {
+    doc += '''
+      mosque {
+        ${mosqueDocument()}
+      }
+    ''';
   }
-  mosqueId
-  mosque {
-    $mosqueDocument
+
+  return doc;
+}
+
+String likeDocument({
+  bool includeAnnouncement = false,
+  bool includeCreator = false,
+  bool includeMosque = false,
+}) {
+  var doc = '''
+    id
+    announcementId
+    creatorId
+    mosqueId
+    createdAt
+    updatedAt
+  ''';
+
+  if (includeAnnouncement) {
+    doc += '''
+      announcement {
+        ${announcementDocument()}
+      }
+    ''';
   }
-  createdAt
-  updatedAt
-''';
-const likeDocument = '''
-  id
-  announcementId
-  announcement {
-    $announcementDocument
+
+  if (includeCreator) {
+    doc += '''
+      creator {
+        ${userDocument()}
+      }
+    ''';
   }
-  creatorId
-  creator {
-    $userDocument
+
+  if (includeMosque) {
+    doc += '''
+      mosque {
+        ${mosqueDocument()}
+      }
+    ''';
   }
-  mosqueId
-  mosque {
-    $mosqueDocument
-  }
-  createdAt
-  updatedAt
-''';
-const mosqueDocument = '''
-  id
-  name
-  description
-  images
-  address {
-    addressLine1
-    addressLine2
-    addressLine3
-    city
-    province
-    postalCode
-    country
-    latitude
-    longitude
-  }
-  hours {
-    monday {
-      type
-      operatingHours {
-        open
-        close
+
+  return doc;
+}
+
+String mosqueDocument({
+  bool includeCreator = false,
+}) {
+  var doc = '''
+    id
+    name
+    description
+    images
+    address {
+      addressLine1
+      addressLine2
+      addressLine3
+      city
+      province
+      postalCode
+      country
+      latitude
+      longitude
+    }
+    hours {
+      monday {
+        type
+        operatingHours {
+          open
+          close
+        }
+      }
+      tuesday {
+        type
+        operatingHours {
+          open
+          close
+        }
+      }
+      wednesday {
+        type
+        operatingHours {
+          open
+          close
+        }
+      }
+      thursday {
+        type
+        operatingHours {
+          open
+          close
+        }
+      }
+      friday {
+        type
+        operatingHours {
+          open
+          close
+        }
+      }
+      saturday {
+        type
+        operatingHours {
+          open
+          close
+        }
+      }
+      sunday {
+        type
+        operatingHours {
+          open
+          close
+        }
       }
     }
-    tuesday {
-      type
-      operatingHours {
-        open
-        close
+    contactInfo {
+      phone
+      email
+      website
+      socialMedia {
+        facebook
+        instagram
+        twitter
+        youtube
       }
     }
-    wednesday {
-      type
-      operatingHours {
-        open
-        close
+    liveVideoUrl
+    creatorId
+    createdAt
+    updatedAt
+  ''';
+
+  if (includeCreator) {
+    doc += '''
+      creator {
+        ${userDocument()}
       }
-    }
-    thursday {
-      type
-      operatingHours {
-        open
-        close
-      }
-    }
-    friday {
-      type
-      operatingHours {
-        open
-        close
-      }
-    }
-    saturday {
-      type
-      operatingHours {
-        open
-        close
-      }
-    }
-    sunday {
-      type
-      operatingHours {
-        open
-        close
-      }
-    }
+    ''';
   }
-  contactInfo {
-    phone
+
+  return doc;
+}
+
+String userDocument({
+  bool includeCreatedAnnouncements = false,
+  bool includeCreatedMosques = false,
+  bool includeMosques = false,
+  bool includeBookmarks = false,
+  bool includeComments = false,
+  bool includeLikes = false,
+}) {
+  var doc = '''
+    id
+    selfie
+    firstName
+    lastName
     email
-    website
-    socialMedia {
-      facebook
-      instagram
-      twitter
-      youtube
-    }
-  }
-  liveVideoUrl
-  creatorId
-  creator {
-    $userDocument
-  }
-  createdAt
-  updatedAt
+    phone
+    type
+    status
+    stripeCustomerId
+    createdAt
+    updatedAt
   ''';
-const userDocument = '''
-  id
-  selfie
-  firstName
-  lastName
-  email
-  phone
-  type
-  status
-  stripeCustomerId
-  createdAt
-  updatedAt
-  ''';
+
+  if (includeCreatedAnnouncements) {
+    doc += '''
+      createdAnnouncements(
+        filter: {
+          _deleted: {ne: true}
+        }
+      ) {
+        item {
+          ${announcementDocument()}
+        }
+        nextToken
+        startedAt
+      }
+    ''';
+  }
+
+  if (includeCreatedMosques) {
+    doc += '''
+      createdMosques(
+        filter: {
+          _deleted: {ne: true}
+        }
+      ) {
+        item {
+          ${mosqueDocument()}
+        }
+        nextToken
+        startedAt
+      }
+    ''';
+  }
+
+  if (includeMosques) {
+    doc += '''
+      mosques(
+        filter: {
+          _deleted: {ne: true}
+        }
+      ) {
+        item {
+          ${mosqueDocument()}
+        }
+        nextToken
+        startedAt
+      }
+    ''';
+  }
+
+  if (includeBookmarks) {
+    doc += '''
+      bookmarks(
+        filter: {
+          _deleted: {ne: true}
+        }
+      ) {
+        item {
+          ${bookmarkDocument()}
+        }
+        nextToken
+        startedAt
+      }
+    ''';
+  }
+
+  if (includeComments) {
+    doc += '''
+      comments(
+        filter: {
+          _deleted: {ne: true}
+        }
+      ) {
+        item {
+          ${commentDocument()}
+        }
+        nextToken
+        startedAt
+      }
+    ''';
+  }
+
+  if (includeLikes) {
+    doc += '''
+      likes(
+        filter: {
+          _deleted: {ne: true}
+        }
+      ) {
+        item {
+          ${likeDocument()}
+        }
+        nextToken
+        startedAt
+      }
+    ''';
+  }
+
+  return doc;
+}

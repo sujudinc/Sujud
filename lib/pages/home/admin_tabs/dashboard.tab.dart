@@ -1,10 +1,12 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sujud/assets/assets.dart';
+
 // 🌎 Project imports:
+import 'package:sujud/assets/assets.dart';
 import 'package:sujud/blocs/blocs.dart';
 import 'package:sujud/configs/configs.dart';
 import 'package:sujud/extensions/extensions.dart';
@@ -60,6 +62,7 @@ class _DashboardTabState extends State<DashboardTab>
                       length: _tabs.length,
                       vsync: this,
                     ),
+                    isScrollable: true,
                     labelColor: Colors.black,
                     tabs: _tabs,
                     onTap: _onTabChange,
@@ -85,10 +88,8 @@ class _DashboardTabState extends State<DashboardTab>
         Tab(text: context.i18n.tabAnnouncements),
       ];
 
-  void _onTabChange(int index) {
-    widget.shell.goBranch(
-      index,
-      initialLocation: widget.shell.currentIndex == index,
-    );
-  }
+  void _onTabChange(int index) => widget.shell.goBranch(
+        index,
+        initialLocation: widget.shell.currentIndex == index,
+      );
 }

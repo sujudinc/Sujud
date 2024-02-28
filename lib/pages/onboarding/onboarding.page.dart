@@ -1,8 +1,10 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/blocs/blocs.dart';
 import 'package:sujud/configs/configs.dart';
@@ -83,15 +85,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
               itemCount: sections.length,
               currentPageNotifier: _currentPageNotifier,
             ),
-            BlocBuilder<ValueCubit<int>, ValueState<int>>(
+            BlocBuilder<ValueCubit<int>, int>(
               bloc: _currentPageValueCubit,
-              builder: (context, state) => Container(
+              builder: (context, value) => Container(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 margin: const EdgeInsets.only(bottom: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    state.value != 0
+                    value != 0
                         ? IconButton(
                             icon: SujudIcon.leftArrowCircle(size: 50.0),
                             onPressed: () async => _pageController.previousPage(
@@ -102,7 +104,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             ),
                           )
                         : const SizedBox(),
-                    state.value != sections.length - 1
+                    value != sections.length - 1
                         ? IconButton(
                             icon: SujudIcon.rightArrowCircle(size: 50.0),
                             onPressed: () async => _pageController.nextPage(

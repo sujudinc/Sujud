@@ -69,7 +69,7 @@ abstract class AmplifyAuthServiceAbstract {
     required String confirmationCode,
   });
 
-  Future<ResendUserAttributeConfirmationCodeResult> resendVerificationCode({
+  Future<SendUserAttributeVerificationCodeResult> resendVerificationCode({
     required AuthUserAttributeKey key,
   });
 

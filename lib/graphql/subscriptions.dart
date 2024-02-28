@@ -6,7 +6,7 @@ final onCreateAnnouncement = '''
     \$creatorId: ID!
     \$filter: ModelSubscriptionAnnouncementFilterInput
   ) {
-    ${SubscriptionOperations.onCreateAnnouncement.name}(
+    ${SubscriptionOperation.onCreateAnnouncement.name}(
       filter: \$filter
     ) {
       $announcementDocument
@@ -19,7 +19,7 @@ final onUpdateAnnouncement = '''
     \$creatorId: ID!
     \$filter: ModelSubscriptionAnnouncementFilterInput
   ) {
-    ${SubscriptionOperations.onUpdateAnnouncement.name}(
+    ${SubscriptionOperation.onUpdateAnnouncement.name}(
       filter: \$filter
     ) {
       $announcementDocument
@@ -32,7 +32,7 @@ final onDeleteAnnouncement = '''
     \$creatorId: ID!
     \$filter: ModelSubscriptionAnnouncementFilterInput
   ) {
-    ${SubscriptionOperations.onDeleteAnnouncement.name}(
+    ${SubscriptionOperation.onDeleteAnnouncement.name}(
       filter: \$filter
     ) {
       $announcementDocument
@@ -44,7 +44,7 @@ final onCreateMosque = '''
   subscription OnCreateMosque(
     \$filter: ModelSubscriptionMosqueFilterInput
   ) {
-    ${SubscriptionOperations.onCreateMosque.name}(
+    ${SubscriptionOperation.onCreateMosque.name}(
       filter: \$filter
     ) {
       $mosqueDocument
@@ -56,7 +56,7 @@ final onUpdateMosque = '''
   subscription OnUpdateMosque(
     \$filter: ModelSubscriptionMosqueFilterInput
   ) {
-    ${SubscriptionOperations.onUpdateMosque.name}(
+    ${SubscriptionOperation.onUpdateMosque.name}(
       filter: \$filter
     ) {
       $mosqueDocument
@@ -68,7 +68,7 @@ final onDeleteMosque = '''
   subscription OnDeleteMosque(
     \$filter: ModelSubscriptionMosqueFilterInput
   ) {
-    ${SubscriptionOperations.onDeleteMosque.name}(
+    ${SubscriptionOperation.onDeleteMosque.name}(
       filter: \$filter,
     ) {
       $mosqueDocument
@@ -81,7 +81,7 @@ final onCreateUser = '''
     \$filter: ModelSubscriptionUserFilterInput
     \$owner: String
   ) {
-    ${SubscriptionOperations.onCreateUser.name}(
+    ${SubscriptionOperation.onCreateUser.name}(
       filter: \$filter,
       owner: \$owner
     ) {
@@ -95,7 +95,7 @@ final onUpdateUser = '''
     \$filter: ModelSubscriptionUserFilterInput
     \$owner: String
   ) {
-    ${SubscriptionOperations.onUpdateUser.name}(
+    ${SubscriptionOperation.onUpdateUser.name}(
       filter: \$filter,
       owner: \$owner
     ) {
@@ -109,7 +109,7 @@ final onDeleteUser = '''
     \$filter: ModelSubscriptionUserFilterInput
     \$owner: String
   ) {
-    ${SubscriptionOperations.onDeleteUser.name}(
+    ${SubscriptionOperation.onDeleteUser.name}(
       filter: \$filter,
       owner: \$owner
     ) {

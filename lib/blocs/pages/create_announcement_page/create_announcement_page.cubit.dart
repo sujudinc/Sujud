@@ -3,6 +3,7 @@ import 'package:cherry_toast/cherry_toast.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/models/models.dart';
@@ -15,7 +16,7 @@ class CreateAnnouncementPageCubit extends Cubit<CreateAnnouncementPageState> {
       : _media = GetIt.instance.get<MediaUtilityAbstract>(),
         _navigation = GetIt.instance.get<NavigationUtilityAbstract>(),
         _toast = GetIt.instance.get<ToastUtilityAbstract>(),
-        _announcementRepo = GetIt.instance.get<AnnouncementRepoAbstract>(),
+        _announcementRepo = GetIt.instance.get<AdminAnnouncementRepoAbstract>(),
         _mosqueRepo = GetIt.instance.get<MosqueRepoAbstract>(),
         _userRepo = GetIt.instance.get<UserRepoAbstract>(),
         super(const CreateAnnouncementPageState.initial());
@@ -23,7 +24,7 @@ class CreateAnnouncementPageCubit extends Cubit<CreateAnnouncementPageState> {
   final MediaUtilityAbstract _media;
   final NavigationUtilityAbstract _navigation;
   final ToastUtilityAbstract _toast;
-  final AnnouncementRepoAbstract _announcementRepo;
+  final AdminAnnouncementRepoAbstract _announcementRepo;
   final MosqueRepoAbstract _mosqueRepo;
   final UserRepoAbstract _userRepo;
 

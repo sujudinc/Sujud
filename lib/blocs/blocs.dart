@@ -1,10 +1,11 @@
 export 'app/auth/auth.cubit.dart';
 export 'app/network/network.cubit.dart';
 export 'app/theme/theme.cubit.dart';
+export 'misc/get_urls.cubit.dart';
 export 'misc/multi_select.cubit.dart';
 export 'misc/timer.cubit.dart';
 export 'misc/value.cubit.dart';
-export 'pages/announcement_page/announcement_page.cubit.dart';
+export 'pages/announcement_page/admin_announcement_page.cubit.dart';
 export 'pages/confirm_account_page/confirm_account_page.cubit.dart';
 export 'pages/create_announcement_page/create_announcement_page.cubit.dart';
 export 'pages/create_mosque_page/create_mosque_page.cubit.dart';
@@ -17,4 +18,4 @@ export 'sub_tabs/admin_announcements_subtab.cubit.dart';
 export 'sub_tabs/admin_prayer_times_subtab.cubit.dart';
 export 'tabs/dashboard_tab.cubit.dart';
 export 'tabs/settings_tab.cubit.dart';
-export 'widgets/announcement_actions.cubit.dart';
+export 'widgets/announcement_actions/announcement_actions.cubit.dart';

@@ -1,7 +1,10 @@
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/blocs/blocs.dart';
 import 'package:sujud/configs/configs.dart';

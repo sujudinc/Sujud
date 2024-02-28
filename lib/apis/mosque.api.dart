@@ -5,28 +5,31 @@ import 'dart:async';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async/async.dart';
 import 'package:get_it/get_it.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
-import 'package:sujud/graphql/graphql.dart';
 import 'package:sujud/models/models.dart';
 
-class MosqueApi implements ModelApiAbstract<Mosque> {
+class MosqueApi implements MosqueApiAbstract {
   MosqueApi()
       : _amplifyApiService =
-            GetIt.instance.get<AmplifyApiServiceAbstract<Mosque>>();
+            GetIt.instance.get<AmplifyApiServiceAbstract<Mosque>>(),
+        _operation = GetIt.instance.get<MosqueOperationAbstract>();
 
   final AmplifyApiServiceAbstract<Mosque> _amplifyApiService;
-  final _operations = MosqueOperations();
+  final MosqueOperationAbstract _operation;
 
   @override
   Future<(Mosque?, List<GraphQLResponseError>)> get({
     required String id,
+    APIAuthorizationType? authorizationMode,
     Map<String, dynamic>? variables,
   }) async {
     final response = await _amplifyApiService.get(
-      modelType: _operations.modelType,
-      operation: _operations.get,
+      modelType: _operation.modelType,
+      operation: _operation.get,
       id: id,
+      authorizationMode: authorizationMode,
       variables: variables,
     );
 
@@ -37,12 +40,14 @@ class MosqueApi implements ModelApiAbstract<Mosque> {
   Future<(GraphQLListResponse<Mosque>, List<GraphQLResponseError>)> list({
     Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
+    APIAuthorizationType? authorizationMode,
     int? limit,
     String? nextToken,
   }) async {
     final (data, errors) = await _amplifyApiService.list(
-      modelType: _operations.modelType,
-      operation: _operations.list,
+      modelType: _operation.modelType,
+      operation: _operation.list,
+      authorizationMode: authorizationMode,
       variables: variables,
       filter: filter,
       limit: limit,
@@ -59,8 +64,8 @@ class MosqueApi implements ModelApiAbstract<Mosque> {
     Map<String, dynamic>? variables,
   }) async {
     final response = await _amplifyApiService.create(
-      modelType: _operations.modelType,
-      operation: _operations.create,
+      modelType: _operation.modelType,
+      operation: _operation.create,
       input: <String, dynamic>{},
       condition: condition,
       variables: variables,
@@ -76,8 +81,8 @@ class MosqueApi implements ModelApiAbstract<Mosque> {
     Map<String, dynamic>? variables,
   }) async {
     final response = await _amplifyApiService.update(
-      modelType: _operations.modelType,
-      operation: _operations.update,
+      modelType: _operation.modelType,
+      operation: _operation.update,
       input: <String, dynamic>{
         'id': item.id,
       },
@@ -95,8 +100,8 @@ class MosqueApi implements ModelApiAbstract<Mosque> {
     Map<String, dynamic>? variables,
   }) async {
     final response = await _amplifyApiService.delete(
-      modelType: _operations.modelType,
-      operation: _operations.delete,
+      modelType: _operation.modelType,
+      operation: _operation.delete,
       id: id,
       condition: condition,
       variables: variables,
@@ -106,49 +111,49 @@ class MosqueApi implements ModelApiAbstract<Mosque> {
   }
 
   @override
-  Stream<GraphqlSubscriptionResponse<Mosque>> subscribe({
+  Stream<SubscriptionResponse<Mosque>> subscribe({
     Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     String? creatorId,
     String? owner,
   }) {
-    final streams = StreamGroup.merge<GraphqlSubscriptionResponse<Mosque>>([
+    final streams = StreamGroup.merge<SubscriptionResponse<Mosque>>([
       _amplifyApiService
           .subscribe(
-            modelType: _operations.modelType,
-            operation: _operations.onCreate,
+            modelType: _operation.modelType,
+            operation: _operation.onCreate,
             variables: variables,
             filter: filter,
             creatorId: creatorId,
             owner: owner,
           )
-          .map((response) => GraphqlSubscriptionResponse<Mosque>(
+          .map((response) => SubscriptionResponse<Mosque>(
                 type: SubscriptionType.onCreate,
                 response: response,
               )),
       _amplifyApiService
           .subscribe(
-            modelType: _operations.modelType,
-            operation: _operations.onUpdate,
+            modelType: _operation.modelType,
+            operation: _operation.onUpdate,
             variables: variables,
             filter: filter,
             creatorId: creatorId,
             owner: owner,
           )
-          .map((response) => GraphqlSubscriptionResponse<Mosque>(
+          .map((response) => SubscriptionResponse<Mosque>(
                 type: SubscriptionType.onUpdate,
                 response: response,
               )),
       _amplifyApiService
           .subscribe(
-            modelType: _operations.modelType,
-            operation: _operations.onDelete,
+            modelType: _operation.modelType,
+            operation: _operation.onDelete,
             variables: variables,
             filter: filter,
             creatorId: creatorId,
             owner: owner,
           )
-          .map((response) => GraphqlSubscriptionResponse<Mosque>(
+          .map((response) => SubscriptionResponse<Mosque>(
                 type: SubscriptionType.onDelete,
                 response: response,
               )),

@@ -1,6 +1,10 @@
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:go_router/go_router.dart';
-import 'package:sheet/route.dart';
+
+// 🌎 Project imports:
 import 'package:sujud/pages/pages.dart';
 
 part 'routes.config.g.dart';
@@ -19,7 +23,7 @@ class LoadingRoute extends GoRouteData {
   const LoadingRoute();
 
   @override
-  Page buildPage(context, state) => MaterialExtendedPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: const LoadingPage(),
       );
@@ -35,7 +39,7 @@ class ErrorRoute extends GoRouteData {
   const ErrorRoute();
 
   @override
-  Page buildPage(context, state) => MaterialExtendedPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: const ErrorPage(),
       );
@@ -57,7 +61,7 @@ class OnboardingRoute extends GoRouteData {
   const OnboardingRoute();
 
   @override
-  Page buildPage(context, state) => MaterialExtendedPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: const OnboardingPage(),
       );
@@ -68,9 +72,10 @@ class MosquesRoute extends GoRouteData {
   const MosquesRoute();
 
   @override
-  Page buildPage(context, state) => CupertinoSheetPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: const MosquesPage(),
+        fullscreenDialog: true,
       );
 }
 
@@ -87,7 +92,7 @@ class RegisterRoute extends GoRouteData {
   final String? redirectTo;
 
   @override
-  Page buildPage(context, state) => MaterialExtendedPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: RegisterPage(
           email: email,
@@ -113,7 +118,7 @@ class LoginRoute extends GoRouteData {
   final String? redirectTo;
 
   @override
-  Page buildPage(context, state) => MaterialExtendedPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: LoginPage(redirectTo: redirectTo),
       );
@@ -126,7 +131,7 @@ class ConfirmRoute extends GoRouteData {
   final String? email;
 
   @override
-  Page buildPage(context, state) => MaterialExtendedPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: ConfirmAccountPage(email: email),
       );
@@ -139,7 +144,7 @@ class MfaRoute extends GoRouteData {
   final String? email;
 
   @override
-  Page buildPage(context, state) => MaterialExtendedPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: MFAPage(email: email),
       );
@@ -152,7 +157,7 @@ class ForgotRoute extends GoRouteData {
   final String? email;
 
   @override
-  Page buildPage(context, state) => MaterialExtendedPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: ForgotPasswordPage(email: email),
       );
@@ -195,7 +200,7 @@ class ForgotRoute extends GoRouteData {
                       path: 'create-announcement',
                       name: 'create_announcement',
                     ),
-                    TypedGoRoute<AnnouncementRoute>(
+                    TypedGoRoute<AdminAnnouncementRoute>(
                       path: ':id',
                       name: 'announcement',
                     ),
@@ -223,8 +228,7 @@ class AdminHomeRoute extends StatefulShellRouteData {
   static final $navigatorKey = _adminDashboardNavigatorKey;
 
   @override
-  Page<void> pageBuilder(context, state, navigationShell) =>
-      MaterialExtendedPage<void>(
+  Page<void> pageBuilder(context, state, navigationShell) => MaterialPage<void>(
         key: state.pageKey,
         child: HomePage(shell: navigationShell, isAdmin: true),
       );
@@ -234,8 +238,7 @@ class AdminDashboardRoute extends StatefulShellRouteData {
   const AdminDashboardRoute();
 
   @override
-  Page<void> pageBuilder(context, state, navigationShell) =>
-      MaterialExtendedPage<void>(
+  Page<void> pageBuilder(context, state, navigationShell) => MaterialPage<void>(
         key: state.pageKey,
         child: DashboardTab(shell: navigationShell),
       );
@@ -262,7 +265,7 @@ class AdminPrayerTimesRoute extends GoRouteData {
   const AdminPrayerTimesRoute();
 
   @override
-  Page buildPage(context, state) => MaterialExtendedPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: const AdminPrayerTimesSubtab(),
       );
@@ -273,7 +276,7 @@ class AdminAnnouncementsRoute extends GoRouteData {
   const AdminAnnouncementsRoute();
 
   @override
-  Page buildPage(context, state) => MaterialExtendedPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: const AdminAnnouncementsSubtab(),
       );
@@ -286,9 +289,10 @@ class CreateMosqueRoute extends GoRouteData {
   static final $parentNavigatorKey = rootNavigatorKey;
 
   @override
-  Page buildPage(context, state) => CupertinoSheetPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: const CreateMosquePage(),
+        fullscreenDialog: true,
       );
 }
 
@@ -303,12 +307,13 @@ class CreateMosqueFieldRoute extends GoRouteData {
   final String? initialValue;
 
   @override
-  Page buildPage(context, state) => CupertinoSheetPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: CreateMosqueFieldPage(
           fieldName: fieldName,
           initialValue: initialValue,
         ),
+        fullscreenDialog: true,
       );
 }
 
@@ -319,24 +324,26 @@ class CreateAnnouncementRoute extends GoRouteData {
   static final $parentNavigatorKey = rootNavigatorKey;
 
   @override
-  Page buildPage(context, state) => CupertinoSheetPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: const CreateAnnouncementPage(),
+        fullscreenDialog: true,
       );
 }
 
 @immutable
-class AnnouncementRoute extends GoRouteData {
-  const AnnouncementRoute({required this.id});
+class AdminAnnouncementRoute extends GoRouteData {
+  const AdminAnnouncementRoute({required this.id});
 
   final String id;
 
   static final $parentNavigatorKey = rootNavigatorKey;
 
   @override
-  Page buildPage(context, state) => CupertinoSheetPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
-        child: AnnouncementPage(id: id),
+        child: AdminAnnouncementPage(id: id),
+        fullscreenDialog: true,
       );
 }
 
@@ -345,12 +352,13 @@ class AdminSettingsRoute extends GoRouteData {
   const AdminSettingsRoute();
 
   @override
-  Page buildPage(context, state) => MaterialExtendedPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: const SettingsTab(),
       );
 }
 
+// ---------------- Jamaah Home Routes ---------------- //
 @TypedStatefulShellRoute<JamaahHomeRoute>(
   branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
     TypedStatefulShellBranch<JamaahPrayerTimesBranchData>(
@@ -361,6 +369,26 @@ class AdminSettingsRoute extends GoRouteData {
         ),
       ],
     ),
+    // TypedStatefulShellBranch<JamaahPrayerTimesBranchData>(
+    //   routes: <TypedRoute<RouteData>>[
+    //     TypedGoRoute<JamaahPrayerTimesRoute>(
+    //       path: '/jamaah/announcements',
+    //       name: 'jamaah_announcements',
+    //       routes: <TypedRoute<RouteData>>[
+    //         TypedGoRoute<JamaahAnnouncementRoute>(
+    //           path: ':id',
+    //           name: 'announcement',
+    //           routes: <TypedRoute<RouteData>>[
+    //             TypedGoRoute<JamaahMediaRoute>(
+    //               path: ':media',
+    //               name: 'media',
+    //             ),
+    //           ],
+    //         ),
+    //       ],
+    //     ),
+    //   ],
+    // ),
     TypedStatefulShellBranch<JamaahSettingsBranchData>(
       routes: <TypedRoute<RouteData>>[
         TypedGoRoute<JamaahSettingsRoute>(
@@ -377,8 +405,7 @@ class JamaahHomeRoute extends StatefulShellRouteData {
   static final $navigatorKey = _jamaahDashboardNavigatorKey;
 
   @override
-  Page<void> pageBuilder(context, state, navigationShell) =>
-      MaterialExtendedPage<void>(
+  Page<void> pageBuilder(context, state, navigationShell) => MaterialPage<void>(
         key: state.pageKey,
         child: HomePage(shell: navigationShell, isAdmin: false),
       );
@@ -393,7 +420,7 @@ class JamaahPrayerTimesRoute extends GoRouteData {
   const JamaahPrayerTimesRoute();
 
   @override
-  Page buildPage(context, state) => MaterialExtendedPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: Container(
           color: Colors.blueAccent,
@@ -410,7 +437,7 @@ class JamaahSettingsRoute extends GoRouteData {
   const JamaahSettingsRoute();
 
   @override
-  Page buildPage(context, state) => MaterialExtendedPage<void>(
+  Page buildPage(context, state) => MaterialPage<void>(
         key: state.pageKey,
         child: const SettingsTab(),
       );

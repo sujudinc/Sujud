@@ -1,6 +1,9 @@
+// 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
+
+// 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/models/models.dart';
 
@@ -10,7 +13,7 @@ part 'admin_announcements_subtab.state.dart';
 class AdminAnnouncementsSubtabCubit
     extends Cubit<AdminAnnouncementsSubtabState> {
   AdminAnnouncementsSubtabCubit()
-      : _announcementRepo = GetIt.instance.get<AnnouncementRepoAbstract>(),
+      : _announcementRepo = GetIt.instance.get<AdminAnnouncementRepoAbstract>(),
         _userRepo = GetIt.instance.get<UserRepoAbstract>(),
         _mosqueRepo = GetIt.instance.get<MosqueRepoAbstract>(),
         _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>(),
@@ -19,7 +22,7 @@ class AdminAnnouncementsSubtabCubit
     init();
   }
 
-  final AnnouncementRepoAbstract _announcementRepo;
+  final AdminAnnouncementRepoAbstract _announcementRepo;
   final UserRepoAbstract _userRepo;
   final MosqueRepoAbstract _mosqueRepo;
   final AmplifyStorageServiceAbstract _storageService;
@@ -32,12 +35,10 @@ class AdminAnnouncementsSubtabCubit
 
     _networkUtility.onConnectivityChanged(
       onConnected: () async {
-        await _announcementRepo.list(
-          variables: <String, dynamic>{
-            'mosqueId': selectedMosque!.id,
-            'creatorId': _userRepo.currentUser!.id,
-          },
-        );
+        await _announcementRepo.list(variables: <String, dynamic>{
+          'mosqueId': selectedMosque!.id,
+          'creatorId': _userRepo.currentUser!.id,
+        }, limit: 5);
 
         _emitSuccessfulState();
 
@@ -54,17 +55,7 @@ class AdminAnnouncementsSubtabCubit
   }
 
   Future<String> getImageUrl({required String id, required String key}) async {
-    if (_announcementRepo.cachedImages.containsKey(id)) {
-      final cachedImages = _announcementRepo.cachedImages[id]!;
-
-      if (cachedImages[key] != null) {
-        return cachedImages[key]!.toString();
-      }
-    }
-
     final uri = await _storageService.getUri(key: key);
-
-    _announcementRepo.setCachedImage(id: id, key: key, url: uri);
 
     return uri.toString();
   }

@@ -12,7 +12,7 @@ part of 'admin_prayer_times_subtab.cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$AdminPrayerTimesSubtabState {
@@ -90,29 +90,29 @@ class _$AdminPrayerTimesSubtabStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$AdminPrayerTimesSubtabStateInitialCopyWith<$Res> {
-  factory _$$AdminPrayerTimesSubtabStateInitialCopyWith(
-          _$AdminPrayerTimesSubtabStateInitial value,
-          $Res Function(_$AdminPrayerTimesSubtabStateInitial) then) =
-      __$$AdminPrayerTimesSubtabStateInitialCopyWithImpl<$Res>;
+abstract class _$$AdminPrayerTimesSubtabStateInitialImplCopyWith<$Res> {
+  factory _$$AdminPrayerTimesSubtabStateInitialImplCopyWith(
+          _$AdminPrayerTimesSubtabStateInitialImpl value,
+          $Res Function(_$AdminPrayerTimesSubtabStateInitialImpl) then) =
+      __$$AdminPrayerTimesSubtabStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AdminPrayerTimesSubtabStateInitialCopyWithImpl<$Res>
+class __$$AdminPrayerTimesSubtabStateInitialImplCopyWithImpl<$Res>
     extends _$AdminPrayerTimesSubtabStateCopyWithImpl<$Res,
-        _$AdminPrayerTimesSubtabStateInitial>
-    implements _$$AdminPrayerTimesSubtabStateInitialCopyWith<$Res> {
-  __$$AdminPrayerTimesSubtabStateInitialCopyWithImpl(
-      _$AdminPrayerTimesSubtabStateInitial _value,
-      $Res Function(_$AdminPrayerTimesSubtabStateInitial) _then)
+        _$AdminPrayerTimesSubtabStateInitialImpl>
+    implements _$$AdminPrayerTimesSubtabStateInitialImplCopyWith<$Res> {
+  __$$AdminPrayerTimesSubtabStateInitialImplCopyWithImpl(
+      _$AdminPrayerTimesSubtabStateInitialImpl _value,
+      $Res Function(_$AdminPrayerTimesSubtabStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$AdminPrayerTimesSubtabStateInitial
+class _$AdminPrayerTimesSubtabStateInitialImpl
     implements AdminPrayerTimesSubtabStateInitial {
-  const _$AdminPrayerTimesSubtabStateInitial();
+  const _$AdminPrayerTimesSubtabStateInitialImpl();
 
   @override
   String toString() {
@@ -120,10 +120,10 @@ class _$AdminPrayerTimesSubtabStateInitial
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AdminPrayerTimesSubtabStateInitial);
+            other is _$AdminPrayerTimesSubtabStateInitialImpl);
   }
 
   @override
@@ -207,33 +207,33 @@ class _$AdminPrayerTimesSubtabStateInitial
 abstract class AdminPrayerTimesSubtabStateInitial
     implements AdminPrayerTimesSubtabState {
   const factory AdminPrayerTimesSubtabStateInitial() =
-      _$AdminPrayerTimesSubtabStateInitial;
+      _$AdminPrayerTimesSubtabStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$AdminPrayerTimesSubtabStateLoadingCopyWith<$Res> {
-  factory _$$AdminPrayerTimesSubtabStateLoadingCopyWith(
-          _$AdminPrayerTimesSubtabStateLoading value,
-          $Res Function(_$AdminPrayerTimesSubtabStateLoading) then) =
-      __$$AdminPrayerTimesSubtabStateLoadingCopyWithImpl<$Res>;
+abstract class _$$AdminPrayerTimesSubtabStateLoadingImplCopyWith<$Res> {
+  factory _$$AdminPrayerTimesSubtabStateLoadingImplCopyWith(
+          _$AdminPrayerTimesSubtabStateLoadingImpl value,
+          $Res Function(_$AdminPrayerTimesSubtabStateLoadingImpl) then) =
+      __$$AdminPrayerTimesSubtabStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AdminPrayerTimesSubtabStateLoadingCopyWithImpl<$Res>
+class __$$AdminPrayerTimesSubtabStateLoadingImplCopyWithImpl<$Res>
     extends _$AdminPrayerTimesSubtabStateCopyWithImpl<$Res,
-        _$AdminPrayerTimesSubtabStateLoading>
-    implements _$$AdminPrayerTimesSubtabStateLoadingCopyWith<$Res> {
-  __$$AdminPrayerTimesSubtabStateLoadingCopyWithImpl(
-      _$AdminPrayerTimesSubtabStateLoading _value,
-      $Res Function(_$AdminPrayerTimesSubtabStateLoading) _then)
+        _$AdminPrayerTimesSubtabStateLoadingImpl>
+    implements _$$AdminPrayerTimesSubtabStateLoadingImplCopyWith<$Res> {
+  __$$AdminPrayerTimesSubtabStateLoadingImplCopyWithImpl(
+      _$AdminPrayerTimesSubtabStateLoadingImpl _value,
+      $Res Function(_$AdminPrayerTimesSubtabStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$AdminPrayerTimesSubtabStateLoading
+class _$AdminPrayerTimesSubtabStateLoadingImpl
     implements AdminPrayerTimesSubtabStateLoading {
-  const _$AdminPrayerTimesSubtabStateLoading();
+  const _$AdminPrayerTimesSubtabStateLoadingImpl();
 
   @override
   String toString() {
@@ -241,10 +241,10 @@ class _$AdminPrayerTimesSubtabStateLoading
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AdminPrayerTimesSubtabStateLoading);
+            other is _$AdminPrayerTimesSubtabStateLoadingImpl);
   }
 
   @override
@@ -328,33 +328,33 @@ class _$AdminPrayerTimesSubtabStateLoading
 abstract class AdminPrayerTimesSubtabStateLoading
     implements AdminPrayerTimesSubtabState {
   const factory AdminPrayerTimesSubtabStateLoading() =
-      _$AdminPrayerTimesSubtabStateLoading;
+      _$AdminPrayerTimesSubtabStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$AdminPrayerTimesSubtabStateReadyCopyWith<$Res> {
-  factory _$$AdminPrayerTimesSubtabStateReadyCopyWith(
-          _$AdminPrayerTimesSubtabStateReady value,
-          $Res Function(_$AdminPrayerTimesSubtabStateReady) then) =
-      __$$AdminPrayerTimesSubtabStateReadyCopyWithImpl<$Res>;
+abstract class _$$AdminPrayerTimesSubtabStateReadyImplCopyWith<$Res> {
+  factory _$$AdminPrayerTimesSubtabStateReadyImplCopyWith(
+          _$AdminPrayerTimesSubtabStateReadyImpl value,
+          $Res Function(_$AdminPrayerTimesSubtabStateReadyImpl) then) =
+      __$$AdminPrayerTimesSubtabStateReadyImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AdminPrayerTimesSubtabStateReadyCopyWithImpl<$Res>
+class __$$AdminPrayerTimesSubtabStateReadyImplCopyWithImpl<$Res>
     extends _$AdminPrayerTimesSubtabStateCopyWithImpl<$Res,
-        _$AdminPrayerTimesSubtabStateReady>
-    implements _$$AdminPrayerTimesSubtabStateReadyCopyWith<$Res> {
-  __$$AdminPrayerTimesSubtabStateReadyCopyWithImpl(
-      _$AdminPrayerTimesSubtabStateReady _value,
-      $Res Function(_$AdminPrayerTimesSubtabStateReady) _then)
+        _$AdminPrayerTimesSubtabStateReadyImpl>
+    implements _$$AdminPrayerTimesSubtabStateReadyImplCopyWith<$Res> {
+  __$$AdminPrayerTimesSubtabStateReadyImplCopyWithImpl(
+      _$AdminPrayerTimesSubtabStateReadyImpl _value,
+      $Res Function(_$AdminPrayerTimesSubtabStateReadyImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$AdminPrayerTimesSubtabStateReady
+class _$AdminPrayerTimesSubtabStateReadyImpl
     implements AdminPrayerTimesSubtabStateReady {
-  const _$AdminPrayerTimesSubtabStateReady();
+  const _$AdminPrayerTimesSubtabStateReadyImpl();
 
   @override
   String toString() {
@@ -362,10 +362,10 @@ class _$AdminPrayerTimesSubtabStateReady
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AdminPrayerTimesSubtabStateReady);
+            other is _$AdminPrayerTimesSubtabStateReadyImpl);
   }
 
   @override
@@ -449,33 +449,33 @@ class _$AdminPrayerTimesSubtabStateReady
 abstract class AdminPrayerTimesSubtabStateReady
     implements AdminPrayerTimesSubtabState {
   const factory AdminPrayerTimesSubtabStateReady() =
-      _$AdminPrayerTimesSubtabStateReady;
+      _$AdminPrayerTimesSubtabStateReadyImpl;
 }
 
 /// @nodoc
-abstract class _$$AdminPrayerTimesSubtabStateFailureCopyWith<$Res> {
-  factory _$$AdminPrayerTimesSubtabStateFailureCopyWith(
-          _$AdminPrayerTimesSubtabStateFailure value,
-          $Res Function(_$AdminPrayerTimesSubtabStateFailure) then) =
-      __$$AdminPrayerTimesSubtabStateFailureCopyWithImpl<$Res>;
+abstract class _$$AdminPrayerTimesSubtabStateFailureImplCopyWith<$Res> {
+  factory _$$AdminPrayerTimesSubtabStateFailureImplCopyWith(
+          _$AdminPrayerTimesSubtabStateFailureImpl value,
+          $Res Function(_$AdminPrayerTimesSubtabStateFailureImpl) then) =
+      __$$AdminPrayerTimesSubtabStateFailureImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AdminPrayerTimesSubtabStateFailureCopyWithImpl<$Res>
+class __$$AdminPrayerTimesSubtabStateFailureImplCopyWithImpl<$Res>
     extends _$AdminPrayerTimesSubtabStateCopyWithImpl<$Res,
-        _$AdminPrayerTimesSubtabStateFailure>
-    implements _$$AdminPrayerTimesSubtabStateFailureCopyWith<$Res> {
-  __$$AdminPrayerTimesSubtabStateFailureCopyWithImpl(
-      _$AdminPrayerTimesSubtabStateFailure _value,
-      $Res Function(_$AdminPrayerTimesSubtabStateFailure) _then)
+        _$AdminPrayerTimesSubtabStateFailureImpl>
+    implements _$$AdminPrayerTimesSubtabStateFailureImplCopyWith<$Res> {
+  __$$AdminPrayerTimesSubtabStateFailureImplCopyWithImpl(
+      _$AdminPrayerTimesSubtabStateFailureImpl _value,
+      $Res Function(_$AdminPrayerTimesSubtabStateFailureImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$AdminPrayerTimesSubtabStateFailure
+class _$AdminPrayerTimesSubtabStateFailureImpl
     implements AdminPrayerTimesSubtabStateFailure {
-  const _$AdminPrayerTimesSubtabStateFailure();
+  const _$AdminPrayerTimesSubtabStateFailureImpl();
 
   @override
   String toString() {
@@ -483,10 +483,10 @@ class _$AdminPrayerTimesSubtabStateFailure
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AdminPrayerTimesSubtabStateFailure);
+            other is _$AdminPrayerTimesSubtabStateFailureImpl);
   }
 
   @override
@@ -570,5 +570,5 @@ class _$AdminPrayerTimesSubtabStateFailure
 abstract class AdminPrayerTimesSubtabStateFailure
     implements AdminPrayerTimesSubtabState {
   const factory AdminPrayerTimesSubtabStateFailure() =
-      _$AdminPrayerTimesSubtabStateFailure;
+      _$AdminPrayerTimesSubtabStateFailureImpl;
 }

@@ -5,10 +5,11 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-export 'amplify.config.dart';
+export 'amplifyconfiguration.dart';
 export 'dependencies.config.dart';
 export 'navigation_routes.configs.dart';
 export 'routes.config.dart';

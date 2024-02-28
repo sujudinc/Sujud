@@ -121,9 +121,9 @@ class _SujudMultiMediaFieldState extends State<SujudMultiMediaField> {
               ],
             ),
           ),
-          BlocBuilder<ValueCubit<int>, ValueState<int>>(
+          BlocBuilder<ValueCubit<int>, int>(
             bloc: _currentImageValueCubit,
-            builder: (context, state) => Row(
+            builder: (context, value) => Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 TextButton(
@@ -135,7 +135,7 @@ class _SujudMultiMediaFieldState extends State<SujudMultiMediaField> {
                       : null,
                   child: Text(i18n.buttonPrevious),
                 ),
-                state.value < _images.length
+                value < _images.length
                     ? TextButton(
                         onPressed: () => _pageController.nextPage(
                           duration: const Duration(milliseconds: 500),

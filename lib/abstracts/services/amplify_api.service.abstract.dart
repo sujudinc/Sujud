@@ -1,20 +1,23 @@
 // 📦 Package imports:
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/graphql/graphql.dart';
 
 abstract class AmplifyApiServiceAbstract<T extends Model> {
   Future<GraphQLResponse<T>> get({
     required ModelType<T> modelType,
-    required GetOperations operation,
+    required GetOperation operation,
     required String id,
+    APIAuthorizationType? authorizationMode,
     Map<String, dynamic>? variables,
   });
 
   Future<(GraphQLListResponse<T>, List<GraphQLResponseError>)> list({
     required ModelType<T> modelType,
-    required ListOperations operation,
+    required ListOperation operation,
+    APIAuthorizationType? authorizationMode,
     Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     int? limit,
@@ -23,7 +26,7 @@ abstract class AmplifyApiServiceAbstract<T extends Model> {
 
   Future<GraphQLResponse<T>> create({
     required ModelType<T> modelType,
-    required CreateOperations operation,
+    required CreateOperation operation,
     required Map<String, dynamic> input,
     Map<String, dynamic>? condition,
     Map<String, dynamic>? variables,
@@ -31,7 +34,7 @@ abstract class AmplifyApiServiceAbstract<T extends Model> {
 
   Future<GraphQLResponse<T>> update({
     required ModelType<T> modelType,
-    required UpdateOperations operation,
+    required UpdateOperation operation,
     required Map<String, dynamic> input,
     Map<String, dynamic>? condition,
     Map<String, dynamic>? variables,
@@ -39,7 +42,7 @@ abstract class AmplifyApiServiceAbstract<T extends Model> {
 
   Future<GraphQLResponse<T>> delete({
     required ModelType<T> modelType,
-    required DeleteOperations operation,
+    required DeleteOperation operation,
     required String id,
     Map<String, dynamic>? condition,
     Map<String, dynamic>? variables,
@@ -47,7 +50,7 @@ abstract class AmplifyApiServiceAbstract<T extends Model> {
 
   Stream<GraphQLResponse<T>> subscribe({
     required ModelType<T> modelType,
-    required SubscriptionOperations operation,
+    required SubscriptionOperation operation,
     Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     String? creatorId,

@@ -303,8 +303,8 @@ RouteBase get $adminHomeRoute => StatefulShellRouteData.$route(
                           path: ':id',
                           name: 'announcement',
                           parentNavigatorKey:
-                              AnnouncementRoute.$parentNavigatorKey,
-                          factory: $AnnouncementRouteExtension._fromState,
+                              AdminAnnouncementRoute.$parentNavigatorKey,
+                          factory: $AdminAnnouncementRouteExtension._fromState,
                         ),
                       ],
                     ),
@@ -433,8 +433,9 @@ extension $CreateAnnouncementRouteExtension on CreateAnnouncementRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $AnnouncementRouteExtension on AnnouncementRoute {
-  static AnnouncementRoute _fromState(GoRouterState state) => AnnouncementRoute(
+extension $AdminAnnouncementRouteExtension on AdminAnnouncementRoute {
+  static AdminAnnouncementRoute _fromState(GoRouterState state) =>
+      AdminAnnouncementRoute(
         id: state.pathParameters['id']!,
       );
 

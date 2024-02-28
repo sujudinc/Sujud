@@ -3,17 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'value.state.dart';
 
-class ValueCubit<T> extends Cubit<ValueState<T>> {
-  ValueCubit(T value)
-      : _value = value,
-        super(ValueState(value));
+class ValueCubit<T> extends Cubit<T> {
+  ValueCubit(super.value) : _value = value;
 
   T _value;
 
   set value(T value) {
     if (value != _value) {
       _value = value;
-      emit(ValueState(value));
+      emit(value);
     }
   }
 }

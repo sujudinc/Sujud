@@ -1,5 +1,6 @@
 // 📦 Package imports:
 import 'package:logger/logger.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 

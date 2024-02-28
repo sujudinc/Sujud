@@ -7,13 +7,14 @@ import 'package:collection/collection.dart';
 import 'package:get_it/get_it.dart';
 import 'package:path/path.dart';
 import 'package:rxdart/rxdart.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/models/models.dart';
 
 class MosqueRepo extends MosqueRepoAbstract {
   MosqueRepo()
-      : _mosqueApi = GetIt.instance.get<ModelApiAbstract<Mosque>>(),
+      : _mosqueApi = GetIt.instance.get<MosqueApiAbstract>(),
         _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>(),
         _localDatabaseUtility =
             GetIt.instance.get<LocalDatabaseUtilityAbstract>(param1: 'mosques'),
@@ -21,36 +22,34 @@ class MosqueRepo extends MosqueRepoAbstract {
     _preloadDataFromLocalCache();
   }
 
-  final ModelApiAbstract<Mosque> _mosqueApi;
+  final MosqueApiAbstract _mosqueApi;
   final AmplifyStorageServiceAbstract _storageService;
   final LocalDatabaseUtilityAbstract _localDatabaseUtility;
   final LoggerUtilityAbstract _loggerUtility;
 
   final _selectedMosque = BehaviorSubject<Mosque?>();
   final _cache = <String, Mosque>{};
-  final _cachedImages = <String, Map<String, Uri>>{};
   bool _hasMoreItems = false;
-  StreamSubscription<GraphqlSubscriptionResponse<Mosque>>? _stream;
+
+  StreamSubscription<SubscriptionResponse<Mosque>>? _stream;
   Map<String, dynamic>? _variables;
   Map<String, dynamic>? _filter;
   int? _limit;
   String? _nextToken;
 
   Future<void> _preloadDataFromLocalCache() async {
-    _loggerUtility.log('Loading mosques from local cache.');
-
     final localSelectedMosque = await _localDatabaseUtility.getOne(
       'selectedMosque',
     );
 
     if (localSelectedMosque != null) {
-      _selectedMosque.add(
-        Mosque.fromJson(localSelectedMosque).copyWith(
-          address: Address.fromJson(localSelectedMosque['address']),
-          contactInfo: ContactInfo.fromJson(localSelectedMosque['contactInfo']),
-          creator: User.fromJson(localSelectedMosque['creator']),
-        ),
+      final mosque = Mosque.fromJson(localSelectedMosque).copyWith(
+        address: Address.fromJson(localSelectedMosque['address']),
+        contactInfo: ContactInfo.fromJson(localSelectedMosque['contactInfo']),
+        creator: User.fromJson( localSelectedMosque['creator']),
       );
+
+      _selectedMosque.add(mosque);
     }
 
     final localData = await _localDatabaseUtility.getMany();
@@ -97,25 +96,9 @@ class MosqueRepo extends MosqueRepoAbstract {
   }
 
   @override
-  Map<String, Map<String, Uri>> get cachedImages => _cachedImages;
-
-  @override
-  void setCachedImage({
+  Future<(Mosque?, List<GraphQLResponseError>)> get({
     required String id,
-    required String key,
-    required Uri url,
-  }) {
-    if (cachedImages.containsKey(id)) {
-      cachedImages[id]![key] = url;
-    } else {
-      cachedImages[id] = <String, Uri>{key: url};
-    }
-
-    _localDatabaseUtility.save('cachedImages', cachedImages);
-  }
-
-  @override
-  Future<(Mosque?, List<GraphQLResponseError>)> get(String id) async {
+  }) async {
     if (_cache.containsKey(id)) {
       return (_cache[id], <GraphQLResponseError>[]);
     }
@@ -137,7 +120,7 @@ class MosqueRepo extends MosqueRepoAbstract {
   }
 
   @override
-  Future<(List<Mosque>?, List<GraphQLResponseError>)> list({
+  Future<(List<Mosque>, List<GraphQLResponseError>)> list({
     Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     int? limit,
@@ -149,6 +132,7 @@ class MosqueRepo extends MosqueRepoAbstract {
     _nextToken = nextToken;
 
     final (response, errors) = await _mosqueApi.list(
+      authorizationMode: APIAuthorizationType.apiKey,
       variables: _variables,
       filter: _filter,
       limit: _limit,
@@ -178,9 +162,9 @@ class MosqueRepo extends MosqueRepoAbstract {
   }
 
   @override
-  Future<(List<Mosque>?, List<GraphQLResponseError>)> listMore() async {
+  Future<(List<Mosque>, List<GraphQLResponseError>)> listMore() async {
     if (!_hasMoreItems) {
-      return (null, <GraphQLResponseError>[]);
+      return (<Mosque>[], <GraphQLResponseError>[]);
     }
 
     final (response, errors) = await _mosqueApi.list(
@@ -298,7 +282,9 @@ class MosqueRepo extends MosqueRepoAbstract {
   }
 
   @override
-  Future<(Mosque?, List<GraphQLResponseError>)> delete(Mosque item) async {
+  Future<(Mosque?, List<GraphQLResponseError>)> delete({
+    required Mosque item,
+  }) async {
     final (mosque, errors) = await _mosqueApi.delete(
       id: item.id,
       variables: _variables,

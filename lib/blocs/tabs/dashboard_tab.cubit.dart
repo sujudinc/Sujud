@@ -1,6 +1,9 @@
+// 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
+
+// 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/models/models.dart';
 
@@ -26,7 +29,7 @@ class DashboardTabCubit extends Cubit<DashboardTabState> {
 
       if (currentUser != null) {
         if (currentUser.type == UserType.ADMIN) {
-          final (mosques, _) = await _mosqueRepo.list(
+          final (mosques, errors) = await _mosqueRepo.list(
             filter: <String, dynamic>{
               'creatorId': {
                 'eq': currentUser.id,
@@ -34,7 +37,9 @@ class DashboardTabCubit extends Cubit<DashboardTabState> {
             },
           );
 
-          if (mosques != null) {
+          print(errors);
+
+          if (mosques.isNotEmpty) {
             _mosqueRepo.selectedMosque = mosques.first;
 
             emit(

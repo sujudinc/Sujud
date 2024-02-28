@@ -12,7 +12,7 @@ part of 'mfa_page.cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$MfaPageState {
@@ -87,25 +87,25 @@ class _$MfaPageStateCopyWithImpl<$Res, $Val extends MfaPageState>
 }
 
 /// @nodoc
-abstract class _$$MfaPageStateInitialCopyWith<$Res> {
-  factory _$$MfaPageStateInitialCopyWith(_$MfaPageStateInitial value,
-          $Res Function(_$MfaPageStateInitial) then) =
-      __$$MfaPageStateInitialCopyWithImpl<$Res>;
+abstract class _$$MfaPageStateInitialImplCopyWith<$Res> {
+  factory _$$MfaPageStateInitialImplCopyWith(_$MfaPageStateInitialImpl value,
+          $Res Function(_$MfaPageStateInitialImpl) then) =
+      __$$MfaPageStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$MfaPageStateInitialCopyWithImpl<$Res>
-    extends _$MfaPageStateCopyWithImpl<$Res, _$MfaPageStateInitial>
-    implements _$$MfaPageStateInitialCopyWith<$Res> {
-  __$$MfaPageStateInitialCopyWithImpl(
-      _$MfaPageStateInitial _value, $Res Function(_$MfaPageStateInitial) _then)
+class __$$MfaPageStateInitialImplCopyWithImpl<$Res>
+    extends _$MfaPageStateCopyWithImpl<$Res, _$MfaPageStateInitialImpl>
+    implements _$$MfaPageStateInitialImplCopyWith<$Res> {
+  __$$MfaPageStateInitialImplCopyWithImpl(_$MfaPageStateInitialImpl _value,
+      $Res Function(_$MfaPageStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$MfaPageStateInitial implements MfaPageStateInitial {
-  const _$MfaPageStateInitial();
+class _$MfaPageStateInitialImpl implements MfaPageStateInitial {
+  const _$MfaPageStateInitialImpl();
 
   @override
   String toString() {
@@ -113,9 +113,10 @@ class _$MfaPageStateInitial implements MfaPageStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$MfaPageStateInitial);
+        (other.runtimeType == runtimeType &&
+            other is _$MfaPageStateInitialImpl);
   }
 
   @override
@@ -197,29 +198,29 @@ class _$MfaPageStateInitial implements MfaPageStateInitial {
 }
 
 abstract class MfaPageStateInitial implements MfaPageState {
-  const factory MfaPageStateInitial() = _$MfaPageStateInitial;
+  const factory MfaPageStateInitial() = _$MfaPageStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$MfaPageStateLoadingCopyWith<$Res> {
-  factory _$$MfaPageStateLoadingCopyWith(_$MfaPageStateLoading value,
-          $Res Function(_$MfaPageStateLoading) then) =
-      __$$MfaPageStateLoadingCopyWithImpl<$Res>;
+abstract class _$$MfaPageStateLoadingImplCopyWith<$Res> {
+  factory _$$MfaPageStateLoadingImplCopyWith(_$MfaPageStateLoadingImpl value,
+          $Res Function(_$MfaPageStateLoadingImpl) then) =
+      __$$MfaPageStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$MfaPageStateLoadingCopyWithImpl<$Res>
-    extends _$MfaPageStateCopyWithImpl<$Res, _$MfaPageStateLoading>
-    implements _$$MfaPageStateLoadingCopyWith<$Res> {
-  __$$MfaPageStateLoadingCopyWithImpl(
-      _$MfaPageStateLoading _value, $Res Function(_$MfaPageStateLoading) _then)
+class __$$MfaPageStateLoadingImplCopyWithImpl<$Res>
+    extends _$MfaPageStateCopyWithImpl<$Res, _$MfaPageStateLoadingImpl>
+    implements _$$MfaPageStateLoadingImplCopyWith<$Res> {
+  __$$MfaPageStateLoadingImplCopyWithImpl(_$MfaPageStateLoadingImpl _value,
+      $Res Function(_$MfaPageStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$MfaPageStateLoading implements MfaPageStateLoading {
-  const _$MfaPageStateLoading();
+class _$MfaPageStateLoadingImpl implements MfaPageStateLoading {
+  const _$MfaPageStateLoadingImpl();
 
   @override
   String toString() {
@@ -227,9 +228,10 @@ class _$MfaPageStateLoading implements MfaPageStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$MfaPageStateLoading);
+        (other.runtimeType == runtimeType &&
+            other is _$MfaPageStateLoadingImpl);
   }
 
   @override
@@ -311,29 +313,29 @@ class _$MfaPageStateLoading implements MfaPageStateLoading {
 }
 
 abstract class MfaPageStateLoading implements MfaPageState {
-  const factory MfaPageStateLoading() = _$MfaPageStateLoading;
+  const factory MfaPageStateLoading() = _$MfaPageStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$MfaPageStateSuccessCopyWith<$Res> {
-  factory _$$MfaPageStateSuccessCopyWith(_$MfaPageStateSuccess value,
-          $Res Function(_$MfaPageStateSuccess) then) =
-      __$$MfaPageStateSuccessCopyWithImpl<$Res>;
+abstract class _$$MfaPageStateSuccessImplCopyWith<$Res> {
+  factory _$$MfaPageStateSuccessImplCopyWith(_$MfaPageStateSuccessImpl value,
+          $Res Function(_$MfaPageStateSuccessImpl) then) =
+      __$$MfaPageStateSuccessImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$MfaPageStateSuccessCopyWithImpl<$Res>
-    extends _$MfaPageStateCopyWithImpl<$Res, _$MfaPageStateSuccess>
-    implements _$$MfaPageStateSuccessCopyWith<$Res> {
-  __$$MfaPageStateSuccessCopyWithImpl(
-      _$MfaPageStateSuccess _value, $Res Function(_$MfaPageStateSuccess) _then)
+class __$$MfaPageStateSuccessImplCopyWithImpl<$Res>
+    extends _$MfaPageStateCopyWithImpl<$Res, _$MfaPageStateSuccessImpl>
+    implements _$$MfaPageStateSuccessImplCopyWith<$Res> {
+  __$$MfaPageStateSuccessImplCopyWithImpl(_$MfaPageStateSuccessImpl _value,
+      $Res Function(_$MfaPageStateSuccessImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$MfaPageStateSuccess implements MfaPageStateSuccess {
-  const _$MfaPageStateSuccess();
+class _$MfaPageStateSuccessImpl implements MfaPageStateSuccess {
+  const _$MfaPageStateSuccessImpl();
 
   @override
   String toString() {
@@ -341,9 +343,10 @@ class _$MfaPageStateSuccess implements MfaPageStateSuccess {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$MfaPageStateSuccess);
+        (other.runtimeType == runtimeType &&
+            other is _$MfaPageStateSuccessImpl);
   }
 
   @override
@@ -425,24 +428,24 @@ class _$MfaPageStateSuccess implements MfaPageStateSuccess {
 }
 
 abstract class MfaPageStateSuccess implements MfaPageState {
-  const factory MfaPageStateSuccess() = _$MfaPageStateSuccess;
+  const factory MfaPageStateSuccess() = _$MfaPageStateSuccessImpl;
 }
 
 /// @nodoc
-abstract class _$$MfaPageStateFailureCopyWith<$Res> {
-  factory _$$MfaPageStateFailureCopyWith(_$MfaPageStateFailure value,
-          $Res Function(_$MfaPageStateFailure) then) =
-      __$$MfaPageStateFailureCopyWithImpl<$Res>;
+abstract class _$$MfaPageStateFailureImplCopyWith<$Res> {
+  factory _$$MfaPageStateFailureImplCopyWith(_$MfaPageStateFailureImpl value,
+          $Res Function(_$MfaPageStateFailureImpl) then) =
+      __$$MfaPageStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({AuthStateException exception});
 }
 
 /// @nodoc
-class __$$MfaPageStateFailureCopyWithImpl<$Res>
-    extends _$MfaPageStateCopyWithImpl<$Res, _$MfaPageStateFailure>
-    implements _$$MfaPageStateFailureCopyWith<$Res> {
-  __$$MfaPageStateFailureCopyWithImpl(
-      _$MfaPageStateFailure _value, $Res Function(_$MfaPageStateFailure) _then)
+class __$$MfaPageStateFailureImplCopyWithImpl<$Res>
+    extends _$MfaPageStateCopyWithImpl<$Res, _$MfaPageStateFailureImpl>
+    implements _$$MfaPageStateFailureImplCopyWith<$Res> {
+  __$$MfaPageStateFailureImplCopyWithImpl(_$MfaPageStateFailureImpl _value,
+      $Res Function(_$MfaPageStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -450,7 +453,7 @@ class __$$MfaPageStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? exception = null,
   }) {
-    return _then(_$MfaPageStateFailure(
+    return _then(_$MfaPageStateFailureImpl(
       null == exception
           ? _value.exception
           : exception // ignore: cast_nullable_to_non_nullable
@@ -461,8 +464,8 @@ class __$$MfaPageStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$MfaPageStateFailure implements MfaPageStateFailure {
-  const _$MfaPageStateFailure(this.exception);
+class _$MfaPageStateFailureImpl implements MfaPageStateFailure {
+  const _$MfaPageStateFailureImpl(this.exception);
 
   @override
   final AuthStateException exception;
@@ -473,10 +476,10 @@ class _$MfaPageStateFailure implements MfaPageStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MfaPageStateFailure &&
+            other is _$MfaPageStateFailureImpl &&
             (identical(other.exception, exception) ||
                 other.exception == exception));
   }
@@ -487,8 +490,8 @@ class _$MfaPageStateFailure implements MfaPageStateFailure {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MfaPageStateFailureCopyWith<_$MfaPageStateFailure> get copyWith =>
-      __$$MfaPageStateFailureCopyWithImpl<_$MfaPageStateFailure>(
+  _$$MfaPageStateFailureImplCopyWith<_$MfaPageStateFailureImpl> get copyWith =>
+      __$$MfaPageStateFailureImplCopyWithImpl<_$MfaPageStateFailureImpl>(
           this, _$identity);
 
   @override
@@ -568,10 +571,10 @@ class _$MfaPageStateFailure implements MfaPageStateFailure {
 
 abstract class MfaPageStateFailure implements MfaPageState {
   const factory MfaPageStateFailure(final AuthStateException exception) =
-      _$MfaPageStateFailure;
+      _$MfaPageStateFailureImpl;
 
   AuthStateException get exception;
   @JsonKey(ignore: true)
-  _$$MfaPageStateFailureCopyWith<_$MfaPageStateFailure> get copyWith =>
+  _$$MfaPageStateFailureImplCopyWith<_$MfaPageStateFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

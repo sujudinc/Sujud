@@ -5,29 +5,31 @@ import 'dart:async';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:async/async.dart';
 import 'package:get_it/get_it.dart';
+
 // 🌎 Project imports:
 import 'package:sujud/abstracts/abstracts.dart';
-import 'package:sujud/graphql/graphql.dart';
 import 'package:sujud/models/models.dart';
 
 class AnnouncementApi implements AnnouncementApiAbstract {
   AnnouncementApi()
       : _amplifyApiService =
             GetIt.instance.get<AmplifyApiServiceAbstract<Announcement>>(),
-        _operations = AnnouncementOperations();
+        _operation = GetIt.instance.get<AnnouncementOperationAbstract>();
 
   final AmplifyApiServiceAbstract<Announcement> _amplifyApiService;
-  final AnnouncementOperations _operations;
+  final AnnouncementOperationAbstract _operation;
 
   @override
   Future<(Announcement?, List<GraphQLResponseError>)> get({
     required String id,
+    APIAuthorizationType? authorizationMode,
     Map<String, dynamic>? variables,
   }) async {
     final response = await _amplifyApiService.get(
-      modelType: _operations.modelType,
-      operation: _operations.get,
+      modelType: _operation.modelType,
+      operation: _operation.get,
       id: id,
+      authorizationMode: authorizationMode,
       variables: variables,
     );
 
@@ -38,12 +40,14 @@ class AnnouncementApi implements AnnouncementApiAbstract {
   Future<(GraphQLListResponse<Announcement>, List<GraphQLResponseError>)> list({
     Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
+    APIAuthorizationType? authorizationMode,
     int? limit,
     String? nextToken,
   }) async {
     final (data, errors) = await _amplifyApiService.list(
-      modelType: _operations.modelType,
-      operation: _operations.list,
+      modelType: _operation.modelType,
+      operation: _operation.list,
+      authorizationMode: authorizationMode,
       variables: variables,
       filter: filter,
       limit: limit,
@@ -54,7 +58,7 @@ class AnnouncementApi implements AnnouncementApiAbstract {
   }
 
   @override
-  Future<(GraphQLListResponse<Announcement>?, List<GraphQLResponseError>)>
+  Future<(GraphQLListResponse<Announcement>, List<GraphQLResponseError>)>
       listByMosqueId({
     Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
@@ -62,8 +66,8 @@ class AnnouncementApi implements AnnouncementApiAbstract {
     String? nextToken,
   }) async {
     final (data, errors) = await _amplifyApiService.list(
-      modelType: _operations.modelType,
-      operation: _operations.listByMosqueId,
+      modelType: _operation.modelType,
+      operation: _operation.listByMosqueId,
       variables: variables,
       filter: filter,
       limit: limit,
@@ -80,8 +84,8 @@ class AnnouncementApi implements AnnouncementApiAbstract {
     Map<String, dynamic>? variables,
   }) async {
     final response = await _amplifyApiService.create(
-      modelType: _operations.modelType,
-      operation: _operations.create,
+      modelType: _operation.modelType,
+      operation: _operation.create,
       input: <String, dynamic>{
         'id': item.id,
         'title': item.title,
@@ -104,8 +108,8 @@ class AnnouncementApi implements AnnouncementApiAbstract {
     Map<String, dynamic>? variables,
   }) async {
     final response = await _amplifyApiService.update(
-      modelType: _operations.modelType,
-      operation: _operations.update,
+      modelType: _operation.modelType,
+      operation: _operation.update,
       input: <String, dynamic>{
         'id': item.id,
         'title': item.title,
@@ -126,8 +130,8 @@ class AnnouncementApi implements AnnouncementApiAbstract {
     Map<String, dynamic>? variables,
   }) async {
     final response = await _amplifyApiService.delete(
-      modelType: _operations.modelType,
-      operation: _operations.delete,
+      modelType: _operation.modelType,
+      operation: _operation.delete,
       id: id,
       condition: condition,
       variables: variables,
@@ -137,50 +141,49 @@ class AnnouncementApi implements AnnouncementApiAbstract {
   }
 
   @override
-  Stream<GraphqlSubscriptionResponse<Announcement>> subscribe({
+  Stream<SubscriptionResponse<Announcement>> subscribe({
     Map<String, dynamic>? variables,
     Map<String, dynamic>? filter,
     String? creatorId,
     String? owner,
   }) {
-    final streams =
-        StreamGroup.merge<GraphqlSubscriptionResponse<Announcement>>([
+    final streams = StreamGroup.merge<SubscriptionResponse<Announcement>>([
       _amplifyApiService
           .subscribe(
-            modelType: _operations.modelType,
-            operation: _operations.onCreate,
+            modelType: _operation.modelType,
+            operation: _operation.onCreate,
             variables: variables,
             filter: filter,
             creatorId: creatorId,
             owner: owner,
           )
-          .map((response) => GraphqlSubscriptionResponse<Announcement>(
+          .map((response) => SubscriptionResponse<Announcement>(
                 type: SubscriptionType.onCreate,
                 response: response,
               )),
       _amplifyApiService
           .subscribe(
-            modelType: _operations.modelType,
-            operation: _operations.onUpdate,
+            modelType: _operation.modelType,
+            operation: _operation.onUpdate,
             variables: variables,
             filter: filter,
             creatorId: creatorId,
             owner: owner,
           )
-          .map((response) => GraphqlSubscriptionResponse<Announcement>(
+          .map((response) => SubscriptionResponse<Announcement>(
                 type: SubscriptionType.onUpdate,
                 response: response,
               )),
       _amplifyApiService
           .subscribe(
-            modelType: _operations.modelType,
-            operation: _operations.onDelete,
+            modelType: _operation.modelType,
+            operation: _operation.onDelete,
             variables: variables,
             filter: filter,
             creatorId: creatorId,
             owner: owner,
           )
-          .map((response) => GraphqlSubscriptionResponse<Announcement>(
+          .map((response) => SubscriptionResponse<Announcement>(
                 type: SubscriptionType.onDelete,
                 response: response,
               )),

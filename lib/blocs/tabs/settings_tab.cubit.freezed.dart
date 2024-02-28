@@ -12,7 +12,7 @@ part of 'settings_tab.cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$SettingsTabState {
@@ -94,25 +94,27 @@ class _$SettingsTabStateCopyWithImpl<$Res, $Val extends SettingsTabState>
 }
 
 /// @nodoc
-abstract class _$$SettingsTabStateInitialCopyWith<$Res> {
-  factory _$$SettingsTabStateInitialCopyWith(_$SettingsTabStateInitial value,
-          $Res Function(_$SettingsTabStateInitial) then) =
-      __$$SettingsTabStateInitialCopyWithImpl<$Res>;
+abstract class _$$SettingsTabStateInitialImplCopyWith<$Res> {
+  factory _$$SettingsTabStateInitialImplCopyWith(
+          _$SettingsTabStateInitialImpl value,
+          $Res Function(_$SettingsTabStateInitialImpl) then) =
+      __$$SettingsTabStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$SettingsTabStateInitialCopyWithImpl<$Res>
-    extends _$SettingsTabStateCopyWithImpl<$Res, _$SettingsTabStateInitial>
-    implements _$$SettingsTabStateInitialCopyWith<$Res> {
-  __$$SettingsTabStateInitialCopyWithImpl(_$SettingsTabStateInitial _value,
-      $Res Function(_$SettingsTabStateInitial) _then)
+class __$$SettingsTabStateInitialImplCopyWithImpl<$Res>
+    extends _$SettingsTabStateCopyWithImpl<$Res, _$SettingsTabStateInitialImpl>
+    implements _$$SettingsTabStateInitialImplCopyWith<$Res> {
+  __$$SettingsTabStateInitialImplCopyWithImpl(
+      _$SettingsTabStateInitialImpl _value,
+      $Res Function(_$SettingsTabStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SettingsTabStateInitial implements SettingsTabStateInitial {
-  const _$SettingsTabStateInitial();
+class _$SettingsTabStateInitialImpl implements SettingsTabStateInitial {
+  const _$SettingsTabStateInitialImpl();
 
   @override
   String toString() {
@@ -120,10 +122,10 @@ class _$SettingsTabStateInitial implements SettingsTabStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SettingsTabStateInitial);
+            other is _$SettingsTabStateInitialImpl);
   }
 
   @override
@@ -212,29 +214,31 @@ class _$SettingsTabStateInitial implements SettingsTabStateInitial {
 }
 
 abstract class SettingsTabStateInitial implements SettingsTabState {
-  const factory SettingsTabStateInitial() = _$SettingsTabStateInitial;
+  const factory SettingsTabStateInitial() = _$SettingsTabStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$SettingsTabStateLoadingCopyWith<$Res> {
-  factory _$$SettingsTabStateLoadingCopyWith(_$SettingsTabStateLoading value,
-          $Res Function(_$SettingsTabStateLoading) then) =
-      __$$SettingsTabStateLoadingCopyWithImpl<$Res>;
+abstract class _$$SettingsTabStateLoadingImplCopyWith<$Res> {
+  factory _$$SettingsTabStateLoadingImplCopyWith(
+          _$SettingsTabStateLoadingImpl value,
+          $Res Function(_$SettingsTabStateLoadingImpl) then) =
+      __$$SettingsTabStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$SettingsTabStateLoadingCopyWithImpl<$Res>
-    extends _$SettingsTabStateCopyWithImpl<$Res, _$SettingsTabStateLoading>
-    implements _$$SettingsTabStateLoadingCopyWith<$Res> {
-  __$$SettingsTabStateLoadingCopyWithImpl(_$SettingsTabStateLoading _value,
-      $Res Function(_$SettingsTabStateLoading) _then)
+class __$$SettingsTabStateLoadingImplCopyWithImpl<$Res>
+    extends _$SettingsTabStateCopyWithImpl<$Res, _$SettingsTabStateLoadingImpl>
+    implements _$$SettingsTabStateLoadingImplCopyWith<$Res> {
+  __$$SettingsTabStateLoadingImplCopyWithImpl(
+      _$SettingsTabStateLoadingImpl _value,
+      $Res Function(_$SettingsTabStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SettingsTabStateLoading implements SettingsTabStateLoading {
-  const _$SettingsTabStateLoading();
+class _$SettingsTabStateLoadingImpl implements SettingsTabStateLoading {
+  const _$SettingsTabStateLoadingImpl();
 
   @override
   String toString() {
@@ -242,10 +246,10 @@ class _$SettingsTabStateLoading implements SettingsTabStateLoading {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SettingsTabStateLoading);
+            other is _$SettingsTabStateLoadingImpl);
   }
 
   @override
@@ -334,32 +338,33 @@ class _$SettingsTabStateLoading implements SettingsTabStateLoading {
 }
 
 abstract class SettingsTabStateLoading implements SettingsTabState {
-  const factory SettingsTabStateLoading() = _$SettingsTabStateLoading;
+  const factory SettingsTabStateLoading() = _$SettingsTabStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$SettingsTabStateLoadingLogoutCopyWith<$Res> {
-  factory _$$SettingsTabStateLoadingLogoutCopyWith(
-          _$SettingsTabStateLoadingLogout value,
-          $Res Function(_$SettingsTabStateLoadingLogout) then) =
-      __$$SettingsTabStateLoadingLogoutCopyWithImpl<$Res>;
+abstract class _$$SettingsTabStateLoadingLogoutImplCopyWith<$Res> {
+  factory _$$SettingsTabStateLoadingLogoutImplCopyWith(
+          _$SettingsTabStateLoadingLogoutImpl value,
+          $Res Function(_$SettingsTabStateLoadingLogoutImpl) then) =
+      __$$SettingsTabStateLoadingLogoutImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$SettingsTabStateLoadingLogoutCopyWithImpl<$Res>
+class __$$SettingsTabStateLoadingLogoutImplCopyWithImpl<$Res>
     extends _$SettingsTabStateCopyWithImpl<$Res,
-        _$SettingsTabStateLoadingLogout>
-    implements _$$SettingsTabStateLoadingLogoutCopyWith<$Res> {
-  __$$SettingsTabStateLoadingLogoutCopyWithImpl(
-      _$SettingsTabStateLoadingLogout _value,
-      $Res Function(_$SettingsTabStateLoadingLogout) _then)
+        _$SettingsTabStateLoadingLogoutImpl>
+    implements _$$SettingsTabStateLoadingLogoutImplCopyWith<$Res> {
+  __$$SettingsTabStateLoadingLogoutImplCopyWithImpl(
+      _$SettingsTabStateLoadingLogoutImpl _value,
+      $Res Function(_$SettingsTabStateLoadingLogoutImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SettingsTabStateLoadingLogout implements SettingsTabStateLoadingLogout {
-  const _$SettingsTabStateLoadingLogout();
+class _$SettingsTabStateLoadingLogoutImpl
+    implements SettingsTabStateLoadingLogout {
+  const _$SettingsTabStateLoadingLogoutImpl();
 
   @override
   String toString() {
@@ -367,10 +372,10 @@ class _$SettingsTabStateLoadingLogout implements SettingsTabStateLoadingLogout {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SettingsTabStateLoadingLogout);
+            other is _$SettingsTabStateLoadingLogoutImpl);
   }
 
   @override
@@ -460,29 +465,30 @@ class _$SettingsTabStateLoadingLogout implements SettingsTabStateLoadingLogout {
 
 abstract class SettingsTabStateLoadingLogout implements SettingsTabState {
   const factory SettingsTabStateLoadingLogout() =
-      _$SettingsTabStateLoadingLogout;
+      _$SettingsTabStateLoadingLogoutImpl;
 }
 
 /// @nodoc
-abstract class _$$SettingsTabStateReadyCopyWith<$Res> {
-  factory _$$SettingsTabStateReadyCopyWith(_$SettingsTabStateReady value,
-          $Res Function(_$SettingsTabStateReady) then) =
-      __$$SettingsTabStateReadyCopyWithImpl<$Res>;
+abstract class _$$SettingsTabStateReadyImplCopyWith<$Res> {
+  factory _$$SettingsTabStateReadyImplCopyWith(
+          _$SettingsTabStateReadyImpl value,
+          $Res Function(_$SettingsTabStateReadyImpl) then) =
+      __$$SettingsTabStateReadyImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$SettingsTabStateReadyCopyWithImpl<$Res>
-    extends _$SettingsTabStateCopyWithImpl<$Res, _$SettingsTabStateReady>
-    implements _$$SettingsTabStateReadyCopyWith<$Res> {
-  __$$SettingsTabStateReadyCopyWithImpl(_$SettingsTabStateReady _value,
-      $Res Function(_$SettingsTabStateReady) _then)
+class __$$SettingsTabStateReadyImplCopyWithImpl<$Res>
+    extends _$SettingsTabStateCopyWithImpl<$Res, _$SettingsTabStateReadyImpl>
+    implements _$$SettingsTabStateReadyImplCopyWith<$Res> {
+  __$$SettingsTabStateReadyImplCopyWithImpl(_$SettingsTabStateReadyImpl _value,
+      $Res Function(_$SettingsTabStateReadyImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SettingsTabStateReady implements SettingsTabStateReady {
-  const _$SettingsTabStateReady();
+class _$SettingsTabStateReadyImpl implements SettingsTabStateReady {
+  const _$SettingsTabStateReadyImpl();
 
   @override
   String toString() {
@@ -490,9 +496,10 @@ class _$SettingsTabStateReady implements SettingsTabStateReady {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SettingsTabStateReady);
+        (other.runtimeType == runtimeType &&
+            other is _$SettingsTabStateReadyImpl);
   }
 
   @override
@@ -581,29 +588,31 @@ class _$SettingsTabStateReady implements SettingsTabStateReady {
 }
 
 abstract class SettingsTabStateReady implements SettingsTabState {
-  const factory SettingsTabStateReady() = _$SettingsTabStateReady;
+  const factory SettingsTabStateReady() = _$SettingsTabStateReadyImpl;
 }
 
 /// @nodoc
-abstract class _$$SettingsTabStateFailureCopyWith<$Res> {
-  factory _$$SettingsTabStateFailureCopyWith(_$SettingsTabStateFailure value,
-          $Res Function(_$SettingsTabStateFailure) then) =
-      __$$SettingsTabStateFailureCopyWithImpl<$Res>;
+abstract class _$$SettingsTabStateFailureImplCopyWith<$Res> {
+  factory _$$SettingsTabStateFailureImplCopyWith(
+          _$SettingsTabStateFailureImpl value,
+          $Res Function(_$SettingsTabStateFailureImpl) then) =
+      __$$SettingsTabStateFailureImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$SettingsTabStateFailureCopyWithImpl<$Res>
-    extends _$SettingsTabStateCopyWithImpl<$Res, _$SettingsTabStateFailure>
-    implements _$$SettingsTabStateFailureCopyWith<$Res> {
-  __$$SettingsTabStateFailureCopyWithImpl(_$SettingsTabStateFailure _value,
-      $Res Function(_$SettingsTabStateFailure) _then)
+class __$$SettingsTabStateFailureImplCopyWithImpl<$Res>
+    extends _$SettingsTabStateCopyWithImpl<$Res, _$SettingsTabStateFailureImpl>
+    implements _$$SettingsTabStateFailureImplCopyWith<$Res> {
+  __$$SettingsTabStateFailureImplCopyWithImpl(
+      _$SettingsTabStateFailureImpl _value,
+      $Res Function(_$SettingsTabStateFailureImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SettingsTabStateFailure implements SettingsTabStateFailure {
-  const _$SettingsTabStateFailure();
+class _$SettingsTabStateFailureImpl implements SettingsTabStateFailure {
+  const _$SettingsTabStateFailureImpl();
 
   @override
   String toString() {
@@ -611,10 +620,10 @@ class _$SettingsTabStateFailure implements SettingsTabStateFailure {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SettingsTabStateFailure);
+            other is _$SettingsTabStateFailureImpl);
   }
 
   @override
@@ -703,5 +712,5 @@ class _$SettingsTabStateFailure implements SettingsTabStateFailure {
 }
 
 abstract class SettingsTabStateFailure implements SettingsTabState {
-  const factory SettingsTabStateFailure() = _$SettingsTabStateFailure;
+  const factory SettingsTabStateFailure() = _$SettingsTabStateFailureImpl;
 }

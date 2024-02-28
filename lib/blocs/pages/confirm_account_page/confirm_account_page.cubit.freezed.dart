@@ -12,7 +12,7 @@ part of 'confirm_account_page.cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ConfirmAccountPageState {
@@ -88,29 +88,29 @@ class _$ConfirmAccountPageStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$ConfirmAccountPageStateInitialCopyWith<$Res> {
-  factory _$$ConfirmAccountPageStateInitialCopyWith(
-          _$ConfirmAccountPageStateInitial value,
-          $Res Function(_$ConfirmAccountPageStateInitial) then) =
-      __$$ConfirmAccountPageStateInitialCopyWithImpl<$Res>;
+abstract class _$$ConfirmAccountPageStateInitialImplCopyWith<$Res> {
+  factory _$$ConfirmAccountPageStateInitialImplCopyWith(
+          _$ConfirmAccountPageStateInitialImpl value,
+          $Res Function(_$ConfirmAccountPageStateInitialImpl) then) =
+      __$$ConfirmAccountPageStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$ConfirmAccountPageStateInitialCopyWithImpl<$Res>
+class __$$ConfirmAccountPageStateInitialImplCopyWithImpl<$Res>
     extends _$ConfirmAccountPageStateCopyWithImpl<$Res,
-        _$ConfirmAccountPageStateInitial>
-    implements _$$ConfirmAccountPageStateInitialCopyWith<$Res> {
-  __$$ConfirmAccountPageStateInitialCopyWithImpl(
-      _$ConfirmAccountPageStateInitial _value,
-      $Res Function(_$ConfirmAccountPageStateInitial) _then)
+        _$ConfirmAccountPageStateInitialImpl>
+    implements _$$ConfirmAccountPageStateInitialImplCopyWith<$Res> {
+  __$$ConfirmAccountPageStateInitialImplCopyWithImpl(
+      _$ConfirmAccountPageStateInitialImpl _value,
+      $Res Function(_$ConfirmAccountPageStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$ConfirmAccountPageStateInitial
+class _$ConfirmAccountPageStateInitialImpl
     implements ConfirmAccountPageStateInitial {
-  const _$ConfirmAccountPageStateInitial();
+  const _$ConfirmAccountPageStateInitialImpl();
 
   @override
   String toString() {
@@ -118,10 +118,10 @@ class _$ConfirmAccountPageStateInitial
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ConfirmAccountPageStateInitial);
+            other is _$ConfirmAccountPageStateInitialImpl);
   }
 
   @override
@@ -205,33 +205,33 @@ class _$ConfirmAccountPageStateInitial
 abstract class ConfirmAccountPageStateInitial
     implements ConfirmAccountPageState {
   const factory ConfirmAccountPageStateInitial() =
-      _$ConfirmAccountPageStateInitial;
+      _$ConfirmAccountPageStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$ConfirmAccountPageStateLoadingCopyWith<$Res> {
-  factory _$$ConfirmAccountPageStateLoadingCopyWith(
-          _$ConfirmAccountPageStateLoading value,
-          $Res Function(_$ConfirmAccountPageStateLoading) then) =
-      __$$ConfirmAccountPageStateLoadingCopyWithImpl<$Res>;
+abstract class _$$ConfirmAccountPageStateLoadingImplCopyWith<$Res> {
+  factory _$$ConfirmAccountPageStateLoadingImplCopyWith(
+          _$ConfirmAccountPageStateLoadingImpl value,
+          $Res Function(_$ConfirmAccountPageStateLoadingImpl) then) =
+      __$$ConfirmAccountPageStateLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$ConfirmAccountPageStateLoadingCopyWithImpl<$Res>
+class __$$ConfirmAccountPageStateLoadingImplCopyWithImpl<$Res>
     extends _$ConfirmAccountPageStateCopyWithImpl<$Res,
-        _$ConfirmAccountPageStateLoading>
-    implements _$$ConfirmAccountPageStateLoadingCopyWith<$Res> {
-  __$$ConfirmAccountPageStateLoadingCopyWithImpl(
-      _$ConfirmAccountPageStateLoading _value,
-      $Res Function(_$ConfirmAccountPageStateLoading) _then)
+        _$ConfirmAccountPageStateLoadingImpl>
+    implements _$$ConfirmAccountPageStateLoadingImplCopyWith<$Res> {
+  __$$ConfirmAccountPageStateLoadingImplCopyWithImpl(
+      _$ConfirmAccountPageStateLoadingImpl _value,
+      $Res Function(_$ConfirmAccountPageStateLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$ConfirmAccountPageStateLoading
+class _$ConfirmAccountPageStateLoadingImpl
     implements ConfirmAccountPageStateLoading {
-  const _$ConfirmAccountPageStateLoading();
+  const _$ConfirmAccountPageStateLoadingImpl();
 
   @override
   String toString() {
@@ -239,10 +239,10 @@ class _$ConfirmAccountPageStateLoading
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ConfirmAccountPageStateLoading);
+            other is _$ConfirmAccountPageStateLoadingImpl);
   }
 
   @override
@@ -326,33 +326,33 @@ class _$ConfirmAccountPageStateLoading
 abstract class ConfirmAccountPageStateLoading
     implements ConfirmAccountPageState {
   const factory ConfirmAccountPageStateLoading() =
-      _$ConfirmAccountPageStateLoading;
+      _$ConfirmAccountPageStateLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$ConfirmAccountPageStateSuccessCopyWith<$Res> {
-  factory _$$ConfirmAccountPageStateSuccessCopyWith(
-          _$ConfirmAccountPageStateSuccess value,
-          $Res Function(_$ConfirmAccountPageStateSuccess) then) =
-      __$$ConfirmAccountPageStateSuccessCopyWithImpl<$Res>;
+abstract class _$$ConfirmAccountPageStateSuccessImplCopyWith<$Res> {
+  factory _$$ConfirmAccountPageStateSuccessImplCopyWith(
+          _$ConfirmAccountPageStateSuccessImpl value,
+          $Res Function(_$ConfirmAccountPageStateSuccessImpl) then) =
+      __$$ConfirmAccountPageStateSuccessImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$ConfirmAccountPageStateSuccessCopyWithImpl<$Res>
+class __$$ConfirmAccountPageStateSuccessImplCopyWithImpl<$Res>
     extends _$ConfirmAccountPageStateCopyWithImpl<$Res,
-        _$ConfirmAccountPageStateSuccess>
-    implements _$$ConfirmAccountPageStateSuccessCopyWith<$Res> {
-  __$$ConfirmAccountPageStateSuccessCopyWithImpl(
-      _$ConfirmAccountPageStateSuccess _value,
-      $Res Function(_$ConfirmAccountPageStateSuccess) _then)
+        _$ConfirmAccountPageStateSuccessImpl>
+    implements _$$ConfirmAccountPageStateSuccessImplCopyWith<$Res> {
+  __$$ConfirmAccountPageStateSuccessImplCopyWithImpl(
+      _$ConfirmAccountPageStateSuccessImpl _value,
+      $Res Function(_$ConfirmAccountPageStateSuccessImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$ConfirmAccountPageStateSuccess
+class _$ConfirmAccountPageStateSuccessImpl
     implements ConfirmAccountPageStateSuccess {
-  const _$ConfirmAccountPageStateSuccess();
+  const _$ConfirmAccountPageStateSuccessImpl();
 
   @override
   String toString() {
@@ -360,10 +360,10 @@ class _$ConfirmAccountPageStateSuccess
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ConfirmAccountPageStateSuccess);
+            other is _$ConfirmAccountPageStateSuccessImpl);
   }
 
   @override
@@ -447,27 +447,27 @@ class _$ConfirmAccountPageStateSuccess
 abstract class ConfirmAccountPageStateSuccess
     implements ConfirmAccountPageState {
   const factory ConfirmAccountPageStateSuccess() =
-      _$ConfirmAccountPageStateSuccess;
+      _$ConfirmAccountPageStateSuccessImpl;
 }
 
 /// @nodoc
-abstract class _$$ConfirmAccountPageStateFailureCopyWith<$Res> {
-  factory _$$ConfirmAccountPageStateFailureCopyWith(
-          _$ConfirmAccountPageStateFailure value,
-          $Res Function(_$ConfirmAccountPageStateFailure) then) =
-      __$$ConfirmAccountPageStateFailureCopyWithImpl<$Res>;
+abstract class _$$ConfirmAccountPageStateFailureImplCopyWith<$Res> {
+  factory _$$ConfirmAccountPageStateFailureImplCopyWith(
+          _$ConfirmAccountPageStateFailureImpl value,
+          $Res Function(_$ConfirmAccountPageStateFailureImpl) then) =
+      __$$ConfirmAccountPageStateFailureImplCopyWithImpl<$Res>;
   @useResult
   $Res call({AuthStateException exception});
 }
 
 /// @nodoc
-class __$$ConfirmAccountPageStateFailureCopyWithImpl<$Res>
+class __$$ConfirmAccountPageStateFailureImplCopyWithImpl<$Res>
     extends _$ConfirmAccountPageStateCopyWithImpl<$Res,
-        _$ConfirmAccountPageStateFailure>
-    implements _$$ConfirmAccountPageStateFailureCopyWith<$Res> {
-  __$$ConfirmAccountPageStateFailureCopyWithImpl(
-      _$ConfirmAccountPageStateFailure _value,
-      $Res Function(_$ConfirmAccountPageStateFailure) _then)
+        _$ConfirmAccountPageStateFailureImpl>
+    implements _$$ConfirmAccountPageStateFailureImplCopyWith<$Res> {
+  __$$ConfirmAccountPageStateFailureImplCopyWithImpl(
+      _$ConfirmAccountPageStateFailureImpl _value,
+      $Res Function(_$ConfirmAccountPageStateFailureImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -475,7 +475,7 @@ class __$$ConfirmAccountPageStateFailureCopyWithImpl<$Res>
   $Res call({
     Object? exception = null,
   }) {
-    return _then(_$ConfirmAccountPageStateFailure(
+    return _then(_$ConfirmAccountPageStateFailureImpl(
       null == exception
           ? _value.exception
           : exception // ignore: cast_nullable_to_non_nullable
@@ -486,9 +486,9 @@ class __$$ConfirmAccountPageStateFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ConfirmAccountPageStateFailure
+class _$ConfirmAccountPageStateFailureImpl
     implements ConfirmAccountPageStateFailure {
-  const _$ConfirmAccountPageStateFailure(this.exception);
+  const _$ConfirmAccountPageStateFailureImpl(this.exception);
 
   @override
   final AuthStateException exception;
@@ -499,10 +499,10 @@ class _$ConfirmAccountPageStateFailure
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ConfirmAccountPageStateFailure &&
+            other is _$ConfirmAccountPageStateFailureImpl &&
             (identical(other.exception, exception) ||
                 other.exception == exception));
   }
@@ -513,9 +513,10 @@ class _$ConfirmAccountPageStateFailure
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ConfirmAccountPageStateFailureCopyWith<_$ConfirmAccountPageStateFailure>
-      get copyWith => __$$ConfirmAccountPageStateFailureCopyWithImpl<
-          _$ConfirmAccountPageStateFailure>(this, _$identity);
+  _$$ConfirmAccountPageStateFailureImplCopyWith<
+          _$ConfirmAccountPageStateFailureImpl>
+      get copyWith => __$$ConfirmAccountPageStateFailureImplCopyWithImpl<
+          _$ConfirmAccountPageStateFailureImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -595,10 +596,12 @@ class _$ConfirmAccountPageStateFailure
 abstract class ConfirmAccountPageStateFailure
     implements ConfirmAccountPageState {
   const factory ConfirmAccountPageStateFailure(
-      final AuthStateException exception) = _$ConfirmAccountPageStateFailure;
+          final AuthStateException exception) =
+      _$ConfirmAccountPageStateFailureImpl;
 
   AuthStateException get exception;
   @JsonKey(ignore: true)
-  _$$ConfirmAccountPageStateFailureCopyWith<_$ConfirmAccountPageStateFailure>
+  _$$ConfirmAccountPageStateFailureImplCopyWith<
+          _$ConfirmAccountPageStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

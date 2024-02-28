@@ -5,7 +5,12 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:sujud/abstracts/abstracts.dart';
 import 'package:sujud/models/models.dart';
 
-abstract class UserRepoAbstract implements BaseRepoAbstract<User> {
+abstract class UserRepoAbstract
+    implements
+        BaseRepoAbstract<User>,
+        QueryRepoAbstract<User>,
+        UpdateRepoAbstract<User>,
+        SubscriptionRepoAbstract<User> {
   User? get currentUser;
   Stream<User?> get currentUserStream;
   bool? get isLoggedIn;
@@ -57,7 +62,7 @@ abstract class UserRepoAbstract implements BaseRepoAbstract<User> {
   Future<List<AuthUserAttribute>> fetchCurrentUserAttributes();
 
   Future<Map<AuthUserAttributeKey, UpdateUserAttributeResult>>
-  updateUserAttributes({
+      updateUserAttributes({
     required List<AuthUserAttribute> attributes,
   });
 
@@ -66,7 +71,7 @@ abstract class UserRepoAbstract implements BaseRepoAbstract<User> {
     required String confirmationCode,
   });
 
-  Future<ResendUserAttributeConfirmationCodeResult> resendVerificationCode({
+  Future<SendUserAttributeVerificationCodeResult> resendVerificationCode({
     required AuthUserAttributeKey key,
   });
 
