@@ -36,47 +36,37 @@ class _DashboardTabState extends State<DashboardTab>
     super.build(context);
     final i18n = context.i18n;
 
-    return PAScaffold(
-      includePadding: false,
-      title: i18n.titleDashboard,
-      kids: Kids(
-        child: BlocBuilder<DashboardTabCubit, DashboardTabState>(
-          bloc: _dashboardTabCubit,
-          builder: (context, state) => state.when(
-            loading: () => const LoadingStateView(),
-            empty: () => EmptyStateView(
-              image: kImageMosque,
-              title: i18n.messageCreateMosquePage,
-              description: i18n.descriptionCreateMosquePage,
-              buttonLabel: i18n.buttonCreateMosque,
-              onTap: () => const CreateMosqueRoute().push(context),
-            ),
-            ready: (selectedMosque) => DefaultTabController(
-              initialIndex: widget.shell.currentIndex,
-              length: _tabs.length,
-              child: Column(
-                children: <Widget>[
-                  TabBar(
-                    controller: TabController(
-                      initialIndex: widget.shell.currentIndex,
-                      length: _tabs.length,
-                      vsync: this,
-                    ),
-                    isScrollable: true,
-                    labelColor: Colors.black,
-                    tabs: _tabs,
-                    onTap: _onTabChange,
-                  ),
-                  Expanded(
-                    child: widget.shell,
-                  ),
-                ],
+    return Material(
+      child: BlocBuilder<DashboardTabCubit, DashboardTabState>(
+        bloc: _dashboardTabCubit,
+        builder: (context, state) => state.when(
+          loading: () => const LoadingStateView(),
+          empty: () => EmptyStateView(
+            image: kImageMosque,
+            title: i18n.messageCreateMosquePage,
+            description: i18n.descriptionCreateMosquePage,
+            buttonLabel: i18n.buttonCreateMosque,
+            onTap: () => const CreateMosqueRoute().push(context),
+          ),
+          ready: (selectedMosque) => Scaffold(
+            appBar: AppBar(
+              title: TabBar(
+                controller: TabController(
+                  initialIndex: widget.shell.currentIndex,
+                  length: _tabs.length,
+                  vsync: this,
+                ),
+                isScrollable: true,
+                labelColor: Colors.black,
+                tabs: _tabs,
+                onTap: _onTabChange,
               ),
             ),
-            failure: () => FailureStateView(
-              description: i18n.errorGeneric,
-              onTap: () async => _dashboardTabCubit.init(),
-            ),
+            body: widget.shell,
+          ),
+          failure: () => FailureStateView(
+            description: i18n.errorGeneric,
+            onTap: () async => _dashboardTabCubit.init(),
           ),
         ),
       ),

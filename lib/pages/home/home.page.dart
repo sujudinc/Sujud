@@ -28,6 +28,7 @@ class _HomePagePageState extends State<HomePage> {
     final i18n = context.i18n;
 
     return PATabScaffold(
+      platformAware: false,
       key: UniqueKey(),
       currentView: widget.shell,
       currentIndex: widget.shell.currentIndex,

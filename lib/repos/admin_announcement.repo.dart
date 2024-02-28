@@ -14,15 +14,10 @@ import 'package:sujud/models/models.dart';
 class AdminAnnouncementRepo extends AdminAnnouncementRepoAbstract {
   AdminAnnouncementRepo()
       : _announcementApi = GetIt.instance.get<AnnouncementApiAbstract>(),
-        _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>(),
-        _localDatabaseUtility = GetIt.instance
-            .get<LocalDatabaseUtilityAbstract>(param1: 'admin-announcements') {
-    _preloadDataFromLocalCache();
-  }
+        _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>();
 
   final AnnouncementApiAbstract _announcementApi;
   final AmplifyStorageServiceAbstract _storageService;
-  final LocalDatabaseUtilityAbstract _localDatabaseUtility;
 
   final _cache = <String, Announcement>{};
   bool _hasMoreItems = false;
@@ -32,34 +27,6 @@ class AdminAnnouncementRepo extends AdminAnnouncementRepoAbstract {
   Map<String, dynamic>? _filter;
   int? _limit;
   String? _nextToken;
-
-  Future<void> _preloadDataFromLocalCache() async {
-    final localData = await _localDatabaseUtility.getMany();
-
-    if (localData.isNotEmpty) {
-      for (final data in localData) {
-        if (data.containsKey('filter') |
-            data.containsKey('limit') |
-            data.containsKey('nextToken')) {
-          _filter = data['filter'];
-          _limit = data['limit'];
-          _nextToken = data['nextToken'];
-        } else if (data.isEmpty) {
-        } else {
-          final item = Announcement.fromJson(data).copyWith(
-            mosque: Mosque.fromJson(data['mosque']).copyWith(
-              address: Address.fromJson(data['mosque']['address']),
-              contactInfo: ContactInfo.fromJson(data['mosque']['contactInfo']),
-              creator: User.fromJson(data['mosque']['creator']),
-            ),
-            creator: User.fromJson(data['creator']),
-          );
-
-          _cache[item.id] = item;
-        }
-      }
-    }
-  }
 
   @override
   List<Announcement> get items {
@@ -84,7 +51,6 @@ class AdminAnnouncementRepo extends AdminAnnouncementRepoAbstract {
 
     if (announcement != null) {
       _cache[id] = announcement;
-      _localDatabaseUtility.save(id, announcement.toJson());
     }
 
     return (announcement, errors);
@@ -110,16 +76,6 @@ class AdminAnnouncementRepo extends AdminAnnouncementRepoAbstract {
 
     _nextToken = response.nextToken;
 
-    _localDatabaseUtility.save(
-      'listParams',
-      <String, dynamic>{
-        'variables': _variables,
-        'filter': _filter,
-        'limit': _limit,
-        'nextToken': _nextToken,
-      },
-    );
-
     if (response.items != null) {
       for (final item in response.items!) {
         if (item!.images != null && item.images!.isNotEmpty) {
@@ -133,7 +89,6 @@ class AdminAnnouncementRepo extends AdminAnnouncementRepoAbstract {
         }
 
         _cache[item.id] = item;
-        _localDatabaseUtility.save(item.id, item.toJson());
       }
     }
 
@@ -155,16 +110,6 @@ class AdminAnnouncementRepo extends AdminAnnouncementRepoAbstract {
 
     _nextToken = response.nextToken;
 
-    _localDatabaseUtility.save(
-      'listParams',
-      <String, dynamic>{
-        'variables': _variables,
-        'filter': _filter,
-        'limit': _limit,
-        'nextToken': _nextToken,
-      },
-    );
-
     if (response.items != null) {
       for (final item in response.items!) {
         if (item!.images != null && item.images!.isNotEmpty) {
@@ -178,7 +123,6 @@ class AdminAnnouncementRepo extends AdminAnnouncementRepoAbstract {
         }
 
         _cache[item.id] = item;
-        _localDatabaseUtility.save(item.id, item.toJson());
       }
     }
 
@@ -314,7 +258,6 @@ class AdminAnnouncementRepo extends AdminAnnouncementRepoAbstract {
             }
 
             _cache[id!] = item;
-            _localDatabaseUtility.save(id, item.toJson());
           }
 
           onCreated?.call((event.response.data, event.response.errors));
@@ -335,7 +278,6 @@ class AdminAnnouncementRepo extends AdminAnnouncementRepoAbstract {
             }
 
             _cache[id!] = item;
-            _localDatabaseUtility.save(id, item.toJson());
           }
 
           onUpdated?.call((event.response.data, event.response.errors));
@@ -346,7 +288,6 @@ class AdminAnnouncementRepo extends AdminAnnouncementRepoAbstract {
 
           if (item != null) {
             _cache.remove(id!);
-            _localDatabaseUtility.delete(id);
           }
 
           onDeleted?.call((event.response.data, event.response.errors));

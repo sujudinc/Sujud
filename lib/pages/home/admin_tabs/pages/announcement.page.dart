@@ -28,6 +28,7 @@ class _AdminAnnouncementPageState extends State<AdminAnnouncementPage> {
   final _formUtility = GetIt.instance.get<FormUtilityAbstract>(
     param1: GlobalKey<FormBuilderState>(),
   );
+  final _navigation = GetIt.instance.get<NavigationUtilityAbstract>();
   late final _adminAnnouncementPageCubit = AdminAnnouncementPageCubit(
     id: widget.id,
   );
@@ -42,7 +43,7 @@ class _AdminAnnouncementPageState extends State<AdminAnnouncementPage> {
         includePadding: false,
         title: i18n.titleAnnouncementPage,
         leading: IconButton(
-          onPressed: () => _adminAnnouncementPageCubit.back,
+          onPressed: _navigation.back,
           icon: SujudIcon.close(),
         ),
         kids: Kids(
@@ -104,8 +105,9 @@ class _AdminAnnouncementPageState extends State<AdminAnnouncementPage> {
                     ),
                     failure: (exception) => FailureStateView(
                       description: i18n.errorGeneric,
-                      onTap: () async =>
-                          await _adminAnnouncementPageCubit.init(),
+                      onTap: () async {
+                        await _adminAnnouncementPageCubit.init();
+                      },
                     ),
                   ),
                 ),

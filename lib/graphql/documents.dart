@@ -1,65 +1,15 @@
 String announcementDocument({
   bool includeCreator = false,
   bool includeMosque = false,
+  bool includeBookmarks = false,
+  bool includeLikes = false,
+  bool includeComments = false,
 }) {
   var doc = '''
     id
     title
     body
     images
-    bookmarks(
-      filter: {
-        creatorId: {eq: \$creatorId},
-        _deleted: {ne: true}
-      }
-    ) {
-      items {
-        id
-        announcementId
-        creatorId
-        mosqueId
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-    likes(
-      filter: {
-        creatorId: {eq: \$creatorId},
-        _deleted: {ne: true}
-      }
-    ) {
-      items {
-        id
-        announcementId
-        creatorId
-        mosqueId
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-    comments(
-      sortDirection: ASC,
-      filter: {
-        _deleted: {ne: true}
-      }
-    ) {
-      items {
-        id
-        text
-        parentCommentId
-        announcementId
-        creatorId
-        mosqueId
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
     creatorId
     mosqueId
     createdAt
@@ -78,6 +28,54 @@ String announcementDocument({
     doc += '''
       mosque {
         ${mosqueDocument()}
+      }
+    ''';
+  }
+
+  if (includeBookmarks) {
+    doc += '''
+      bookmarks(
+        filter: {
+          _deleted: {ne: true}
+        }
+      ) {
+        item {
+          ${bookmarkDocument()}
+        }
+        nextToken
+        startedAt
+      }
+    ''';
+  }
+
+  if (includeLikes) {
+    doc += '''
+      likes(
+        filter: {
+          _deleted: {ne: true}
+        }
+      ) {
+        item {
+          ${likeDocument()}
+        }
+        nextToken
+        startedAt
+      }
+    ''';
+  }
+
+  if (includeComments) {
+    doc += '''
+      comments(
+        filter: {
+          _deleted: {ne: true}
+        }
+      ) {
+        item {
+          ${commentDocument()}
+        }
+        nextToken
+        startedAt
       }
     ''';
   }

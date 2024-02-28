@@ -29,15 +29,13 @@ class DashboardTabCubit extends Cubit<DashboardTabState> {
 
       if (currentUser != null) {
         if (currentUser.type == UserType.ADMIN) {
-          final (mosques, errors) = await _mosqueRepo.list(
+          final (mosques, _) = await _mosqueRepo.list(
             filter: <String, dynamic>{
               'creatorId': {
                 'eq': currentUser.id,
               }
             },
           );
-
-          print(errors);
 
           if (mosques.isNotEmpty) {
             _mosqueRepo.selectedMosque = mosques.first;

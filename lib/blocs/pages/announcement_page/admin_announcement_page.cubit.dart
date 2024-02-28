@@ -13,7 +13,6 @@ part 'admin_announcement_page.state.dart';
 class AdminAnnouncementPageCubit extends Cubit<AdminAnnouncementPageState> {
   AdminAnnouncementPageCubit({required String id})
       : _id = id,
-        _navigation = GetIt.instance.get<NavigationUtilityAbstract>(),
         _announcementRepo = GetIt.instance.get<AdminAnnouncementRepoAbstract>(),
         _userRepo = GetIt.instance.get<UserRepoAbstract>(),
         _storageService = GetIt.instance.get<AmplifyStorageServiceAbstract>(),
@@ -22,12 +21,10 @@ class AdminAnnouncementPageCubit extends Cubit<AdminAnnouncementPageState> {
   }
 
   final String _id;
-  final NavigationUtilityAbstract _navigation;
   final AdminAnnouncementRepoAbstract _announcementRepo;
   final UserRepoAbstract _userRepo;
   final AmplifyStorageServiceAbstract _storageService;
 
-  void get back => _navigation.back();
   User? get currentUser => _userRepo.currentUser;
 
   Future<void> init() async {

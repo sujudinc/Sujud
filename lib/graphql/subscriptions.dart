@@ -3,39 +3,45 @@ import 'package:sujud/graphql/graphql.dart';
 
 final onCreateAnnouncement = '''
   subscription OnCreateAnnouncement(
-    \$creatorId: ID!
     \$filter: ModelSubscriptionAnnouncementFilterInput
   ) {
     ${SubscriptionOperation.onCreateAnnouncement.name}(
       filter: \$filter
     ) {
-      $announcementDocument
+       ${announcementDocument(
+  includeCreator: true,
+  includeMosque: true,
+)}
     }
   }
 ''';
 
 final onUpdateAnnouncement = '''
   subscription OnUpdateAnnouncement(
-    \$creatorId: ID!
     \$filter: ModelSubscriptionAnnouncementFilterInput
   ) {
     ${SubscriptionOperation.onUpdateAnnouncement.name}(
       filter: \$filter
     ) {
-      $announcementDocument
+      ${announcementDocument(
+  includeCreator: true,
+  includeMosque: true,
+)}
     }
   }
 ''';
 
 final onDeleteAnnouncement = '''
   subscription OnDeleteAnnouncement(
-    \$creatorId: ID!
     \$filter: ModelSubscriptionAnnouncementFilterInput
   ) {
     ${SubscriptionOperation.onDeleteAnnouncement.name}(
       filter: \$filter
     ) {
-      $announcementDocument
+      ${announcementDocument(
+  includeCreator: true,
+  includeMosque: true,
+)}
     }
   }
 ''';
@@ -47,7 +53,9 @@ final onCreateMosque = '''
     ${SubscriptionOperation.onCreateMosque.name}(
       filter: \$filter
     ) {
-      $mosqueDocument
+     ${mosqueDocument(
+  includeCreator: true,
+)}
     }
   }
 ''';
@@ -59,7 +67,9 @@ final onUpdateMosque = '''
     ${SubscriptionOperation.onUpdateMosque.name}(
       filter: \$filter
     ) {
-      $mosqueDocument
+      ${mosqueDocument(
+  includeCreator: true,
+)}
     }
   }
 ''';
@@ -71,7 +81,9 @@ final onDeleteMosque = '''
     ${SubscriptionOperation.onDeleteMosque.name}(
       filter: \$filter,
     ) {
-      $mosqueDocument
+      ${mosqueDocument(
+  includeCreator: true,
+)}
     }
   }
 ''';
@@ -85,7 +97,7 @@ final onCreateUser = '''
       filter: \$filter,
       owner: \$owner
     ) {
-      $userDocument
+      ${userDocument()}
     }
   }
 ''';
@@ -99,7 +111,7 @@ final onUpdateUser = '''
       filter: \$filter,
       owner: \$owner
     ) {
-      $userDocument
+     ${userDocument()}
     }
   }
 ''';
@@ -113,7 +125,7 @@ final onDeleteUser = '''
       filter: \$filter,
       owner: \$owner
     ) {
-      $userDocument
+      ${userDocument()}
     }
   }
 ''';

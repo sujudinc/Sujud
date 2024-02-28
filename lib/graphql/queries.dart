@@ -61,7 +61,10 @@ final listAnnouncements = '''
       nextToken: \$nextToken
     ) {
       items {
-        ${announcementDocument()}
+        ${announcementDocument(
+  includeCreator: true,
+  includeMosque: true,
+)}
       }
       nextToken
       startedAt
@@ -71,7 +74,6 @@ final listAnnouncements = '''
 
 final announcementsByMosqueId = '''
   query AnnouncementsByMosqueId(
-    \$creatorId: ID!
     \$mosqueId: ID!
     \$sortDirection: ModelSortDirection
     \$filter: ModelAnnouncementFilterInput
@@ -88,6 +90,7 @@ final announcementsByMosqueId = '''
       items {
         ${announcementDocument(
   includeCreator: true,
+  includeMosque: true,
 )}
       }
       nextToken
